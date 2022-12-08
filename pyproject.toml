@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "oncodashkb"
+version = "0.1.0"
+description = "Knowledge graph build for oncodash using BioCypher"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+biocypher = { git = "https://github.com/saezlab/BioCypher.git", branch = "main" }
+# uncomment for local development
+# biocypher = {path = "../BioCypher", develop = true}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
