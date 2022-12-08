@@ -1,0 +1,55 @@
+# Named Things
+
+gene:
+  represented_as: node
+
+protein:
+  represented_as: node
+
+sample:
+  synonym_for: material sample
+  represented_as: node
+
+small molecule:
+  represented_as: node
+
+drug:
+  represented_as: node
+
+# needed?
+disease:
+  represented_as: node
+
+tumour type:
+  is_a: phenotypic feature  # clinical finding?
+  represented_as: node
+
+confidence level:
+  represented_as: node
+  preferred_id: [vicc, escat]
+  label_in_input: [cgi, mtbp]
+
+biomarker variant:
+  is_a: sequence variant
+  represented_as: node
+
+missense variant:
+  represented_as: node
+  label_in_input: Missense variant
+
+# Relations
+
+sequence variant to biomarker variant association:
+  represented_as: edge
+
+drug to biomarker variant association:
+  represented_as: node
+
+confidence level to drug to biomarker variant association:
+  represented_as: edge
+  label_as_edge: HAS_CONFIDENCE_LEVEL
+  source: drug to sequence variant association
+  target: confidence level
+
+confidence level to confidence level association:
+  represented_as: edge
