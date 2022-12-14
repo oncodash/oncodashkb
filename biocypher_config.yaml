@@ -1,1 +1,5 @@
 offline: true
+
+tail_ontology_url: http://purl.obolibrary.org/obo/so.obo
+head_join_node: sequence variant
+tail_join_node: sequence_variant
