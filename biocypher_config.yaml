@@ -1,4 +1,5 @@
 offline: true
+user_schema_config_path: config/schema_config.yaml
 
 tail_ontology_url: http://purl.obolibrary.org/obo/so.obo
 head_join_node: sequence variant
