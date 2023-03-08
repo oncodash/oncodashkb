@@ -2,27 +2,34 @@
 
 gene:
   represented_as: node
+  label_in_input: gene
 
 protein:
   represented_as: node
+  label_in_input: protein
 
 sample:
   synonym_for: material sample
   represented_as: node
+  label_in_input: sample
 
 small molecule:
   represented_as: node
+  label_in_input: molecule
 
 drug:
   represented_as: node
+  label_in_input: drug
 
 # needed?
 disease:
   represented_as: node
+  label_in_input: disease
 
 tumour type:
   is_a: phenotypic feature  # clinical finding?
   represented_as: node
+  label_in_input: tumour
 
 confidence level:
   represented_as: node
@@ -32,24 +39,33 @@ confidence level:
 biomarker variant:
   is_a: sequence variant
   represented_as: node
+  label_in_input: biomarker
 
 missense variant:
   represented_as: node
-  label_in_input: Missense variant
+  label_in_input: Missense
 
 # Relations
 
 sequence variant to biomarker variant association:
+  is_a: association
   represented_as: edge
+  label_in_input: variant_to_biomarker
 
 drug to biomarker variant association:
+  is_a: association
   represented_as: node
+  label_in_input: drug_to_biomarker
 
 confidence level to drug to biomarker variant association:
+  is_a: association
   represented_as: edge
   label_as_edge: HAS_CONFIDENCE_LEVEL
-  source: drug to sequence variant association
-  target: confidence level
+  source: confidence level
+  target: drug to sequence variant association
+  label_in_input: confidence_level_to_drug_to_biomarker
 
 confidence level to confidence level association:
+  is_a: association
   represented_as: edge
+  label_in_input: confidence_level_to_confidence_level
