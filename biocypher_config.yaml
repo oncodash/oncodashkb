@@ -3,6 +3,6 @@ user_schema_config_path: config/schema_config.yaml
 
 tail_ontologies:
   so:
-    url: http://purl.obolibrary.org/obo/so.obo
+    url: http://purl.obolibrary.org/obo/so.owl
     head_join_node: sequence variant
     tail_join_node: sequence_variant
