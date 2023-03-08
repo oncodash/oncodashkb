@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-biocypher = { git = "https://github.com/saezlab/BioCypher.git", branch = "main" }
+biocypher = { git = "https://github.com/saezlab/BioCypher.git", branch = "main" , tag = "v0.4.3"}
 # uncomment for local development
 # biocypher = {path = "../BioCypher", develop = true}
 
