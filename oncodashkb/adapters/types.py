@@ -1,8 +1,19 @@
+from typing import TypeAlias
+from typing import Optional
 
-class Patient(Node):
+from . import base
 
-    def __init__(self):
-        super().__init__(self,
+class Patient(base.Node):
+
+
+    def __init__(self,
+        allowed_fields: list[str],
+        id            : Optional[str] = None,
+        label         : Optional[str] = "",
+        properties    : Optional[dict[str,str]] = {}
+    ):
+        super().__init__(
+            allowed_fields,
             "patient_id",
             "my_patient",
             {}
