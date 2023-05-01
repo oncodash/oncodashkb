@@ -21,9 +21,9 @@ if __name__ == "__main__":
     for n in oncokb.nodes():
         print(n)
 
-    # bc.write_nodes( oncokb.nodes() )
-    # bc.write_edges( oncokb.edges() )
+    bc.write_nodes( oncokb.nodes() )
+    bc.write_edges( oncokb.edges() )
 
-    # bc.write_import_call()
+    bc.write_import_call()
 
-    # bc.summary()
+    bc.summary()

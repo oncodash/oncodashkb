@@ -10,6 +10,12 @@ patient:
     represented_as: node
     label_in_input: patient
 
+patient_to_patient:
+  is_a: association
+  represented_as: edge
+  label_in_input: patient_to_patient
+
+
 # sample:
 #   synonym_for: material sample
 #   represented_as: node

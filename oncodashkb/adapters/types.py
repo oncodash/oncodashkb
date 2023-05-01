@@ -14,8 +14,8 @@ class Patient(base.Node):
     ):
         super().__init__(
             allowed_fields,
-            "patient_id",
-            "my_patient",
-            {}
+            "patient_id", # id
+            "patient", # label
+            {} # properties
         )
 

@@ -15,9 +15,9 @@ class OncoKB(base.Adapter):
 
     def nodes(self) -> Iterable[base.NodeTuple]:
         if self.allows(types.Patient):
-            yield types.Patient("id_node_1", "label_1", {}).as_tuple()
-            yield ("id_node_2", "label_2", {})
+            yield types.Patient("id_node_1", "patient", {}).as_tuple()
+            yield ("id_node_2", "patient", {})
 
     def edges(self):
-        yield ("id_rel", "id_node_1", "id_node_2", "edge_type", {})
+        yield ("id_rel", "id_node_1", "id_node_2", "patient_to_patient", {})
 
