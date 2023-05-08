@@ -1,21 +1,25 @@
 from typing import TypeAlias
 from typing import Optional
+from enum import Enum
+from enum import auto
 
 from . import base
 
 class Patient(base.Node):
 
-
     def __init__(self,
-        allowed_fields: list[str],
         id            : Optional[str] = None,
-        label         : Optional[str] = "",
-        properties    : Optional[dict[str,str]] = {}
+        properties    : Optional[dict[str,str]] = {},
+        allowed       : Optional[list[str]] = None,
+        label         : Optional[str] = None,
     ):
         super().__init__(
-            allowed_fields,
-            "patient_id", # id
-            "patient", # label
-            {} # properties
+            id,
+            properties, # current properties
+            allowed,    # allowed properties
+            label,
         )
 
+    @staticmethod
+    def fields() -> list[str]:
+        return [ "age" ]
