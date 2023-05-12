@@ -6,14 +6,21 @@
 # =======
 
 patient:
-    synonym_for: case
     represented_as: node
     label_in_input: patient
+    synonym_for: case
 
-patient_to_patient:
-  is_a: association
-  represented_as: edge
-  label_in_input: patient_to_patient
+entity:
+    represented_as: node
+    label_in_input: target
+
+patient has target:
+    is_a: association
+    represented_as: edge
+    label_in_input: patient_has_target
+    # is_a: association
+    # source: patient
+    # target: genetic variant form
 
 
 # sample:

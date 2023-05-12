@@ -5,7 +5,7 @@ from typing import TypeAlias
 from typing import Optional
 from enum import Enum
 
-class Node(metaclass = ABSTRACT):
+class Element(metaclass = ABSTRACT):
 
     def __init__(self,
         id        : Optional[str] = None,
@@ -13,7 +13,7 @@ class Node(metaclass = ABSTRACT):
         allowed   : Optional[list[str]] = None,
         label     : Optional[str] = None,
     ):
-        """Instantiate a node.
+        """Instantiate an element.
 
         :param str id: Unique identifier of the node. If id == None, is then set to the empty string.
         :param dict[str,str]: All available properties for this instance.
@@ -25,18 +25,14 @@ class Node(metaclass = ABSTRACT):
         else:
             self._id = id
 
-        self._properties = properties
-        # Sanity checks:
-        for p in self._properties:
-            assert(p in self.fields())
+        # Use the setter to get sanity checks.
+        self.properties = properties
 
+        # Use the setter to get sanity checks.
         if not allowed:
-            self._allowed = self.fields()
+            self.allowed = self.fields()
         else:
-            self._allowed = allowed
-        # Sanity checks:
-        for a in self._allowed:
-            assert(a in self.fields())
+            self.allowed = allowed
 
         if not label:
             self._label = self.__class__.__name__.lower()
@@ -47,6 +43,14 @@ class Node(metaclass = ABSTRACT):
     @abstract
     def fields() -> list[str]:
         """List of property fields provided by the (sub)class."""
+        raise NotImplementedError
+
+    @abstract
+    def as_tuple(self):
+        """Convert the element class into Biocypher's expected tuple.
+
+        Filter out properties along the way.
+        """
         raise NotImplementedError
 
     @property
@@ -61,25 +65,84 @@ class Node(metaclass = ABSTRACT):
     def properties(self) -> dict[str,str]:
         return self._properties
 
+    @properties.setter
+    def properties(self, value: dict[str,str]):
+        # Sanity checks:
+        assert(value is not None)
+        for p in value:
+            assert(p in self.fields())
+        self._properties = value
+
     @property
     def allowed(self) -> list[str]:
         return self._allowed
 
+    @allowed.setter
+    def allowed(self, value: list[str]):
+        # Sanity checks:
+        assert(value is not None)
+        for a in value:
+            assert(a in self.fields())
+        self._allowed = value
+
+    def allowed_properties(self):
+        """Filter out properties that are not allowed."""
+        assert(self._properties is not None)
+        assert(self._allowed is not None)
+        return {k:self._properties[k] for k in self._properties if k in self._allowed}
+
+
+class Node(Element):
+
+    def __init__(self,
+        id        : Optional[str] = None,
+        properties: Optional[dict[str,str]] = {},
+        allowed   : Optional[list[str]] = None,
+        label     : Optional[str] = None,
+    ):
+        super().__init__(id, properties, allowed, label)
+
     Tuple: TypeAlias = tuple[str,str,dict[str,str]]
     def as_tuple(self) -> Tuple:
-        """Convert the class into Biocypher's expected tuple.
-
-        Filter out properties along the way.
-        """
         return (
             self._id,
             self._label,
             # Only keep properties that are allowed.
-            {k:self._properties[k] for k in self._properties if k in self._allowed}
+            self.allowed_properties()
         )
 
-class Edge:
-    pass
+class Edge(Element):
+
+    def __init__(self,
+        id        : Optional[str] = None,
+        id_source : Optional[str] = None,
+        id_target : Optional[str] = None,
+        properties: Optional[dict[str,str]] = {},
+        allowed   : Optional[list[str]] = None,
+        label     : Optional[str] = None,
+    ):
+        super().__init__(id, properties, allowed, label)
+        self._id_source  = id_source
+        self._id_target = id_target
+
+    @property
+    def id_source(self):
+        return self._id_source
+
+    @property
+    def id_target(self):
+        return self._id_source
+
+    Tuple: TypeAlias = tuple[str,str,str,dict[str,str]]
+    def as_tuple(self) -> Tuple:
+        return (
+            self._id,
+            self._id_source,
+            self._id_target,
+            self._label,
+            # Only keep properties that are allowed.
+            self.allowed_properties()
+        )
 
 
 class Adapter(metaclass = ABSTRACT):
@@ -101,12 +164,12 @@ class Adapter(metaclass = ABSTRACT):
     def edges(self) -> Iterable[Edge]:
         raise NotImplementedError
 
-
     @property
     def node_types(self) -> Iterable[Node]:
         return self._node_types
 
     def allows(self, node_type: Node) -> bool:
+        # FIXME: check if we want strict class equality or issubclass.
         return any(issubclass(n, node_type) for n in self._node_types)
 
     @property
