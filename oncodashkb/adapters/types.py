@@ -45,7 +45,7 @@ class Patient_has_target(base.Edge):
         allowed   : Optional[list[str]] = None,
         label     : Optional[str] = None,
     ):
-        super().__init__(id, properties, allowed, label)
+        super().__init__(id, id_source, id_target, properties, allowed, label)
 
     @staticmethod
     def fields() -> list[str]:

@@ -66,24 +66,24 @@ class Element(metaclass = ABSTRACT):
         return self._properties
 
     @properties.setter
-    def properties(self, value: dict[str,str]):
+    def properties(self, properties: dict[str,str]):
         # Sanity checks:
-        assert(value is not None)
-        for p in value:
+        assert(properties is not None)
+        for p in properties:
             assert(p in self.fields())
-        self._properties = value
+        self._properties = properties
 
     @property
     def allowed(self) -> list[str]:
         return self._allowed
 
     @allowed.setter
-    def allowed(self, value: list[str]):
+    def allowed(self, allowed_properties: list[str]):
         # Sanity checks:
-        assert(value is not None)
-        for a in value:
+        assert(allowed_properties is not None)
+        for a in allowed_properties:
             assert(a in self.fields())
-        self._allowed = value
+        self._allowed = allowed_properties
 
     def allowed_properties(self):
         """Filter out properties that are not allowed."""

@@ -18,9 +18,9 @@ patient has target:
     is_a: association
     represented_as: edge
     label_in_input: patient_has_target
-    # is_a: association
-    # source: patient
+    source: patient
     # target: genetic variant form
+    target: entity
 
 
 # sample:

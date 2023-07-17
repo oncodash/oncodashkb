@@ -20,7 +20,7 @@ class OncoKB(base.Adapter):
                 "patient_1", {"age": 42},
                 self.node_fields).as_tuple()
             yield types.Patient(
-                "patient_2"
+                "patient_2", {"age": 666},
                 ).as_tuple()
 
         if self.allows(types.Target):
