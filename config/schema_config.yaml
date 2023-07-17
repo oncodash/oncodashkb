@@ -5,22 +5,22 @@
 # PATIENT
 # =======
 
-patient:
+patient: # Existing in Biolink.
     represented_as: node
     label_in_input: patient
     synonym_for: case
 
-entity:
+phenotypic feature:
     represented_as: node
     label_in_input: target
 
-patient has target:
-    is_a: association
+patient has target: # Not existing in our ontology…
+    # … thus added by Biocypher under:
+    is_a: case to phenotypic feature association
     represented_as: edge
     label_in_input: patient_has_target
     source: patient
-    # target: genetic variant form
-    target: entity
+    target: phenotypic feature
 
 
 # sample:
