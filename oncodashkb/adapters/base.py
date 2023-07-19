@@ -181,3 +181,36 @@ class Adapter(metaclass = ABSTRACT):
     def edge_types(self) -> Iterable[Edge]:
         return self._edge_types
 
+
+class All:
+    def __init__(self, module):
+        self.module = module
+
+    def elements(self, asked: Element = Element) -> list[Element]:
+        m = self.module.__dict__
+        classes = []
+        for c in m:
+            if isinstance(m[c], type) \
+            and m[c].__module__ == self.module.__name__ \
+            and issubclass(m[c], asked):
+                classes.append(m[c])
+        return classes
+
+    def nodes(self) -> list[Node]:
+        return self.elements(Node)
+
+    def edges(self) -> list[Edge]:
+        return self.elements(Edge)
+
+    def node_fields(self) -> list[str]:
+        names = []
+        for c in self.nodes():
+            names += c.fields()
+        return names
+
+    def edge_fields(self) -> list[str]:
+        names = []
+        for c in self.edges():
+            names += c.fields()
+        return names
+

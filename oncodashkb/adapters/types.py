@@ -53,39 +53,5 @@ class Patient_has_target(base.Edge):
         return []
 
 
-class all:
-    @staticmethod
-    def elements(asked: base.Element = base.Element) -> list[base.Element]:
-        module = sys.modules[__name__]
-        m = module.__dict__
-        classes = []
-        for c in m:
-            if isinstance(m[c], type) \
-            and m[c].__module__ == module.__name__ \
-            and issubclass(m[c], asked):
-                classes.append(m[c])
-        return classes
-
-    @staticmethod
-    def nodes() -> list[base.Node]:
-        return all.elements(base.Node)
-
-    @staticmethod
-    def edges() -> list[base.Edge]:
-        return all.elements(base.Edge)
-
-    @staticmethod
-    def node_fields() -> list[str]:
-        names = []
-        for c in all.nodes():
-            names += c.fields()
-        return names
-
-    @staticmethod
-    def edge_fields() -> list[str]:
-        names = []
-        for c in all.edges():
-            names += c.fields()
-        return names
-
-
+# Allow accessing all base.Element classes defined in this module.
+all = base.All(sys.modules[__name__])
