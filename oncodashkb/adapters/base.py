@@ -168,9 +168,10 @@ class Adapter(metaclass = ABSTRACT):
     def node_types(self) -> Iterable[Node]:
         return self._node_types
 
-    def allows(self, node_type: Node) -> bool:
-        # FIXME: check if we want strict class equality or issubclass.
-        return any(issubclass(n, node_type) for n in self._node_types)
+    def allows(self, elem_type: Element) -> bool:
+        # FIXME: double-check if we want strict class equality or issubclass.
+        return any(issubclass(e, elem_type) for e in self._node_types) or \
+               any(issubclass(e, elem_type) for e in self._edge_types)
 
     @property
     def node_fields(self):

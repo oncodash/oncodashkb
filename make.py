@@ -12,16 +12,14 @@ if __name__ == "__main__":
     )
     bc.show_ontology_structure()
 
-    allowed_node_types  = [
-        od.types.Patient,
-        od.types.Target,
-        od.types.Patient_has_target,
-    ]
-    allowed_node_fields = \
-          od.types.Patient.fields() \
-        + od.types.Target.fields() \
-        + od.types.Patient_has_target.fields()
-    allowed_edge_types  = [ ]
+    allowed_node_types  = od.types.all.nodes()
+    print("allowed_node_types:", allowed_node_types)
+
+    allowed_node_fields = od.types.all.node_fields()
+    print("allowed_node_fields:", allowed_node_fields)
+
+    allowed_edge_types  = od.types.all.edges()
+    print("allowed_edge_types:", allowed_edge_types)
 
     oncokb = od.oncokb.OncoKB(
         allowed_node_types,
