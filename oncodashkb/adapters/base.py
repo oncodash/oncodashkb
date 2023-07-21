@@ -79,10 +79,9 @@ class Element(metaclass = ABSTRACT):
 
     @allowed.setter
     def allowed(self, allowed_properties: list[str]):
-        # Sanity checks:
         assert(allowed_properties is not None)
-        for a in allowed_properties:
-            assert(a in self.fields())
+        # May be any name, even for another class,
+        # so there is not much to check.
         self._allowed = allowed_properties
 
     def allowed_properties(self):
