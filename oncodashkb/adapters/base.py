@@ -149,12 +149,14 @@ class Adapter(metaclass = ABSTRACT):
 
     def __init__(self,
         node_types : Iterable[Node],
-        node_fields: list,
+        node_fields: list[str],
         edge_types : Iterable[Edge],
+        edge_fields: list[str],
     ):
         self._node_types  = node_types
         self._node_fields = node_fields
         self._edge_types  = edge_types
+        self._edge_fields = edge_fields
 
     @abstract
     def nodes(self) -> Iterable[Node]:
@@ -168,18 +170,26 @@ class Adapter(metaclass = ABSTRACT):
     def node_types(self) -> Iterable[Node]:
         return self._node_types
 
-    def allows(self, elem_type: Element) -> bool:
-        # FIXME: double-check if we want strict class equality or issubclass.
-        return any(issubclass(e, elem_type) for e in self._node_types) or \
-               any(issubclass(e, elem_type) for e in self._edge_types)
-
     @property
-    def node_fields(self):
+    def node_fields(self) -> list[str]:
         return self._node_fields
 
     @property
     def edge_types(self) -> Iterable[Edge]:
         return self._edge_types
+
+    @property
+    def edge_fields(self) -> list[str]:
+        return self._edge_fields
+
+    def allows(self, elem_type: Element) -> bool:
+        # FIXME: double-check if we want strict class equality or issubclass.
+        if issubclass(elem_type, Node):
+            return any(issubclass(e, elem_type) for e in self._node_types)
+        elif issubclass(elem_type, Edge):
+            return any(issubclass(e, elem_type) for e in self._edge_types)
+        else:
+            raise TypeError("`elem_type` should be of type `Element`")
 
 
 class All:

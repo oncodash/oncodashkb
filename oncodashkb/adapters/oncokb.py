@@ -10,8 +10,9 @@ class OncoKB(base.Adapter):
         node_types : Optional[Iterable[base.Node]] = None,
         node_fields: Optional[list[str]] = None,
         edge_types : Optional[Iterable[base.Edge]] = None,
+        edge_fields: Optional[list[str]] = None,
     ):
-        super().__init__(node_types, node_fields, edge_types)
+        super().__init__(node_types, node_fields, edge_types, edge_fields)
 
     def nodes(self) -> Iterable[base.Node.Tuple]:
 

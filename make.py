@@ -21,10 +21,16 @@ if __name__ == "__main__":
     allowed_edge_types  = od.types.all.edges()
     print("allowed_edge_types:", allowed_edge_types)
 
+    allowed_edge_fields = od.types.all.edge_fields()
+    print("allowed_edge_fields:", allowed_edge_fields)
+
+    # Using empty list or no argument would also select everything,
+    # but explicit is better than implicit.
     oncokb = od.oncokb.OncoKB(
         allowed_node_types,
         allowed_node_fields,
-        allowed_edge_types
+        allowed_edge_types,
+        allowed_edge_fields,
     )
 
     # for n in oncokb.nodes():
