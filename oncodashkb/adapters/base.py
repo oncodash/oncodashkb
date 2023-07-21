@@ -190,6 +190,12 @@ class Adapter(metaclass = ABSTRACT):
         else:
             raise TypeError("`elem_type` should be of type `Element`")
 
+    def make(self, *args) -> tuple:
+        a = args[0]
+        if issubclass(a, Node):
+            return a(*args[1:], allowed=self.node_fields).as_tuple()
+        elif issubclass(a, Edge):
+            return a(*args[1:], allowed=self.edge_fields).as_tuple()
 
 class All:
     def __init__(self, module):

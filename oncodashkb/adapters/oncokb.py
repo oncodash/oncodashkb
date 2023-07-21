@@ -17,22 +17,14 @@ class OncoKB(base.Adapter):
     def nodes(self) -> Iterable[base.Node.Tuple]:
 
         if self.allows( types.Patient ):
-            yield types.Patient(
-                "patient_1", {"age": 42},
-                self.node_fields ).as_tuple()
-            yield types.Patient(
-                "patient_2", {"age": 666},
-                self.node_fields ).as_tuple()
+            yield self.make( types.Patient, "patient_1", {"age": 42} )
+            yield self.make( types.Patient, "patient_2", {"age": 666} )
 
         if self.allows( types.Target ):
-            yield types.Target(
-                "target_A", {},
-                self.node_fields ).as_tuple()
+            yield self.make( types.Target, "target_A", {} )
 
     def edges(self) -> Iterable[base.Edge.Tuple]:
 
         if self.allows( types.Patient_has_target ):
-            yield types.Patient_has_target(
-                "rel_1", "patient_1", "target_A",
-                self.edge_fields ).as_tuple()
+            yield self.make( types.Patient_has_target, "rel_1", "patient_1", "target_A", {} )
 
