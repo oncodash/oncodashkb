@@ -145,13 +145,21 @@ class Edge(Element):
 
 
 class Adapter(metaclass = ABSTRACT):
-
+    """Base class for implementing a canonical Biocypher adapter."""
     def __init__(self,
         node_types : Iterable[Node],
         node_fields: list[str],
         edge_types : Iterable[Edge],
         edge_fields: list[str],
     ):
+        """Allow to indicate which Element subclasses and which property fields
+        are allowed to be exported by Biocypher.
+
+        :param Iterable[Node]: Allowed Node subclasses.
+        :param list[str]: Allowed property fields for the Node subclasses.
+        :param Iterable[Edge]: Allowed Edge subclasses.
+        :param list[str]: Allowed property fields for the Edge subclasses.
+        """
         self._node_types  = node_types
         self._node_fields = node_fields
         self._edge_types  = edge_types
@@ -182,6 +190,17 @@ class Adapter(metaclass = ABSTRACT):
         return self._edge_fields
 
     def allows(self, elem_type: Element) -> bool:
+        """Returns True if the given class is in the allowed list.
+
+        Example:
+        .. code-block:: python
+
+            if self.allows( MyNode ):
+                pass
+
+        :param Element elem_type: The given class.
+        :returns bool: True if a Node is in node_types or an Edge in edge_types.
+        """
         # FIXME: double-check if we want strict class equality or issubclass.
         if issubclass(elem_type, Node):
             return any(issubclass(e, elem_type) for e in self._node_types)
@@ -190,14 +209,45 @@ class Adapter(metaclass = ABSTRACT):
         else:
             raise TypeError("`elem_type` should be of type `Element`")
 
-    def make(self, *args) -> tuple:
+    def make(self, *args, **kwargs) -> tuple:
+        """Make a Biocypher's tuple of the given class.
+
+        Automatically filter property fields based on what was passed to the Adapter.
+
+        Example:
+        .. code-block:: python
+
+            yield self.make( MyNode, my_id, {"my_field": my_value} )
+
+        :param Element <unnamed>: Class of the element to create.
+        :param \*args: Positional arguments to pass to instantiate the given class.
+        :param \**kwargs: Named arguments to pass to instantiate the given class.
+        :returns Element: An Biocypher's tuple representing the element.
+        """
         a = args[0]
         if issubclass(a, Node):
-            return a(*args[1:], allowed=self.node_fields).as_tuple()
+            return a(*(args[1:]), allowed=self.node_fields, **kwargs).as_tuple()
         elif issubclass(a, Edge):
-            return a(*args[1:], allowed=self.edge_fields).as_tuple()
+            return a(*(args[1:]), allowed=self.edge_fields, **kwargs).as_tuple()
+        else:
+            raise TypeError("first argument should be a subclass of `Element`")
+
 
 class All:
+    """Gathers lists of subclasses of Element and their fields
+    existing in a given module.
+
+    Is generally used to create an `all` variable in a module:
+    .. code-block:: python
+
+        all = base.All(sys.modules[__name__])
+
+    Which can later be used to pass all available Element types to an Adapter:
+    .. code-block:: python
+
+        a = MyAdapter( node_types = MyModule.all.nodes() )
+    """
+
     def __init__(self, module):
         self.module = module
 
