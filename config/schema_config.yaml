@@ -2,17 +2,10 @@
 # IDENTIFICATION
 ########################################
 
-# PATIENT
-# =======
-
-patient: # Existing in Biolink.
-    represented_as: node
-    label_in_input: patient
-    synonym_for: case
-
 phenotypic feature:
     represented_as: node
     label_in_input: target
+
 
 patient has target: # Not existing in our ontology…
     # … thus added by Biocypher under:
@@ -22,14 +15,25 @@ patient has target: # Not existing in our ontology…
     source: patient
     target: phenotypic feature
 
+# PATIENT
+# =======
+
+patient: # Existing in Biolink.
+    represented_as: node
+    label_in_input: patient
+    synonym_for: case
 
 # sample:
 #   synonym_for: material sample
 #   represented_as: node
 #   label_in_input: sample
 
-# # OMICS
-# # =====
+# OMICS
+# =====
+
+genome:
+    represented_as: node
+    label_in_input: genome
 
 # gene:
 #   represented_as: node

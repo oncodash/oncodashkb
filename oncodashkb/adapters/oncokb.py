@@ -23,8 +23,15 @@ class OncoKB(base.Adapter):
         if self.allows( types.Target ):
             yield self.make( types.Target, "target_A", {} )
 
+        if self.allows( types.Genome ):
+            yield self.make( types.Genome, "genome_X", {} )
+
     def edges(self) -> Iterable[base.Edge.Tuple]:
 
         if self.allows( types.Patient_has_target ):
             yield self.make( types.Patient_has_target, "rel_1", "patient_1", "target_A", {} )
+
+        if self.allows( types.Reference_genome ):
+            yield self.make( types.Reference_genome, "rel_2", "target_A", "genome_X", {} )
+
 
