@@ -23,7 +23,7 @@ class Element(metaclass = ABSTRACT):
         if not id:
             self._id = ''
         else:
-            self._id = id
+            self._id = str(id)
 
         # Use the setter to get sanity checks.
         self.properties = properties
@@ -37,7 +37,7 @@ class Element(metaclass = ABSTRACT):
         if not label:
             self._label = self.__class__.__name__.lower()
         else:
-            self._label = label
+            self._label = str(label)
 
     @staticmethod
     @abstract
@@ -121,8 +121,18 @@ class Edge(Element):
         label     : Optional[str] = None,
     ):
         super().__init__(id, properties, allowed, label)
-        self._id_source  = id_source
-        self._id_target = id_target
+        self._id_source = str(id_source)
+        self._id_target = str(id_target)
+
+    @staticmethod
+    @abstract
+    def source_type():
+        raise NotImplementedError
+
+    @staticmethod
+    @abstract
+    def target_type():
+        raise NotImplementedError
 
     @property
     def id_source(self):
@@ -202,10 +212,25 @@ class Adapter(metaclass = ABSTRACT):
         :returns bool: True if a Node is in node_types or an Edge in edge_types.
         """
         # FIXME: double-check if we want strict class equality or issubclass.
+        def allowed_by(elem,types):
+            return any(issubclass(e, elem) or e == elem for e in types)
+
         if issubclass(elem_type, Node):
-            return any(issubclass(e, elem_type) for e in self._node_types)
+            return allowed_by(elem_type, self._node_types)
+
         elif issubclass(elem_type, Edge):
-            return any(issubclass(e, elem_type) for e in self._edge_types)
+            if allowed_by(elem_type, self._edge_types):
+                if not allowed_by(elem_type.source_type(), self._node_types):
+                    print(f"WARNING: you allowed the `{elem_type.__name__}` edge type, but not its source (`{elem_type.source_type().__name__}`) node type.")
+                    print(self._node_types)
+                    return False
+                elif not allowed_by(elem_type.target_type(), self._node_types):
+                    print(f"WARNING: you allowed the `{elem_type.__name__}` edge type, but not its target (`{elem_type.target_type().__name__}`) node type.")
+                    return False
+                else:
+                    return True
+            else:
+                return False
         else:
             raise TypeError("`elem_type` should be of type `Element`")
 

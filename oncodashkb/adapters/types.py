@@ -49,6 +49,14 @@ class Patient_has_target(base.Edge):
         super().__init__(id, id_source, id_target, properties, allowed, label)
 
     @staticmethod
+    def source_type():
+        return Patient
+
+    @staticmethod
+    def target_type():
+        return Target
+
+    @staticmethod
     def fields() -> list[str]:
         return []
 
@@ -79,6 +87,14 @@ class Reference_genome(base.Edge):
         label     : Optional[str] = None,
     ):
         super().__init__(id, id_source, id_target, properties, allowed, label)
+
+    @staticmethod
+    def source_type():
+        return Genome
+
+    @staticmethod
+    def target_type():
+        return Target
 
     @staticmethod
     def fields() -> list[str]:

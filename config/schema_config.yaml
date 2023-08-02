@@ -35,6 +35,14 @@ genome:
     represented_as: node
     label_in_input: genome
 
+reference genome:
+    is_a: genotype to phenotypic feature association
+    represented_as: edge
+    label_in_input: reference_genome
+    source: phenotypic feature
+    target: genome
+
+
 # gene:
 #   represented_as: node
 #   label_in_input: gene
