@@ -18,6 +18,9 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
         edge_fields: Optional[list[str]] = None,
     ):
 
+        # Type of the node created for each row.
+        row_type = types.Target
+
         # Column name in table => relation type in KG.
         type_of = {
             "patient_id": types.Patient_has_target,
@@ -33,6 +36,6 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
             types.Patient_has_target: {},
         }
 
-        super().__init__(df, types.Target, type_of, properties_of, node_types, node_fields, edge_types, edge_fields)
+        super().__init__(df, row_type, type_of, properties_of, node_types, node_fields, edge_types, edge_fields)
 
         self.run()
