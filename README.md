@@ -58,6 +58,15 @@ OncodashKB takes CSV files as an input, and exports them to the graph database:
 The mapping file configures the kind of node the rows of the table will represent,
 and how columns will be converted to an edge-node pair, or a property of a node.
 
+Once executed, Biocypher prepares a shell script named `neo4j-admin-import-call.sh` in a timestamped sub-directory.
+Executing this script will connect to the Neo4j server and feed it with the extracted graph.
+
+OncodashKB prints the name of the produced print on the standard output,
+so that you can execute it right away.
+
+
+## Side steps
+
 To check whether there is some data in your graph database, you can use the
 command-line client of Neo4j:
 ```
@@ -68,4 +77,28 @@ and you should see 5 nodes.
 To visualize [a part of] the graph, you can use
 [neo4j-browser](https://github.com/neo4j/neo4j-browser)
 with a similar Cypher query.
+
+Notes:
+- Neo4j-browser [needs a specific node version](https://github.com/neo4j/neo4j-browser/issues/1833), you can install it with:
+  ```
+  pip install nodeenv
+  nodeenv --node=16.10.0 env
+  . env/bin/activate
+  npm install yarn
+  yarn install
+  yarn run
+  ```
+- Neo4j server disable connection across the network by default.
+  To connect the browser to a server on another machine,
+  be sure to edit the server's `neo4j.conf` with the `0.0.0.0` address:
+  `server.bolt.listen_address=0.0.0.0:7687`
+
+
+## Development
+
+Hints and tips about designing the ontology alignements:
+- Ontologies may be browsed with [Protégé](https://protege.stanford.edu/).
+- The [biolink model](https://biolink.github.io/biolink-model/biolink-model.owl.ttl)
+  has (a lot of) classes attached at the root `Thing`.
+  These are actually decomissioned stuff, the actual classes are under `entity`.
 
