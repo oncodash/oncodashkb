@@ -4,23 +4,23 @@ from typing import Optional
 from enum import Enum
 from enum import auto
 
-from . import base
+import ontoweaver
 
-class Patient(base.Node):
+class Patient(ontoweaver.Node):
 
     @staticmethod
     def fields() -> list[str]:
         return [ "age" ]
 
 
-class Target(base.Node):
+class Target(ontoweaver.Node):
 
     @staticmethod
     def fields() -> list[str]:
         return []
 
 
-class Patient_has_target(base.Edge):
+class Patient_has_target(ontoweaver.Edge):
 
     @staticmethod
     def source_type():
@@ -35,14 +35,14 @@ class Patient_has_target(base.Edge):
         return []
 
 
-class Genome(base.Node):
+class Genome(ontoweaver.Node):
 
     @staticmethod
     def fields() -> list[str]:
         return [ "age" ]
 
 
-class Reference_genome(base.Edge):
+class Reference_genome(ontoweaver.Edge):
 
     @staticmethod
     def source_type():
@@ -57,5 +57,5 @@ class Reference_genome(base.Edge):
         return []
 
 
-# Allow accessing all base.Element classes defined in this module.
-all = base.All(sys.modules[__name__])
+# Allow accessing all ontoweaver.Element classes defined in this module.
+all = ontoweaver.All(sys.modules[__name__])

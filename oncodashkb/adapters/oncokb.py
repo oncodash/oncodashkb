@@ -1,20 +1,20 @@
 import logging
+import ontoweaver
 
 from typing import Optional
 from collections.abc import Iterable
 
 import pandas as pd
 
-from . import base
 from . import types
 
-class OncoKB(base.Adapter):
+class OncoKB(ontoweaver.Adapter):
 
     def __init__(self,
         df: pd.DataFrame,
-        node_types : Optional[Iterable[base.Node]] = None,
+        node_types : Optional[Iterable[ontoweaver.Node]] = None,
         node_fields: Optional[list[str]] = None,
-        edge_types : Optional[Iterable[base.Edge]] = None,
+        edge_types : Optional[Iterable[ontoweaver.Edge]] = None,
         edge_fields: Optional[list[str]] = None,
     ):
         super().__init__(node_types, node_fields, edge_types, edge_fields)
