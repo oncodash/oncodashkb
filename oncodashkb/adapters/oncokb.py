@@ -40,21 +40,26 @@ class OncoKB(ontoweaver.Adapter):
 
         self.run()
 
+
     def properties(self, row, type):
         properties = {}
+
+        # Find first matching parent class.
         matching_class = None
-        for parent in type.mro():
+        for parent in type.mro(): # mro is guaranted in resolution order.
             if parent in self.properties_of:
                 matching_class = parent
                 break
         if not matching_class:
             raise TypeError(f"Type `{type.__name__}` has no parent in properties mapping.")
 
+        # Exctract and map the values.
         for in_prop in self.properties_of[matching_class]:
             out_prop = self.properties_of[type][in_prop]
             properties[out_prop] = row[in_prop]
 
         return properties
+
 
     def run(self):
 
@@ -67,21 +72,22 @@ class OncoKB(ontoweaver.Adapter):
                     properties=self.properties(row,types.Target)
                 ))
 
-            for k in self.type_of:
-                assert(k in row)
-                val = row[k]
-                if self.allows( self.type_of[k] ):
-                    # target should alway be the target above.
-                    assert(issubclass(self.type_of[k].target_type(), types.Target))
+            for c in self.type_of:
+                if c not in row:
+                    raise ValueError(f"Column `{c}` not found in input data.")
+                val = row[c]
+                if self.allows( self.type_of[c] ):
+                    # target should always be the target above.
+                    assert(issubclass(self.type_of[c].target_type(), types.Target))
                     # source:
-                    st = self.type_of[k].source_type()
+                    st = self.type_of[c].source_type()
                     source_id = f"{st.__name__}_{val}"
                     self.nodes_append( self.make(
                         st, id=source_id,
                         properties=self.properties(row,st)
                     ))
                     # relation (simpler without property?)
-                    et = self.type_of[k]
+                    et = self.type_of[c]
                     self.edges_append( self.make(
                         et, id=None, id_source=source_id, id_target=target_id,
                         properties=self.properties(row,et)
