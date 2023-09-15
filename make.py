@@ -48,6 +48,6 @@ if __name__ == "__main__":
 
     import_file = bc.write_import_call()
 
-    bc.summary()
+    # bc.summary()
 
     print(import_file)

@@ -2,18 +2,17 @@
 # IDENTIFICATION
 ########################################
 
-phenotypic feature:
+sequence variant:
     represented_as: node
-    label_in_input: target
+    label_in_input: variant
 
-
-patient has target: # Not existing in our ontology…
+patient has variant: # Not existing in our ontology…
     # … thus added by Biocypher under:
     is_a: case to phenotypic feature association
     represented_as: edge
-    label_in_input: patient_has_target
+    label_in_input: patient_has_variant
     source: patient
-    target: phenotypic feature
+    target: sequence variant
 
 # PATIENT
 # =======
@@ -41,6 +40,16 @@ reference genome:
     label_in_input: reference_genome
     source: phenotypic feature
     target: genome
+
+gene:
+    represented_as: node
+    preferred_id: [gene_hugo, gene_entrez]
+    label_in_input: [gene_hugo, gene_entrez]
+
+variant to gene association:
+    is_a: association
+    represented_as: edge
+    label_in_input: variant_in_gene
 
 
 # gene:
