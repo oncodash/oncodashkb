@@ -23,12 +23,14 @@ if __name__ == "__main__":
 
     logging.info(f"Extracted {len(list(oncokb.nodes))} nodes and {len(list(oncokb.edges))} edges.")
 
+    logging.info("Write nodes...")
     for n in oncokb.nodes:
-        print(n)
+        logging.debug(n)
     bc.write_nodes( oncokb.nodes )
 
+    logging.info("Write edges...")
     for e in oncokb.edges:
-        print(e)
+        logging.debug(e)
     bc.write_edges( oncokb.edges )
 
     bc.write_import_call()
