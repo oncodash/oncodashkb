@@ -32,3 +32,14 @@ new [description:"allow depending on edges\/nodes: Find a way to make edges (or 
 time 1693568436
 new [description:"colored tree: use Rich to pimp Biocypher’s tree rendering, with one color for each tailed-in ontology." entry:"1693568436" modified:"1693568436" status:"pending" tags:"biocypher,feat" tags_biocypher:"x" tags_feat:"x" uuid:"8bc90624-633c-4ac9-bc41-afd76286e82e"]
 ---
+time 1693579180
+old [description:"helper property extraction: Find an elegant way to allow property extraction from tabular data." entry:"1693568164" modified:"1693568164" status:"pending" tags:"archi" tags_archi:"x" uuid:"431227e8-6006-4d89-8d5c-a98b8a1cede5"]
+new [description:"helper property extraction: Find an elegant way to allow property extraction from tabular data." end:"1693579180" entry:"1693568164" modified:"1693579180" status:"completed" tags:"archi" tags_archi:"x" uuid:"431227e8-6006-4d89-8d5c-a98b8a1cede5"]
+---
+time 1693579236
+new [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579236" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
+---
+time 1693579244
+old [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579236" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
+new [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579244" start:"1693579244" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
+---
