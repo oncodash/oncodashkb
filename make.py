@@ -9,7 +9,7 @@ import oncodashkb.adapters as od
 
 if __name__ == "__main__":
 
-    logging.basicConfig(level = logging.DEBUG, format = r"{levelname} -- {message}", style='{')
+    logging.basicConfig(level = logging.DEBUG, format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
 
     bc = BioCypher(
         biocypher_config_path = "config/biocypher_config.yaml",
