@@ -29,12 +29,13 @@ class OncoKB(ontoweaver.Adapter):
             "referenceGenome": types.Reference_genome,
         }
 
+        # Any Element type in KB => list of columns to extract as properties.
         self.properties_of = {
             types.Patient: {"lastUpdate": "timestamp"},
-            types.Target: {"lastUpdate": "timestamp"},
-            types.Genome: {"lastUpdate": "timestamp"},
-            types.Reference_genome:   {"lastUpdate": "timestamp"},
-            types.Patient_has_target: {"lastUpdate": "timestamp"},
+            types.Target:  {"lastUpdate": "timestamp"},
+            types.Genome:  {"lastUpdate": "timestamp"},
+            types.Reference_genome:   {},
+            types.Patient_has_target: {},
         }
 
         self.run()
@@ -61,7 +62,10 @@ class OncoKB(ontoweaver.Adapter):
             if self.allows( types.Target ):
                 target_id = f"{types.Target.__name__}_{i}"
                 # TODO: modularize an Adapter subclass for table data, and avoid duplicating type twice.
-                self.nodes_append( self.make( types.Target, id=target_id, properties=self.properties(row,types.Target) ) )
+                self.nodes_append( self.make(
+                    types.Target, id=target_id,
+                    properties=self.properties(row,types.Target)
+                ))
 
             for k in self.type_of:
                 assert(k in row)
@@ -72,7 +76,14 @@ class OncoKB(ontoweaver.Adapter):
                     # source:
                     st = self.type_of[k].source_type()
                     source_id = f"{st.__name__}_{val}"
-                    self.nodes_append( self.make( st, id=source_id, properties=self.properties(row,st) ) )
+                    self.nodes_append( self.make(
+                        st, id=source_id,
+                        properties=self.properties(row,st)
+                    ))
                     # relation (simpler without property?)
-                    self.edges_append( self.make( self.type_of[k], id=None, id_source=source_id, id_target=target_id, properties={} ) )
+                    et = self.type_of[k]
+                    self.edges_append( self.make(
+                        et, id=None, id_source=source_id, id_target=target_id,
+                        properties=self.properties(row,et)
+                    ))
 
