@@ -1,4 +1,5 @@
 biocypher:
+    debug: true
     offline: true
     schema_config_path: config/schema_config.yaml
 
@@ -12,3 +13,17 @@ biocypher:
   #     url: http://purl.obolibrary.org/obo/so.owl
   #     head_join_node: sequence variant
   #     tail_join_node: sequence_variant
+
+neo4j:
+  database_name: oncodash
+  wipe: true
+  delimiter: '\t'
+  array_delimiter: '|'
+  skip_duplicate_nodes: true
+  skip_bad_relationships: true
+
+  # MultiDB functionality
+  # Set to false for using community edition or older versions of Neo4j
+  multi_db: false
+
+  import_call_bin_prefix: ''

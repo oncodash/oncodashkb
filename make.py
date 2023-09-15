@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     # Extraction mapping configuration.
     with open(sys.argv[2]) as fd:
-        conf = yaml.load(fd)
+        conf = yaml.full_load(fd)
 
     # Actully map the table to types with properties.
     oncokb = od.oncokb.extract_all(df, conf)
@@ -46,6 +46,8 @@ if __name__ == "__main__":
         logging.debug(e)
     bc.write_edges( oncokb.edges )
 
-    bc.write_import_call()
+    import_file = bc.write_import_call()
 
     bc.summary()
+
+    print(import_file)
