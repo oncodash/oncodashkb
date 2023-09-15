@@ -35,19 +35,19 @@ class OncoKB(base.Adapter):
         for i,row in self.df.iterrows():
             if self.allows( types.Target ):
                 target_id = f"target_{i}"
+                # TODO: extract metadata as properties (for ex. timestamps).
                 self._nodes.append( self.make( types.Target, target_id, {} ) )
 
-            for k,val in row.items():
-                if k in self.mapping:
-                    # print(k, "=>", self.mapping[k].__name__, end = " ")
-                    # print("(", self.mapping[k].source_type().__name__, "<->", self.mapping[k].target_type().__name__, ")")
-                    if self.allows( self.mapping[k] ):
-                        # target should alway be the target above.
-                        assert(issubclass(self.mapping[k].target_type(), types.Target))
-                        # source:
-                        self._nodes.append( self.make( self.mapping[k].source_type(), val, {} ) )
-                        # relation
-                        self._edges.append( self.make( self.mapping[k], None, val, target_id, {} ) )
+            for k in self.mapping:
+                assert(k in row)
+                val = row[k]
+                if self.allows( self.mapping[k] ):
+                    # target should alway be the target above.
+                    assert(issubclass(self.mapping[k].target_type(), types.Target))
+                    # source:
+                    self._nodes.append( self.make( self.mapping[k].source_type(), val, {} ) )
+                    # relation
+                    self._edges.append( self.make( self.mapping[k], None, val, target_id, {} ) )
 
 
     def nodes(self) -> Iterable[base.Node.Tuple]:
