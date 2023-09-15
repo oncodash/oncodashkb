@@ -47,3 +47,13 @@ time 1693840292
 old [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579244" start:"1693579244" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
 new [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" end:"1693840292" entry:"1693579236" modified:"1693840292" status:"completed" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
 ---
+time 1694526670
+new [description:"import call output: print the import script path on stdout" entry:"1694526670" modified:"1694526670" priority:"H" status:"pending" tags:"feat" tags_feat:"x" uuid:"f29ed581-19b4-4797-90e4-6c7d4fa55f8f"]
+---
+time 1694526710
+new [description:"fix biocypher import: all the database command to the import script" entry:"1694526710" modified:"1694526710" status:"pending" tags:"biocypher,fix" tags_biocypher:"x" tags_fix:"x" uuid:"f9740274-ad6a-4df5-b8e9-69b6244b588d"]
+---
+time 1694526744
+old [description:"fix biocypher import: all the database command to the import script" entry:"1694526710" modified:"1694526710" status:"pending" tags:"biocypher,fix" tags_biocypher:"x" tags_fix:"x" uuid:"f9740274-ad6a-4df5-b8e9-69b6244b588d"]
+new [description:"fix biocypher import: add the database command to the import script, for some version of Neo4j" entry:"1694526710" modified:"1694526744" priority:"H" status:"pending" tags:"biocypher,fix" tags_biocypher:"x" tags_fix:"x" uuid:"f9740274-ad6a-4df5-b8e9-69b6244b588d"]
+---
