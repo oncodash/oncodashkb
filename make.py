@@ -19,7 +19,9 @@ if __name__ == "__main__":
 
     df = pd.read_csv(sys.argv[1])
 
-    oncokb = od.oncokb.parse_all(df)
+    oncokb = od.oncokb.extract_all(df)
+
+    logging.info(f"Extracted {len(list(oncokb.nodes))} nodes and {len(list(oncokb.edges))} edges.")
 
     for n in oncokb.nodes:
         print(n)

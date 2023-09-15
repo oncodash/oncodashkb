@@ -9,7 +9,7 @@ import pandas as pd
 
 from . import types
 
-def parse_all(df):
+def extract_all(df):
 
     configure = ontoweaver.tabular.Configure( {
         "row": "Target", # line, entry
