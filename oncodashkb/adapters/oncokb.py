@@ -1,3 +1,5 @@
+import logging
+
 from typing import Optional
 from collections.abc import Iterable
 
@@ -17,16 +19,15 @@ class OncoKB(base.Adapter):
     ):
         super().__init__(node_types, node_fields, edge_types, edge_fields)
 
-        print(df)
+        logging.info(df.info())
+        logging.info(df)
         self.df = df
 
+        # Column name in table => relation type in KG.
         self.mapping = {
             "patient_id": types.Patient_has_target,
             "referenceGenome": types.Reference_genome,
         }
-
-        self._nodes = []
-        self._edges = []
 
         self.run()
 
@@ -36,7 +37,7 @@ class OncoKB(base.Adapter):
             if self.allows( types.Target ):
                 target_id = f"target_{i}"
                 # TODO: extract metadata as properties (for ex. timestamps).
-                self._nodes.append( self.make( types.Target, target_id, {} ) )
+                self.nodes_append( self.make( types.Target, id=target_id, properties={} ) )
 
             for k in self.mapping:
                 assert(k in row)
@@ -45,17 +46,7 @@ class OncoKB(base.Adapter):
                     # target should alway be the target above.
                     assert(issubclass(self.mapping[k].target_type(), types.Target))
                     # source:
-                    self._nodes.append( self.make( self.mapping[k].source_type(), val, {} ) )
-                    # relation
-                    self._edges.append( self.make( self.mapping[k], None, val, target_id, {} ) )
-
-
-    def nodes(self) -> Iterable[base.Node.Tuple]:
-        for n in self._nodes:
-            yield n
-
-    def edges(self) -> Iterable[base.Edge.Tuple]:
-        for e in self._edges:
-            yield e
-
+                    self.nodes_append( self.make( self.mapping[k].source_type(), id=val, properties={} ) )
+                    # relation:
+                    self.edges_append( self.make( self.mapping[k], id=None, id_source=val, id_target=target_id, properties={} ) )
 

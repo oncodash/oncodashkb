@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import logging
 import pandas as pd
 from biocypher import BioCypher
 
@@ -7,11 +8,13 @@ import oncodashkb.adapters as od
 
 if __name__ == "__main__":
 
+    logging.basicConfig(level = logging.DEBUG)
+
     bc = BioCypher(
         biocypher_config_path = "config/biocypher_config.yaml",
         schema_config_path = "config/schema_config.yaml"
     )
-    bc.show_ontology_structure()
+    # bc.show_ontology_structure()
 
     allowed_node_types  = od.types.all.nodes()
     # print("allowed_node_types:", allowed_node_types)
@@ -39,11 +42,11 @@ if __name__ == "__main__":
 
     # for n in oncokb.nodes():
     #     print(n)
-    bc.write_nodes( oncokb.nodes() )
+    bc.write_nodes( oncokb.nodes )
 
     # for e in oncokb.edges():
     #     print(e)
-    bc.write_edges( oncokb.edges() )
+    bc.write_edges( oncokb.edges )
 
     bc.write_import_call()
 

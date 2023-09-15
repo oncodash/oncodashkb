@@ -96,8 +96,8 @@ class Node(Element):
     def __init__(self,
         id        : Optional[str] = None,
         properties: Optional[dict[str,str]] = {},
-        allowed   : Optional[list[str]] = None,
-        label     : Optional[str] = None,
+        allowed   : Optional[list[str]] = None, # Passed by Adapter.
+        label     : Optional[str] = None, # Set from subclass name.
     ):
         super().__init__(id, properties, allowed, label)
 
@@ -117,8 +117,8 @@ class Edge(Element):
         id_source : Optional[str] = None,
         id_target : Optional[str] = None,
         properties: Optional[dict[str,str]] = {},
-        allowed   : Optional[list[str]] = None,
-        label     : Optional[str] = None,
+        allowed   : Optional[list[str]] = None, # Passed by Adapter.
+        label     : Optional[str] = None, # Set from subclass name.
     ):
         super().__init__(id, properties, allowed, label)
         self._id_source = str(id_source)
@@ -174,14 +174,32 @@ class Adapter(metaclass = ABSTRACT):
         self._node_fields = node_fields
         self._edge_types  = edge_types
         self._edge_fields = edge_fields
+        self._nodes = []
+        self._edges = []
 
-    @abstract
-    def nodes(self) -> Iterable[Node]:
-        raise NotImplementedError
+    # @abstract
+    # def nodes(self) -> Iterable[Node]:
+    #     raise NotImplementedError
 
-    @abstract
-    def edges(self) -> Iterable[Edge]:
-        raise NotImplementedError
+    # @abstract
+    # def edges(self) -> Iterable[Edge]:
+    #     raise NotImplementedError
+
+    @property
+    def nodes(self) -> Iterable[Node.Tuple]:
+        for n in self._nodes:
+            yield n
+
+    def nodes_append(self, node) -> None:
+        self._nodes.append(node)
+
+    @property
+    def edges(self) -> Iterable[Edge.Tuple]:
+        for e in self._edges:
+            yield e
+
+    def edges_append(self, edge) -> None:
+        self._edges.append(edge)
 
     @property
     def node_types(self) -> Iterable[Node]:
@@ -221,11 +239,11 @@ class Adapter(metaclass = ABSTRACT):
         elif issubclass(elem_type, Edge):
             if allowed_by(elem_type, self._edge_types):
                 if not allowed_by(elem_type.source_type(), self._node_types):
-                    print(f"WARNING: you allowed the `{elem_type.__name__}` edge type, but not its source (`{elem_type.source_type().__name__}`) node type.")
-                    print(self._node_types)
+                    logging.warning(f"WARNING: you allowed the `{elem_type.__name__}` edge type, but not its source (`{elem_type.source_type().__name__}`) node type.")
+                    logging.info(self._node_types)
                     return False
                 elif not allowed_by(elem_type.target_type(), self._node_types):
-                    print(f"WARNING: you allowed the `{elem_type.__name__}` edge type, but not its target (`{elem_type.target_type().__name__}`) node type.")
+                    logging.warning(f"WARNING: you allowed the `{elem_type.__name__}` edge type, but not its target (`{elem_type.target_type().__name__}`) node type.")
                     return False
                 else:
                     return True
@@ -239,16 +257,18 @@ class Adapter(metaclass = ABSTRACT):
 
         Automatically filter property fields based on what was passed to the Adapter.
 
+        Warning: for the sake of clarity, only named arguments are allowedafter the Element class.
+
         Example:
         .. code-block:: python
 
-            yield self.make( MyNode, my_id, {"my_field": my_value} )
+            yield self.make( MyNode, id=my_id, properties={"my_field": my_value} )
 
         :param Element <unnamed>: Class of the element to create.
-        :param \*args: Positional arguments to pass to instantiate the given class.
         :param \**kwargs: Named arguments to pass to instantiate the given class.
         :returns Element: An Biocypher's tuple representing the element.
         """
+        assert(len(args) == 1)
         a = args[0]
         if issubclass(a, Node):
             return a(*(args[1:]), allowed=self.node_fields, **kwargs).as_tuple()
