@@ -32,8 +32,16 @@ if __name__ == "__main__":
 
     # Using empty list or no argument would also select everything,
     # but explicit is better than implicit.
-    oncokb = od.oncokb.OncoKB(
+    # oncokb = od.oncokb.OncoKB(
+    #     df,
+    #     allowed_node_types,
+    #     allowed_node_fields,
+    #     allowed_edge_types,
+    #     allowed_edge_fields,
+    # )
+    oncokb = od.oncokb.OncoKBTable(
         df,
+        {},
         allowed_node_types,
         allowed_node_fields,
         allowed_edge_types,
