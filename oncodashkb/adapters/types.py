@@ -6,27 +6,37 @@ from enum import auto
 
 import ontoweaver
 
-class Element(ontoweaver.Node):
+# Intermediate classes to add common fields.
+
+class Item(ontoweaver.Node):
 
     @staticmethod
     def fields() -> list[str]:
         return [ "timestamp" ]
 
-class Patient(ontoweaver.Node):
+class Relation(ontoweaver.Edge):
+
+    @staticmethod
+    def fields() -> list[str]:
+        return [ "timestamp" ]
+
+# Actual classes.
+
+class Patient(Item):
 
     @staticmethod
     def fields() -> list[str]:
         return [ "age" ]
 
 
-class Target(ontoweaver.Node):
+class Target(Item):
 
     @staticmethod
     def fields() -> list[str]:
         return []
 
 
-class Patient_has_target(ontoweaver.Edge):
+class Patient_has_target(Relation):
 
     @staticmethod
     def source_type():
@@ -41,14 +51,14 @@ class Patient_has_target(ontoweaver.Edge):
         return []
 
 
-class Genome(ontoweaver.Node):
+class Genome(Item):
 
     @staticmethod
     def fields() -> list[str]:
         return [ "age" ]
 
 
-class Reference_genome(ontoweaver.Edge):
+class Reference_genome(Relation):
 
     @staticmethod
     def source_type():
@@ -63,5 +73,5 @@ class Reference_genome(ontoweaver.Edge):
         return []
 
 
-# Allow accessing all ontoweaver.Element classes defined in this module.
+# Allow accessing all ontoweaver.Item classes defined in this module.
 all = ontoweaver.All(sys.modules[__name__])
