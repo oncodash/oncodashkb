@@ -6,6 +6,12 @@ from enum import auto
 
 import ontoweaver
 
+class Element(ontoweaver.Node):
+
+    @staticmethod
+    def fields() -> list[str]:
+        return [ "timestamp" ]
+
 class Patient(ontoweaver.Node):
 
     @staticmethod
