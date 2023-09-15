@@ -9,36 +9,37 @@ import pandas as pd
 
 from . import types
 
-def extract_all(df):
-
-    configure = ontoweaver.tabular.Configure( {
-        "row": "Target", # line, entry
-        "columns": { # fields
-            "patient_id" : {
-                "to_target"  : "Patient", # Needs a valid "edge". # to_node, to_object
-                # "source" is always taken from "row".
-                "via_edge" : "Patient_has_target", # via_relation, via_predicate
-                # "properties": {}, # Does not map to any property.
-            },
-            "referenceGenome": {
-                "to_target": "Genome",
-                "via_edge"  : "Reference_genome",
-            },
-            "lastUpdate": {
-                # Does not map to any target or edge.
-                "to_properties": {
-                    "timestamp" : [
-                        "Target",
-                        "Patient",
-                        "Genome",
-                    ],
-                },
+# Example of a simple configuration for extracting Oncodash' OncoKB tables.
+example_configuration = {
+    "row": "Target", # or line, entry, subject
+    "columns": { # or fields
+        "patient_id" : {
+            "to_target"  : "Patient", # Needs a valid "edge". # or to_node, to_object
+            # "source" is always taken from "row".
+            "via_edge" : "Patient_has_target", # or via_relation, via_predicate
+            # "properties": {}, # Does not map to any property.
+        },
+        "referenceGenome": {
+            "to_target": "Genome",
+            "via_edge"  : "Reference_genome",
+        },
+        "lastUpdate": {
+            # Does not map to any target or edge.
+            "to_properties": {
+                "timestamp" : [
+                    "Target",
+                    "Patient",
+                    "Genome",
+                ],
             },
         },
     },
-    ontoweaver.types)
+}
 
-    mapping = configure.parse()
+def extract_all(df: pd.DataFrame, config: dict):
+    """Proxy function for extracting from a table all nodes, edges and properties
+    that are defined in a PandasAdapter configuration."""
+    mapping = ontoweaver.tabular.PandasAdapter.configure(config, ontoweaver.types)
     assert("Target" in dir(ontoweaver.types))
 
     allowed_node_types  = ontoweaver.types.all.nodes()
@@ -67,8 +68,9 @@ def extract_all(df):
     return oncokb
 
 
-class OncoKB(ontoweaver.tabular.PandasAdapter):
-
+class OncoKBExample(ontoweaver.tabular.PandasAdapter):
+    """Example of an adapter holding a simple configuration for extracting Oncodash' OncoKB tables.
+    """
     def __init__(self,
         df: pd.DataFrame,
         node_types : Optional[Iterable[ontoweaver.Node]] = None,

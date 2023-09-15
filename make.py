@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import yaml
 import logging
 import pandas as pd
 from biocypher import BioCypher
@@ -9,6 +10,11 @@ import oncodashkb.adapters as od
 
 if __name__ == "__main__":
 
+    if len(sys.argv) != 3:
+        print(f"Usage: {sys.argv[0]} <CSV_filename> <YAML_mapping_config>")
+        print(f"For example: {sys.argv[0]} ./tests/genomics_oncokbannotation.csv ./tests/oncokb_example.yaml")
+        sys.exit(1)
+
     logging.basicConfig(level = logging.DEBUG, format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
 
     bc = BioCypher(
@@ -17,10 +23,17 @@ if __name__ == "__main__":
     )
     # bc.show_ontology_structure()
 
+    # Taple input data.
     df = pd.read_csv(sys.argv[1])
 
-    oncokb = od.oncokb.extract_all(df)
+    # Extraction mapping configuration.
+    with open(sys.argv[2]) as fd:
+        conf = yaml.load(fd)
 
+    # Actully map the table to types with properties.
+    oncokb = od.oncokb.extract_all(df, conf)
+
+    # Write everything through Biocypher.
     logging.info(f"Extracted {len(list(oncokb.nodes))} nodes and {len(list(oncokb.edges))} edges.")
 
     logging.info("Write nodes...")

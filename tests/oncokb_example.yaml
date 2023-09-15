@@ -1,0 +1,16 @@
+
+subject: Target
+columns:
+    patient_id:
+        to_object: Patient
+        via_relation: Patient_has_target
+    referenceGenome:
+        to_object: Genome
+        via_relation: Reference_genome
+    lastUpdate:
+        to_properties:
+            timestamp:
+                - Target
+                - Patient
+                - Genome
+

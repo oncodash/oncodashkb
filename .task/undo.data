@@ -43,3 +43,7 @@ time 1693579244
 old [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579236" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
 new [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579244" start:"1693579244" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
 ---
+time 1693840292
+old [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" entry:"1693579236" modified:"1693579244" start:"1693579244" status:"pending" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
+new [description:"Adapter for tabular data: modularize an Adapter subclass for tabular data in ontoweaver" end:"1693840292" entry:"1693579236" modified:"1693840292" status:"completed" tags:"archi,feat" tags_archi:"x" tags_feat:"x" uuid:"7fa59315-320b-4d50-be51-608947bb2214"]
+---
