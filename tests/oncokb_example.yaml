@@ -1,16 +1,16 @@
 
-subject: Target
+subject: variant
 columns:
     patient_id:
-        to_object: Patient
-        via_relation: Patient_has_target
+        to_object: patient
+        via_relation: patient_has_variant
     referenceGenome:
-        to_object: Genome
-        via_relation: Reference_genome
+        to_object: genome
+        via_relation: reference_genome
     lastUpdate:
         to_properties:
             timestamp:
-                - Target
-                - Patient
-                - Genome
+                - variant
+                - patient
+                - genome
 
