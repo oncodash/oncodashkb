@@ -43,16 +43,16 @@ def extract_all(df: pd.DataFrame, config: dict):
     assert("variant" in dir(ontoweaver.types))
 
     allowed_node_types  = ontoweaver.types.all.nodes()
-    # print("allowed_node_types:", allowed_node_types)
+    logging.debug(f"allowed_node_types: {allowed_node_types}")
 
     allowed_node_fields = ontoweaver.types.all.node_fields()
-    # print("allowed_node_fields:", allowed_node_fields)
+    logging.debug(f"allowed_node_fields: {allowed_node_fields}")
 
     allowed_edge_types  = ontoweaver.types.all.edges()
-    # print("allowed_edge_types:", allowed_edge_types)
+    logging.debug(f"allowed_edge_types: {allowed_edge_types}")
 
     allowed_edge_fields = ontoweaver.types.all.edge_fields()
-    # print("allowed_edge_fields:", allowed_edge_fields)
+    logging.debug(f"allowed_edge_fields: {allowed_edge_fields}")
 
     # Using empty list or no argument would also select everything,
     # but explicit is better than implicit.
