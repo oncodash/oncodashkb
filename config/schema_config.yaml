@@ -5,6 +5,8 @@
 sequence variant:
     represented_as: node
     label_in_input: variant
+    properties:
+        timestamp: str
 
 patient has variant: # Not existing in our ontology…
     # … thus added by Biocypher under:
@@ -43,18 +45,15 @@ reference genome:
 
 gene:
     represented_as: node
-    preferred_id: [gene_hugo, gene_entrez]
-    label_in_input: [gene_hugo, gene_entrez]
+    input_label: gene_hugo
+    properties:
+        entrez_gene_id: str
 
 variant to gene association:
     is_a: association
     represented_as: edge
     label_in_input: variant_in_gene
 
-
-# gene:
-#   represented_as: node
-#   label_in_input: gene
 
 # protein:
 #   represented_as: node
