@@ -86,7 +86,7 @@ Notes:
   . env/bin/activate
   npm install yarn
   yarn install
-  yarn run
+  yarn start
   ```
 - Neo4j server disable connection across the network by default.
   To connect the browser to a server on another machine,
