@@ -67,9 +67,14 @@ variant to gene association:
 # # DISEASE
 # # =======
 
-# disease:
-#   represented_as: node
-#   label_in_input: disease
+disease:
+  represented_as: node
+  label_in_input: disease
+
+variant to disease association:
+    is_a: association
+    represented_as: edge
+    label_in_input: variant_to_disease
 
 # tumour type:
 #   is_a: phenotypic feature  # clinical finding?
