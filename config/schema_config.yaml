@@ -8,14 +8,6 @@ sequence variant:
     properties:
         timestamp: str
 
-patient has variant: # Not existing in our ontology…
-    # … thus added by Biocypher under:
-    is_a: case to phenotypic feature association
-    represented_as: edge
-    label_in_input: patient_has_variant
-    source: patient
-    target: sequence variant
-
 # PATIENT
 # =======
 
@@ -24,10 +16,14 @@ patient: # Existing in Biolink.
     label_in_input: patient
     synonym_for: case
 
-# sample:
-#   synonym_for: material sample
-#   represented_as: node
-#   label_in_input: sample
+patient has variant: # Not existing in Biolink…
+    # … thus added by Biocypher under:
+    is_a: case to phenotypic feature association
+    represented_as: edge
+    label_in_input: patient_has_variant
+    source: sequence variant
+    target: patient
+
 
 # OMICS
 # =====
@@ -40,8 +36,9 @@ reference genome:
     is_a: genotype to phenotypic feature association
     represented_as: edge
     label_in_input: reference_genome
-    source: phenotypic feature
+    source: sequence variant
     target: genome
+
 
 gene:
     represented_as: node
@@ -55,17 +52,8 @@ variant to gene association:
     label_in_input: variant_in_gene
 
 
-# protein:
-#   represented_as: node
-#   label_in_input: protein
-
-# small molecule:
-#   represented_as: node
-#   label_in_input: molecule
-
-
-# # DISEASE
-# # =======
+# DISEASE
+# =======
 
 disease:
   represented_as: node
@@ -75,19 +63,22 @@ variant to disease association:
     is_a: association
     represented_as: edge
     label_in_input: variant_to_disease
+    source: sequence variant
+    target: disease
 
-# tumour type:
-#   is_a: phenotypic feature  # clinical finding?
-#   represented_as: node
-#   label_in_input: tumour
 
-# ########################################
-# # ONCOGENECITY
-# ########################################
+oncogenicity: # Not in Biolink
+    is_a: behavioral feature
+    represented_as: node
+    label_in_input: oncogenicity
 
-# ########################################
-# # VARIANTS
-# ########################################
+variant to oncogenicity:
+    is_a: variant to phenotypic feature association
+    represented_as: edge
+    label_in_input: variant_to_oncogenicity
+    source: sequence variant
+    target: oncogenicity
+
 
 # ########################################
 # # ALTERATION <-> BIOMARKER

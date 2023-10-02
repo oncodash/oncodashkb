@@ -21,4 +21,10 @@ columns:
     tumorType:
         to_object: disease
         via_relation: variant_to_disease
-
+    # oncogenic:
+    #     to_properties:
+    #         oncogenicity:
+    #             - disease
+    oncogenic:
+        to_object: oncogenicity
+        via_relation: variant_to_oncogenicity
