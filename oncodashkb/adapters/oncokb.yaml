@@ -11,20 +11,36 @@ columns:
         to_object: gene_hugo
         via_relation: variant_in_gene
     lastUpdate:
-        to_properties:
+        to_property:
             timestamp:
                 - variant
+    dataVersion:
+        to_property:
+            data_version:
+                - variant
     entrezGeneId:
-        to_properties:
+        to_property:
             entrez_gene_id:
                 - gene_hugo
     tumorType:
         to_object: disease
         via_relation: variant_to_disease
-    # oncogenic:
-    #     to_properties:
-    #         oncogenicity:
-    #             - disease
     oncogenic:
         to_object: oncogenicity
         via_relation: variant_to_oncogenicity
+    mutationEffectDescription:
+        to_property:
+            mutation_effect_description:
+                - variant
+    variantSummary:
+        to_property:
+            variant_summary:
+                - variant
+    geneSummary:
+        to_property:
+            gene_summary:
+                - gene_hugo
+    tumorTypeSummary:
+        to_property:
+            tumor_type_summary:
+                - disease
