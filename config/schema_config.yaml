@@ -14,6 +14,38 @@ sequence variant:
 copy number increase: # For some reason, Biocypher needs to avoid underscores, which SO uses.
     represented_as: node
     label_in_input: amplification
+    properties:
+        timestamp: str
+        version: str
+        mutation_effect_description: str
+        variant_summary: str
+
+copy number decrease:
+    represented_as: node
+    label_in_input: deletion
+    properties:
+        timestamp: str
+        version: str
+        mutation_effect_description: str
+        variant_summary: str
+
+gain of function variant:
+    represented_as: node
+    label_in_input: gain
+    properties:
+        timestamp: str
+        version: str
+        mutation_effect_description: str
+        variant_summary: str
+
+loss of function variant:
+    represented_as: node
+    label_in_input: loss
+    properties:
+        timestamp: str
+        version: str
+        mutation_effect_description: str
+        variant_summary: str
 
 
 # PATIENT
