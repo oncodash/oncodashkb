@@ -7,64 +7,54 @@ from collections.abc import Iterable
 
 import pandas as pd
 
-from . import types
 
-# Example of a simple configuration for extracting Oncodash' OncoKB tables.
-example_configuration = {
-    "row": "variant", # or line, entry, subject
-    "columns": { # or fields
-        "patient_id" : {
-            "to_target"  : "patient", # Needs a valid "edge". # or to_node, to_object
-            # "source" is always taken from "row".
-            "via_edge" : "patient_has_target", # or via_relation, via_predicate
-            # "properties": {}, # Does not map to any property.
-        },
-        "referenceGenome": {
-            "to_target": "genome",
-            "via_edge"  : "reference_genome",
-        },
-        "lastUpdate": {
-            # Does not map to any target or edge.
-            "to_properties": {
-                "timestamp" : [
-                    "variant",
-                    "patient",
-                    "genome",
-                ],
-            },
-        },
-    },
-}
 
-class OncoKBExample(ontoweaver.tabular.PandasAdapter):
-    """Example of an adapter holding a simple configuration for extracting Oncodash' OncoKB tables.
-    """
+class OncoKB(ontoweaver.tabular.PandasAdapter):
+
     def __init__(self,
         df: pd.DataFrame,
+        config: dict,
         node_types : Optional[Iterable[ontoweaver.Node]] = None,
         node_fields: Optional[list[str]] = None,
         edge_types : Optional[Iterable[ontoweaver.Edge]] = None,
         edge_fields: Optional[list[str]] = None,
     ):
+        # Default mapping as a simple config.
+        from . import types
+        mapping = self.configure(config, types)
 
-        # Type of the node created for each row.
-        row_type = types.Target
+        if not node_types:
+            node_types  = types.all.nodes()
+            logging.debug(f"node_types: {node_types}")
 
-        # Column name in table => relation type in KG.
-        type_of = {
-            "patient_id": types.Patient_has_target,
-            "referenceGenome": types.Reference_genome,
-        }
+        if not node_fields:
+            node_fields = types.all.node_fields()
+            logging.debug(f"node_fields: {node_fields}")
 
-        # Any Element type in KB => list of columns to extract as properties.
-        properties_of = {
-            types.Patient: {"lastUpdate": "timestamp"},
-            types.Target:  {"lastUpdate": "timestamp"},
-            types.Genome:  {"lastUpdate": "timestamp"},
-            types.Reference_genome:   {},
-            types.Patient_has_target: {},
-        }
+        if not edge_types:
+            edge_types  = types.all.edges()
+            logging.debug(f"edge_types: {edge_types}")
 
-        super().__init__(df, row_type, type_of, properties_of, node_types, node_fields, edge_types, edge_fields)
+        if not edge_fields:
+            edge_fields = types.all.edge_fields()
+            logging.debug(f"edge_fields: {edge_fields}")
 
-        self.run()
+        # Declare types defined in the config.
+        super().__init__(
+            df,
+            *mapping,
+            node_types,
+            node_fields,
+            edge_types,
+            edge_fields,
+        )
+
+    def source_type(self, row):
+        from . import types
+        if row["alteration"].lower() == "amplification":
+            logging.debug(f"Source type is `amplification`")
+            return types.amplification # Declared in the oncokb.types module.
+        else:
+            logging.debug(f"Source type is `variant`")
+            return types.variant # Declared dynamically through the config oncokb.yaml.
+

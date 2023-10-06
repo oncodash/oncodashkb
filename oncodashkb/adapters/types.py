@@ -6,72 +6,23 @@ from enum import auto
 
 import ontoweaver
 
-# Intermediate classes to add common fields.
-
-class Item(ontoweaver.Node):
-
+# The `variant` class is declared through the config file, along with its properties.
+class variant(ontoweaver.Node):
     @staticmethod
-    def fields() -> list[str]:
-        return [ "timestamp" ]
+    def fields():
+        return ["timestamp", "version", "mutation_effect_description", "variant_summary"]
 
-class Relation(ontoweaver.Edge):
+class amplification(variant):
+    pass
 
-    @staticmethod
-    def fields() -> list[str]:
-        return [ "timestamp" ]
+class deletion(variant):
+    pass
 
-# Actual classes.
+class gain(variant):
+    pass
 
-class Patient(Item):
-
-    @staticmethod
-    def fields() -> list[str]:
-        return [ "age" ]
-
-
-class Target(Item):
-
-    @staticmethod
-    def fields() -> list[str]:
-        return []
-
-
-class Patient_has_target(Relation):
-
-    @staticmethod
-    def source_type():
-        return Patient
-
-    @staticmethod
-    def target_type():
-        return Target
-
-    @staticmethod
-    def fields() -> list[str]:
-        return []
-
-
-class Genome(Item):
-
-    @staticmethod
-    def fields() -> list[str]:
-        return [ "age" ]
-
-
-class Reference_genome(Relation):
-
-    @staticmethod
-    def source_type():
-        return Genome
-
-    @staticmethod
-    def target_type():
-        return Target
-
-    @staticmethod
-    def fields() -> list[str]:
-        return []
-
+class loss(variant):
+    pass
 
 # Allow accessing all ontoweaver.Item classes defined in this module.
 all = ontoweaver.All(sys.modules[__name__])
