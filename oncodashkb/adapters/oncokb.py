@@ -52,8 +52,13 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
     def source_type(self, row):
         from . import types
         if row["alteration"].lower() == "amplification":
-            logging.debug(f"Source type is `amplification`")
             return types.amplification # Declared in the oncokb.types module.
+        elif row["alteration"].lower() == "deletion":
+            return types.deletion
+        elif row["alteration"].lower() == "gain":
+            return types.gain
+        elif row["alteration"].lower() == "loss":
+            return types.loss
         else:
             logging.debug(f"Source type is `variant`")
             return types.variant # Declared dynamically through the config oncokb.yaml.

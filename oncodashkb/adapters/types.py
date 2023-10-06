@@ -14,6 +14,7 @@ class variant(ontoweaver.Node):
 
 class amplification(variant):
     pass
+    # Fields would be gathered from parent class.
 
 class deletion(variant):
     pass
