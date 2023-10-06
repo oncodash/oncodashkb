@@ -30,8 +30,8 @@ if __name__ == "__main__":
     with open(sys.argv[2]) as fd:
         conf = yaml.full_load(fd)
 
-    # Actully map the table to types with properties.
-    oncokb = od.oncokb.extract_all(df, conf)
+    # Actually map the table to types with properties.
+    oncokb = ontoweaver.tabular.extract_all(df, conf)
 
     # Write everything through Biocypher.
     logging.info(f"Extracted {len(list(oncokb.nodes))} nodes and {len(list(oncokb.edges))} edges.")
