@@ -16,7 +16,7 @@ columns:
                 - variant
     dataVersion:
         to_property:
-            data_version:
+            version:
                 - variant
     entrezGeneId:
         to_property:

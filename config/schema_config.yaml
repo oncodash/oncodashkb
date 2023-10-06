@@ -7,9 +7,13 @@ sequence variant:
     label_in_input: variant
     properties:
         timestamp: str
-        data_version: str
+        version: str
         mutation_effect_description: str
         variant_summary: str
+
+copy number increase: # For some reason, Biocypher needs to avoid underscores, which SO uses.
+    represented_as: node
+    label_in_input: amplification
 
 
 # PATIENT
@@ -36,7 +40,7 @@ genome:
     represented_as: node
     label_in_input: genome
 
-reference genome:
+reference genome: # Not existing in Biolink.
     is_a: genotype to phenotypic feature association
     represented_as: edge
     label_in_input: reference_genome
@@ -79,7 +83,7 @@ oncogenicity: # Not in Biolink
     represented_as: node
     label_in_input: oncogenicity
 
-variant to oncogenicity:
+variant to oncogenicity: # Not in Biolink
     is_a: variant to phenotypic feature association
     represented_as: edge
     label_in_input: variant_to_oncogenicity
