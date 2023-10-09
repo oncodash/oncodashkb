@@ -147,6 +147,16 @@ variant to oncogenicity: # Not in Biolink
 # # EVIDENCE
 # ########################################
 
+publication:
+    represented_as: node
+    label_in_input: publication
+
+information content entity to named thing association:
+    represented_as: edge
+    label_in_input: published
+    source: publication
+    target: sequence variant
+
 # confidence level:
 #   represented_as: node
 #   preferred_id: [vicc, escat]

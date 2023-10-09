@@ -25,5 +25,6 @@ class gain(variant):
 class loss(variant):
     pass
 
+
 # Allow accessing all ontoweaver.Item classes defined in this module.
 all = ontoweaver.All(sys.modules[__name__])

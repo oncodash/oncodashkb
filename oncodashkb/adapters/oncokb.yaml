@@ -44,3 +44,9 @@ columns:
         to_property:
             tumor_type_summary:
                 - disease
+    citationPMids:
+        into_generator:
+            split:
+                separator: ","
+            to_object: publication
+            via_relation: published
