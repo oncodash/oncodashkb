@@ -9,30 +9,32 @@ from biocypher import BioCypher
 import ontoweaver
 import oncodashkb.adapters as od
 
-def extract(bc, csv_filename, manager_t, conf_filename):
+def extract(bc, csv_filenames, manager_t, conf_filename):
 
-    # Taple input data.
-    df = pd.read_csv(csv_filename)
+    for csv_filename in csv_filenames:
 
-    # Extraction mapping configuration.
-    with open(conf_filename) as fd:
-        conf = yaml.full_load(fd)
+        # Taple input data.
+        df = pd.read_csv(csv_filename)
 
-    manager = manager_t(df, conf)
-    manager.run()
+        # Extraction mapping configuration.
+        with open(conf_filename) as fd:
+            conf = yaml.full_load(fd)
 
-    # Write everything through Biocypher.
-    logging.info(f"Extracted {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
+        manager = manager_t(df, conf)
+        manager.run()
 
-    logging.info("Write nodes...")
-    for n in manager.nodes:
-        logging.debug(n)
-    bc.write_nodes( manager.nodes )
+        # Write everything through Biocypher.
+        logging.info(f"Extracted {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
 
-    logging.info("Write edges...")
-    for e in manager.edges:
-        logging.debug(e)
-    bc.write_edges( manager.edges )
+        logging.info("Write nodes...")
+        for n in manager.nodes:
+            logging.debug(n)
+        bc.write_nodes( manager.nodes )
+
+        logging.info("Write edges...")
+        for e in manager.edges:
+            logging.debug(e)
+        bc.write_edges( manager.edges )
 
 
 if __name__ == "__main__":
@@ -41,10 +43,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=usage)
 
-    parser.add_argument("-o", "--oncokb", metavar="CSV",
+    parser.add_argument("-o", "--oncokb", metavar="CSV", action="append",
             help="Extract from an OncoKB CSV file.")
 
-    parser.add_argument("-c", "--cgi", metavar="CSV",
+    parser.add_argument("-c", "--cgi", metavar="CSV", action="append",
             help="Extract from a CGI CSV file.")
 
     asked = parser.parse_args()
