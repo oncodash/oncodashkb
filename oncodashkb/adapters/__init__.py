@@ -1,4 +1,5 @@
 
 # from . import types
 from . import oncokb
-__all__ = ['types', 'oncokb']
+from . import cgi
+__all__ = ['types', 'oncokb', 'cgi']
