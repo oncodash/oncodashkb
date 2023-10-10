@@ -147,7 +147,8 @@ variant to oncogenicity: # Not in Biolink
 # # EVIDENCE
 # ########################################
 
-publication:
+publication_pubmed:
+    is_a: publication
     represented_as: node
     label_in_input: publication
 
