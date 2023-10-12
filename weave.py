@@ -11,6 +11,9 @@ import oncodashkb.adapters as od
 
 def extract(bc, csv_filenames, manager_t, conf_filename):
 
+    nodes = []
+    edges = []
+
     for csv_filename in csv_filenames:
 
         # Taple input data.
@@ -23,18 +26,12 @@ def extract(bc, csv_filenames, manager_t, conf_filename):
         manager = manager_t(df, conf)
         manager.run()
 
-        # Write everything through Biocypher.
+        nodes += manager.nodes
+        edges += manager.edges
+
         logging.info(f"Extracted {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
 
-        logging.info("Write nodes...")
-        for n in manager.nodes:
-            logging.debug(n)
-        bc.write_nodes( manager.nodes )
-
-        logging.info("Write edges...")
-        for e in manager.edges:
-            logging.debug(e)
-        bc.write_edges( manager.edges )
+    return nodes, edges
 
 
 if __name__ == "__main__":
@@ -60,14 +57,32 @@ if __name__ == "__main__":
     )
     # bc.show_ontology_structure()
 
+
+    # Actually extract data.
+    nodes = []
+    edges = []
+
     if asked.oncokb:
-        extract(bc, asked.oncokb, od.oncokb.OncoKB, "./oncodashkb/adapters/oncokb.yaml")
+        n,e = extract(bc, asked.oncokb, od.oncokb.OncoKB, "./oncodashkb/adapters/oncokb.yaml")
+        nodes += n
+        edges += e
 
     if asked.cgi:
-        extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
+        n,e = extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
+        nodes += n
+        edges += e
+
+
+    # Write everything.
+
+    logging.info("Write nodes...")
+    bc.write_nodes( nodes )
+
+    logging.info("Write edges...")
+    bc.write_edges( edges )
 
     import_file = bc.write_import_call()
 
-    bc.summary()
+    # bc.summary()
 
     print(import_file)
