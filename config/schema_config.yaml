@@ -2,6 +2,8 @@
 # IDENTIFICATION
 ########################################
 
+## Tail-in SO -> Biolink
+
 sequence variant:
     represented_as: node
     label_in_input: variant
@@ -11,7 +13,11 @@ sequence variant:
         mutation_effect_description: str
         variant_summary: str
 
+
+## Under structural_variant in SO
+
 copy number increase: # For some reason, Biocypher needs to avoid underscores, which SO uses.
+# FIXME or is it sequence_feature > copy_number_gain ?
     represented_as: node
     label_in_input: amplification
     properties:
@@ -21,13 +27,17 @@ copy number increase: # For some reason, Biocypher needs to avoid underscores, w
         variant_summary: str
 
 copy number decrease:
+# FIXME or is it sequence_feature > copy_number_loss ?
     represented_as: node
-    label_in_input: deletion
+    label_in_input: deletion # FIXME or is it sequence_alteration > deletion ?
     properties:
         timestamp: str
         version: str
         mutation_effect_description: str
         variant_summary: str
+
+
+## Under functional_effect_variant in SO:
 
 gain of function variant:
     represented_as: node
@@ -62,6 +72,19 @@ patient has variant: # Not existing in Biolink…
     represented_as: edge
     label_in_input: patient_has_variant
     source: sequence variant
+    target: patient
+
+# FIXME OncoKB data do not recall samples, but CGI does. Add a generic patient sample in OncoKB adapter and link through it.
+
+material sample:
+    represented_as: node
+    label_in_input: sample
+
+sample to patient:
+    is_a: material sample to entity association mixin
+    represented_as: edge
+    label_in_input: sample_to_patient
+    source: material sample
     target: patient
 
 
@@ -122,6 +145,33 @@ variant to oncogenicity: # Not in Biolink
     source: sequence variant
     target: oncogenicity
 
+
+# SEQUENCE FEATURES
+# =================
+
+chromosome:
+    is_a: NucleicAcidEntity # Surpisingly missing from Biolink? Maybe double-check.
+    represented_as: node
+    label_in_input: chromosome
+
+genomic sequence localization:
+    represented_as: edge
+    label_in_input: variant_on_chromosome
+    source: sequence variant
+    target: chromosome
+    properties:
+        base coordinate: int
+        strand: str
+
+sequence variant to sequence feature association:
+    is_a: association
+    represented_as: edge
+    source: sequence variant
+    target: sequence feature
+
+SNV:
+    represented_as: node
+    label_in_input: SNV
 
 # ########################################
 # # ALTERATION <-> BIOMARKER

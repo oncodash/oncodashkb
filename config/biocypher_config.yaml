@@ -9,10 +9,14 @@ biocypher:
         root_node: entity
 
     tail_ontologies:
-        so:
+        so_variant:
             url: http://purl.obolibrary.org/obo/so.owl
             head_join_node: sequence variant
             tail_join_node: sequence_variant
+        so_feature:
+            url: http://purl.obolibrary.org/obo/so.owl
+            head_join_node: attribute
+            tail_join_node: sequence_feature
 
 neo4j:
     database_name: oncodash

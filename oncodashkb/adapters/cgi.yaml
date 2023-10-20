@@ -7,4 +7,8 @@ columns:
     gene:
         to_object: gene_hugo
         via_relation: variant_in_gene
+    sample:
+        to_object: sample
+        via_relation: sample_to_patient
+    # TODO sequence features (SNV, etc.)
 
