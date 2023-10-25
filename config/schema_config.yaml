@@ -173,6 +173,20 @@ SNV:
     represented_as: node
     label_in_input: SNV
 
+
+# TRANSCRIPTS
+# ===========
+
+transcript:
+    represented_as: node
+    label_in_input: transcript
+
+transcript to gene relationship:
+    represented_as: edge
+    source: transcript
+    target: gene
+    label_in_input: transcript_to_gene_relationship
+
 # ########################################
 # # ALTERATION <-> BIOMARKER
 # ########################################
