@@ -21,7 +21,7 @@ biocypher:
 neo4j:
     database_name: oncodash
     wipe: true
-    delimiter: '\t'
+    delimiter: ';'
     array_delimiter: '|'
     skip_duplicate_nodes: true
     skip_bad_relationships: true
