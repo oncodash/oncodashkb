@@ -145,6 +145,24 @@ variant to oncogenicity: # Not in Biolink
     source: sequence variant
     target: oncogenicity
 
+patient has chronic illness:
+    is_a: entity to disease association
+    represented_as: edge
+    label_in_input: patient_has_chronic_illness
+    source: entity
+    target: disease
+
+treatment:
+    represented_as: node
+    label_in_input: treatment
+
+patient has treatment:
+    is_a: association
+    represented_as: edge
+    label_in_input: patient_has_treatment
+    source: patient
+    target: treatment
+
 
 # SEQUENCE FEATURES
 # =================

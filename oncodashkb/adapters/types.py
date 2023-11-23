@@ -6,6 +6,11 @@ from enum import auto
 
 import ontoweaver
 
+class patient(ontoweaver.Node):
+    @staticmethod
+    def fields():
+        return ["cohort_code", "survival"]
+
 # The `variant` class is declared through the config file, along with its properties.
 class variant(ontoweaver.Node):
     @staticmethod

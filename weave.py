@@ -46,6 +46,9 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--cgi", metavar="CSV", action="append",
             help="Extract from a CGI CSV file.")
 
+    parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
+            help="Extract from a clinical CSV file.")
+
     asked = parser.parse_args()
 
 
@@ -62,6 +65,7 @@ if __name__ == "__main__":
     nodes = []
     edges = []
 
+    # FIXME: allow passing several CSV files by parser.
     if asked.oncokb:
         n,e = extract(bc, asked.oncokb, od.oncokb.OncoKB, "./oncodashkb/adapters/oncokb.yaml")
         nodes += n
@@ -69,6 +73,12 @@ if __name__ == "__main__":
 
     if asked.cgi:
         n,e = extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
+        nodes += n
+        edges += e
+
+    if asked.clinical:
+        # TODO filter patients, keeping the ones already seen in cancer databases?
+        n,e = extract(bc, asked.clinical, od.clinical.Clinical, "./oncodashkb/adapters/clinical.yaml")
         nodes += n
         edges += e
 

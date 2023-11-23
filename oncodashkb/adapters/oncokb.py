@@ -52,7 +52,7 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
     def source_type(self, row):
         from . import types
         if row["alteration"].lower() == "amplification":
-            return types.amplification # Declared in the oncokb.types module.
+            return types.amplification # Declared in the oncodash.types module.
         elif row["alteration"].lower() == "deletion":
             return types.deletion
         elif row["alteration"].lower() == "gain":

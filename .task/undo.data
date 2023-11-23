@@ -71,3 +71,9 @@ new [description:"ontoweaver module: Modularize out the adapter machinery in an 
 time 1697038412
 new [description:"GREL transformers: implement OpenRefine’s General Refine Expression Language and allow GREL scripts in transformers https:\/\/openrefine.org\/docs\/manual\/grel" entry:"1697038412" modified:"1697038412" status:"pending" tags:"feat" tags_feat:"x" uuid:"e8ee5ebd-03a0-4334-b23d-319caf054bb9"]
 ---
+time 1700664629
+new [description:"sqlite3: allow Tabular to take its input from a SQLite3 table" entry:"1700664629" modified:"1700664629" status:"pending" tags:"feat" tags_feat:"x" uuid:"a9b32aeb-2f7a-4a1d-a699-263821ac74e3"]
+---
+time 1700745027
+new [description:"fix properties: source-row properties do not seem to be pulled during parsing" entry:"1700745027" modified:"1700745027" priority:"M" status:"pending" tags:"bug" tags_bug:"x" uuid:"45e768eb-2088-4020-9a9b-0d4c2b8b8f5d"]
+---
