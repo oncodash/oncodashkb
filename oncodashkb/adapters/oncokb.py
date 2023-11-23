@@ -63,3 +63,16 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
             logging.debug(f"Source type is `variant`")
             return types.variant # Declared dynamically through the config oncokb.yaml.
 
+    def end(self):
+        from . import types
+        # Manual extraction of an additional edge between sample and patient.
+        # Because so far the PandasAdapter only allow to declare one mapping for each column.
+        for i,row in self.df.iterrows():
+            sid = row["sample_id"]
+            pid = row["patient_id"]
+            logging.debug(f"Add a `sample_to_patient` edge between `{sid}` and `{pid}`")
+            self.edges_append( self.make_edge(
+                types.sample_to_patient, id=None,
+                id_source=sid, id_target=pid
+            ))
+

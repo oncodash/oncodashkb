@@ -50,3 +50,19 @@ columns:
                 separator: ","
             to_object: publication
             via_relation: published
+    treatments:
+        into_transformer:
+            split:
+                separator: ";"
+            to_object: drug
+            via_relation: variant_affected_by_drug
+    knownEffect:
+        to_object: functional_effect
+        via_relation: variant_has_effect
+    sample_id:
+        to_object: sample
+        via_relation: variant_in_sample
+
+    # TODO
+    # consequence:
+    # knownEffect:

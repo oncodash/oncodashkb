@@ -6,10 +6,28 @@ from enum import auto
 
 import ontoweaver
 
+class sample(ontoweaver.Node):
+    @staticmethod
+    def fields():
+        return []
+
 class patient(ontoweaver.Node):
     @staticmethod
     def fields():
         return ["cohort_code", "survival"]
+
+class sample_to_patient(ontoweaver.Edge):
+    @staticmethod
+    def source_type():
+        return sample
+
+    @staticmethod
+    def target_type():
+        return patient
+
+    @staticmethod
+    def fields():
+        return []
 
 # The `variant` class is declared through the config file, along with its properties.
 class variant(ontoweaver.Node):

@@ -30,7 +30,7 @@ else
 fi
 $server stop
 # ./weave.py --oncokb $data_dir/genomics_oncokbannotation.csv --cgi $data_dir/genomics_cgimutation.csv --clinical $data_dir/clin_overview_clinicaldata.csv > tmp.sh
-./weave.py --clinical $data_dir/clin_overview_clinicaldata.csv  > tmp.sh
+./weave.py --oncokb $data_dir/genomics_oncokbannotation.csv > tmp.sh
 cat $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
 $server start
 sleep 5
