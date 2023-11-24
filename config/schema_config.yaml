@@ -242,10 +242,11 @@ drug:
   represented_as: node
   label_in_input: drug
 
-variant_affected_by_drug:
+variant affected by drug:
     is_a: chemical affects gene association
     represented_as: edge
-    source: variant
+    label_in_input: variant_affected_by_drug
+    source: sequence variant
     target: drug
 
 # ########################################
