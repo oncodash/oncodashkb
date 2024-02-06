@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.9"
 biocypher = "^0.5.4"
 pooch = "^1.7.0"
-pndas = "^1.5.3"
+pandas = "^1.5.3"
 
 [build-system]
 requires = ["poetry-core"]
