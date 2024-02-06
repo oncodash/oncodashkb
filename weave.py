@@ -49,10 +49,20 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
             help="Extract from a clinical CSV file.")
 
+    levels = {
+        "DEBUG": logging.DEBUG,
+        "INFO": logging.INFO,
+        "WARNING": logging.WARNING,
+        "ERROR": logging.ERROR,
+        "CRITICAL": logging.CRITICAL
+    }
+
+    parser.add_argument("-v", "--verbose", metavar="LEVEL",
+            help="Set the verbose level ("+" ".join(l for l in levels.keys())+").")
+
     asked = parser.parse_args()
 
-
-    logging.basicConfig(level = logging.INFO, format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
+    logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
 
     bc = BioCypher(
         biocypher_config_path = "config/biocypher_config.yaml",
