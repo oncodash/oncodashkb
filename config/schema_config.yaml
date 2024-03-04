@@ -76,6 +76,21 @@ variant has effect:
     source: sequence variant
     target: functional effect
 
+mutation outcome:
+    represented_as: node
+    label_in_input: mutation_outcome
+    synonym_for: event #FIX IT (used to check that we can add something not from entity - we can't)
+    properties:
+        protein_start: int
+        protein_end: int
+
+variant has consequence: #not existing in Biolink
+    is_a: variant to entity association mixin
+    represented_as: edge
+    label_in_input: variant_has_consequence
+    source: sequence variant
+    target: mutation outcome
+
 
 # PATIENT
 # =======
@@ -253,7 +268,7 @@ variant affected by drug:
 # # EVIDENCE
 # ########################################
 
-publication_pubmed:
+publication_pubmed: # maybe without _ ?
     is_a: publication
     represented_as: node
     label_in_input: publication
@@ -263,6 +278,20 @@ information content entity to named thing association:
     label_in_input: published
     source: publication
     target: sequence variant
+
+fda evidence level: #not in Biolink
+    is_a: information content entity
+    represented_as: node
+    label_in_input: fda_evidence_level
+    properties:
+       highest_sensitive_level: str
+
+variant to evidence: #not in Biolink
+    is_a: association
+    represented_as: edge
+    label_in_input: variant_to_evidence
+    source: sequence variant
+    target: fda evidence level
 
 # confidence level:
 #   represented_as: node

@@ -1,4 +1,3 @@
-
 subject: variant
 columns:
     patient_id:
@@ -62,7 +61,21 @@ columns:
     sample_id:
         to_object: sample
         via_relation: variant_in_sample
-
-    # TODO
-    # consequence:
-    # knownEffect:
+    highestFdaLevel:
+        to_object: fda_evidence_level
+        via_relation: variant_to_evidence
+    highestSensitiveLevel:
+        to_property:
+            highest_sensitive_level:
+                -fda_evidence_level
+    consequence:
+        to_object: mutation_outcome
+        via_relation: variant_has_consequence
+    proteinStart:
+        to_property:
+            protein_start:
+                - mutation_outcome
+    proteinEnd:
+        to_property:
+            protein_end:
+                - mutation_outcome
