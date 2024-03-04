@@ -34,10 +34,18 @@ As of now, OncodashKB targets using Neo4j, which have some particularities.
 So far, it has been tested with Neo4j 5.11, using a
 [patched version of Biocypher](https://github.com/jdreo/biocypher/tree/feat/neo4j-5+).
 
-Note that the community edition of Neo4j do not support multiple database,
+Note that the [community edition](https://neo4j.com/deployment-center/) of Neo4j do not support multiple database,
 hence the need to configure the default database in `neo4j.conf` to be:
 `initial.dbms.default_database=oncodash`, before starting Neo4j with
 `neo4j-admin server start`.
+
+Ensure that the `bin/` directory of Neo4j is added to PATH.
+
+The [community edition](https://neo4j.com/deployment-center/) of Neo4j is
+packaged with a neo4j-browser, and can be accessed via the localhost link provided after running
+`neo4j-admin server start`. The default username and password are set to " neo4j ", and should be changed 
+upon initial usage. Before importing to the database, the server should be stopped 
+with the command `neo4j-admin server stop`.
 
 
 ## Usage
@@ -78,6 +86,8 @@ To visualize [a part of] the graph, you can use
 [neo4j-browser](https://github.com/neo4j/neo4j-browser)
 with a similar Cypher query.
 
+
+
 Notes:
 - Neo4j-browser [needs a specific node version](https://github.com/neo4j/neo4j-browser/issues/1833), you can install it with:
   ```
@@ -88,10 +98,14 @@ Notes:
   yarn install
   yarn start
   ```
+
+- In case of installation through the [community edition](https://neo4j.com/deployment-center/) release nodes should
+- automatically be compatible.
 - Neo4j server disable connection across the network by default.
   To connect the browser to a server on another machine,
   be sure to edit the server's `neo4j.conf` with the `0.0.0.0` address:
   `server.bolt.listen_address=0.0.0.0:7687`
+- Be shure to check if `JAVA_HOME` in `make.sh` is pointing to the correct directory.
 
 
 ## Development
