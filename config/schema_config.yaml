@@ -16,46 +16,46 @@ sequence variant:
 
 ## Under structural_variant in SO
 
-copy number increase: # For some reason, Biocypher needs to avoid underscores, which SO uses.
+#copy number increase: # For some reason, Biocypher needs to avoid underscores, which SO uses.
 # FIXME or is it sequence_feature > copy_number_gain ?
-    represented_as: node
-    label_in_input: amplification
-    properties:
-        timestamp: str
-        version: str
-        mutation_effect_description: str
-        variant_summary: str
+#    represented_as: node
+#    label_in_input: amplification
+#   properties:
+#        timestamp: str
+#        version: str
+#        mutation_effect_description: str
+#      variant_summary: str
 
-copy number decrease:
+#copy number decrease:
 # FIXME or is it sequence_feature > copy_number_loss ?
-    represented_as: node
-    label_in_input: deletion # FIXME or is it sequence_alteration > deletion ?
-    properties:
-        timestamp: str
-        version: str
-        mutation_effect_description: str
-        variant_summary: str
+#    represented_as: node
+#    label_in_input: deletion # FIXME or is it sequence_alteration > deletion ?
+#    properties:
+#        timestamp: str
+#        version: str
+#        mutation_effect_description: str
+#        variant_summary: str
 
 
 ## Under functional_effect_variant in SO:
 
-gain of function variant:
-    represented_as: node
-    label_in_input: gain
-    properties:
-        timestamp: str
-        version: str
-        mutation_effect_description: str
-        variant_summary: str
+#gain of function variant:
+#    represented_as: node
+#    label_in_input: gain
+#    properties:
+#        timestamp: str
+#        version: str
+#        mutation_effect_description: str
+#        variant_summary: str
 
-loss of function variant:
-    represented_as: node
-    label_in_input: loss
-    properties:
-        timestamp: str
-        version: str
-        mutation_effect_description: str
-        variant_summary: str
+#loss of function variant:
+#    represented_as: node
+#    label_in_input: loss
+#    properties:
+#        timestamp: str
+#        version: str
+#        mutation_effect_description: str
+#        variant_summary: str
 
 variant in sample:
     is_a: material sample to entity association mixin
@@ -75,22 +75,6 @@ variant has effect:
     label_in_input: variant_has_effect
     source: sequence variant
     target: functional effect
-
-mutation outcome:
-    represented_as: node
-    label_in_input: mutation_outcome
-    synonym_for: event #FIX IT (used to check that we can add something not from entity - we can't)
-    properties:
-        protein_start: int
-        protein_end: int
-
-variant has consequence: #not existing in Biolink
-    is_a: variant to entity association mixin
-    represented_as: edge
-    label_in_input: variant_has_consequence
-    source: sequence variant
-    target: mutation outcome
-
 
 # PATIENT
 # =======
@@ -241,6 +225,22 @@ transcript to gene relationship:
 # # ALTERATION <-> BIOMARKER
 # ########################################
 
+alteration:
+    is_a: sequence variant
+    represented_as: node
+    label_in_input: alteration
+    properties:
+        alteration_consequence: str
+        protein_start: int
+        protein_end: int
+
+variant to alteration:
+    is_a: association
+    represented_as: edge
+    label_in_input: variant_to_alteration
+    source: sequence variant
+    target: alteration
+
 # ########################################
 # # RESPONSE
 # ########################################
@@ -279,19 +279,29 @@ information content entity to named thing association:
     source: publication
     target: sequence variant
 
-fda evidence level: #not in Biolink
-    is_a: information content entity
+fda evidence level:
+    is_a: confidence level
     represented_as: node
     label_in_input: fda_evidence_level
-    properties:
-       highest_sensitive_level: str
 
-variant to evidence: #not in Biolink
+oncokb evidence level:
+    is_a: confidence level
+    represented_as: node
+    label_in_input: oncokb_evidence_level
+
+variant to fda evidence:
     is_a: association
     represented_as: edge
-    label_in_input: variant_to_evidence
+    label_in_input: variant_to_fda_evidence
     source: sequence variant
     target: fda evidence level
+
+variant to oncokb evidence:
+    is_a: association
+    represented_as: edge
+    label_in_input: variant_to_oncokb_evidence
+    source: sequence variant
+    target: oncokb evidence level
 
 # confidence level:
 #   represented_as: node
@@ -331,3 +341,4 @@ variant to evidence: #not in Biolink
 #   is_a: association
 #   represented_as: edge
 #   label_in_input: confidence_level_to_confidence_level
+

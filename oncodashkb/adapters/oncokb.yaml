@@ -61,21 +61,25 @@ columns:
     sample_id:
         to_object: sample
         via_relation: variant_in_sample
-    highestFdaLevel:
-        to_object: fda_evidence_level
-        via_relation: variant_to_evidence
-    highestSensitiveLevel:
-        to_property:
-            highest_sensitive_level:
-                -fda_evidence_level
+    alteration:
+        to_object: alteration
+        via_relation: variant_to_alteration
     consequence:
-        to_object: mutation_outcome
-        via_relation: variant_has_consequence
+        to_property:
+            alteration_consequence:
+                - alteration
     proteinStart:
         to_property:
             protein_start:
-                - mutation_outcome
+                - alteration
     proteinEnd:
         to_property:
             protein_end:
-                - mutation_outcome
+                - alteration
+    highestFdaLevel:
+        to_object: fda_evidence_level
+        via_relation: variant_to_fda_evidence
+    highestSensitiveLevel:
+        to_object: oncokb_evidence_level
+        via_relation: variant_to_oncokb_evidence
+
