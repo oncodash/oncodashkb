@@ -226,7 +226,7 @@ transcript to gene relationship:
 # ########################################
 
 alteration:
-    is_a: sequence variant
+    is_a: biological entity
     represented_as: node
     label_in_input: alteration
     properties:
@@ -268,7 +268,7 @@ variant affected by drug:
 # # EVIDENCE
 # ########################################
 
-publication_pubmed: # maybe without _ ?
+publication pubmed:
     is_a: publication
     represented_as: node
     label_in_input: publication
@@ -279,29 +279,36 @@ information content entity to named thing association:
     source: publication
     target: sequence variant
 
-fda evidence level:
-    is_a: confidence level
-    represented_as: node
-    label_in_input: fda_evidence_level
-
 oncokb evidence level:
     is_a: confidence level
     represented_as: node
     label_in_input: oncokb_evidence_level
 
-variant to fda evidence:
-    is_a: association
-    represented_as: edge
-    label_in_input: variant_to_fda_evidence
-    source: sequence variant
-    target: fda evidence level
+fda evidence level:
+    is_a: confidence level
+    represented_as: node
+    label_in_input: fda_evidence_level
 
-variant to oncokb evidence:
+variant to evidence:
     is_a: association
     represented_as: edge
-    label_in_input: variant_to_oncokb_evidence
+    label_in_input: variant_to_evidence
     source: sequence variant
-    target: oncokb evidence level
+    target: confidence level
+
+#variant to fda evidence:
+#    is_a: association
+#    represented_as: edge
+#   label_in_input: variant_to_fda_evidence
+#    source: sequence variant
+#    target: fda evidence level
+
+#variant to oncokb evidence:
+#    is_a: association
+#    represented_as: edge
+#    label_in_input: variant_to_oncokb_evidence
+#    source: sequence variant
+#    target: oncokb evidence level
 
 # confidence level:
 #   represented_as: node
