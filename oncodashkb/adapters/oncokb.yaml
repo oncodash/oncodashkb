@@ -1,4 +1,3 @@
-
 subject: variant
 columns:
     patient_id:
@@ -62,7 +61,26 @@ columns:
     sample_id:
         to_object: sample
         via_relation: variant_in_sample
+    alteration:
+        to_object: alteration
+        via_relation: variant_to_alteration
+    consequence:
+        to_property:
+            alteration_consequence:
+                - alteration
+    proteinStart:
+        to_property:
+            protein_start:
+                - alteration
+    proteinEnd:
+        to_property:
+            protein_end:
+                - alteration
+    highestFdaLevel:
+        to_object: fda_evidence_level
+        via_relation: variant_to_evidence
+    highestSensitiveLevel:
+        to_object: oncokb_evidence_level
+        via_relation: variant_to_evidence
 
-    # TODO
-    # consequence:
-    # knownEffect:
+
