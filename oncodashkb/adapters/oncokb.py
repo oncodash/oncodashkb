@@ -49,20 +49,6 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
             edge_fields,
         )
 
-    def source_type(self, row):
-        from . import types
-        if row["alteration"].lower() == "amplification":
-            return types.amplification # Declared in the oncodash.types module.
-        elif row["alteration"].lower() == "deletion":
-            return types.deletion
-        elif row["alteration"].lower() == "gain":
-            return types.gain
-        elif row["alteration"].lower() == "loss":
-            return types.loss
-        else:
-            logging.debug(f"Source type is `variant`")
-            return types.variant # Declared dynamically through the config oncokb.yaml.
-
     def end(self):
         from . import types
         # Manual extraction of an additional edge between sample and patient.
