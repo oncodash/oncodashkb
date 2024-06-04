@@ -349,3 +349,59 @@ variant to evidence:
 #   represented_as: edge
 #   label_in_input: confidence_level_to_confidence_level
 
+# Main node type (e.g. of the line of the table).
+annotation: # The type in Biolink
+    is_a: entity
+    represented_as: node
+    label_in_input: annotation
+
+annotation for gene:
+    is_a: association
+    represented_as: edge
+    label_in_input: annotation_for_gene
+    source: annotation
+    target: gene
+
+biological process:
+    represented_as: node
+    input_label: biological_process
+
+molecular function:
+    is_a: molecular activity #name in biolink
+    represented_as: node
+    input_label: molecular_function
+
+enables:
+    is_a: macromolecular machine to molecular activity association #  edge type from biolink
+    represented_as: edge
+    label_in_input: enables
+    source: gene
+    target: molecular function
+
+contributes to:
+    is_a: macromolecular machine to molecular activity association #  edge type from biolink
+    represented_as: edge
+    label_in_input: contributes_to
+    source: gene
+    target: molecular function
+
+involved in:
+    is_a: macromolecular machine to biological process association #  edge type from biolink
+    represented_as: edge
+    label_in_input: involved_in
+    source: gene
+    target: biological process
+
+gene to molecular function:
+    is_a: macromolecular machine to molecular activity association
+    represented_as: edge
+    label_in_input: gene_to_molecular_function
+    source: gene
+    target: molecular function
+
+gene to biological process:
+    is_a: macromolecular machine to biological process association
+    represented_as: edge
+    label_in_input: gene_to_biological_process
+    source: gene
+    target: biological process

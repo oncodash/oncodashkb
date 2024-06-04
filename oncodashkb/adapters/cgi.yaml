@@ -15,3 +15,7 @@ columns:
         from_subject: gene_hugo
         to_object: transcript
         via_relation: transcript_to_gene_relationship
+    oncogenic_summary:
+        from_subject: variant
+        to_object: disease
+        via_relation: variant_to_disease
