@@ -7,12 +7,15 @@ from collections.abc import Iterable
 
 import pandas as pd
 
+from owlready2 import get_ontology
+
 
 class Gene_ontology(ontoweaver.tabular.PandasAdapter):
 
     def __init__(self,
                  df: pd.DataFrame,
                  ontology: str,
+                 genes_list: str,
                  config: dict,
                  node_types: Optional[Iterable[ontoweaver.Node]] = None,
                  node_fields: Optional[list[str]] = None,
@@ -21,6 +24,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
                  ):
 
         self.ontology = ontology
+        self.genes_list = genes_list
 
         # define column names based on the GAF specification
         columns = ['DB', 'DB_Object_ID', 'DB_Object_Symbol', 'Qualifier', 'GO_ID', 'DB_Reference', 'Evidence_Code',
@@ -39,6 +43,8 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
                 dict_go_plus[key] = dict_go_plus[key].replace(',', '')
             if ';' in dict_go_plus[key]:
                 dict_go_plus[key] = dict_go_plus[key].replace(';', '')
+            if '\'' in dict_go_plus[key]:
+                dict_go_plus[key] = dict_go_plus[key].replace('\'', '')
 
         # create additional column with GO terms (mapped from GO_id)
         df['GO_term'] = df['GO_ID'].map(lambda go_id: dict_go_plus[go_id])
@@ -53,21 +59,16 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
 
         df = df.apply(self.separate_edges_types, axis=1)
 
-        # list of genes presented in OncoKB database
-
-        genes = ['MET', 'BRAF', 'EZH2', 'CDKN2A', 'ETV6', 'ETNK1', 'KRAS', 'NTRK3',
-                 'IDH2', 'MAF', 'BRCA1', 'TP53', 'BCOR', 'FGFR1', 'MYC', 'JAK2',
-                 'CD274', 'PDCD1LG2', 'PIK3CA', 'BCL6', 'TP63', 'IL7R', 'MDM2',
-                 'SETBP1', 'FBXW7', 'ABL1', 'MAP2K1', 'TYK2', 'EPOR', 'ERCC2',
-                 'SMARCB1', 'CHEK2', 'PDGFB', 'EP300', 'STAG2', 'PHF6', 'FGFR2',
-                 'FGFR3', 'NRG1', 'GATA3', 'HRAS', 'ERBB2', 'BCL2', 'TCF3', 'CEBPA',
-                 'CRLF2', 'ZRSR2', 'NOTCH1', 'TNFRSF14', 'BARD1', 'ESR1', 'PTCH1',
-                 'FANCA', 'KLF2', 'MALT1', 'CALR', 'DNMT3A', 'ALK', 'SF3B1', 'IDH1',
-                 'DUSP22', 'IRF4', 'BIRC3', 'ATM', 'ASXL1', 'ATRX']
+        '''
+        List of genes the annotation for which we will integrate from Gene Ontology data,
+        Reading from GO_genes.conf file 
+        By default = genes from OncoKB database
+        '''
+        included_genes = self.read_genes_list()
 
         # cut df to include only edge type that we have chosen and annotations for genes from OncoKB
         df = df[((df['Qualifier'].isin(['enables', 'involved_in', 'contributes_to'])) &
-                 (df['DB_Object_Symbol'].isin(genes)))]
+                 (df['DB_Object_Symbol'].isin(included_genes)))]
 
         # Default mapping as a simple config.
         from . import types
@@ -103,30 +104,31 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
     def create_id_term_dict(self):
         dict_id_term = {}
 
-        with open(self.ontology, 'r') as file:
-            flag = 0
-            saved_id = None
-            saved_label = None
+        ont = get_ontology(self.ontology).load()
 
-            # check each line
-            for line in file:
-                # cut "GO:11111111" (save as GO_11111111)
-                if '<!-- http://purl.obolibrary.org/obo/GO_' in line:
-                    saved_id = line.strip()
-                    saved_id = saved_id.replace('<!-- http://purl.obolibrary.org/obo/', '').replace(' -->', '').replace(
-                        '\n', '')
-                    saved_id = saved_id.replace('GO_', 'GO:')
-                    flag = 1
-                # cut the term for this id
-                elif flag == 1 and '   <rdfs:label>' in line:
-                    saved_label = line.strip()
-                    saved_label = saved_label.replace('<rdfs:label>', '').replace('</rdfs:label>', '')
-                    flag = 0
-                    # add in dictionary "id":"term"
-                    dict_id_term[saved_id] = saved_label
-                    # print(saved_line)
-                    # print(saved_label, '\n')
-            return dict_id_term
+        # iterate through all classes in the ontology
+        for cls in ont.classes():
+            # get the class ID and label (term)
+            class_id = cls.iri # read class_id like http://purl.obolibrary.org/obo/GO_0003674'
+            class_label = cls.label.first() if cls.label else cls.name
+
+            # make the same key as we have in GO annotation files
+            class_id_key = class_id.replace("http://purl.obolibrary.org/obo/GO_", "GO:")
+            # add to dictionary like GO:0003674': 'molecular_function'
+            dict_id_term[class_id_key] = class_label
+
+        return dict_id_term
+
+    def read_genes_list(self):
+
+        with open(self.genes_list, 'r') as file:
+
+            content = file.read()
+            genes = content.replace('\n', '').split(',')
+            genes = [gene.strip().strip("'") for gene in genes]
+            genes = list(filter(None, genes))
+
+        return genes
 
     # function to copy GO_term to related column for future ontoweaver mapping based on Qualifier column (relation type)
 
@@ -149,6 +151,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
         from . import types
         # Manual extraction of an additional edge between sample and patient.
         # Because so far the PandasAdapter only allow to declare one mapping for each column.
+        # FIXME comment indicating that we should find a way to handle the type suffix/prefix through a make_id function in the next refactoring of OntoWeaver.
         for i, row in self.df.iterrows():
             separator = ":"
 
