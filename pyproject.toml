@@ -10,6 +10,7 @@ python = "^3.9"
 biocypher = "^0.5.4"
 pooch = "^1.7.0"
 pandas = "^1.5.3"
+owlready2 = "^0.46"
 
 [build-system]
 requires = ["poetry-core"]

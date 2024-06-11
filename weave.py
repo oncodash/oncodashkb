@@ -55,6 +55,9 @@ if __name__ == "__main__":
     parser.add_argument("-g_owl", "--gene_ontology_owl", metavar="OWL", action="append",
             help="Download Gene_Ontology owl file.")
 
+    parser.add_argument("-g_genes", "--gene_ontology_genes", metavar="TXT", action="append",
+            help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
+
     levels = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
@@ -101,14 +104,14 @@ if __name__ == "__main__":
     if asked.gene_ontology:
         # TODO filter patients, keeping the ones already seen in cancer databases?
         # Table input data.
-        df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None)
+        df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
 
         # Extraction mapping configuration.
         conf_filename = "./oncodashkb/adapters/gene_ontology.yaml"
         with open(conf_filename) as fd:
             conf = yaml.full_load(fd)
 
-        manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl[0], conf)
+        manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl[0], asked.gene_ontology_genes[0], conf)
         manager.run()
 
         nodes += manager.nodes

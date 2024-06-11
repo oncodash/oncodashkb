@@ -366,6 +366,8 @@ biological process:
     represented_as: node
     input_label: biological_process
 
+# FIXME should precise the name of type from Biolink (molecular activity), not working without it for the moment
+# tested with molecular function and molecular_function without is_a, return KeyError: 'molecular_function'
 molecular function:
     is_a: molecular activity #name in biolink
     represented_as: node
