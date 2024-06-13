@@ -1,53 +1,28 @@
-# OncodashKB Adapters
+## Gene Ontology Data Preparation
 
-## CGI adapter 
+**Gene Ontology** (GO) is one of the biggest biomedical databases for the annotation of genes and their products across different species. To integrate the data in the Semantic Knowledge Graph (SKG), we use the `GO Annotations file` for Homo Sapiens in `GAF format` [Download page](https://geneontology.org/docs/download-go-annotations/) . Each line in GAF file represents **one annotation** for a gene product and contains **17 columns** (you can read a detailed description of each column [here](https://geneontology.org/docs/go-annotation-file-gaf-format-2.2/])).
 
-**Cancer Genome Interpreter** is the cancer database that contains information about various genetic alterations that can be associated with the patient, gene details, samples, disease type, and transcript information.
+Compared to the integration of the CGI and OncoKB databases, where each column represents a concrete data type from Biolink ontology, the GO annotations file contains data type for each annotation (row) in the column 'Qualifier'. For further details regarding different types of relationships, please refer to the following [link](https://wiki.geneontology.org/Annotation_Relations).
 
-To launch CGI adapter, use `--cgi` option and path to the CSV file with the data that you want to integrate.
+To solve the issue concerning data types represented in one column and to make the integrated data in the SKG more clear and easy to understand, the following steps were implemented in the GO adapter:
+- [Download](https://geneontology.org/docs/download-ontology/) the **GO ontology OWL file** to create a dictionary that can map **GO_ID** to **GO_term** cause there is only a **GO_ID** column in the GAF file. 
+- Create a new column **GO_term** using a dictionary and `create_id_term_dict` method.
+- For the chosen type of the relation from the **column 'Qualifier'** (in our case, `enables`, `involved_in`, `contributes_to` relation types) create an additional column (in our case, `GO_enables`, `GO_involved_in`, `GO_contributes_to` columns) and copy the **GO_term** in the related column (see illustration below)
 
-**Example of use:**
+![GO_columns_explanation.png](..%2F..%2F..%2FGO_columns_explanation.png)
+- Declare data type and relation type in the mapping file `gene_ontology.yaml` for each synthetic additional column (`GO_enables`, `GO_involved_in`, `GO_contributes_to`). 
+
+```yaml
+subject: annotation # Type for each entry (e.g. line).
+
+columns:
+    GO_enables:
+        to_object: molecular_function
+        via_relation: enables
+    GO_involved_in:
+        to_object: biological_process
+        via_relation: involved_in
+    GO_contributes_to:
+        to_object: molecular_function
+        via_relation: contributes_to
 ```
-./weave.py –cgi /path_to_file/test_genomics_cgimutation.csv
-```
-
-
-
-## OncoKB adapter
-
-**OncoKB** is the cancer database that contains information about various genetic alterations that can be associated with the patient, gene details, samples, and disease type, as well as treatment options with FDA, OncoKB evidence levels, and related publications. 
-
-To launch OncoKB adapter, use `--oncokb` option and path to the CSV file with the data that you want to integrate.
-
-**Example of use:**
-```
-./weave.py –oncokb /path_to_file/ test_genomics_oncokbannotation.csv
-```
-
-## Gene Ontology adapter
-
-**Gene Ontology** is one of the biggest biomedical databases. The described adapter helps to integrate the data about the molecular function of the gene product, as well as the biological process in which these genes are involved.
-
-- Molecular function: GO annotations that have relation type `enabled` or `contributes_to`.
-- Biological process: GO annotations that have relation type `involved_in`.
-
-**To integrate the data, three files are necessary:**
--	`--gene_ontology` option for GO annotations in GAF format  [Download GO annotations](http://current.geneontology.org/products/pages/downloads.html)
--	`--gene_ontology_owl` option for GO ontology in OWL format [Download GO ontology](https://geneontology.org/docs/download-ontology/)
--	`--gene_ontology_genes` option for the list of genes for which we want to integrate the GO annotations (example in adapters/GO_genes.conf file, by default = list of genes from OncoKB database).
-
-**Example of use:**
-```
-./weave.py --gene_ontology /path_to_file/goa_human.gaf --gene_ontology_owl /path_to_file/go.owl --gene_ontology_genes /path_to_file/GO_genes.conf
-```
-
-If you want to integrate annotations with another type of relations, you can change the `adapters/gene_ontology.py` file by adding the next code in **class Gene_ontology** (example for `involved_in` edge type) and precise node and edge type in the `gene_ontology.yaml`:
-```
-# create new columns that depends on edge type
-        df['GO_involved_in'] = None
-        
-# cut df to include only edge type that we have chosen and annotations for genes from OncoKB
-        df = df[((df['Qualifier'].isin(['enables', 'involved_in', 'contributes_to'])) &
-                 (df['DB_Object_Symbol'].isin(included_genes)))]
-```
-
