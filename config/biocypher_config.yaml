@@ -17,6 +17,14 @@ biocypher:
             url: http://purl.obolibrary.org/obo/so.owl
             head_join_node: attribute
             tail_join_node: sequence_feature
+        go_biological_process:
+            url: http://purl.obolibrary.org/obo/go.owl
+            head_join_node: biological process
+            tail_join_node: biological_process
+        go_molecular_function:
+            url: http://purl.obolibrary.org/obo/go.owl
+            head_join_node: molecular activity
+            tail_join_node: molecular_function
 
 neo4j:
     database_name: oncodash

@@ -3,4 +3,6 @@
 from . import oncokb
 from . import cgi
 from . import clinical
-__all__ = ['types', 'oncokb', 'cgi', 'clinical']
+from . import gene_ontology
+__all__ = ['types', 'oncokb', 'cgi', 'clinical', 'gene_ontology']
+

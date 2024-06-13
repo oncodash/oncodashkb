@@ -1,0 +1,15 @@
+subject: annotation # Type for each entry (e.g. line).
+
+columns:
+    DB_Object_Symbol:
+        to_object: gene_hugo
+        via_relation: annotation_for_gene
+    GO_enables:
+        to_object: molecular_function
+        via_relation: enables
+    GO_involved_in:
+        to_object: biological_process
+        via_relation: involved_in
+    GO_contributes_to:
+        to_object: molecular_function
+        via_relation: contributes_to

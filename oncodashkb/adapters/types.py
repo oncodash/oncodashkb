@@ -35,19 +35,52 @@ class variant(ontoweaver.Node):
     def fields():
         return ["timestamp", "version", "mutation_effect_description", "variant_summary"]
 
-class amplification(variant):
-    pass
-    # Fields would be gathered from parent class.
+class annotation(ontoweaver.Node):
+    @staticmethod
+    def fields():
+        return []
 
-class deletion(variant):
-    pass
 
-class gain(variant):
-    pass
+class DB_Object_Symbol(ontoweaver.Node):
+    @staticmethod
+    def fields():
+        return []
 
-class loss(variant):
-    pass
+class GO_involved_in(ontoweaver.Node):
+    @staticmethod
+    def fields():
+        return []
 
+class GO_enables(ontoweaver.Node):
+    @staticmethod
+    def fields():
+        return []
+class gene_to_biological_process(ontoweaver.Edge):
+    @staticmethod
+    def source_type():
+        return DB_Object_Symbol
+
+    @staticmethod
+    def target_type():
+        return GO_involved_in
+
+    @staticmethod
+    def fields():
+        return []
+
+
+class gene_to_molecular_function(ontoweaver.Edge):
+    @staticmethod
+    def source_type():
+        return DB_Object_Symbol
+
+    @staticmethod
+    def target_type():
+        return GO_enables
+
+    @staticmethod
+    def fields():
+        return []
 
 # Allow accessing all ontoweaver.Item classes defined in this module.
 all = ontoweaver.All(sys.modules[__name__])

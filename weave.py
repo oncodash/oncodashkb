@@ -49,6 +49,15 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
             help="Extract from a clinical CSV file.")
 
+    parser.add_argument("-g", "--gene_ontology", metavar="CSV", action="append",
+            help="Extract from a Gene_Ontology_Annotation GAF file.")
+
+    parser.add_argument("-n", "--gene_ontology_owl", metavar="OWL", action="append",
+            help="Download Gene_Ontology owl file.")
+
+    parser.add_argument("-G", "--gene_ontology_genes", metavar="TXT", action="append",
+            help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
+
     levels = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
@@ -62,7 +71,7 @@ if __name__ == "__main__":
 
     asked = parser.parse_args()
 
-    logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
+    #logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
 
     bc = BioCypher(
         biocypher_config_path = "config/biocypher_config.yaml",
@@ -92,6 +101,21 @@ if __name__ == "__main__":
         nodes += n
         edges += e
 
+    if asked.gene_ontology:
+        # TODO filter patients, keeping the ones already seen in cancer databases?
+        # Table input data.
+        df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
+
+        # Extraction mapping configuration.
+        conf_filename = "./oncodashkb/adapters/gene_ontology.yaml"
+        with open(conf_filename) as fd:
+            conf = yaml.full_load(fd)
+
+        manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl[0], asked.gene_ontology_genes[0], conf)
+        manager.run()
+
+        nodes += manager.nodes
+        edges += manager.edges
 
     # Write everything.
 
@@ -106,3 +130,4 @@ if __name__ == "__main__":
     # bc.summary()
 
     print(import_file)
+
