@@ -9,7 +9,8 @@ To solve the issue concerning data types represented in one column and to make t
 - Create a new column **GO_term** using a dictionary and `create_id_term_dict` method.
 - For the chosen type of the relation from the **column 'Qualifier'** (in our case, `enables`, `involved_in`, `contributes_to` relation types) create an additional column (in our case, `GO_enables`, `GO_involved_in`, `GO_contributes_to` columns) and copy the **GO_term** in the related column (see illustration below)
 
-![GO_columns_explanation.png](..%2F..%2F..%2FGO_columns_explanation.png)
+<img width="942" alt="GO_columns_explanation" src="https://github.com/kgaydukova/oncodashkb/assets/23275374/899e759f-f367-485d-9a68-06cfc44a5251">
+
 - Declare data type and relation type in the mapping file `gene_ontology.yaml` for each synthetic additional column (`GO_enables`, `GO_involved_in`, `GO_contributes_to`). 
 
 ```yaml
