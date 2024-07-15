@@ -1,0 +1,23 @@
+row:
+   map:
+      to_subject: id
+transformers:
+    - map:
+        columns:
+            - id
+        to_object: drug
+        via_relation: drug_to_id
+    - map:
+        columns:
+            - name
+        to_property:
+            - name
+        for_objects:
+            - drug
+    - map:
+        columns:
+            - description
+        to_property:
+            - description
+        for_objects:
+            - drug

@@ -17,10 +17,6 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
                  ontology: str,
                  genes_list: str,
                  config: dict,
-                 node_types: Optional[Iterable[ontoweaver.Node]] = None,
-                 node_fields: Optional[list[str]] = None,
-                 edge_types: Optional[Iterable[ontoweaver.Edge]] = None,
-                 edge_fields: Optional[list[str]] = None,
                  ):
 
         self.ontology = ontology
@@ -61,7 +57,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
 
         '''
         List of genes the annotation for which we will integrate from Gene Ontology data,
-        Reading from GO_genes.conf file 
+        Reading from Hugo_Symbol_genes.conf file 
         By default = genes from OncoKB database
         '''
         included_genes = self.read_genes_list()
@@ -72,33 +68,18 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
 
         # Default mapping as a simple config.
         from . import types
-        mapping = self.configure(config, types)
-
-        if not node_types:
-            node_types = types.all.nodes()
-            logging.debug(f"node_types: {node_types}")
-
-        if not node_fields:
-            node_fields = types.all.node_fields()
-            logging.debug(f"node_fields: {node_fields}")
-
-        if not edge_types:
-            edge_types = types.all.edges()
-            logging.debug(f"edge_types: {edge_types}")
-
-        if not edge_fields:
-            edge_fields = types.all.edge_fields()
-            logging.debug(f"edge_fields: {edge_fields}")
+        parser = ontoweaver.tabular.YamlParser(config, types)
+        mapping = parser()
 
         # Declare types defined in the config.
         super().__init__(
             df,
             *mapping,
-            node_types,
-            node_fields,
-            edge_types,
-            edge_fields,
         )
+
+        self.add_edge(types.gene_hugo, types.biological_process, types.gene_to_biological_process)
+        self.add_edge(types.gene_hugo, types.molecular_function, types.gene_to_molecular_function)
+
 
     # function to create a dictionary with GO_id:GO_term for gene ontology, input - OWL file, output - dictionary
     def create_id_term_dict(self):
@@ -141,31 +122,3 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
         elif row['Qualifier'] == 'contributes_to':
             row['GO_contributes_to'] = row['GO_term']
         return row
-
-    def source_type(self, row):
-        from . import types
-        logging.debug(f"Source type is `annotation`")
-        return types.annotation
-
-    def end(self):
-        from . import types
-        # Manual extraction of an additional edge between sample and patient.
-        # Because so far the PandasAdapter only allow to declare one mapping for each column.
-        # FIXME comment indicating that we should find a way to handle the type suffix/prefix through a make_id function in the next refactoring of OntoWeaver.
-        for i, row in self.df.iterrows():
-            separator = ":"
-
-            sid = f"{row['DB_Object_Symbol']}:gene_hugo"
-            pid1 = f"{row['GO_involved_in']}:biological_process"
-            pid2 = f"{row['GO_enables']}:molecular_function"
-
-            logging.debug(f"Add a `gene_to_biological_process` edge between `{sid}` and `{pid1}`")
-            self.edges_append(self.make_edge(
-                types.gene_to_biological_process, id=None,
-                id_source=sid, id_target=pid1
-            ))
-            logging.debug(f"Add a `gene_to_molecular_function` edge between `{sid}` and `{pid2}`")
-            self.edges_append(self.make_edge(
-                types.gene_to_molecular_function, id=None,
-                id_source=sid, id_target=pid2
-            ))

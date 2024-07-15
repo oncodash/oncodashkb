@@ -12,6 +12,7 @@ sequence variant:
         version: str
         mutation_effect_description: str
         variant_summary: str
+        consequence: str
 
 
 ## Under structural_variant in SO
@@ -140,6 +141,11 @@ disease:
     label_in_input: disease
     properties:
         tumor_type_summary: str
+        diseaseFromSource: str
+        diseaseFromSourceMappedId: str
+        name: str
+        code: str
+        description: str
 
 variant to disease association:
     is_a: association
@@ -231,8 +237,8 @@ alteration:
     label_in_input: alteration
     properties:
         alteration_consequence: str
-        protein_start: int
-        protein_end: int
+        protein_start: str
+        protein_end: str
 
 variant to alteration:
     is_a: association
@@ -256,6 +262,9 @@ variant to alteration:
 drug:
   represented_as: node
   label_in_input: drug
+  properties:
+    name: str
+    description: str
 
 variant affected by drug:
     is_a: chemical affects gene association
@@ -407,3 +416,125 @@ gene to biological process:
     label_in_input: gene_to_biological_process
     source: gene
     target: biological process
+
+# Open Targets
+
+evidence:
+  is_a: information content entity
+  represented_as: node
+  input_label: evidence
+  properties:
+    datasourceId: str
+    clinicalPhase: str
+    clinicalStatus: str
+    urls: str
+    score: str
+
+target:
+  is_a: reagent targeted gene
+  represented_as: node
+  input_label: target
+  properties:
+    targetFromSource: str
+
+target to gene relationship:
+    is_a: association
+    represented_as: edge
+    source: target
+    target: gene
+    label_in_input: target_to_gene_relationship
+
+disease has evidence:
+  is_a: association
+  represented_as: edge
+  label_in_input: disease_has_evidence
+
+drug has evidence:
+  is_a: association
+  represented_as: edge
+  label_in_input: drug_has_evidence
+
+target has evidence:
+  is_a: association
+  represented_as: edge
+  label_in_input: target_has_evidence
+
+disease to drug:
+    is_a: association
+    represented_as: edge
+    label_in_input: disease_to_drug
+    source: disease
+    target: drug
+
+drug to target:
+  is_a: association
+  represented_as: edge
+  label_in_input: drug_to_target
+  source: drug
+  target: target
+
+ensemble id to hugo symbol:
+  is_a: association
+  represented_as: edge
+  label_in_input: ensemble_id_to_hugo_symbol
+  source: target
+  target: gene
+
+id:
+  is_a: information content entity
+  represented_as: node
+  label_in_input: id
+
+target to id:
+  is_a: association
+  represented_as: edge
+  label_in_input: target_to_id
+  source: id
+  target: target
+
+target to transcript:
+  is_a: association
+  represented_as: edge
+  label_in_input: target_to_transcript
+  source: id
+  target: transcript
+
+id to gene relationship:
+    is_a: association
+    represented_as: edge
+    source: id
+    target: gene
+    label_in_input: id_to_gene_relationship
+
+drug to id:
+  is_a: association
+  represented_as: edge
+  label_in_input: drug_to_id
+  source: id
+  target: drug
+
+name:
+  is_a: information content entity
+  represented_as: node
+  label_in_input: name
+
+drug has name:
+  is_a: association
+  represented_as: edge
+  label_in_input: drug_has_name
+  source: drug
+  target: name
+
+disease to id:
+  is_a: association
+  represented_as: edge
+  label_in_input: disease_to_id
+  source: id
+  target: disease
+
+disease has name:
+  is_a: association
+  represented_as: edge
+  label_in_input: disease_has_name
+  source: disease
+  target: name

@@ -11,6 +11,7 @@ biocypher = "^0.5.4"
 pooch = "^1.7.0"
 pandas = "^1.5.3"
 owlready2 = "^0.46"
+pyarrow = "^16.1.0"
 
 [build-system]
 requires = ["poetry-core"]

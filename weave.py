@@ -5,17 +5,16 @@ import logging
 import argparse
 import pandas as pd
 from biocypher import BioCypher
-
+import os
 import ontoweaver
 import oncodashkb.adapters as od
 
-def extract(bc, csv_filenames, manager_t, conf_filename):
 
+def extract(bc, csv_filenames, manager_t, conf_filename):
     nodes = []
     edges = []
 
     for csv_filename in csv_filenames:
-
         # Taple input data.
         df = pd.read_csv(csv_filename)
 
@@ -33,6 +32,27 @@ def extract(bc, csv_filenames, manager_t, conf_filename):
 
     return nodes, edges
 
+def process_directory(bc, directory, columns, conf_filename, manager_t):
+
+    nodes = []
+    edges = []
+
+    if os.path.isdir(directory):
+        parquet_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.parquet')]
+        df = pd.concat([pd.read_parquet(file, columns=columns) for file in parquet_files])
+
+        with open(conf_filename) as fd:
+            conf = yaml.full_load(fd)
+
+        manager = manager_t(df, conf)
+        manager.run()
+
+        nodes += manager.nodes
+        edges += manager.edges
+
+        logging.info(f"Extracted {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
+
+    return nodes, edges
 
 if __name__ == "__main__":
 
@@ -41,23 +61,33 @@ if __name__ == "__main__":
         description=usage)
 
     parser.add_argument("-o", "--oncokb", metavar="CSV", action="append",
-            help="Extract from an OncoKB CSV file.")
+                        help="Extract from an OncoKB CSV file.")
 
     parser.add_argument("-c", "--cgi", metavar="CSV", action="append",
-            help="Extract from a CGI CSV file.")
+                        help="Extract from a CGI CSV file.")
 
     parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
-            help="Extract from a clinical CSV file.")
+                        help="Extract from a clinical CSV file.")
 
     parser.add_argument("-g", "--gene_ontology", metavar="CSV", action="append",
-            help="Extract from a Gene_Ontology_Annotation GAF file.")
+                        help="Extract from a Gene_Ontology_Annotation GAF file.")
 
     parser.add_argument("-n", "--gene_ontology_owl", metavar="OWL", action="append",
-            help="Download Gene_Ontology owl file.")
+                        help="Download Gene_Ontology owl file.")
 
     parser.add_argument("-G", "--gene_ontology_genes", metavar="TXT", action="append",
-            help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
+                        help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
 
+    parser.add_argument("-e", "--open_targets_evidences", metavar="PARQUET", action="append",
+                        help="Extract parquet files from the directory evidences CHEMBL.")
+
+    parser.add_argument("-t", "--open_targets", metavar="PARQUET", action="append",
+                        help="Extract parquet files from the directory targets.")
+
+    parser.add_argument("-d", "--open_targets_drugs", metavar="PARQUET", action="append",
+                        help="Extract parquet files from the directory molecule.")
+    parser.add_argument("-p", "--open_targets_diseases", metavar="PARQUET", action="append",
+                        help="Extract parquet files from the directory diseases.")
     levels = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
@@ -67,42 +97,67 @@ if __name__ == "__main__":
     }
 
     parser.add_argument("-v", "--verbose", metavar="LEVEL",
-            help="Set the verbose level ("+" ".join(l for l in levels.keys())+").")
+                        help="Set the verbose level (" + " ".join(l for l in levels.keys()) + ").")
 
     asked = parser.parse_args()
 
-    #logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
+    # logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
 
     bc = BioCypher(
-        biocypher_config_path = "config/biocypher_config.yaml",
-        schema_config_path = "config/schema_config.yaml"
+        biocypher_config_path="config/biocypher_config.yaml",
+        schema_config_path="config/schema_config.yaml"
     )
     # bc.show_ontology_structure()
-
 
     # Actually extract data.
     nodes = []
     edges = []
 
+    if asked.open_targets:
+        directory_targets = asked.open_targets[0]
+        columns_from_targets = ["id", "approvedSymbol", "approvedName", 'transcriptIds']
+        conf_filename_targets = "oncodashkb/adapters/open_targets.yaml"
+        target_nodes, target_edges = process_directory(bc, directory_targets, columns_from_targets, conf_filename_targets, od.open_targets.OpenTargets
+        )
+        nodes += target_nodes
+        edges += target_edges
+
+    if asked.open_targets_drugs:
+        directory_drugs = asked.open_targets_drugs[0]
+        columns_from_drugs = ["id", 'name', 'isApproved', 'tradeNames', 'description']
+        conf_filename_drugs = "oncodashkb/adapters/open_targets_drugs.yaml"
+        drug_nodes, drug_edges = process_directory(bc, directory_drugs, columns_from_drugs, conf_filename_drugs, od.open_targets_drugs.OpenTargetsDrugs
+        )
+        nodes += drug_nodes
+        edges += drug_edges
+
+    if asked.open_targets_diseases:
+        directory_diseases = asked.open_targets_diseases[0]
+        columns_from_diseases = ['id', 'code', 'description', 'name']
+        conf_filename_diseases = "oncodashkb/adapters/open_targets_diseases.yaml"
+        diseases_nodes, diseases_edges = process_directory(bc, directory_diseases, columns_from_diseases, conf_filename_diseases, od.open_targets_diseases.OpenTargetsDiseases
+        )
+        nodes += diseases_nodes
+        edges += diseases_edges
+
     # FIXME: allow passing several CSV files by parser.
     if asked.oncokb:
-        n,e = extract(bc, asked.oncokb, od.oncokb.OncoKB, "./oncodashkb/adapters/oncokb.yaml")
+        n, e = extract(bc, asked.oncokb, od.oncokb.OncoKB, "./oncodashkb/adapters/oncokb.yaml")
         nodes += n
         edges += e
 
     if asked.cgi:
-        n,e = extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
+        n, e = extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
         nodes += n
         edges += e
 
     if asked.clinical:
         # TODO filter patients, keeping the ones already seen in cancer databases?
-        n,e = extract(bc, asked.clinical, od.clinical.Clinical, "./oncodashkb/adapters/clinical.yaml")
+        n, e = extract(bc, asked.clinical, od.clinical.Clinical, "./oncodashkb/adapters/clinical.yaml")
         nodes += n
         edges += e
 
     if asked.gene_ontology:
-        # TODO filter patients, keeping the ones already seen in cancer databases?
         # Table input data.
         df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
 
@@ -117,13 +172,27 @@ if __name__ == "__main__":
         nodes += manager.nodes
         edges += manager.edges
 
+    if asked.open_targets_evidences:
+        directory_evidence = asked.open_targets_evidences[0]
+        columns_for_evidence = [
+            'datasourceId', 'targetId', 'clinicalPhase', 'clinicalStatus',
+            'diseaseFromSource', 'diseaseFromSourceMappedId', 'drugId',
+            'targetFromSource', 'urls', 'diseaseId', 'score', 'variantEffect'
+        ]
+        conf_filename_evidence = "./oncodashkb/adapters/open_targets_evidences.yaml"
+        evidence_nodes, evidence_edges = process_directory(bc, directory_evidence, columns_for_evidence, conf_filename_evidence,
+            od.open_targets_evidences.OpenTargetsEvidences
+        )
+        nodes += evidence_nodes
+        edges += evidence_edges
+
     # Write everything.
 
     logging.info("Write nodes...")
-    bc.write_nodes( nodes )
+    bc.write_nodes(nodes)
 
     logging.info("Write edges...")
-    bc.write_edges( edges )
+    bc.write_edges(edges)
 
     import_file = bc.write_import_call()
 
