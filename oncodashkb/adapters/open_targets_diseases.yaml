@@ -1,0 +1,30 @@
+row:
+   map:
+      to_subject: id
+transformers:
+    - map:
+        columns:
+            - id
+        to_object: disease
+        via_relation: disease_to_id
+    - map:
+        columns:
+            - name
+        to_property:
+            - name
+        for_objects:
+            - disease
+    - map:
+        columns:
+            - description
+        to_property:
+            - description
+        for_objects:
+            - disease
+    - map:
+        columns:
+            - code
+        to_property:
+            - code
+        for_objects:
+            - disease

@@ -1,0 +1,27 @@
+row:
+   map:
+      to_subject: id
+transformers:
+    - map:
+        columns:
+            - targetId
+        to_object: target
+        via_relation: target_to_id
+    - map:
+        columns:
+            - approvedSymbol
+        to_object: gene_hugo
+        via_relation: id_to_gene_relationship
+    - map:
+        columns:
+            - approvedName
+        to_property:
+            - approvedName
+        for_objects:
+            - target
+    - split:
+        columns:
+            - transcriptIds
+        to_object: transcript
+        via_relation: target_to_transcript
+        separator: ";"

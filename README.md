@@ -138,11 +138,11 @@ To launch OncoKB adapter, use `--oncokb` option and path to the CSV file with th
 **To integrate the data, three files are necessary:**
 -	`--gene_ontology` option for GO annotations in GAF format  [Download GO annotations](http://current.geneontology.org/products/pages/downloads.html)
 -	`--gene_ontology_owl` option for GO ontology in OWL format [Download GO ontology](https://geneontology.org/docs/download-ontology/)
--	`--gene_ontology_genes` option for the list of genes for which we want to integrate the GO annotations (example in adapters/GO_genes.conf file, by default = list of genes from OncoKB database).
+-	`--gene_ontology_genes` option for the list of genes for which we want to integrate the GO annotations (example in adapters/Hugo_Symbol_genes.conf file, by default = list of genes from OncoKB database).
 
 **Example of use:**
 ```
-./weave.py --gene_ontology /path_to_file/goa_human.gaf --gene_ontology_owl /path_to_file/go.owl --gene_ontology_genes /path_to_file/GO_genes.conf
+./weave.py --gene_ontology /path_to_file/goa_human.gaf --gene_ontology_owl /path_to_file/go.owl --gene_ontology_genes /path_to_file/Hugo_Symbol_genes.conf
 ```
 
 If you want to integrate annotations with another type of relations, you can modify the `adapters/gene_ontology.py` file by adding the next code in the **class Gene_ontology** (example for the `involved_in` edge type):
@@ -166,3 +166,43 @@ Also, you need to add code in `separate_edges_types` method:
 ```
 
 Finally, you need to specify the node and edge types in the `gene_ontology.yaml` for `GO_involved_in` column.
+
+
+## Open Targets adapter
+
+Open Targets is a public database that aims to systematically identify and prioritize drug targets for disease treatment. The described adapter helps to integrate the data about **the targets, disease/phenotypes, drugs** and **evidences.**
+
+Current adapter works with the data in **Parquet** format. 
+
+To download the data, you can visit [this page](https://platform.opentargets.org/downloads/data) and separately download needed datasets or execute the next bash script:
+
+```bash
+
+#!/bin/bash
+
+mkdir OpenTargets
+
+cd OpenTargets
+
+rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/targets .
+
+rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/diseases .
+
+rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/molecule .
+
+rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/evidence .
+
+
+```
+
+As Open Targets database contains millions of the rows of the data, in order to integrate only necessary information, you need to precise the genes (Hugo Symbols and Ensembl IDs) in the configuration files:
+
+- Hugo symbols in the file`oncodashkb/adapters/Hugo_Symbol_genes.conf`
+- Ensembl ID in the file `oncodashkb/adapters/Ensembl_genes.conf`
+
+Example of use for targets, diseases, drugs and evidences (only from Chembl) integration:
+
+```bash
+ ./weave.py  --open_targets path_to_OpenTargets/OpenTargets/targets   --open_targets_drugs path_to_OpenTargets/OpenTargets/molecule  --open_targets_diseases path_to_OpenTargets/OpenTargets/diseases  --open_targets_evidences path_to_OpenTargets/OpenTargets/evidence/sourceId\=chembl  
+
+```

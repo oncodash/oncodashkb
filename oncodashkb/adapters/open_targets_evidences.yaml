@@ -1,0 +1,80 @@
+row:
+   map:
+      to_subject: evidence
+transformers:
+    - map:
+        columns:
+            - datasourceId
+        to_property:
+            - datasourceId
+        for_objects:
+            - evidence
+    - map:
+        columns:
+            - clinicalPhase
+        to_property:
+            - clinicalPhase
+        for_objects:
+            - evidence
+    - map:
+        columns:
+            - clinicalStatus
+        to_property:
+            - clinicalStatus
+        for_objects:
+            - evidence
+    - map:
+        columns:
+            - urls
+        to_property:
+            - urls
+        for_objects:
+            - evidence
+    - map:
+        columns:
+            - score
+        to_property:
+            - score
+        for_objects:
+            - evidence
+    - map:
+        columns:
+            - diseaseId
+        to_object: disease
+        via_relation: disease_has_evidence
+    - map:
+        columns:
+            - diseaseFromSource
+        to_property:
+            - diseaseFromSource
+        for_objects:
+            - disease
+    - map:
+        columns:
+            - diseaseFromSourceMappedId
+        to_property:
+            - diseaseFromSourceMappedId
+        for_objects:
+            - disease
+    - map:
+        columns:
+            - drugId
+        to_object: drug
+        via_relation: drug_has_evidence
+    - map:
+        columns:
+            - targetId
+        to_object: target
+        via_relation: target_has_evidence
+    - map:
+        columns:
+            - targetFromSource
+        to_property:
+            - targetFromSource
+        for_objects:
+            - target
+    - map:
+        columns:
+            - variantEffect
+        to_object: functional_effect
+        via_relation: variant_has_effect
