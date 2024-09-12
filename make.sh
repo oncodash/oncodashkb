@@ -26,6 +26,7 @@ else
     server="${NEO_USER} neo4j-admin server"
 fi
 $server stop
+    # --clinical $data_dir/DECDIER/clin_overview_clinicaldata.csv \
 ./weave.py --verbose DEBUG \
     --open_targets $data_dir/OT/targets \
     --open_targets_drugs $data_dir/OT/molecule \
@@ -36,7 +37,6 @@ $server stop
     --gene_ontology_owl $data_dir/GO/go.owl \
     --gene_ontology_genes $data_dir/DECIDER/Hugo_Symbol_genes.conf \
     --gene_ontology $data_dir/GO/goa_human.gaf \
-    --clinical $data_dir/DECDIER/clin_overview_clinicaldata.csv \
     > tmp.sh
 
 cat $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
