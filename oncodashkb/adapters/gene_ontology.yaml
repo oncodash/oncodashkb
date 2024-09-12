@@ -1,5 +1,5 @@
 row:
-   map:
+   rowIndex:
       to_subject: annotation
 transformers:
     - map:
@@ -22,4 +22,15 @@ transformers:
             - GO_contributes_to
         to_object: molecular_function
         via_relation: contributes_to
-
+    - map:
+        columns:
+            - GO_involved_in
+        from_subject: gene_hugo
+        to_object: biological_process
+        via_relation: gene_to_biological_process
+    - map:
+        columns:
+            - GO_contributes_to
+        from_subject: gene_hugo
+        to_object: molecular_function
+        via_relation: gene_to_molecular_function
