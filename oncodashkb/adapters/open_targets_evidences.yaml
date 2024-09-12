@@ -1,5 +1,5 @@
 row:
-   map:
+   rowIndex:
       to_subject: evidence
 transformers:
     - map:
@@ -78,3 +78,15 @@ transformers:
             - variantEffect
         to_object: functional_effect
         via_relation: variant_has_effect
+    - map:
+        columns:
+            - drugId
+        from_subject: disease
+        to_object: drug
+        via_relation: disease_to_drug
+    - map:
+        columns:
+           - targetId
+        from_subject: drug
+        to_object: target
+        via_relation: drugs_to_target

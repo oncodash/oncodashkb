@@ -27,4 +27,4 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
             *mapping,
         )
 
-        self.add_edge(types.sample, types.patient, types.sample_to_patient)
+        # self.add_edge(types.sample, types.patient, types.sample_to_patient)

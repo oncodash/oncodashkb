@@ -77,8 +77,8 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
             *mapping,
         )
 
-        self.add_edge(types.gene_hugo, types.biological_process, types.gene_to_biological_process)
-        self.add_edge(types.gene_hugo, types.molecular_function, types.gene_to_molecular_function)
+        # self.add_edge(types.gene_hugo, types.biological_process, types.gene_to_biological_process)
+        # self.add_edge(types.gene_hugo, types.molecular_function, types.gene_to_molecular_function)
 
 
     # function to create a dictionary with GO_id:GO_term for gene ontology, input - OWL file, output - dictionary

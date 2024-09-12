@@ -1,5 +1,5 @@
 row:
-   map:
+   rowIndex:
       to_subject: id
 transformers:
     - map:
@@ -12,6 +12,12 @@ transformers:
             - approvedSymbol
         to_object: gene_hugo
         via_relation: id_to_gene_relationship
+    - map:
+        columns:
+            - approvedSymbol
+        from_subject: target
+        to_object: gene_hugo
+        via_relation: ensemble_id_to_hugo_symbol
     - map:
         columns:
             - approvedName

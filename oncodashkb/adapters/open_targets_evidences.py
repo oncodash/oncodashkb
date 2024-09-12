@@ -49,8 +49,8 @@ class OpenTargetsEvidences(ontoweaver.tabular.PandasAdapter):
             df,
             *mapping,
         )
-        self.add_edge(types.disease, types.drug, types.disease_to_drug)
-        self.add_edge(types.drug, types.target, types.drug_to_target)
+        # self.add_edge(types.disease, types.drug, types.disease_to_drug)
+        # self.add_edge(types.drug, types.target, types.drug_to_target)
 
 
     # method to recursively find all descendants
