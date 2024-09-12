@@ -162,7 +162,7 @@ if __name__ == "__main__":
         )
         nodes += evidence_nodes
         edges += evidence_edges
-        logging.info(f"Wove Open Targets Evidences: {len(evidences_nodes)} nodes, {len(evidences_edges)} edges.")
+        logging.info(f"Wove Open Targets Evidences: {len(evidence_nodes)} nodes, {len(evidence_edges)} edges.")
 
     # FIXME: allow passing several CSV files by parser.
     if asked.oncokb:
