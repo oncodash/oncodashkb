@@ -10,8 +10,9 @@ if [[ ! -f neo4j.pass ]] ; then
 fi
 echo "OK"
 
+
 echo "Check OS dependencies..."
-REQUIRED_PKG="python3-poetry"
+REQUIRED_PKG="python3-poetry gunzip"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' ${REQUIRED_PKG}|grep "install ok installed")
 if [ "" = "${PKG_OK}" ]; then
   echo "Packages: ${REQUIRED_PKG} not installed. I will install them."
@@ -19,6 +20,7 @@ if [ "" = "${PKG_OK}" ]; then
   sudo apt-get --yes install $REQUIRED_PKG
 fi
 echo "OK"
+
 
 echo "Install Poetry environment..."
 poetry install
@@ -28,6 +30,7 @@ echo "OK"
 echo "Download data:"
 mkdir -p data
 cd data
+
 
 echo "DECIDER data..."
 check() {
@@ -52,10 +55,12 @@ fi
 cp -a ../../oncodashkb/adapters/Hugo_Symbol_genes.conf .
 echo "OK"
 
+
 echo "Gene Ontology..."
 mkdir -p GO
 cd GO
 wget --no-clobber https://current.geneontology.org/annotations/goa_human.gaf.gz
+gunzip goa_human.gaf.gz
 wget --no-clobber https://purl.obolibrary.org/obo/go.owl
 cd ..
 echo "OK"
