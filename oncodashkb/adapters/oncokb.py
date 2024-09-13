@@ -20,11 +20,8 @@ class OncoKB(ontoweaver.tabular.PandasAdapter):
         parser = ontoweaver.tabular.YamlParser(config, types)
         mapping = parser()
 
-
         # Declare types defined in the config.
         super().__init__(
             df,
             *mapping,
         )
-
-        # self.add_edge(types.sample, types.patient, types.sample_to_patient)
