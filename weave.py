@@ -191,9 +191,11 @@ if __name__ == "__main__":
         manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl[0], asked.gene_ontology_genes[0], conf)
         manager.run()
 
-        nodes += manager.nodes
-        edges += manager.edges
-        logging.info(f"Wove Gene Ontology: {len(manager.nodes)} nodes, {len(manager.edges)} edges.")
+        n = list(manager.nodes)
+        e = list(manager.edges)
+        nodes += n
+        edges += e
+        logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
 
     if asked.clinical:
         logging.info(f"Weave Clinical data...")
