@@ -42,7 +42,6 @@ class OpenTargets(ontoweaver.tabular.PandasAdapter):
             df,
             *mapping,
         )
-        # self.add_edge(types.target, types.gene_hugo, types.ensemble_id_to_hugo_symbol)
 
 
     def read_genes_list(self):
