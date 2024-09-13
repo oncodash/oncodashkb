@@ -1,21 +1,24 @@
-
-subject: patient
-columns:
-    cohort_code:
-        to_property:
-            cohort_code:
-                - patient
-    chronic_illnesses_type:
-        into_transformer:
-            split:
-                separator: ","
-            to_object: disease
-            via_relation: patient_has_chronic_illness
-    survival:
-        to_property:
-            survival:
-                - patient
-    treatment_strategy:
+row:
+    map:
+        columns:
+            - cohort_code
+        to_subject: patient
+transformers:
+    - map:
+        columns:
+            - survival
+        to_property: survival
+        for_objects:
+            - patient
+    - map:
+        columns:
+            - treatment_strategy
         to_object: treatment
         via_relation: patient_has_treatment
+    - split:
+        columns:
+            - chronic_illnesses_type
+        separator: ","
+        to_object: disease
+        via_relation: patient_has_chronic_illness
 
