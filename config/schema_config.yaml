@@ -200,7 +200,7 @@ genomic sequence localization:
     source: sequence variant
     target: chromosome
     properties:
-        base coordinate: int
+        base coordinate: str
         strand: str
 
 sequence variant to sequence feature association:
