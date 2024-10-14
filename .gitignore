@@ -1,3 +1,7 @@
 .venv
 .vscode
 biocypher-*
+*__pycache__*
+neo4j.pass
+backup
+data
