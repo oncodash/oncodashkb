@@ -15,7 +15,7 @@ alteration:
 
 ## CAUSAL LINKS
 ## Everything that derivates from the "causes" link type.
-## Comprises both real causes and ownership ("has").
+## Comprises both real causes and ownership ("carries").
 
 ### CARRIES
 
@@ -29,14 +29,14 @@ carries:
 patient carries sample:
     is_a: carries
     represented_as: edge
-    label_in_input: patient has sample
+    label_in_input: patient carries sample
     source: patient
     target: sample
 
 sample carries alteration:
     is_a: carries
     represented_as: edge
-    label_in_input: sample has alteration
+    label_in_input: sample carries alteration
     source: sample
     target: alteration
 
@@ -69,6 +69,7 @@ effect causes change of protein activity:
     source: functional effect
     target: activity change
 
+# probelm affected by is inverse of affects which is at the same level as causes
 alteration affected by drug:
     is_a: causes
     represented_as: edge
@@ -76,36 +77,45 @@ alteration affected by drug:
     source: alteration
     target: drug
 
+## METADATA
 
-## ASSOCIATIONS
+### AFFECTS
 
-gene has alteration:
-    is_a: has sequence variant
+alteration affects gene:
+    is_a: affects
+    represented as:edge
+    label_in_input: alteration affects gene
+    source: alteration
+    taregt: gene
+
+functional effect affects gene:
+    is_a: affects
     represented_as: edge
-    label_in_input: gene has alteration
-    source: gene
-    target: alteration
+    label_in_input: functional effect affects gene
+    source: functional effect
+    target: gene
+
+# # it would be the opposite of alteration affects gene
+# gene has alteration:
+#     is_a: has sequence variant
+#     represented_as: edge
+#     label_in_input: gene has alteration
+#     source: gene
+#     target: alteration
+
+change of activity affects transcript:
+    is_a: affects
+    represented_as: edge
+    label_in_input: change of activity affects transcript
+    source: change of activity
+    target: transcript
+
+
+## ???? (SYSBIO)
 
 transcribed to: # in Biolink (under "related to at instance level")
     represented_as: edge
     label_in_input: transcribed to
     source: gene
     target: transcript
-
-
-### AFFECTS
-
-gene has effect:
-    is_a: affects
-    represented_as: edge
-    label_in_input: gene has effect
-    source: gene
-    target: functional effect
-
-transcript has activity:
-    is_a: affects
-    represented_as: edge
-    label_in_input: transcript has activity
-    source: transcript
-    target: transcript activity
 
