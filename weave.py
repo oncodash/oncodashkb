@@ -103,7 +103,7 @@ if __name__ == "__main__":
 
     asked = parser.parse_args()
 
-    logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
+    # logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
 
     bc = BioCypher(
         biocypher_config_path="config/biocypher_config.yaml",

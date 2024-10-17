@@ -29,15 +29,23 @@ carries:
 patient carries sample:
     is_a: carries
     represented_as: edge
-    label_in_input: patient carries sample
+    label_in_input: patient_carries_sample
     source: patient
     target: sample
 
 sample carries alteration:
     is_a: carries
     represented_as: edge
-    label_in_input: sample carries alteration
+    label_in_input: sample_carries_alteration
     source: sample
+    target: alteration
+
+# test
+variant carries alteration:
+    is_a: carries
+    represented_as: edge
+    label_in_input: variant_carries_alteration
+    source: variant
     target: alteration
 
 
@@ -58,14 +66,14 @@ sample carries alteration:
 alteration causes effect:
     is_a: causes
     represented_as: edge
-    label_in_input: alteration causes effect
+    label_in_input: alteration_causes_effect
     source: alteration
     target: functional effect
 
 effect causes change of protein activity:
     is_a: causes
     represented_as: edge
-    label_in_input: effect causes change of protein activity
+    label_in_input: effect_causes_change_of_protein_activity
     source: functional effect
     target: activity change
 
@@ -73,7 +81,7 @@ effect causes change of protein activity:
 alteration affected by drug:
     is_a: causes
     represented_as: edge
-    label_in_input: alteration affected by drug
+    label_in_input: alteration_affected_by_drug
     source: alteration
     target: drug
 
@@ -83,15 +91,15 @@ alteration affected by drug:
 
 alteration affects gene:
     is_a: affects
-    represented as:edge
-    label_in_input: alteration affects gene
+    represented as: edge
+    label_in_input: alteration_affects_gene
     source: alteration
     taregt: gene
 
 functional effect affects gene:
     is_a: affects
     represented_as: edge
-    label_in_input: functional effect affects gene
+    label_in_input: functional_effect_affects_gene
     source: functional effect
     target: gene
 
@@ -106,7 +114,7 @@ functional effect affects gene:
 change of activity affects transcript:
     is_a: affects
     represented_as: edge
-    label_in_input: change of activity affects transcript
+    label_in_input: change_of_activity_affects_transcript
     source: change of activity
     target: transcript
 
@@ -115,7 +123,7 @@ change of activity affects transcript:
 
 transcribed to: # in Biolink (under "related to at instance level")
     represented_as: edge
-    label_in_input: transcribed to
+    label_in_input: transcribed_to
     source: gene
     target: transcript
 

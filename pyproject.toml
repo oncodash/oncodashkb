@@ -12,7 +12,6 @@ pooch = "^1.7.0"
 pandas = "^2.0.1"
 owlready2 = "^0.46"
 pyarrow = "^16.1.0"
-ontoweaver = "^0.1.0"
 numpy = "^1.26.3"
 
 
