@@ -67,6 +67,9 @@ if __name__ == "__main__":
 
     parser.add_argument("-c", "--cgi", metavar="CSV", action="append",
                         help="Extract from a CGI CSV file.")
+    
+    parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV", action="append",
+                        help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
 
     parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
                         help="Extract from a clinical CSV file.")
@@ -177,6 +180,13 @@ if __name__ == "__main__":
         n, e = extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
         nodes += n
         edges += e
+
+    if asked.single_nucleotide_variants:
+        logging.info(f"Weave SNVs...")
+        n, e = extract(bc, asked.single_nucleotide_variants, od.snv.SNV, "./oncodashkb/adapters/snv.yaml")
+        nodes += n
+        edges += e
+        logging.info(f"Wove SNVs: {len(n)} nodes, {len(e)} edges.")
 
     if asked.gene_ontology:
         logging.info(f"Weave Gene Ontology...")
