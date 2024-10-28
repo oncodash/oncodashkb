@@ -98,8 +98,8 @@ if __name__ == "__main__":
         "CRITICAL": logging.CRITICAL
     }
 
-    parser.add_argument("-v", "--verbose", metavar="LEVEL",
-                        help="Set the verbose level (" + " ".join(l for l in levels.keys()) + ").")
+    parser.add_argument("-v", "--verbose", choices = levels.keys(), default = "WARNING",
+                        help="Set the verbose level (default: %(default)s).")
 
     asked = parser.parse_args()
 
