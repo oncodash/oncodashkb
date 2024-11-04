@@ -6,24 +6,22 @@ import argparse
 import pandas as pd
 from biocypher import BioCypher
 import os
-import ontoweaver
+import ontoweaver as ot
 import oncodashkb.adapters as od
 
-
-def extract(bc, csv_filenames, manager_t, conf_filename):
+def extract(csv_filenames, conf_filename, csv_separator=","):
     nodes = []
     edges = []
 
     for csv_filename in csv_filenames:
-        # Taple input data.
-        df = pd.read_csv(csv_filename)
+        # Load Taple input data.
+        table = pd.read_table(csv_filename, sep=csv_separator)
 
-        # Extraction mapping configuration.
+        # Load mapping configuration.
         with open(conf_filename) as fd:
-            conf = yaml.full_load(fd)
+            mapping = yaml.full_load(fd)
 
-        manager = manager_t(df, conf)
-        manager.run()
+        manager = ot.tabular.extract_all(df=table, config=mapping)
 
         nodes += manager.nodes
         edges += manager.edges
@@ -70,6 +68,9 @@ if __name__ == "__main__":
     
     parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV", action="append",
                         help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
+    
+    parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV", action="append",
+                        help="Extract from a CSV file with copy number alterations (CNA) annotations.")
 
     parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
                         help="Extract from a clinical CSV file.")
@@ -170,23 +171,30 @@ if __name__ == "__main__":
     # FIXME: allow passing several CSV files by parser.
     if asked.oncokb:
         logging.info(f"Weave OncoKB...")
-        n, e = extract(bc, asked.oncokb, od.oncokb.OncoKB, "./oncodashkb/adapters/oncokb.yaml")
+        n, e = extract(asked.oncokb, "./oncodashkb/adapters/oncokb.yaml")
         nodes += n
         edges += e
         logging.info(f"Wove OncoKB: {len(n)} nodes, {len(e)} edges.")
 
     if asked.cgi:
         logging.info(f"Weave CGI...")
-        n, e = extract(bc, asked.cgi, od.cgi.CGI, "./oncodashkb/adapters/cgi.yaml")
+        n, e = extract(asked.cgi, "./oncodashkb/adapters/cgi.yaml")
         nodes += n
         edges += e
 
     if asked.single_nucleotide_variants:
         logging.info(f"Weave SNVs...")
-        n, e = extract(bc, asked.single_nucleotide_variants, od.snv.SNV, "./oncodashkb/adapters/snv.yaml")
+        n, e = extract(asked.single_nucleotide_variants, "./oncodashkb/adapters/single_nucleotide_variants.yaml", csv_separator="\t")
         nodes += n
         edges += e
         logging.info(f"Wove SNVs: {len(n)} nodes, {len(e)} edges.")
+
+    if asked.copy_number_alterations:
+        logging.info(f"Weave CNAs...")
+        n, e = extract(asked.copy_number_alterations, "./oncodashkb/adapters/copy_number_alterations.yaml", csv_separator="\t")
+        nodes += n
+        edges += e
+        logging.info(f"Wove CNAs: {len(n)} nodes, {len(e)} edges.")
 
     if asked.gene_ontology:
         logging.info(f"Weave Gene Ontology...")
@@ -210,7 +218,7 @@ if __name__ == "__main__":
     if asked.clinical:
         logging.info(f"Weave Clinical data...")
         # TODO filter patients, keeping the ones already seen in cancer databases?
-        n, e = extract(bc, asked.clinical, od.clinical.Clinical, "./oncodashkb/adapters/clinical.yaml")
+        n, e = extract(asked.clinical, "./oncodashkb/adapters/clinical.yaml")
         nodes += n
         edges += e
         logging.info(f"Wove Clinical: {len(n)} nodes, {len(e)} edges.")

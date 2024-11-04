@@ -23,6 +23,8 @@ sample:
 
 functional outcome:
     is_a: outcome
+    represented_as: node
+    label_in_input: functional_outcome
 
 # functionnal effect
 
@@ -59,14 +61,6 @@ sample carries alteration:
     source: sample
     target: alteration
 
-# # test
-# variant carries alteration:
-#     is_a: carries
-#     represented_as: edge
-#     label_in_input: variant_carries_alteration
-#     source: variant
-#     target: alteration
-
 
 ### CAUSES
 
@@ -89,28 +83,13 @@ alteration causes functional outcome:
     source: alteration
     target: functional outcome
 
-# effect causes change of protein activity:
-#     is_a: causes
-#     represented_as: edge
-#     label_in_input: effect_causes_change_of_protein_activity
-#     source: functional effect
-#     target: activity change
-
-# # probelm affected by is inverse of affects which is at the same level as causes
-# alteration affected by drug:
-#     is_a: causes
-#     represented_as: edge
-#     label_in_input: alteration_affected_by_drug
-#     source: alteration
-#     target: drug
-
 ## METADATA
 
 ### AFFECTS
 
 alteration affects gene:
     is_a: affects
-    represented as: edge
+    represented_as: edge
     label_in_input: alteration_affects_gene
     source: alteration
     taregt: gene
@@ -121,28 +100,4 @@ functional outcome affects gene:
     label_in_input: functional_outcome_affects_gene
     source: functional outcome
     target: gene
-
-# # it would be the opposite of alteration affects gene
-# gene has alteration:
-#     is_a: has sequence variant
-#     represented_as: edge
-#     label_in_input: gene has alteration
-#     source: gene
-#     target: alteration
-
-# change of activity affects transcript:
-#     is_a: affects
-#     represented_as: edge
-#     label_in_input: change_of_activity_affects_transcript
-#     source: change of activity
-#     target: transcript
-
-
-## ???? (SYSBIO)
-
-# transcribed to: # in Biolink (under "related to at instance level")
-#     represented_as: edge
-#     label_in_input: transcribed_to
-#     source: gene
-#     target: transcript
 
