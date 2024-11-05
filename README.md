@@ -5,15 +5,15 @@
 OncodashKB is a data conversion tool that extracts data from Oncodash' tables
 and feed them in a graph database.
 
-It uses [Biocypher](https://biocypher.org) as the main tool for doing the ontology alignment
-and for supporting several graph database backends.
+Under the hood, it uses [Biocypher](https://biocypher.org) as the main tool for doing the ontology alignment
+and for supporting several graph database backends and [Ontoweaver](https://github.com/oncodash/ontoweaver) for instanciating a Biocypher adapter.
 
 
 ## Installation
 
 ### Source Code
 
-The project uses [Poetry](https://python-poetry.org). You can install like this:
+The project uses [Poetry](https://python-poetry.org). You can install OncodashKB using the commands below:
 
 ```
 git clone https://github.com/oncodash/oncodashkb.git
@@ -25,86 +25,122 @@ Poetry will create a virtual environment according to your configuration (either
 centrally or in the project folder). You can activate it by running `poetry
 shell` inside the project directory.
 
+If you have a problem with the poetry install command, it may be that the 'poetry lock' command has not been ran after changing dependencies modification in '$ONCODASHKB_HOME/pyproject.toml'. Try running 'poetry lock' to fix the issue.
+
 ### Database
 
 Theoretically, any graph database supported by Biocypher may be used.
 
 As of now, OncodashKB targets using Neo4j, which have some particularities.
 
-So far, it has been tested with Neo4j 5.11, using a
-[patched version of Biocypher](https://github.com/jdreo/biocypher/tree/feat/neo4j-5+).
-
-Note that the community edition of Neo4j do not support multiple database,
-hence the need to configure the default database in `neo4j.conf` to be:
-`initial.dbms.default_database=oncodash`, before starting Neo4j with
-`neo4j-admin server start`.
-
+So far, it has been extensively tested with Neo4j 5+ but it also works with Neo4j 4+.
 
 ## Usage
 
-First, double-check that `config/biocypher_config.yaml` is aligned with your needs.
+### Set up
 
-Do not forget to start the graph database and to run the following commands in a poetry shell:
+As of now, OncodashKB targets using Neo4j, which have some particularities. Neo4j `Graph Database Self-Managed` version can be downloaded [here](https://neo4j.com/deployment-center/). When using with this version, be sure to add the `bin/` directory to `PATH` and `PYTHONPATH`,
+as well as the correct version of Java to `JAVA_HOME`. 
+
+Note that the community edition of Neo4j do not support multiple database,
+hence the need to configure the default database in `$NEO4J_HOME/conf/neo4j.conf` to be:
+`initial.dbms.default_database=oncodash` (which is commented out by default, hence the default database will be called neo4j). 
+Note that the default database does not always need to be named `oncodash`, but should match the name of the database in `$ONCODASHKB_HOME/config/biocypher_config.yaml`.
+
+### Quick start guide
+
+When using oncodashkb, you should generally follow the steps below.
+
+#### 1. Start virutal environment
+
 ```
-neo4j-admin server start
 poetry shell
 ```
 
-OncodashKB takes CSV files as an input, and exports them to the graph database:
+#### 2. Weave database
+
+The command transforms the array-shape database into a graph database, thanks to [Biocypher](https://biocypher.org) and [Ontoweaver](https://github.com/oncodash/ontoweaver).
+
 ```
-./make.py <CSV data file> <YAML mapping file>
+./weave.py [-database] <CSV data file> 
 ```
 
-The mapping file configures the kind of node the rows of the table will represent,
-and how columns will be converted to an edge-node pair, or a property of a node.
+Where [-databse] can be:
+- --cgi
+- --oncokb
+- --open_targets 
+- --open_targets_drugs 
+- --open_targets_diseases 
+- --open_targets_evidences
 
-Once executed, Biocypher prepares a shell script named `neo4j-admin-import-call.sh` in a timestamped sub-directory.
+Look below in the OncodashKB adapters section for more information on each of these options.
+
+#### 3. Import the database
+
+Once executed, Biocypher prepares a shell script named `neo4j-admin-import-call.sh` in a timestamped sub-directory in '$ONCODASHKB_HOME/biocypher-out'. The complete path of this file is printed at the end of execution. 
+
+In case of having a global variable to '$NEO4J_HOME/bin', be sure to delete the 'bin/' prefixe in the import call. 
+
+```
+#!/bin/bash
+version=$(~~bin/~~neo4j-admin --version | cut -d '.' -f 1)
+...
+```
+
+Before importing the data, be sure that the server has not been started.
 Executing this script will connect to the Neo4j server and feed it with the extracted graph.
 
-OncodashKB prints the name of the produced print on the standard output,
-so that you can execute it right away.
-
-
-## Side steps
-
-To check whether there is some data in your graph database, you can use the
-command-line client of Neo4j:
 ```
-cypher-shell -d oncodash -u neo4j "MATCH (n) RETURN n LIMIT 5;"
+sh [$PATH_TO/neo4j-admin-import-call.sh]
 ```
-and you should see 5 nodes.
 
-To visualize [a part of] the graph, you can use
-[neo4j-browser](https://github.com/neo4j/neo4j-browser)
-with a similar Cypher query.
+#### 4. Start the server
 
-Notes:
-- Neo4j-browser [needs a specific node version](https://github.com/neo4j/neo4j-browser/issues/1833), you can install it with:
-  ```
-  pip install nodeenv
-  nodeenv --node=16.10.0 env
-  . env/bin/activate
-  npm install yarn
-  yarn install
-  yarn start
-  ```
-- Neo4j server disable connection across the network by default.
-  To connect the browser to a server on another machine,
-  be sure to edit the server's `neo4j.conf` with the `0.0.0.0` address:
-  `server.bolt.listen_address=0.0.0.0:7687`
+You can start the server by using the command below. 
 
+Neo4j 5+:
 
-## Development
+```
+neo4j-admin server start
+```
 
-Hints and tips about designing the ontology alignements:
-- Ontologies may be browsed with [Protégé](https://protege.stanford.edu/).
-- The [biolink model](https://biolink.github.io/biolink-model/biolink-model.owl.ttl)
-  has (a lot of) classes attached at the root `Thing`.
-  These are actually decomissioned stuff, the actual classes are under `entity`.
+Neo4j 4:
 
-# OncodashKB Adapters
+```
+neo4j start
+```
 
-## CGI adapter 
+This will give you a link to the neo4j browser where you can explore your graph. By default, the link to neo4j browser is 'localhost:7474/'. 
+
+#### 5. Stop the server
+
+You can stop the server by using the command below. 
+
+Neo4j 5+:
+
+```
+neo4j-admin server stop
+```
+
+Neo4j 4:
+
+```
+neo4j stop
+```
+
+#### 6. Exit the poetry environment
+
+```
+[poetry] exit
+```
+
+#### Notes
+
+The steps should always be in the order above.
+
+## OncodashKB Adapters
+
+### CGI adapter 
 
 **Cancer Genome Interpreter** is the cancer database that contains information about various genetic alterations that can be associated with the patient, gene details, samples, disease type, and transcript information.
 
@@ -115,9 +151,7 @@ To launch CGI adapter, use `--cgi` option and path to the CSV file with the data
 ./weave.py –cgi /path_to_file/test_genomics_cgimutation.csv
 ```
 
-
-
-## OncoKB adapter
+### OncoKB adapter
 
 **OncoKB** is the cancer database that contains information about various genetic alterations that can be associated with the patient, gene details, samples, and disease type, as well as treatment options with FDA, OncoKB evidence levels, and related publications. 
 
@@ -128,7 +162,7 @@ To launch OncoKB adapter, use `--oncokb` option and path to the CSV file with th
 ./weave.py –oncokb /path_to_file/test_genomics_oncokbannotation.csv
 ```
 
-## Gene Ontology adapter
+### Gene Ontology adapter
 
 **Gene Ontology** is one of the biggest biomedical databases. The described adapter helps to integrate the data about the molecular function of the gene product, as well as the biological process in which these genes are involved.
 
@@ -168,7 +202,7 @@ Also, you need to add code in `separate_edges_types` method:
 Finally, you need to specify the node and edge types in the `gene_ontology.yaml` for `GO_involved_in` column.
 
 
-## Open Targets adapter
+### Open Targets adapter
 
 Open Targets is a public database that aims to systematically identify and prioritize drug targets for disease treatment. The described adapter helps to integrate the data about **the targets, disease/phenotypes, drugs** and **evidences.**
 
@@ -206,3 +240,45 @@ Example of use for targets, diseases, drugs and evidences (only from Chembl) int
  ./weave.py  --open_targets path_to_OpenTargets/OpenTargets/targets   --open_targets_drugs path_to_OpenTargets/OpenTargets/molecule  --open_targets_diseases path_to_OpenTargets/OpenTargets/diseases  --open_targets_evidences path_to_OpenTargets/OpenTargets/evidence/sourceId\=chembl  
 
 ```
+
+## Development
+
+When modifying any dependencies in '$ONCODASHKB_HOME/pyproject.toml', be sure to run 'poetry lock'. 
+
+Hints and tips about designing the ontology alignements:
+- Ontologies may be browsed with [Protégé](https://protege.stanford.edu/).
+- The [biolink model](https://biolink.github.io/biolink-model/biolink-model.owl.ttl)
+  has (a lot of) classes attached at the root `Thing`.
+  These are actually decomissioned stuff, the actual classes are under `entity`.
+
+
+## Side steps
+
+To check whether there is some data in your graph database, you can use the
+command-line client of Neo4j:
+
+```
+cypher-shell -d oncodash -u neo4j "MATCH (n) RETURN n LIMIT 5;"
+```
+and you should see 5 nodes.
+
+To visualize [a part of] the graph, you can use
+[neo4j-browser](https://github.com/neo4j/neo4j-browser)
+with a similar Cypher query.
+
+Notes:
+- Neo4j-browser [needs a specific node version](https://github.com/neo4j/neo4j-browser/issues/1833), you can install it with:
+  ```
+  pip install nodeenv
+  nodeenv --node=16.10.0 env
+  . env/bin/activate
+  npm install yarn
+  yarn install
+  yarn start
+  ```
+- Neo4j server disable connection across the network by default.
+  To connect the browser to a server on another machine,
+  be sure to edit the server's `neo4j.conf` with the `0.0.0.0` address:
+  `server.bolt.listen_address=0.0.0.0:7687`
+
+
