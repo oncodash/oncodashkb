@@ -33,7 +33,7 @@ Theoretically, any graph database supported by Biocypher may be used.
 
 As of now, OncodashKB targets using Neo4j, which have some particularities.
 
-So far, it has been extensively tested with Neo4j 5+ but it also works with Neo4j 4+.
+So far, it has been extensively tested with Neo4j 5+ but it should also works with Neo4j 4+.
 
 ## Usage
 
@@ -51,7 +51,7 @@ Note that the default database does not always need to be named `oncodash`, but 
 
 When using oncodashkb, you should generally follow the steps below.
 
-#### 1. Start virutal environment
+#### 1. Start virtual environment
 
 ```
 poetry shell
@@ -59,7 +59,7 @@ poetry shell
 
 #### 2. Weave database
 
-The command transforms the array-shape database into a graph database, thanks to [Biocypher](https://biocypher.org) and [Ontoweaver](https://github.com/oncodash/ontoweaver).
+The command transforms the array-shape database into a graph database, thanks to [OntoWeaver](https://github.com/oncodash/ontoweaver).
 
 ```
 ./weave.py [-database] <CSV data file> 
@@ -79,7 +79,7 @@ Look below in the OncodashKB adapters section for more information on each of th
 
 Once executed, Biocypher prepares a shell script named `neo4j-admin-import-call.sh` in a timestamped sub-directory in '$ONCODASHKB_HOME/biocypher-out'. The complete path of this file is printed at the end of execution. 
 
-In case of having a global variable to '$NEO4J_HOME/bin', be sure to delete the 'bin/' prefixe in the import call. 
+In case you use the environment variable 'NEO4J_HOME', don't forget to delete the 'bin/' prefixe in the import call. 
 
 ```
 #!/bin/bash
