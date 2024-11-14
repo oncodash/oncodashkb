@@ -21,7 +21,7 @@ def extract(csv_filenames, conf_filename, csv_separator=","):
         with open(conf_filename) as fd:
             mapping = yaml.full_load(fd)
 
-        manager = ot.tabular.extract_all(df=table, config=mapping)
+        manager = ot.tabular.extract_all(df=table, config=mapping, affix="none")
 
         nodes += manager.nodes
         edges += manager.edges
@@ -60,20 +60,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=usage)
 
-    parser.add_argument("-o", "--oncokb", metavar="CSV", action="append",
-                        help="Extract from an OncoKB CSV file.")
-
     parser.add_argument("-c", "--cgi", metavar="CSV", action="append",
                         help="Extract from a CGI CSV file.")
+
+    parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
+                        help="Extract from a clinical CSV file.")
     
     parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV", action="append",
                         help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
     
     parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV", action="append",
                         help="Extract from a CSV file with copy number alterations (CNA) annotations.")
-
-    parser.add_argument("-i", "--clinical", metavar="CSV", action="append",
-                        help="Extract from a clinical CSV file.")
+    
+    parser.add_argument("-o", "--oncokb", metavar="CSV", action="append",
+                        help="Extract from an OncoKB CSV file.")
 
     parser.add_argument("-g", "--gene_ontology", metavar="CSV", action="append",
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     # FIXME: allow passing several CSV files by parser.
     if asked.oncokb:
         logging.info(f"Weave OncoKB...")
-        n, e = extract(asked.oncokb, "./oncodashkb/adapters/oncokb.yaml")
+        n, e = extract(asked.oncokb, "./oncodashkb/adapters/oncokb.yaml", csv_separator="\t")
         nodes += n
         edges += e
         logging.info(f"Wove OncoKB: {len(n)} nodes, {len(e)} edges.")

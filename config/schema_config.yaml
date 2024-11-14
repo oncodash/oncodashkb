@@ -7,6 +7,15 @@ alteration:
     represented_as: node
     label_in_input: alteration
 
+drug:
+    represented_as: node
+    label_in_input: drug
+
+functional outcome:
+    is_a: outcome
+    represented_as: node
+    label_in_input: functional_outcome
+
 gene:
     represented_as: node
     label_in_input: gene
@@ -20,15 +29,6 @@ sample:
     is_a: material sample
     respresented_as: node
     label_in_input: sample
-
-functional outcome:
-    is_a: outcome
-    represented_as: node
-    label_in_input: functional_outcome
-
-# functionnal effect
-
-
 
 ########################
 # EDGES
@@ -82,6 +82,19 @@ alteration causes functional outcome:
     label_in_input: alteration_causes_functional_outcome
     source: alteration
     target: functional outcome
+
+### BIOMARKER
+
+# In some databases, such as OncoKB, drugs are associated with variants
+# as predictive markers for treatment response, 
+# based on clinical evidence categorized by evidence levels. 
+
+alteration biomarker for drug:
+    is_a: biomarker for
+    represented_as: edge
+    label_in_input: alteration_biomarker_for_drug
+    source: alteration
+    target: drug
 
 ## METADATA
 
