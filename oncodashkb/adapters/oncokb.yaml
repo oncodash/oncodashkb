@@ -1,11 +1,12 @@
 row:
-   rowIndex:
-      to_subject: variant
-transformers:
-    - cat_format_if:
-        columns:
+    map:
+        columns: 
             - alteration
-            - hugoSymbol
-        to_object: alteration
-        via_relation: variant_carries_alteration
-        format_string: "{hugoSymbol}:{alteration}"
+        to_subject: alteration
+transformers:
+    - split:
+        columns:
+            - treatment
+        to_object: drug
+        via_relation: alteration_biomarker_for_drug
+        separator: ";"

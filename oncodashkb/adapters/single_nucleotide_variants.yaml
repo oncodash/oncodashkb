@@ -12,6 +12,7 @@ transformers:
     - map:
         columns:
             - alteration
+        from_subject: sample
         to_object: alteration
         via_relation: sample_carries_alteration
     - map:
@@ -24,6 +25,7 @@ transformers:
         columns:
           - hugoSymbol
           - gene_role
+        from_subject: alteration
         to_object: functional_outcome
         format_string: "{hugoSymbol}:{gene_role}"
         via_relation: alteration_causes_functional_outcome
