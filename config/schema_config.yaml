@@ -24,11 +24,18 @@ patient:
     represented_as: node
     label_in_input: patient
     synonym_for: case
+    properties:
+        survival: str
 
 sample:
     is_a: material sample
     respresented_as: node
     label_in_input: sample
+
+disease:
+    represented_as: node
+    label_in_input: disease
+
 
 ########################
 # EDGES
@@ -98,6 +105,20 @@ alteration biomarker for drug:
 
 ## METADATA
 
+patient has chronic illness:
+    is_a: entity to disease association
+    represented_as: edge
+    label_in_input: patient_has_chronic_illness
+    source: patient
+    target: disease
+
+patient has treatment:
+    is_a: association
+    represented_as: edge
+    label_in_input: patient_has_treatment
+    source: patient
+    target: treatment
+
 ### AFFECTS
 
 alteration affects gene:
@@ -113,4 +134,3 @@ functional outcome affects gene:
     label_in_input: functional_outcome_affects_gene
     source: functional outcome
     target: gene
-
