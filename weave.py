@@ -14,6 +14,7 @@ def process_directory(bc, directory, columns, conf_filename, manager_t):
     nodes = []
     edges = []
 
+    #TODO check if reading directory is necessary, and the .* option.
     if os.path.isdir(directory):
         parquet_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.parquet')]
         logging.info(f"\tConcatenating {len(parquet_files)} parquet files")
@@ -54,9 +55,7 @@ if __name__ == "__main__":
     
     parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV", action="append",
                         help="Extract from a CSV file with copy number alterations (CNA) annotations.")
-    
-    parser.add_argument("-o", "--oncokb", metavar="CSV", action="append",
-                        help="Extract from an OncoKB CSV file.")
+
 
     parser.add_argument("-g", "--gene_ontology", metavar="CSV", nargs="+",
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
@@ -89,9 +88,6 @@ if __name__ == "__main__":
                         help="Set the verbose level (default: %(default)s).")
 
     asked = parser.parse_args()
-
-    # logging.basicConfig(level = levels[asked.verbose], format = "{levelname} -- {message}\t\t{filename}:{lineno}", style='{')
-
     bc = BioCypher(
         biocypher_config_path="config/biocypher_config.yaml",
         schema_config_path="config/schema_config.yaml"
@@ -104,6 +100,8 @@ if __name__ == "__main__":
 
     data_mappings = {}
 
+
+    # Extract from databases requiring specialized preprocessing adapters.
     if asked.open_targets:
         logging.info(f"Weave Open Targets...")
         directory_targets = asked.open_targets[0]
@@ -153,20 +151,6 @@ if __name__ == "__main__":
         edges += evidence_edges
         logging.info(f"Wove Open Targets Evidences: {len(evidence_nodes)} nodes, {len(evidence_edges)} edges.")
 
-    if asked.single_nucleotide_variants:
-        logging.info(f"Weave SNVs...")
-        #n, e = extract(asked.single_nucleotide_variants, "./oncodashkb/adapters/single_nucleotide_variants.yaml", csv_separator="\t")
-        # nodes += n
-        # edges += e
-        # logging.info(f"Wove SNVs: {len(n)} nodes, {len(e)} edges.")
-
-    if asked.copy_number_alterations:
-        logging.info(f"Weave CNAs...")
-        #n, e = extract(asked.copy_number_alterations, "./oncodashkb/adapters/copy_number_alterations.yaml", csv_separator="\t")
-        # nodes += n
-        # edges += e
-        # logging.info(f"Wove CNAs: {len(n)} nodes, {len(e)} edges.")
-
     if asked.gene_ontology:
         logging.info(f"Weave Gene Ontology...")
         # Table input data.
@@ -186,6 +170,7 @@ if __name__ == "__main__":
         edges += e
         logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
 
+    # Extract from databases not requiring preprocessing.
     if asked.oncokb:
         logging.info(f"Weave OncoKB...")
         for file_path in asked.oncokb:
@@ -200,6 +185,16 @@ if __name__ == "__main__":
         logging.info(f"Weave Clinical data...")
         for file_path in asked.clinical:
             data_mappings[file_path] = "./oncodashkb/adapters/clinical.yaml"
+
+    if asked.single_nucleotide_variants:
+        logging.info(f"Weave SNVs...")
+        for file_path in asked.single_nucleotide_variants:
+            data_mappings[file_path] = "./oncodashkb/adapters/single_nucleotide_variants.yaml"
+
+    if asked.copy_number_alterations:
+        logging.info(f"Weave CNAs...")
+        for file_path in asked.copy_number_alterations:
+            data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
 
     # Write everything.
     n, e = ontoweaver.extract(data_mappings)
