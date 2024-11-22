@@ -6,7 +6,7 @@ import argparse
 import pandas as pd
 from biocypher import BioCypher
 import os
-import ontoweaver.src.ontoweaver as ontoweaver
+import ontoweaver
 import oncodashkb.adapters as od
 
 def process_directory(bc, directory, columns, conf_filename, manager_t):
@@ -50,10 +50,10 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
                         help="Extract from a clinical CSV file.")
     
-    parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV",
+    parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
     
-    parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV",
+    parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with copy number alterations (CNA) annotations.")
 
 
