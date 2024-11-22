@@ -50,10 +50,10 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
                         help="Extract from a clinical CSV file.")
     
-    parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV", action="append",
+    parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV",
                         help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
     
-    parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV", action="append",
+    parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV",
                         help="Extract from a CSV file with copy number alterations (CNA) annotations.")
 
 
