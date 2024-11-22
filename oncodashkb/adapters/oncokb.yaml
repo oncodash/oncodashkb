@@ -4,9 +4,9 @@ row:
             - alteration
         to_subject: alteration
 transformers:
-    - split:
+    - map_remove_special_characters:
         columns:
             - treatment
         to_object: drug
         via_relation: alteration_biomarker_for_drug
-        separator: ";"
+        separator: "_"
