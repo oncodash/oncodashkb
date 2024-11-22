@@ -2,10 +2,16 @@
 # NODES
 ########################
 
+# Defined in alphabetical order
+
 alteration:
     is_a: sequence variant
     represented_as: node
     label_in_input: alteration
+
+disease:
+    represented_as: node
+    label_in_input: disease
 
 drug:
     represented_as: node
@@ -31,11 +37,6 @@ sample:
     is_a: material sample
     respresented_as: node
     label_in_input: sample
-
-disease:
-    represented_as: node
-    label_in_input: disease
-
 
 ########################
 # EDGES
