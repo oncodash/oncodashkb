@@ -4,7 +4,7 @@ row:
             - alteration
         to_subject: alteration
 transformers:
-    - map_remove_forbidden_characters:
+    - replace:
         columns:
             - treatment
         to_object: drug
