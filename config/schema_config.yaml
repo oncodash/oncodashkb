@@ -1,182 +1,150 @@
-########################################
-# IDENTIFICATION
-########################################
+########################
+# NODES
+########################
 
-## Tail-in SO -> Biolink
+# Defined in alphabetical order
 
-sequence variant:
+alteration:
+    is_a: sequence variant
     represented_as: node
-    label_in_input: variant
+    label_in_input: alteration
     properties:
-        timestamp: str
-        version: str
-        mutation_effect_description: str
-        variant_summary: str
+        citation_PM_ids: str
         consequence: str
-
-
-## Under structural_variant in SO
-
-#copy number increase: # For some reason, Biocypher needs to avoid underscores, which SO uses.
-# FIXME or is it sequence_feature > copy_number_gain ?
-#    represented_as: node
-#    label_in_input: amplification
-#   properties:
-#        timestamp: str
-#        version: str
-#        mutation_effect_description: str
-#      variant_summary: str
-
-#copy number decrease:
-# FIXME or is it sequence_feature > copy_number_loss ?
-#    represented_as: node
-#    label_in_input: deletion # FIXME or is it sequence_alteration > deletion ?
-#    properties:
-#        timestamp: str
-#        version: str
-#        mutation_effect_description: str
-#        variant_summary: str
-
-
-## Under functional_effect_variant in SO:
-
-#gain of function variant:
-#    represented_as: node
-#    label_in_input: gain
-#    properties:
-#        timestamp: str
-#        version: str
-#        mutation_effect_description: str
-#        variant_summary: str
-
-#loss of function variant:
-#    represented_as: node
-#    label_in_input: loss
-#    properties:
-#        timestamp: str
-#        version: str
-#        mutation_effect_description: str
-#        variant_summary: str
-
-variant in sample:
-    is_a: material sample to entity association mixin
-    represented_as: edge
-    label_in_input: variant_in_sample
-    source: sequence variant
-    target: material sample
-
-functional effect:
-    is_a: attribute # FIXME
-    represented_as: node
-    label_in_input: functional_effect
-
-variant has effect:
-    is_a: variant to entity association mixin
-    represented_as: edge
-    label_in_input: variant_has_effect
-    source: sequence variant
-    target: functional effect
-
-# PATIENT
-# =======
-
-patient: # Existing in Biolink.
-    represented_as: node
-    label_in_input: patient
-    synonym_for: case
-
-patient has variant: # Not existing in Biolink…
-    # … thus added by Biocypher under:
-    is_a: case to phenotypic feature association
-    represented_as: edge
-    label_in_input: patient_has_variant
-    source: sequence variant
-    target: patient
-
-material sample:
-    represented_as: node
-    label_in_input: sample
-
-sample to patient:
-    is_a: material sample to entity association mixin
-    represented_as: edge
-    label_in_input: sample_to_patient
-    source: material sample
-    target: patient
-
-
-# OMICS
-# =====
-
-genome:
-    represented_as: node
-    label_in_input: genome
-
-reference genome: # Not existing in Biolink.
-    is_a: genotype to phenotypic feature association
-    represented_as: edge
-    label_in_input: reference_genome
-    source: sequence variant
-    target: genome
-
-
-gene:
-    represented_as: node
-    input_label: gene_hugo
-    properties:
-        entrez_gene_id: str
-        gene_summary: str
-
-variant to gene association:
-    is_a: association
-    represented_as: edge
-    label_in_input: variant_in_gene
-
-
-# DISEASE
-# =======
+        level_of_evidence: str
+        mutation_effect_description: str
+        oncogenic: str
+        reference_genome: str
+        tumor_type: str
+        tumor_type_summary: str
+        variant_summary: str
+        name: str
 
 disease:
     represented_as: node
     label_in_input: disease
     properties:
-        tumor_type_summary: str
-        diseaseFromSource: str
-        diseaseFromSourceMappedId: str
         name: str
-        code: str
-        description: str
 
-variant to disease association:
-    is_a: association
-    represented_as: edge
-    label_in_input: variant_to_disease
-    source: sequence variant
-    target: disease
-
-
-oncogenicity: # Not in Biolink
-    is_a: behavioral feature
+drug:
     represented_as: node
-    label_in_input: oncogenicity
+    label_in_input: drug
+    properties:
+        name: str
 
-variant to oncogenicity: # Not in Biolink
-    is_a: variant to phenotypic feature association
+functional outcome:
+    is_a: outcome
+    represented_as: node
+    label_in_input: functional_outcome
+    properties:
+        name: str
+
+gene:
+    represented_as: node
+    label_in_input: gene
+    properties:
+        name: str
+
+patient:
+    represented_as: node
+    label_in_input: patient
+    synonym_for: case
+    properties:
+        survival: str
+        name: str
+
+sample:
+    is_a: material sample
+    respresented_as: node
+    label_in_input: sample
+    properties:
+        name: str
+
+########################
+# EDGES
+########################
+
+## CAUSAL LINKS
+## Everything that derivates from the "causes" link type.
+## Comprises both real causes and ownership ("carries").
+
+### CARRIES
+
+# To allow queries for patient carrying samples, and samples carrying alterations,
+# without mixing with "effects" causes.
+carries:
+    is_a: causes
     represented_as: edge
-    label_in_input: variant_to_oncogenicity
-    source: sequence variant
-    target: oncogenicity
+    label_in_input: carries
+    properties:
+        name: str
+
+patient carries sample:
+    is_a: carries
+    represented_as: edge
+    label_in_input: patient_carries_sample
+    source: patient
+    target: sample
+    properties:
+        name: str
+
+sample carries alteration:
+    is_a: carries
+    represented_as: edge
+    label_in_input: sample_carries_alteration
+    source: sample
+    target: alteration
+    properties:
+        name: str
+
+### CAUSES
+
+# A gene is linked to its functional outcome (gain or loss of function),
+# which are represented as nodes, so as to allow a causal path
+# to go through alteration -> gene outcome -> transcript activity.
+# Hence, outcomes have at least two instances:
+# - Gene:GoF, and
+# - Gene:LoF.
+# Same for proteins with:
+# - Transcrit:Active, and
+# - Transcript:Inactive.
+# Incidentally: the source of an edge of type "causes"
+# cannot be an inactive protein.
+
+alteration causes functional outcome:
+    is_a: causes
+    represented_as: edge
+    label_in_input: alteration_causes_functional_outcome
+    source: alteration
+    target: functional outcome
+    properties:
+        name: str
+
+### BIOMARKER
+
+# In some databases, such as OncoKB, drugs are associated with variants
+# as predictive markers for treatment response, 
+# based on clinical evidence categorized by evidence levels. 
+
+alteration biomarker for drug:
+    is_a: biomarker for
+    represented_as: edge
+    label_in_input: alteration_biomarker_for_drug
+    source: alteration
+    target: drug
+    properties:
+        name: str
+
+## METADATA
 
 patient has chronic illness:
     is_a: entity to disease association
     represented_as: edge
     label_in_input: patient_has_chronic_illness
-    source: entity
+    source: patient
     target: disease
-
-treatment:
-    represented_as: node
-    label_in_input: treatment
+    properties:
+        name: str
 
 patient has treatment:
     is_a: association
@@ -184,357 +152,25 @@ patient has treatment:
     label_in_input: patient_has_treatment
     source: patient
     target: treatment
-
-
-# SEQUENCE FEATURES
-# =================
-
-chromosome:
-    is_a: NucleicAcidEntity # Surpisingly missing from Biolink? Maybe double-check.
-    represented_as: node
-    label_in_input: chromosome
-
-genomic sequence localization:
-    represented_as: edge
-    label_in_input: variant_on_chromosome
-    source: sequence variant
-    target: chromosome
     properties:
-        base coordinate: str
-        strand: str
+        name: str
 
-sequence variant to sequence feature association:
-    is_a: association
+### AFFECTS
+
+alteration affects gene:
+    is_a: affects
     represented_as: edge
-    source: sequence variant
-    target: sequence feature
-
-SNV:
-    represented_as: node
-    label_in_input: SNV
-
-
-# TRANSCRIPTS
-# ===========
-
-transcript:
-    represented_as: node
-    label_in_input: transcript
-
-transcript to gene relationship:
-    represented_as: edge
-    source: transcript
-    target: gene
-    label_in_input: transcript_to_gene_relationship
-
-# ########################################
-# # ALTERATION <-> BIOMARKER
-# ########################################
-
-alteration:
-    is_a: biological entity
-    represented_as: node
-    label_in_input: alteration
+    label_in_input: alteration_affects_gene
+    source: alteration
+    taregt: gene
     properties:
-        alteration_consequence: str
-        protein_start: str
-        protein_end: str
+        name: str
 
-variant to alteration:
-    is_a: association
+functional outcome affects gene:
+    is_a: affects
     represented_as: edge
-    label_in_input: variant_to_alteration
-    source: sequence variant
-    target: alteration
-
-# ########################################
-# # RESPONSE
-# ########################################
-
-# ########################################
-# # SOURCE
-# ########################################
-
-# ########################################
-# # DRUG
-# ########################################
-
-drug:
-  represented_as: node
-  label_in_input: drug
-  properties:
-    name: str
-    description: str
-
-variant affected by drug:
-    is_a: chemical affects gene association
-    represented_as: edge
-    label_in_input: variant_affected_by_drug
-    source: sequence variant
-    target: drug
-
-# ########################################
-# # EVIDENCE
-# ########################################
-
-publication pubmed:
-    is_a: publication
-    represented_as: node
-    label_in_input: publication
-
-information content entity to named thing association:
-    represented_as: edge
-    label_in_input: published
-    source: publication
-    target: sequence variant
-
-oncokb evidence level:
-    is_a: confidence level
-    represented_as: node
-    label_in_input: oncokb_evidence_level
-
-fda evidence level:
-    is_a: confidence level
-    represented_as: node
-    label_in_input: fda_evidence_level
-
-variant to evidence:
-    is_a: association
-    represented_as: edge
-    label_in_input: variant_to_evidence
-    source: sequence variant
-    target: confidence level
-
-#variant to fda evidence:
-#    is_a: association
-#    represented_as: edge
-#   label_in_input: variant_to_fda_evidence
-#    source: sequence variant
-#    target: fda evidence level
-
-#variant to oncokb evidence:
-#    is_a: association
-#    represented_as: edge
-#    label_in_input: variant_to_oncokb_evidence
-#    source: sequence variant
-#    target: oncokb evidence level
-
-# confidence level:
-#   represented_as: node
-#   preferred_id: [vicc, escat]
-#   label_in_input: [cgi, mtbp]
-
-# biomarker variant:
-#   is_a: sequence variant
-#   represented_as: node
-#   label_in_input: biomarker
-
-# missense variant:
-#   represented_as: node
-#   label_in_input: Missense
-
-# # Relations
-
-# sequence variant to biomarker variant association:
-#   is_a: association
-#   represented_as: edge
-#   label_in_input: variant_to_biomarker
-
-# drug to biomarker variant association:
-#   is_a: association
-#   represented_as: node
-#   label_in_input: drug_to_biomarker
-
-# confidence level to drug to biomarker variant association:
-#   is_a: association
-#   represented_as: edge
-#   label_as_edge: HAS_CONFIDENCE_LEVEL
-#   source: confidence level
-#   target: drug to sequence variant association
-#   label_in_input: confidence_level_to_drug_to_biomarker
-
-# confidence level to confidence level association:
-#   is_a: association
-#   represented_as: edge
-#   label_in_input: confidence_level_to_confidence_level
-
-# Main node type (e.g. of the line of the table).
-annotation: # The type in Biolink
-    is_a: entity
-    represented_as: node
-    label_in_input: annotation
-
-annotation for gene:
-    is_a: association
-    represented_as: edge
-    label_in_input: annotation_for_gene
-    source: annotation
+    label_in_input: functional_outcome_affects_gene
+    source: functional outcome
     target: gene
-
-biological process:
-    represented_as: node
-    input_label: biological_process
-
-# FIXME should precise the name of type from Biolink (molecular activity), not working without it for the moment
-# tested with molecular function and molecular_function without is_a, return KeyError: 'molecular_function'
-molecular function:
-    is_a: molecular activity #name in biolink
-    represented_as: node
-    input_label: molecular_function
-
-enables:
-    is_a: macromolecular machine to molecular activity association #  edge type from biolink
-    represented_as: edge
-    label_in_input: enables
-    source: gene
-    target: molecular function
-
-contributes to:
-    is_a: macromolecular machine to molecular activity association #  edge type from biolink
-    represented_as: edge
-    label_in_input: contributes_to
-    source: gene
-    target: molecular function
-
-involved in:
-    is_a: macromolecular machine to biological process association #  edge type from biolink
-    represented_as: edge
-    label_in_input: involved_in
-    source: gene
-    target: biological process
-
-gene to molecular function:
-    is_a: macromolecular machine to molecular activity association
-    represented_as: edge
-    label_in_input: gene_to_molecular_function
-    source: gene
-    target: molecular function
-
-gene to biological process:
-    is_a: macromolecular machine to biological process association
-    represented_as: edge
-    label_in_input: gene_to_biological_process
-    source: gene
-    target: biological process
-
-# Open Targets
-
-evidence:
-  is_a: information content entity
-  represented_as: node
-  input_label: evidence
-  properties:
-    datasourceId: str
-    clinicalPhase: str
-    clinicalStatus: str
-    urls: str
-    score: str
-
-target:
-  is_a: reagent targeted gene
-  represented_as: node
-  input_label: target
-  properties:
-    targetFromSource: str
-
-target to gene relationship:
-    is_a: association
-    represented_as: edge
-    source: target
-    target: gene
-    label_in_input: target_to_gene_relationship
-
-disease has evidence:
-  is_a: association
-  represented_as: edge
-  label_in_input: disease_has_evidence
-
-drug has evidence:
-  is_a: association
-  represented_as: edge
-  label_in_input: drug_has_evidence
-
-target has evidence:
-  is_a: association
-  represented_as: edge
-  label_in_input: target_has_evidence
-
-disease to drug:
-    is_a: association
-    represented_as: edge
-    label_in_input: disease_to_drug
-    source: disease
-    target: drug
-
-drug to target:
-  is_a: association
-  represented_as: edge
-  label_in_input: drug_to_target
-  source: drug
-  target: target
-
-ensemble id to hugo symbol:
-  is_a: association
-  represented_as: edge
-  label_in_input: ensemble_id_to_hugo_symbol
-  source: target
-  target: gene
-
-id:
-  is_a: information content entity
-  represented_as: node
-  label_in_input: id
-
-target to id:
-  is_a: association
-  represented_as: edge
-  label_in_input: target_to_id
-  source: id
-  target: target
-
-target to transcript:
-  is_a: association
-  represented_as: edge
-  label_in_input: target_to_transcript
-  source: id
-  target: transcript
-
-id to gene relationship:
-    is_a: association
-    represented_as: edge
-    source: id
-    target: gene
-    label_in_input: id_to_gene_relationship
-
-drug to id:
-  is_a: association
-  represented_as: edge
-  label_in_input: drug_to_id
-  source: id
-  target: drug
-
-name:
-  is_a: information content entity
-  represented_as: node
-  label_in_input: name
-
-drug has name:
-  is_a: association
-  represented_as: edge
-  label_in_input: drug_has_name
-  source: drug
-  target: name
-
-disease to id:
-  is_a: association
-  represented_as: edge
-  label_in_input: disease_to_id
-  source: id
-  target: disease
-
-disease has name:
-  is_a: association
-  represented_as: edge
-  label_in_input: disease_has_name
-  source: disease
-  target: name
+    properties:
+        name: str

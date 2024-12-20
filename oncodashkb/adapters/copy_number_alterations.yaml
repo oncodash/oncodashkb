@@ -1,0 +1,104 @@
+row:
+    map:
+        columns: 
+            - patient_id
+        to_subject: patient
+transformers:
+    - map:
+        columns:
+            - sample_id
+        to_object: sample
+        via_relation: patient_carries_sample
+    - cat_format:
+        columns:
+            - hugoSymbol
+            - alteration
+        from_subject: sample
+        to_object: alteration
+        format_string: "{hugoSymbol}:{alteration}"
+        via_relation: sample_carries_alteration
+    - map:
+        columns:
+            - hugoSymbol
+        from_subject: alteration
+        to_object: gene
+        via_relation: alteration_affects_gene
+    - cat_format:
+        columns:
+          - hugoSymbol
+          - gene_role
+        from_subject: alteration
+        to_object: functional_outcome
+        format_string: "{hugoSymbol}:{gene_role}"
+        via_relation: alteration_causes_functional_outcome
+    - map:
+        columns:
+            - hugoSymbol
+        from_subject: functional_outcome
+        to_object: gene
+        via_relation: functional_outcome_affects_gene
+    - map:
+        columns:
+            - referenceGenome
+        to_property:
+            - reference_genome
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - tumorType
+        to_property:
+            - tumor_type
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - oncogenic
+        to_property:
+            - oncogenic
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - mutationEffectDescription
+        to_property:
+            - mutation_effect_description
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - variantSummary
+        to_property:
+            - variant_summary
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - tumorTypeSummary
+        to_property:
+            - tumor_type_summary
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - citationPMids
+        to_property:
+            - citation_PM_ids
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - consequence
+        to_property:
+            - consequence
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - level_of_evidence
+        to_property:
+            - level_of_evidence
+        for_objects:
+            - alteration
+metadata:
+        - name: copy_number_alterations
