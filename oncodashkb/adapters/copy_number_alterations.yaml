@@ -102,3 +102,86 @@ transformers:
             - alteration
 metadata:
         - name: copy_number_alterations
+
+
+validate: # Validation for cna labeled "ext.".
+  columns:
+    patient_id:
+      dtype: str
+      nullable: true
+    sample_id:
+      dtype: str
+      nullable: true
+    hugoSymbol:
+      dtype: str
+      nullable: true
+    alteration:
+      dtype: str
+      nullable: true
+      checks:
+        isin:
+          value:
+            - AMPLIFICATION
+            - DELETION
+            - UNKNOWN
+    tumorType:
+      dtype: str
+      nullable: true
+    oncogenic:
+      dtype: str
+      nullable: true
+      checks:
+        isin:
+          value:
+            - Oncogenic
+            - Likely Oncogenic
+            - Unknown
+            - Inconclusive # Not present in source documentation description.
+            - known # Not present in source documentation description.
+    mutationEffectDescription:
+      dtype: str
+      nullable: true
+    gene_role:
+      dtype: str
+      nullable: true
+      checks:
+        isin:
+          value:
+            - Gain-of-function
+            - Likely Gain-of-function
+            - Loss-of-function
+            - Likely Loss-of-function
+            - Switch-of-function
+            - Likely Switch-of-function
+            - Neutral
+            - Likely Neutral
+            - Inconclusive
+            - Unknown
+            - LoF # Not present in source documentation description.
+            - Act # Not present in source documentation description.
+            - ambiguous # Not present in source documentation description.
+    citationPMids:
+      dtype: str
+      nullable: true
+    geneSummary:
+      dtype: str
+      nullable: true
+    variantSummary:
+        dtype: str
+        nullable: true
+    tumorTypeSummary:
+        dtype: str
+        nullable: true
+    level_of_evidence:
+          dtype: str
+          nullable: true
+          checks:
+            isin:
+              value:
+                - LEVEL_1
+                - LEVEL_2
+                - LEVEL_3A
+                - LEVEL_3B
+                - LEVEL_4
+                - LEVEL_R1
+                - LEVEL_R2
