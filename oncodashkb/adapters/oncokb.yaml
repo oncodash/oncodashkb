@@ -54,18 +54,4 @@ validate:
       dtype: str
       nullable: true
       checks:
-        isin:
-          value:
-            - A(Responsive)
-            - B(Responsive)
-            - C(Responsive)
-            - D(Responsive)
-            - A(Resistant)
-            - B(Resistant)
-            - C(Resistant)
-            - D(Resistant)
-            - A(Increased Toxicity)
-            - A(Increased Toxicity (Myelosupression))
-            - A(Increased Toxicity (Ototoxicity))
-            - A(Increased Toxicity (Haemolytic Anemia))
-            - A(Increased Toxicity (Hyperbilirubinemia))
+        str_matches: ^[ABCD]\([^\d]+\)$
