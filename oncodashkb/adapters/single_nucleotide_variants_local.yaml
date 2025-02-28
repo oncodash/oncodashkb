@@ -1,0 +1,369 @@
+row:
+    map:
+        columns: 
+            - pid
+        to_subject: patient
+transformers:
+    - map:
+        columns:
+            - sample_id
+        to_object: sample
+        via_relation: patient_carries_sample
+    - map:
+        columns:
+            - alteration
+        from_subject: sample
+        to_object: alteration
+        via_relation: sample_carries_alteration
+    - map:
+        columns:
+            - hugoSymbol
+        from_subject: alteration
+        to_object: gene
+        via_relation: alteration_affects_gene
+    - cat_format:
+        columns:
+          - hugoSymbol
+          - gene_role
+        from_subject: alteration
+        to_object: functional_outcome
+        format_string: "{hugoSymbol}:{gene_role}"
+        via_relation: alteration_causes_functional_outcome
+    - map:
+        columns:
+            - hugoSymbol
+        from_subject: functional_outcome
+        to_object: gene
+        via_relation: functional_outcome_affects_gene
+    - map:
+        columns:
+            - referenceGenome
+        to_property:
+            - reference_genome
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - tumorType
+        to_property:
+            - tumor_type
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - oncogenic
+        to_property:
+            - oncogenic
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - mutationEffectDescription
+        to_property:
+            - mutation_effect_description
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - variantSummary
+        to_property:
+            - variant_summary
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - tumorTypeSummary
+        to_property:
+            - tumor_type_summary
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - citationPMids
+        to_property:
+            - citation_PM_ids
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - consequence
+        to_property:
+            - consequence
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - level_of_evidence
+        to_property:
+            - level_of_evidence
+        for_objects:
+            - alteration
+metadata:
+        - name: single_nucleotide_variants
+
+validate: # SNV table labeled as "local".
+  columns:
+    patient_id:
+        dtype: str
+    sample_id:
+        dtype: str
+    ref_id:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data documentation.
+    chromosome:
+        dtype: str
+        checks:
+          str_matches: ^chr[\d|X]+$
+    position:
+        dtype: int64 # FIXME: defined as 'long' in documentation.
+    reference_allele:
+        dtype: str
+        checks:
+          str_matches: ^[ACTG]+$
+    sample_allele:
+        dtype: str
+        checks:
+          str_matches: ^[ACTG]+$
+    referenceGenome:
+        dtype: str
+        checks:
+          isin:
+            value:
+              - GRCh38
+    hugoSymbol:
+        dtype: str
+        checks:
+            str_matches: ^[a-zA-Z0-9-]+$
+    alteration:
+        dtype: str
+        checks:
+            str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+>[ACTG]+$
+    tumorType:
+        dtype: str
+        checks:
+            isin:
+                value:
+                    - HGSOC
+    consequence: # FIXME: Encountered values significantly different than values described in documentation.
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+        checks:
+            isin:
+                value:
+                  - stopgain
+                  - nonsynonymous_SNV
+                  - frameshift_deletion
+                  - frameshift_insertion
+                  - . #FIXME: possible error.
+                  - splicing #FIXME: present in data description but not in data.
+                  - intronic #FIXME: present in data description but not in data.
+                  - intron #FIXME: present in data description but not in data.
+                  - intergenic #FIXME: present in data description but not in data.
+                  - upstream #FIXME: present in data description but not in data.
+#                  - nonframeshift_deletion # FIXME: present in data description but not in data.
+#                  - nonframeshift_substitution # FIXME: present in data description but not in data.
+#                  - nonframeshift_insertion # FIXME: present in data description but not in data.
+    cytoBand:
+        dtype: str
+    exonicFuncMane: # FIXME: Encountered column not present in data description. Should it be 'exonicFuncName'?
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+        checks:
+          isin:
+            value:
+              - stopgain
+              - nonsynonymous_SNV
+              - frameshift_deletion
+              - . # FIXME: possible error.
+              - frameshift_insertion
+    funcMane: # FIXME: Encountered column not present in data description. Should it be 'funcName'?
+        dtype: str
+        checks:
+          isin:
+            value:
+              - exonic
+              - splicing
+              - intronic
+              - intron
+              - intergenic
+              - upstream
+              - exonic;splicing
+    AAChangeMANE: # FIXME: Encountered column not present in data description. Should it be 'AAChangeNAME'?
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+    funcRefGene: # FIXME: Encountered column not present in data description.
+        dtype: str
+        checks:
+            isin:
+                value:
+                  - exonic
+                  - splicing
+                  - intronic
+                  - intron
+                  - intergenic
+                  - ncRNA_intronic
+                  - ncRNA_exonic
+                  - ncRNA_exonic;splicing
+                  - exonic;splicing
+                  - upstream
+                  - UTR3
+    exonicFuncRefGene: # FIXME: Encountered column not present in data description.
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+        checks:
+            isin:
+                value:
+                  - stopgain
+                  - nonsynonymous_SNV
+                  - frameshift_deletion
+                  - . # FIXME: Encountered point '.' values in data.
+                  - frameshift_insertion
+                  - synonymous_SNV
+                  - unknown
+                  - startloss
+                  - stoploss
+    AAChangerefGene: # FIXME: Encountered column not present in data description.
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+    nMinor:
+        dtype: float64
+        nullable: true
+    nMajor:
+        dtype: float64
+        nullable: true
+    ad0:
+        dtype: int64
+    ad1:
+        dtype: int64
+    af:
+        dtype: float64
+    depth:
+        dtype: int64
+    lohstatus:
+        dtype: str
+        nullable: true
+        checks:
+          isin:
+            value:
+              - HET
+              - LOH
+    hom_lo:
+        dtype: int64 # FIXME defined as 'float' in documentation.
+    hom_hi:
+        dtype: int64 # FIXME defined as 'float' in documentation.
+    hom_pbinom_lo:
+        dtype: float64
+    homogenous:
+        dtype: object # FIXME defined as 'bool' in documentation.
+        nullable: true
+        checks:
+          isin:
+            value:
+              - True
+              - False
+    cadd_score:
+        dtype: float64
+    ada_score:
+        dtype: float64
+        nullable: true
+    rf_score:
+        dtype: float64
+        nullable: true
+    sift_category:
+        dtype: str
+        nullable: true
+#        checks: # FIXME: Column is empty.
+#          isin:
+#            value:
+#              - pathogenic
+#              - likely_pathogenic
+#              - benign
+#              - likely_benign
+#              - ambiguous
+    sift_score: # FIXME: Column is empty.
+        dtype: float64
+        nullable: true
+    polyphen_category:
+        dtype: str # FIXME: Column is empty.
+        nullable: true
+#        checks:
+#          isin:
+#            value:
+#              - pathogenic
+#              - likely_pathogenic
+#              - benign
+#              - likely_benign
+#              - ambiguous
+    polyphen_score: # FIXME: Column is empty.
+        dtype: float64
+        nullable: true
+    amis_category: # FIXME: Sometimes value encountered is a combination of possible values in data description.
+        dtype: str
+#        checks:
+#          isin:
+#            value:
+#              - pathogenic
+#              - likely_pathogenic
+#              - benign
+#              - likely_benign
+#              - ambiguous
+#              - . # FIXME: Encountered point '.' values in data.
+    amis_score:
+        dtype: str # FIXME: Sometimes value encountered is a combination of floats, so should be 'string'?
+        nullable: true
+    cosmic_id:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+    clinvar_id:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+    clinvar_sig:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+        checks:
+          isin:
+            value:
+#              - pathogenic # FIXME: Encountered values different from described in documentation.
+#              - likely_pathogenic
+#              - benign
+#              - likely_benign
+#              - ambiguous
+              - .
+              - Pathogenic
+              - Uncertain_significance
+              - Likely_pathogenic
+              - Pathogenic/Likely_pathogenic
+              - Conflicting_classifications_of_pathogenicity
+              - Likely_benign
+              - Benign/Likely_benign
+              - Benign
+              - risk_factor
+              - not_provided
+    clinvar_status:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+    clinvar_assoc:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+    pathogenecity:
+        dtype: str
+#        nullable: true # FIXME: Encountered point '.' values in data.
+        checks:
+            isin:
+                value: # FIXME: Expected values are not present in data description.
+                  - .
+                  - likely_benign
+                  - likely_pathogenic
+                  - ambiguous
+                  - ambiguous,likely_benign
+                  - ambiguous,likely_pathogenic
+                  - likely_benign,ambiguous
+                  - likely_pathogenic,ambiguous
+    classification:
+        dtype: str
+        checks:
+            isin:
+                value:
+                  - Truncating
+                  - Missense
+                  - Splicing
