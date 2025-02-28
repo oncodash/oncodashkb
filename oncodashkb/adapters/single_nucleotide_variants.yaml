@@ -121,7 +121,7 @@ validate: # SNV table labeled as "external".
             isin:
               value:
                   - HGSOC
-    consequence:
+    consequence: # FIXME: Encountered values significantly different than values described in documentation.
       dtype: str
       nullable: true
       checks:
@@ -144,11 +144,11 @@ validate: # SNV table labeled as "external".
         checks:
             isin:
                 value:
-                    - Inconclusive
+                    - Inconclusive # Not present in source documentation description.
                     - Likely Oncogenic
                     - Oncogenic
                     - Unknown
-                    - Likely Neutral
+                    - Likely Neutral # Not present in source documentation description.
     mutationEffectDescription:
       dtype: str
       nullable: true
@@ -174,7 +174,7 @@ validate: # SNV table labeled as "external".
         nullable: true
         checks:
             isin:
-                value:
+                value: # FIXME: Levels 2, R1 and R2 present in data description, but not in acrtual data.
                     - LEVEL_1
                     - LEVEL_3A
                     - LEVEL_3B
