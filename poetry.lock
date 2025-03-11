@@ -43,13 +43,13 @@ tests-mypy = ["mypy (>=1.11.1)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "biocypher"
-version = "0.6.2"
+version = "0.9.1"
 description = "A unifying framework for biomedical research knowledge graphs"
 optional = false
-python-versions = "<4.0,>=3.9"
+python-versions = "<4.0,>=3.10"
 files = [
-    {file = "biocypher-0.6.2-py3-none-any.whl", hash = "sha256:6460ef72bc68520182d8a88d16ac8569b74648074c878305305506385a9d2565"},
-    {file = "biocypher-0.6.2.tar.gz", hash = "sha256:9246aa90ab2a07cf0e3c6df296cdccbd48dd403b64418943a6119b5251569d06"},
+    {file = "biocypher-0.9.1-py3-none-any.whl", hash = "sha256:e4c50b64e39c733f686a4acbed06f09c6d7489e0566f55b0e5087a0a43543849"},
+    {file = "biocypher-0.9.1.tar.gz", hash = "sha256:396c317788e5c4eb0c73c80fd132d6b32786bc9cd34fa07b75bfc6dd4f041b64"},
 ]
 
 [package.dependencies]
@@ -333,6 +333,17 @@ files = [
 all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
 
 [[package]]
+name = "iniconfig"
+version = "2.0.0"
+description = "brain-dead simple config-ini parsing"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"},
+    {file = "iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3"},
+]
+
+[[package]]
 name = "isodate"
 version = "0.6.1"
 description = "An ISO 8601 date/time/duration parser and formatter"
@@ -348,13 +359,13 @@ six = "*"
 
 [[package]]
 name = "jinja2"
-version = "3.1.5"
+version = "3.1.6"
 description = "A very fast and expressive template engine."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "jinja2-3.1.5-py3-none-any.whl", hash = "sha256:aba0f4dc9ed8013c424088f68a5c226f7d6097ed89b246d7749c2ec4175c6adb"},
-    {file = "jinja2-3.1.5.tar.gz", hash = "sha256:8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"},
+    {file = "jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"},
+    {file = "jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"},
 ]
 
 [package.dependencies]
@@ -691,22 +702,22 @@ files = [
 
 [[package]]
 name = "ontoweaver"
-version = "0.1.2"
+version = "0.1.3"
 description = "Exports from tables to Semantic Knowledge Graphs, with a simple declarative mapping."
 optional = false
 python-versions = "<4.0,>=3.12"
 files = [
-    {file = "ontoweaver-0.1.2-py3-none-any.whl", hash = "sha256:09f398b4e3567f64ca7509bebd980ee7726e9f405f2395c15920b811316f3cdc"},
-    {file = "ontoweaver-0.1.2.tar.gz", hash = "sha256:87e154919d6acc8f77afa7470adad2aa7cc58587e9edf8afae72fe4f47f748a9"},
+    {file = "ontoweaver-0.1.3-py3-none-any.whl", hash = "sha256:12027953b18f7c2d583891f629d4345d652c9afb6e4a7808966a445d2c7afee1"},
+    {file = "ontoweaver-0.1.3.tar.gz", hash = "sha256:83d380231048a8e1c9ba3ea2e58be8f2529da4bd54afe7584d40a983d2388cb7"},
 ]
 
 [package.dependencies]
-biocypher = ">=0.6.1,<0.7.0"
+biocypher = ">=0.9.1,<0.10.0"
 jsonargparse = ">=4.35,<5.0"
 numpy = ">=2.1.3,<3.0.0"
 owlready2 = ">=0.47,<0.48"
 pandas = ">=2.0.1,<3.0.0"
-pandera = {version = ">=0.22.1,<0.23.0", extras = ["io"]}
+pandera = {version = ">=0.23.1,<0.24.0", extras = ["io"]}
 pooch = ">=1.7.0,<2.0.0"
 xdg-base-dirs = ">=6.0.2,<7.0.0"
 
@@ -818,35 +829,37 @@ xml = ["lxml (>=4.9.2)"]
 
 [[package]]
 name = "pandera"
-version = "0.22.1"
+version = "0.23.1"
 description = "A light-weight and flexible data validation and testing tool for statistical data objects."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "pandera-0.22.1-py3-none-any.whl", hash = "sha256:2a35531b4b533ac83e606a6dcc3cd41561774ff3d872117228e931f22e72f330"},
-    {file = "pandera-0.22.1.tar.gz", hash = "sha256:091ebc353383ba642e5a20ee0df763ed2059ab99cb4b2ac3e83f482de8493645"},
+    {file = "pandera-0.23.1-py3-none-any.whl", hash = "sha256:37f75cfb5e34db88afc07adf3ea07ba8738bca709f0e67799c8f1b2fc6b9c977"},
+    {file = "pandera-0.23.1.tar.gz", hash = "sha256:2afed504ad61bbd2960dc7f85dd6be0b28d230a626f392b8ba05c291b970ae06"},
 ]
 
 [package.dependencies]
 black = {version = "*", optional = true, markers = "extra == \"io\""}
 frictionless = {version = "<=4.40.8", optional = true, markers = "extra == \"io\""}
-numpy = ">=1.19.0"
+numpy = ">=1.24.4"
 packaging = ">=20.0"
-pandas = ">=1.2.0"
+pandas = ">=2.1.1"
 pydantic = "*"
 pyyaml = {version = ">=5.1", optional = true, markers = "extra == \"io\""}
 typeguard = "*"
 typing_inspect = ">=0.6.0"
 
 [package.extras]
-all = ["black", "dask[dataframe]", "fastapi", "frictionless (<=4.40.8)", "geopandas", "hypothesis (>=6.92.7)", "modin", "pandas-stubs", "polars (>=0.20.0)", "pyspark[connect] (>=3.2.0)", "pyyaml (>=5.1)", "ray", "scipy", "shapely"]
-dask = ["dask[dataframe]"]
+all = ["black", "dask[dataframe]", "distributed", "fastapi", "frictionless (<=4.40.8)", "geopandas", "hypothesis (>=6.92.7)", "modin", "pandas-stubs", "polars (>=0.20.0)", "pyspark[connect] (>=3.2.0)", "pyyaml (>=5.1)", "ray", "scipy", "shapely"]
+dask = ["dask[dataframe]", "distributed"]
+dev = ["hypothesis (>=6.92.7)", "importlib_metadata", "isort (>=5.7.0)", "joblib", "mypy (==1.10.0)", "nox", "pip", "pre_commit", "pyarrow", "pylint (<3.3)", "pytest", "pytest-asyncio", "pytest-cov", "pytest-xdist", "python-multipart", "pytz", "uvicorn", "xdoctest"]
+docs = ["furo", "grpcio", "myst-nb", "ray", "recommonmark", "sphinx", "sphinx-autodoc-typehints (<=1.14.1)", "sphinx-copybutton", "sphinx-design", "sphinx-docsearch", "types-click", "types-pytz", "types-pyyaml", "types-requests", "types-setuptools"]
 fastapi = ["fastapi"]
 geopandas = ["geopandas", "shapely"]
 hypotheses = ["scipy"]
 io = ["black", "frictionless (<=4.40.8)", "pyyaml (>=5.1)"]
-modin = ["dask[dataframe]", "modin", "ray"]
-modin-dask = ["dask[dataframe]", "modin"]
+modin = ["dask[dataframe]", "distributed", "modin", "ray"]
+modin-dask = ["dask[dataframe]", "distributed", "modin"]
 modin-ray = ["modin", "ray"]
 mypy = ["pandas-stubs"]
 polars = ["polars (>=0.20.0)"]
@@ -905,6 +918,21 @@ files = [
 docs = ["furo (>=2024.8.6)", "proselint (>=0.14)", "sphinx (>=8.0.2)", "sphinx-autodoc-typehints (>=2.4)"]
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.3.2)", "pytest-cov (>=5)", "pytest-mock (>=3.14)"]
 type = ["mypy (>=1.11.2)"]
+
+[[package]]
+name = "pluggy"
+version = "1.5.0"
+description = "plugin and hook calling mechanisms for python"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669"},
+    {file = "pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1"},
+]
+
+[package.extras]
+dev = ["pre-commit", "tox"]
+testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pooch"
@@ -1140,6 +1168,26 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[[package]]
+name = "pytest"
+version = "8.3.5"
+description = "pytest: simple powerful testing with Python"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pytest-8.3.5-py3-none-any.whl", hash = "sha256:c69214aa47deac29fad6c2a4f590b9c4a9fdb16a403176fe154b79c0b4d4d820"},
+    {file = "pytest-8.3.5.tar.gz", hash = "sha256:f4efe70cc14e511565ac476b57c279e12a855b11f48f212af1080ef2263d3845"},
+]
+
+[package.dependencies]
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
+iniconfig = "*"
+packaging = "*"
+pluggy = ">=1.5,<2"
+
+[package.extras]
+dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
 name = "python-dateutil"
@@ -1581,13 +1629,13 @@ test = ["coverage[toml] (>=7)", "mypy (>=1.2.0)", "pytest (>=7)"]
 
 [[package]]
 name = "typer"
-version = "0.15.1"
+version = "0.15.2"
 description = "Typer, build great CLIs. Easy to code. Based on Python type hints."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typer-0.15.1-py3-none-any.whl", hash = "sha256:7994fb7b8155b64d3402518560648446072864beefd44aa2dc36972a5972e847"},
-    {file = "typer-0.15.1.tar.gz", hash = "sha256:a0588c0a7fa68a1978a069818657778f86abe6ff5ea6abf472f940a08bfe4f0a"},
+    {file = "typer-0.15.2-py3-none-any.whl", hash = "sha256:46a499c6107d645a9c13f7ee46c5d5096cae6f5fc57dd11eccbbb9ae3e44ddfc"},
+    {file = "typer-0.15.2.tar.gz", hash = "sha256:ab2fab47533a813c49fe1f16b1a370fd5819099c00b119e0633df65f22144ba5"},
 ]
 
 [package.dependencies]
@@ -1678,4 +1726,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "06749f73181cda83aa9ec03f0bfc9f74442ed360494e2fb4700a92a61f4d8d1a"
+content-hash = "d88d4ed7cea3cb2d804c586e85a10e5e7621cf4999c26c2c9051ee2c1ebdbad0"
