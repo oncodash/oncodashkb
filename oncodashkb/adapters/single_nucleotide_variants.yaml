@@ -101,4 +101,91 @@ transformers:
 metadata:
         - name: single_nucleotide_variants
 
+validate: # SNV table labeled as "external".
+  columns:
+    patient_id:
+      dtype: str
+    sample_id:
+        dtype: str
+    alteration:
+        dtype: str
+        checks:
+            str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+:[ACTG]+$
+    hugoSymbol:
+        dtype: str
+        checks:
+            str_matches: ^[a-zA-Z0-9-]+$
+    tumorType:
+        dtype: str
+        checks:
+            isin:
+              value:
+                  - HGSOC
+    consequence: # FIXME: Encountered values significantly different than values described in documentation.
+      dtype: str
+      nullable: true
+      checks:
+          isin:
+              value:
+                  - frameshift_variant
+                  - stop_gained
+                  - missense_variant
+                  - splice_donor_variant
+                  - splice_region_variant
+                  - splice_acceptor_variant
+                  - downstream_gene_variant
+                  - upstream_gene_variant
+                  - intron_variant
+                  - 3_prime_UTR_variant
+                  - inframe_insertion
+                  - stop_lost
+    oncogenic:
+        dtype: str
+        checks:
+            isin:
+                value:
+                    - Inconclusive # Not present in source documentation description.
+                    - Likely Oncogenic
+                    - Oncogenic
+                    - Unknown
+                    - Likely Neutral # Not present in source documentation description.
+    mutationEffectDescription:
+      dtype: str
+      nullable: true
+    gene_role:
+      dtype: str
+      checks:
+          isin:
+              value:
+                  - Gain-of-function
+                  - Inconclusive
+                  - Likely Gain-of-function
+                  - Likely Loss-of-function
+                  - Likely Neutral
+                  - Loss-of-function
+                  - Unknown
+    citationPMids:
+      dtype: str
+      nullable: true
+      checks:
+        str_matches: ^[0-9]{7,}(,[0-9]{7,})*$
+    level_of_evidence:
+        dtype: str
+        nullable: true
+        checks:
+            isin:
+                value: # FIXME: Levels 2, R1 and R2 present in data description, but not in acrtual data.
+                    - LEVEL_1
+                    - LEVEL_3A
+                    - LEVEL_3B
+                    - LEVEL_4
+    geneSummary:
+        dtype: str
+        nullable: true
+    variantSummary:
+        dtype: str
+        nullable: true
+    tumorTypeSummary:
+        dtype: str
+        nullable: true
     

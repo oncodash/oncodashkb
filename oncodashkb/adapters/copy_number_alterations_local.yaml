@@ -104,25 +104,31 @@ metadata:
         - name: copy_number_alterations
 
 
-
-validate: # Validation for cna labeled "external.".
+validate: # Validation for cna labeled "local.".
   columns:
+#    unnamed:0: #FIXME: weird column.
+#      dtype: int64
     patient_id:
-      dtype: str
+      dtype: str #FIXME: not present in data declared in source description.
     sample_id:
       dtype: str
+    referenceGenome:
+      dtype: str
+      checks:
+        isin:
+          - GRCh38
+          - '2' #FIXME: possible error.
+    hugoSymbol:
+      dtype: str
     alteration:
+      dtype: str
       checks:
         isin:
           value:
             - AMPLIFICATION
             - '4' #FIXME: possible error.
-#            - DELETION #FIXME: not present in data declared in source description.
-#            - UNKNOWN #FIXME: not present in data declared in source description.
-    hugoSymbol:
-        dtype: str
-        checks:
-            str_matches: ^[a-zA-Z0-9-]+$
+#            - DELETION FIXME: not present in data declared in source description.
+#            - UNKNOWN FIXME: not present in data declared in source description.
     tumorType:
       dtype: str
       checks:
@@ -130,63 +136,66 @@ validate: # Validation for cna labeled "external.".
           value:
             - HGSOC
             - '5' #FIXME: possible error.
-    oncogenic:
+    nMajor: #FIXME: not present in data declared in source description.
+      dtype: float64
+    nMinor: #FIXME: not present in data declared in source description.
+      dtype: float64
+    lohstatus: #FIXME: not present in data declared in source description.
       dtype: str
-      nullable: true
       checks:
         isin:
           value:
-            - Inconclusive # Not present in source documentation description.
-            - Likely Oncogenic
-            - Oncogenic
-            - Unknown
-            - known # Not present in source documentation description.
-    mutationEffectDescription:
-      dtype: str
-      nullable: true
-    gene_role:
-      dtype: str
-      nullable: true
+            - HET
+            - '8' #FIXME: possible error.
+    ploidy: #FIXME: not present in data declared in source description.
+      dtype: float64
+    start: #FIXME: not present in data declared in source description.
+      dtype: float64
+    end: #FIXME: not present in data declared in source description.
+      dtype: float64
+    strand: #FIXME: not present in data declared in source description.
+      dtype: float64
       checks:
         isin:
           value:
-            - Act # Not present in source documentation description.
-            - Gain-of-function
-            - Inconclusive
-            - Likely Gain-of-function
-#            - Likely Loss-of-function FIXME: not present in data declared in source description.
-#            - Likely Neutral FIXME: not present in data declared in source description.
-#            - Likely Switch-of-function FIXME: not present in data declared in source description.
-#            - Loss-of-function FIXME: not present in data declared in source description.
-            - LoF # Not present in source documentation description.
-#            - Neutral FIXME: not present in data declared in source description.
-#            - Switch-of-function FIXME: not present in data declared in source description.
-            - Unknown
-            - ambiguous # Not present in source documentation description.
-    citationPMids:
+            - -1.0
+            - 1.0
+            - 12.0 #FIXME: possible error.
+    band: #FIXME: not present in data declared in source description.
       dtype: str
-      nullable: true
-      checks:
-        str_matches: ^[0-9]{7,}(,[0-9]{7,})*$
-    level_of_evidence:
-      dtype: str
-      nullable: true
+    nProbesCr: #FIXME: not present in data declared in source description.
+      dtype: float64
+    nProbesAf: #FIXME: not present in data declared in source description.
+      dtype: float64
+    logR: #FIXME: not present in data declared in source description.
+      dtype: float64
+    baf: #FIXME: not present in data declared in source description.
+      dtype: float64
+    nAraw: #FIXME: not present in data declared in source description.
+      dtype: float64
+    nBraw: #FIXME: not present in data declared in source description.
+      dtype: float64
+    purifiedLogR: #FIXME: not present in data declared in source description.
+      dtype: float64
+    purifiedBaf: #FIXME: not present in data declared in source description.
+      dtype: float64
+    purifiedLoh: #FIXME: not present in data declared in source description.
+      dtype: float64
+    minPurifiedLogR: #FIXME: not present in data declared in source description.
+      dtype: float64
+    maxPurifiedLogR: #FIXME: not present in data declared in source description.
+      dtype: float64
+    breaksInGene: #FIXME: not present in data declared in source description.
+      dtype: float64
       checks:
         isin:
           value:
-            - LEVEL_1
-            - LEVEL_2
-            - LEVEL_3A
-            - LEVEL_3B
-            - LEVEL_4
-            - LEVEL_R1
-            - LEVEL_R2
-    geneSummary:
-      dtype: str
-      nullable: true
-    variantSummary:
-        dtype: str
-        nullable: true
-    tumorTypeSummary:
-        dtype: str
-        nullable: true
+            - 0.0
+            - 1.0
+            - 2.0
+            - 3.0
+            - 4.0
+            - 5.0
+            - 6.0
+            - 7.0
+            - 25.0 #FIXME: possible error.

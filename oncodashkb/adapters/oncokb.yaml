@@ -10,3 +10,48 @@ transformers:
         to_object: drug
         via_relation: alteration_biomarker_for_drug
         substitute: "_"
+
+validate:
+  columns:
+    alteration_type:
+      dtype: str
+      checks:
+        isin:
+          value:
+            - SNV
+            - CNA
+    alteration:
+      dtype: str
+    approvedIndications:
+      dtype: str
+      nullable: true
+    description:
+      dtype: str
+      nullable: true
+    treatment:
+      dtype: str
+      # FIXME sometimes treatments separated by semicolon, sometimes by comma.
+    level_of_evidence:
+      dtype: str
+      nullable: true
+      checks:
+        isin:
+          value:
+            - LEVEL_1
+            - LEVEL_2
+            - LEVEL_3A
+            - LEVEL_3B
+            - LEVEL_4
+#            - LEVEL_R1 # FIXME: not present in data declared in source description.
+#            - LEVEL_R2 # FIXME: not present in data declared in source description.
+    citations: #FIXME sometimes there is "PMID:[PMID_NUMBER]" sometimes there is only "[PMID_NUMBER]".
+      dtype: str
+      nullable: true
+    tumorType:
+      dtype: str
+      nullable: true
+    cgi_level: # FIXME not present in source description.
+      dtype: str
+      nullable: true
+      checks:
+        str_matches: ^[ABCD]\([^\d]+\)$
