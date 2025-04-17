@@ -101,7 +101,7 @@ sample carries alteration:
 
 # A gene is linked to its functional outcome (gain or loss of function),
 # which are represented as nodes, so as to allow a causal path
-# to go through alteration -> gene outcome -> transcript activity.
+# to go through alteration -> functional outcome -> transcript activity.
 # Hence, outcomes have at least two instances:
 # - Gene:GoF, and
 # - Gene:LoF.
