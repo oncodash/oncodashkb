@@ -116,7 +116,6 @@ validate: # Validation for cna labeled "external.".
         isin:
           value:
             - AMPLIFICATION
-            - '4' #FIXME: possible error.
 #            - DELETION #FIXME: not present in data declared in source description.
 #            - UNKNOWN #FIXME: not present in data declared in source description.
     hugoSymbol:
@@ -129,7 +128,6 @@ validate: # Validation for cna labeled "external.".
         isin:
           value:
             - HGSOC
-            - '5' #FIXME: possible error.
     oncogenic:
       dtype: str
       nullable: true
