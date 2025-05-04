@@ -197,7 +197,7 @@ if __name__ == "__main__":
             data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
 
     # Write everything.
-    n, e = ontoweaver.extract(data_mappings)
+    n, e = ontoweaver.extract(data_mappings, sep="\t")
     nodes += n
     edges += e
 
