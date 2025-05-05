@@ -1,28 +1,29 @@
 row:
-   rowIndex:
-      to_subject: annotation
-transformers:
-    - map:
+   map:
         column: DB_Object_Symbol
-        to_object: gene
-        via_relation: annotation_for_gene
+        to_subject: protein
+transformers:
+    # - map:
+    #     column: DB_Object_Symbol
+    #     to_object: gene
+    #     via_relation: annotation_for_gene
     # - map:
     #     column: GO_enables
     #     to_object: molecular_function
     #     via_relation: enables
-    - map:
-        columns: GO_involved_in
-        to_object: biological_process
-        via_relation: involved_in
+    # - map:
+    #     columns: GO_involved_in
+    #     to_object: biological_process
+    #     via_relation: involved_in
     # - map:
     #     columns: GO_contributes_to
     #     to_object: molecular_function
     #     via_relation: contributes_to
     - map:
         columns: GO_involved_in
-        from_subject: gene
+        # from_subject: protein
         to_object: biological_process
-        via_relation: gene_to_biological_process
+        via_relation: protein_to_biological_process
     # - map:
     #     column: GO_contributes_to
     #     from_subject: gene
