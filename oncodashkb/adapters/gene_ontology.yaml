@@ -3,34 +3,28 @@ row:
       to_subject: annotation
 transformers:
     - map:
-        columns:
-            - DB_Object_Symbol
-        to_object: gene_hugo
+        column: DB_Object_Symbol
+        to_object: gene
         via_relation: annotation_for_gene
+    # - map:
+    #     column: GO_enables
+    #     to_object: molecular_function
+    #     via_relation: enables
     - map:
-        columns:
-            - GO_enables
-        to_object: molecular_function
-        via_relation: enables
-    - map:
-        columns:
-            - GO_involved_in
+        columns: GO_involved_in
         to_object: biological_process
         via_relation: involved_in
+    # - map:
+    #     columns: GO_contributes_to
+    #     to_object: molecular_function
+    #     via_relation: contributes_to
     - map:
-        columns:
-            - GO_contributes_to
-        to_object: molecular_function
-        via_relation: contributes_to
-    - map:
-        columns:
-            - GO_involved_in
-        from_subject: gene_hugo
+        columns: GO_involved_in
+        from_subject: gene
         to_object: biological_process
         via_relation: gene_to_biological_process
-    - map:
-        columns:
-            - GO_contributes_to
-        from_subject: gene_hugo
-        to_object: molecular_function
-        via_relation: gene_to_molecular_function
+    # - map:
+    #     column: GO_contributes_to
+    #     from_subject: gene
+    #     to_object: molecular_function
+    #     via_relation: gene_to_molecular_function

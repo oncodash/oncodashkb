@@ -39,11 +39,11 @@ gene status:
     properties:
         name: str
 
-# gene:
-#     represented_as: node
-#     label_in_input: gene
-#     properties:
-#         name: str
+gene:
+    represented_as: node
+    label_in_input: gene
+    # properties:
+    #     name: str
 
 protein:
     represented_as: node
@@ -180,3 +180,36 @@ gene status affects protein:
     target: protein
     properties:
         name: str
+
+
+### GO -- TO BE FIXED
+annotation: 
+    is_a: named thing
+    represented_as: node
+    label_in_input: annotation
+
+biological process:
+    is_a: named thing
+    represneted_as: node
+    label_in_input: biological_process
+
+annotation for gene: 
+    is_a: association
+    represented_as: edge
+    label_in_input: annotation_for_gene
+    source: annotation
+    target: gene
+
+involved in: 
+    is_a: association
+    represented_as: edge
+    label_in_input: involved_in
+    source: annotation
+    target: biological process
+
+gene to biological process:
+    is_a: association
+    represented_as: edge
+    label_in_input: gene_to_biological_process
+    source: gene
+    target: biological process
