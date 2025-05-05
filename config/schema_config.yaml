@@ -32,16 +32,22 @@ drug:
     properties:
         name: str
 
-functional outcome:
+gene status:
     is_a: outcome
     represented_as: node
-    label_in_input: functional_outcome
+    label_in_input: gene_status
     properties:
         name: str
 
-gene:
+# gene:
+#     represented_as: node
+#     label_in_input: gene
+#     properties:
+#         name: str
+
+protein:
     represented_as: node
-    label_in_input: gene
+    label_in_input: protein
     properties:
         name: str
 
@@ -99,9 +105,9 @@ sample carries alteration:
 
 ### CAUSES
 
-# A gene is linked to its functional outcome (gain or loss of function),
+# A gene is linked to its gene status (gain or loss of function),
 # which are represented as nodes, so as to allow a causal path
-# to go through alteration -> functional outcome -> transcript activity.
+# to go through alteration -> gene status -> transcript activity.
 # Hence, outcomes have at least two instances:
 # - Gene:GoF, and
 # - Gene:LoF.
@@ -111,12 +117,12 @@ sample carries alteration:
 # Incidentally: the source of an edge of type "causes"
 # cannot be an inactive protein.
 
-alteration causes functional outcome:
+alteration causes gene status:
     is_a: causes
     represented_as: edge
-    label_in_input: alteration_causes_functional_outcome
+    label_in_input: alteration_causes_gene_status
     source: alteration
-    target: functional outcome
+    target: gene status
     properties:
         name: str
 
@@ -157,20 +163,20 @@ patient has treatment:
 
 ### AFFECTS
 
-alteration affects gene:
-    is_a: affects
-    represented_as: edge
-    label_in_input: alteration_affects_gene
-    source: alteration
-    taregt: gene
-    properties:
-        name: str
+# alteration affects gene:
+#     is_a: affects
+#     represented_as: edge
+#     label_in_input: alteration_affects_gene
+#     source: alteration
+#     taregt: gene
+#     properties:
+#         name: str
 
-functional outcome affects gene:
+gene status affects protein:
     is_a: affects
     represented_as: edge
-    label_in_input: functional_outcome_affects_gene
-    source: functional outcome
-    target: gene
+    label_in_input: gene_status_affects_protein
+    source: gene status
+    target: protein
     properties:
         name: str
