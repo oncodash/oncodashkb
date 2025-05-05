@@ -17,6 +17,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
                  ontology: str,
                  genes_list: str,
                  config: dict,
+                 type_affix=ontoweaver.tabular.TypeAffixes.none
                  ):
 
         self.ontology = ontology
@@ -82,6 +83,8 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
     def create_id_term_dict(self):
         dict_id_term = {}
 
+        print(self.ontology)
+
         ont = get_ontology(self.ontology).load()
 
         # iterate through all classes in the ontology
@@ -98,6 +101,8 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
         return dict_id_term
 
     def read_genes_list(self):
+
+        # print(self.genes_list=='o')
 
         with open(self.genes_list, 'r') as file:
 

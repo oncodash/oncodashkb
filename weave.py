@@ -60,7 +60,7 @@ if __name__ == "__main__":
     parser.add_argument("-g", "--gene_ontology", metavar="CSV", nargs="+",
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
 
-    parser.add_argument("-n", "--gene_ontology_owl", metavar="OWL", nargs="+",
+    parser.add_argument("-n", "--gene_ontology_owl", metavar="OWL",
                         help="Download Gene_Ontology owl file.")
 
     parser.add_argument("-G", "--gene_ontology_genes", metavar="TXT",
@@ -161,7 +161,7 @@ if __name__ == "__main__":
         with open(conf_filename) as fd:
             conf = yaml.full_load(fd)
 
-        manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl[0], asked.gene_ontology_genes[0], conf)
+        manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
         manager.run()
 
         n = list(manager.nodes)
@@ -197,7 +197,7 @@ if __name__ == "__main__":
             data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
 
     # Write everything.
-    n, e = ontoweaver.extract(data_mappings, sep="\t")
+    n, e = ontoweaver.extract(data_mappings, sep="\t", affix="suffix")
     nodes += n
     edges += e
 
