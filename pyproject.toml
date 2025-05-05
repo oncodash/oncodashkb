@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 biocypher = "^0.9.3"
-ontoweaver = "^0.2.0"
+ontoweaver = "^0.2.1"
 pooch = "^1.7.0"
 pandas = "^2.0.1"
 owlready2 = "^0.47"
