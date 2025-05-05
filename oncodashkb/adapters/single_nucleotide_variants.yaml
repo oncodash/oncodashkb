@@ -1,7 +1,7 @@
 row:
     map:
         columns: 
-            - pid
+            - patient_id
         to_subject: patient
 transformers:
     - map:
@@ -35,13 +35,13 @@ transformers:
         from_subject: functional_outcome
         to_object: gene
         via_relation: functional_outcome_affects_gene
-    - map:
-        columns:
-            - referenceGenome
-        to_property:
-            - reference_genome
-        for_objects:
-            - alteration
+    # - map:
+    #     columns:
+    #         - referenceGenome
+    #     to_property:
+    #         - reference_genome
+    #     for_objects:
+    #         - alteration
     - map:
         columns:
             - tumorType
