@@ -21,29 +21,22 @@ transformers:
         columns:
             - hugoSymbol
         from_subject: alteration
-        to_object: gene
+        to_object: protein
         via_relation: alteration_affects_gene
     - cat_format:
         columns:
           - hugoSymbol
           - gene_role
         from_subject: alteration
-        to_object: functional_outcome
+        to_object: gene_status
         format_string: "{hugoSymbol}:{gene_role}"
-        via_relation: alteration_causes_functional_outcome
+        via_relation: alteration_causes_gene_status
     - map:
         columns:
             - hugoSymbol
-        from_subject: functional_outcome
-        to_object: gene
-        via_relation: functional_outcome_affects_gene
-    # - map:
-    #     columns:
-    #         - referenceGenome
-    #     to_property:
-    #         - reference_genome
-    #     for_objects:
-    #         - alteration
+        from_subject: gene_status
+        to_object: protein
+        via_relation: gene_status_affects_protein
     - map:
         columns:
             - tumorType
@@ -84,13 +77,6 @@ transformers:
             - citationPMids
         to_property:
             - citation_PM_ids
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - consequence
-        to_property:
-            - consequence
         for_objects:
             - alteration
     - map:
