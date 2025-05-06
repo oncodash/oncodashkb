@@ -30,6 +30,8 @@ transformers:
     #     to_object: molecular_function
     #     via_relation: gene_to_molecular_function
     - string:
-        value: " "
+        value: "."
         to_property: edgelabel
         for_objects: protein_to_biological_process
+metadata:
+        - name: .

@@ -9,6 +9,9 @@ import os
 import ontoweaver
 import oncodashkb.adapters as od
 
+def capitalize_first_letter(s):
+    return s.lower().capitalize()
+
 def process_directory(bc, directory, columns, conf_filename, manager_t):
 
     nodes = []
@@ -76,6 +79,23 @@ if __name__ == "__main__":
                         help="Extract parquet files from the directory molecule.")
     parser.add_argument("-p", "--open_targets_diseases", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory diseases.")
+    
+    parser.add_argument(
+        "-net",
+        "--networks",
+        metavar="TSV",
+        nargs="+",
+        help="Extract from the Omnipath networks TSV file.",
+    )
+
+    parser.add_argument(
+        "-sm",
+        "--small_molecules",
+        metavar="TSV",
+        nargs="+",
+        help="Extract from the Omnipath networks TSV file.",
+    )
+
     levels = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
@@ -169,6 +189,56 @@ if __name__ == "__main__":
         nodes += n
         edges += e
         logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
+    
+    # Extract from databases not requiring preprocessing.
+    if asked.networks:
+        logging.info(f"Weave Omnipath networks data...")
+
+        networks_df = pd.read_csv(asked.networks[0], sep="\t")
+        print(networks_df.info())
+
+        mapping_file = "./oncodashkb/adapters/networks.yaml"
+        with open(mapping_file) as fd:
+            mapping = yaml.full_load(fd)
+
+        adapter = ontoweaver.tabular.extract_table(
+            # df=networks_df, config=mapping, separator=":", affix="suffix"
+            df=networks_df,
+            config=mapping,
+            separator=":",
+            affix="suffix",
+        )
+
+        nodes += adapter.nodes
+        edges += adapter.edges
+
+        logging.info(f"Wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
+
+    # Extract from databases not requiring preprocessing.
+    if asked.small_molecules:
+        logging.info(f"Weave Omnipath networks data...")
+
+        small_molecules_df = pd.read_csv(asked.small_molecules[0], sep="\t")
+        small_molecules_df["source_genesymbol"] = small_molecules_df["source_genesymbol"].apply(capitalize_first_letter)
+        # small_molecules_df["target_genesymbol"] = small_molecules_df["target_genesymbol"].apply(capitalize_first_letter)
+        print(small_molecules_df.info())
+
+        mapping_file = "./oncodashkb/adapters/small_molecules.yaml"
+        with open(mapping_file) as fd:
+            mapping = yaml.full_load(fd)
+
+        adapter = ontoweaver.tabular.extract_table(
+            # df=networks_df, config=mapping, separator=":", affix="suffix"
+            df=small_molecules_df,
+            config=mapping,
+            separator=":",
+            affix="suffix",
+        )
+
+        nodes += adapter.nodes
+        edges += adapter.edges
+
+        logging.info(f"Wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
 
     # Extract from databases not requiring preprocessing.
     if asked.oncokb:
