@@ -224,3 +224,37 @@ protein to biological process:
     properties:
         edglelabel: str
         name: str
+
+small molecule protein:
+    is_a: pairwise molecular interaction
+    represented_as: edge
+    input_label: small_molecule_protein
+    properties:
+        is_directed: bool
+        is_stimulation: bool
+        is_inhibition: bool
+        consensus_direction: bool
+        consensus_stimulation: bool
+        consensus_inhibition: bool
+        sources: str
+        references: str
+        omnipath: bool
+        kinaseextra: bool
+        ligrecextra: bool
+        pathwayextra: bool
+        dorothea: bool
+        collectri: bool
+        tf_target: bool
+        lncrna_mrna: bool
+        tf_mirna: bool
+        small_molecule: bool
+        dorothea_curated: bool
+        dorothea_chipseq: bool
+        dorothea_tfbs: bool
+        dorothea_coexp: bool
+        dorothea_level: str
+        type: str
+        curation_effort: int
+        extra_attrs: str
+        evidences: str
+        name: str
