@@ -86,6 +86,15 @@ transformers:
             - level_of_evidence
         for_objects:
             - alteration
+    - string:
+        value: " "
+        to_property: edgelabel
+        for_objects:
+            - patient_carries_sample
+            - sample_carries_alteration
+            - alteration_causes_gene_status
+            - gene_status_affects_protein
+
 metadata:
         - name: copy_number_alterations
 

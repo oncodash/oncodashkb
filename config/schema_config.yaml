@@ -84,6 +84,7 @@ carries:
     label_in_input: carries
     properties:
         name: str
+        edglelabel: str
 
 patient carries sample:
     is_a: carries
@@ -93,6 +94,7 @@ patient carries sample:
     target: sample
     properties:
         name: str
+        edglelabel: str
 
 sample carries alteration:
     is_a: carries
@@ -102,6 +104,7 @@ sample carries alteration:
     target: alteration
     properties:
         name: str
+        edglelabel: str
 
 ### CAUSES
 
@@ -125,6 +128,7 @@ alteration causes gene status:
     target: gene status
     properties:
         name: str
+        edglelabel: str
 
 ### BIOMARKER
 
@@ -140,6 +144,7 @@ alteration biomarker for drug:
     target: drug
     properties:
         name: str
+        edglelabel: str
 
 ## METADATA
 
@@ -180,6 +185,7 @@ gene status affects protein:
     target: protein
     properties:
         name: str
+        edglelabel: str
 
 
 ### GO -- TO BE FIXED
@@ -213,3 +219,5 @@ protein to biological process:
     label_in_input: protein_to_biological_process
     source: protein
     target: biological process
+    properties:
+        edglelabel: str
