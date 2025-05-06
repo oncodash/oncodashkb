@@ -10,6 +10,13 @@ transformers:
         to_object: drug
         via_relation: alteration_biomarker_for_drug
         substitute: "_"
+    - string:
+        value: "."
+        to_property: edgelabel
+        for_objects:
+            - alteration_biomarker_for_drug
+metadata:
+        - name: .
 
 validate:
   columns:

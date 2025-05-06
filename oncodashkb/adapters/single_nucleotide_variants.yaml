@@ -107,7 +107,7 @@ transformers:
             - alteration_causes_gene_status
             - gene_status_affects_protein
 metadata:
-        - name: single_nucleotide_variants
+        - name: .
 
 validate: # SNV table labeled as "external".
   columns:
