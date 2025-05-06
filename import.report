@@ -1,0 +1,1060 @@
+D364:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H320:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H078:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H058:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H224:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D422:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D360:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H100:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H068:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H052:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D340:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D462:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D407:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D453:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D376:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M032:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H059:patient (global id space)-[PatientHasTreatment]->Other:treatment (global id space) referring to missing node Other:treatment
+H175:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M035:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D387:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H137:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D494:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D377:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D358:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D499:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M005:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC039:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D439:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H284:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H262:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC008:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D355:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M044:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC022:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D388:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D452:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M068:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D357:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D434:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D435:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M007:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H030:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D431:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H299:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D406:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D383:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H091:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H112:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D467:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H159:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H178:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D327:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H072:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M019:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H055:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H213:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H289:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H279:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H038:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H083:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H089:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M054:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H209:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H096:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC040:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D332:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H094:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D351:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H195:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H023:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H168:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D493:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H222:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H101:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D436:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M048:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H192:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H318:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H296:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H171:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D465:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H201:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D391:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H259:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D482:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D497:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M059:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H039:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H251:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D504:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D512:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D474:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H133:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H129:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D503:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D456:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D418:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M025:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M018:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H034:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M012:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M051:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D515:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H150:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M080:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M062:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H271:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D489:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H311:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H057:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D458:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H041:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D367:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M087:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H316:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC018:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H313:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D408:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC029:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D328:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H229:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H246:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H160:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H273:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D505:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC036:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M073:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H245:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H264:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H324:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H285:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H144:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M009:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M028:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H310:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H269:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H032:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H261:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H107:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H322:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H066:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC038:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D460:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H099:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M070:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H250:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D381:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H194:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H202:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D334:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D443:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H319:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H287:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D424:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D341:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D492:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D432:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H231:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H267:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H109:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D385:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D416:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D477:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H086:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H128:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H151:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H304:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H027:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M045:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D521:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H281:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H116:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H011:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D510:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H036:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M030:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D378:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H006:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H228:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M079:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC033:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D379:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D411:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D498:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H014:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M033:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D438:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H145:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H085:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D481:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC037:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H060:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H040:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H325:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M049:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D403:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC015:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H033:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H044:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H235:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D395:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D500:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D365:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D392:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H308:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D518:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H243:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D440:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D410:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D470:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H095:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H130:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H204:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D457:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D430:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D463:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H031:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H314:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H113:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D394:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D426:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H016:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M084:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H142:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D502:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M039:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M001:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D450:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D336:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D393:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H233:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H188:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D382:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H064:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H065:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H103:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H207:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D487:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC016:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H117:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H063:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H082:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M050:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H002:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D346:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M040:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D464:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M058:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H300:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D409:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H225:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC031:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC005:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D405:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H119:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M003:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H297:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H046:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D417:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC017:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H021:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H282:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H307:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H215:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H309:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D380:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D349:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC047:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D507:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D486:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H098:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D331:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC023:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H176:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H147:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D459:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D509:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC034:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H081:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H076:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H018:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M064:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M042:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H256:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H255:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D448:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D404:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M006:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H132:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M075:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M034:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D354:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M086:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D421:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M038:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC027:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D335:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D339:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H288:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H239:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H114:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H290:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H042:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D330:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D437:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H323:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H004:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D427:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H190:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D433:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D517:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H115:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC003:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D483:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M017:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D397:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H185:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D473:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D371:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H276:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D441:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H306:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M004:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D384:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H043:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC042:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H070:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D329:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D476:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H102:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D353:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H326:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D362:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D399:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D495:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H317:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D333:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M014:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M060:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H286:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D343:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H019:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H143:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D414:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M023:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H292:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC002:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H253:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D491:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D444:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D447:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M013:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+OC010:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M047:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M078:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H210:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D428:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H166:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H173:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D445:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D451:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H158:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H122:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D363:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H131:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M071:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D485:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H080:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D501:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H153:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H106:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M056:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H152:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D442:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D368:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC007:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D506:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H092:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H157:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D449:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H067:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D479:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H197:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H024:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H219:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H110:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M036:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D423:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M083:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D370:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H258:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H248:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H077:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+OC024:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H180:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+M063:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D375:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D466:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H266:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H162:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H230:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+H182:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+M022:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H087:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+D490:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H249:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+H084:patient (global id space)-[PatientHasTreatment]->PDS:treatment (global id space) referring to missing node PDS:treatment
+D419:patient (global id space)-[PatientHasTreatment]->NACT:treatment (global id space) referring to missing node NACT:treatment
+eneToBiologicalProcess]->T cell costimulation:biological_process (global id space) referring to missing node PDCD1LG2:gene
+CDKN2A:gene (global id space)-[GeneToBiologicalProcess]->Ras protein signal transduction:biological_process (global id space) referring to missing node CDKN2A:gene
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->kidney development:biological_process (global id space) referring to missing node GATA3:gene
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->lipid metabolic process:biological_process (global id space) referring to missing node PIK3CA:gene
+839979:annotation (global id space)-[AnnotationForGene]->SETBP1:gene (global id space) referring to missing node SETBP1:gene
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->axon regeneration:biological_process (global id space) referring to missing node JAK2:gene
+202110:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+129208:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109145:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+464988:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+377133:annotation (global id space)-[InvolvedIn]->protein autoubiquitination:biological_process (global id space) referring to missing node protein autoubiquitination:biological_process
+202086:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+103389:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+188245:annotation (global id space)-[AnnotationForGene]->BRAF:gene (global id space) referring to missing node BRAF:gene
+124031:annotation (global id space)-[InvolvedIn]->negative regulation of canonical NF-kappaB signal transduction:biological_process (global id space) referring to missing node negative regulation of canonical NF-kappaB signal transduction:biological_process
+NTRK3:gene (global id space)-[GeneToBiologicalProcess]->cellular response to retinoic acid:biological_process (global id space) referring to missing node NTRK3:gene
+PDCD1LG2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of T cell proliferation:biological_process (global id space) referring to missing node PDCD1LG2:gene
+CALR:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node CALR:gene
+BRCA1:gene (global id space)-[GeneToBiologicalProcess]->fatty acid biosynthetic process:biological_process (global id space) referring to missing node BRCA1:gene
+129997:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ERBB2:gene (global id space)-[GeneToBiologicalProcess]->semaphorin-plexin signaling pathway:biological_process (global id space) referring to missing node ERBB2:gene
+454186:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+282426:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+IL7R:gene (global id space)-[GeneToBiologicalProcess]->cytokine-mediated signaling pathway:biological_process (global id space) referring to missing node IL7R:gene
+130587:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+109121:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->phosphatidylinositol-mediated signaling:biological_process (global id space) referring to missing node PIK3CA:gene
+188143:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ETNK1:gene (global id space)-[GeneToBiologicalProcess]->None:biological_process (global id space) referring to missing node ETNK1:gene
+402143:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+833615:annotation (global id space)-[AnnotationForGene]->KLF2:gene (global id space) referring to missing node KLF2:gene
+377134:annotation (global id space)-[InvolvedIn]->protein-containing complex assembly:biological_process (global id space) referring to missing node protein-containing complex assembly:biological_process
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->insulin-like growth factor receptor signaling pathway:biological_process (global id space) referring to missing node PIK3CA:gene
+297089:annotation (global id space)-[AnnotationForGene]->IDH2:gene (global id space) referring to missing node IDH2:gene
+109744:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+TP53:gene (global id space)-[GeneToBiologicalProcess]->intrinsic apoptotic signaling pathway in response to endoplasmic reticulum stress:biological_process (global id space) referring to missing node TP53:gene
+63818:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+461298:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+MAP2K1:gene (global id space)-[GeneToBiologicalProcess]->neuron differentiation:biological_process (global id space) referring to missing node MAP2K1:gene
+173040:annotation (global id space)-[AnnotationForGene]->FGFR1:gene (global id space) referring to missing node FGFR1:gene
+MYC:gene (global id space)-[GeneToBiologicalProcess]->branching involved in ureteric bud morphogenesis:biological_process (global id space) referring to missing node MYC:gene
+405688:annotation (global id space)-[AnnotationForGene]->SMARCB1:gene (global id space) referring to missing node SMARCB1:gene
+109624:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+430151:annotation (global id space)-[AnnotationForGene]->PTCH1:gene (global id space) referring to missing node PTCH1:gene
+130266:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+105342:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+376926:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+419058:annotation (global id space)-[AnnotationForGene]->ATM:gene (global id space) referring to missing node ATM:gene
+109138:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+PTCH1:gene (global id space)-[GeneToBiologicalProcess]->prostate gland development:biological_process (global id space) referring to missing node PTCH1:gene
+402142:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+937143:annotation (global id space)-[InvolvedIn]->B cell activation:biological_process (global id space) referring to missing node B cell activation:biological_process
+270747:annotation (global id space)-[AnnotationForGene]->BRCA1:gene (global id space) referring to missing node BRCA1:gene
+63825:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+HRAS:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of wound healing:biological_process (global id space) referring to missing node HRAS:gene
+130347:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+276800:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+CEBPA:gene (global id space)-[GeneToBiologicalProcess]->integrated stress response signaling:biological_process (global id space) referring to missing node CEBPA:gene
+192450:annotation (global id space)-[AnnotationForGene]->TCF3:gene (global id space) referring to missing node TCF3:gene
+402047:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+KRAS:gene (global id space)-[GeneToBiologicalProcess]->Ras protein signal transduction:biological_process (global id space) referring to missing node KRAS:gene
+224662:annotation (global id space)-[AnnotationForGene]->GATA3:gene (global id space) referring to missing node GATA3:gene
+EZH2:gene (global id space)-[GeneToBiologicalProcess]->None:biological_process (global id space) referring to missing node EZH2:gene
+377122:annotation (global id space)-[InvolvedIn]->negative regulation of DNA-templated transcription:biological_process (global id space) referring to missing node negative regulation of DNA-templated transcription:biological_process
+236480:annotation (global id space)-[AnnotationForGene]->CALR:gene (global id space) referring to missing node CALR:gene
+430153:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+105346:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+123966:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ETV6:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node ETV6:gene
+219508:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+129179:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->response to lipopolysaccharide:biological_process (global id space) referring to missing node NOTCH1:gene
+124020:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+219544:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+TCF3:gene (global id space)-[GeneToBiologicalProcess]->immunoglobulin V(D)J recombination:biological_process (global id space) referring to missing node TCF3:gene
+377158:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+103446:annotation (global id space)-[InvolvedIn]->regulation of signal transduction by p53 class mediator:biological_process (global id space) referring to missing node regulation of signal transduction by p53 class mediator:biological_process
+ALK:gene (global id space)-[GeneToBiologicalProcess]->nervous system development:biological_process (global id space) referring to missing node ALK:gene
+418963:annotation (global id space)-[AnnotationForGene]->ATM:gene (global id space) referring to missing node ATM:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->epithelial to mesenchymal transition:biological_process (global id space) referring to missing node NOTCH1:gene
+301873:annotation (global id space)-[InvolvedIn]->response to dexamethasone:biological_process (global id space) referring to missing node response to dexamethasone:biological_process
+270580:annotation (global id space)-[AnnotationForGene]->BRCA1:gene (global id space) referring to missing node BRCA1:gene
+737238:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+MDM2:gene (global id space)-[GeneToBiologicalProcess]->response to steroid hormone:biological_process (global id space) referring to missing node MDM2:gene
+130279:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+402071:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->immune system process:biological_process (global id space) referring to missing node JAK2:gene
+129983:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+151909:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+MALT1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of T cell cytokine production:biological_process (global id space) referring to missing node MALT1:gene
+464916:annotation (global id space)-[AnnotationForGene]->EZH2:gene (global id space) referring to missing node EZH2:gene
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->cell fate commitment:biological_process (global id space) referring to missing node GATA3:gene
+103442:annotation (global id space)-[InvolvedIn]->cellular response to xenobiotic stimulus:biological_process (global id space) referring to missing node cellular response to xenobiotic stimulus:biological_process
+784746:annotation (global id space)-[AnnotationForGene]->MALT1:gene (global id space) referring to missing node MALT1:gene
+419091:annotation (global id space)-[InvolvedIn]->positive regulation of telomere maintenance via telomere lengthening:biological_process (global id space) referring to missing node positive regulation of telomere maintenance via telomere lengthening:biological_process
+109255:annotation (global id space)-[AnnotationForGene]->MYC:gene (global id space) referring to missing node MYC:gene
+ESR1:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of canonical NF-kappaB signal transduction:biological_process (global id space) referring to missing node ESR1:gene
+629512:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+215898:annotation (global id space)-[AnnotationForGene]->FGFR2:gene (global id space) referring to missing node FGFR2:gene
+TP63:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of DNA-templated transcription:biological_process (global id space) referring to missing node TP63:gene
+130578:annotation (global id space)-[InvolvedIn]->positive regulation of DNA-templated transcription:biological_process (global id space) referring to missing node positive regulation of DNA-templated transcription:biological_process
+377114:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+683994:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NRG1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of cell population proliferation:biological_process (global id space) referring to missing node NRG1:gene
+124013:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+TP63:gene (global id space)-[GeneToBiologicalProcess]->regulation of epidermal cell division:biological_process (global id space) referring to missing node TP63:gene
+129080:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+130581:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+219371:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+SF3B1:gene (global id space)-[GeneToBiologicalProcess]->RNA splicing via transesterification reactions:biological_process (global id space) referring to missing node SF3B1:gene
+454180:annotation (global id space)-[AnnotationForGene]->IRF4:gene (global id space) referring to missing node IRF4:gene
+129913:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+963028:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+130393:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+130637:annotation (global id space)-[InvolvedIn]->negative regulation of G1 to G0 transition:biological_process (global id space) referring to missing node negative regulation of G1 to G0 transition:biological_process
+109784:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+129255:annotation (global id space)-[InvolvedIn]->positive regulation of Rho protein signal transduction:biological_process (global id space) referring to missing node positive regulation of Rho protein signal transduction:biological_process
+151864:annotation (global id space)-[AnnotationForGene]->MET:gene (global id space) referring to missing node MET:gene
+129265:annotation (global id space)-[InvolvedIn]->phosphatidylinositol 3-kinase/protein kinase B signal transduction:biological_process (global id space) referring to missing node phosphatidylinositol 3-kinase/protein kinase B signal transduction:biological_process
+625826:annotation (global id space)-[AnnotationForGene]->TNFRSF14:gene (global id space) referring to missing node TNFRSF14:gene
+109678:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+172994:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+130537:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+CHEK2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of DNA-templated transcription:biological_process (global id space) referring to missing node CHEK2:gene
+110181:annotation (global id space)-[AnnotationForGene]->PDGFB:gene (global id space) referring to missing node PDGFB:gene
+376907:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+130125:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+405715:annotation (global id space)-[InvolvedIn]->positive regulation of cell differentiation:biological_process (global id space) referring to missing node positive regulation of cell differentiation:biological_process
+723005:annotation (global id space)-[AnnotationForGene]->TP63:gene (global id space) referring to missing node TP63:gene
+219618:annotation (global id space)-[InvolvedIn]->fibroblast growth factor receptor signaling pathway:biological_process (global id space) referring to missing node fibroblast growth factor receptor signaling pathway:biological_process
+FGFR1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of neuron differentiation:biological_process (global id space) referring to missing node FGFR1:gene
+629505:annotation (global id space)-[AnnotationForGene]->FBXW7:gene (global id space) referring to missing node FBXW7:gene
+224707:annotation (global id space)-[InvolvedIn]->negative regulation of cell population proliferation:biological_process (global id space) referring to missing node negative regulation of cell population proliferation:biological_process
+270658:annotation (global id space)-[AnnotationForGene]->BRCA1:gene (global id space) referring to missing node BRCA1:gene
+625848:annotation (global id space)-[InvolvedIn]->innate immune response:biological_process (global id space) referring to missing node innate immune response:biological_process
+926618:annotation (global id space)-[AnnotationForGene]->NOTCH1:gene (global id space) referring to missing node NOTCH1:gene
+BCL2:gene (global id space)-[GeneToBiologicalProcess]->extrinsic apoptotic signaling pathway in absence of ligand:biological_process (global id space) referring to missing node BCL2:gene
+838149:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+63981:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+383455:annotation (global id space)-[InvolvedIn]->MAPK cascade:biological_process (global id space) referring to missing node MAPK cascade:biological_process
+569323:annotation (global id space)-[AnnotationForGene]->STAG2:gene (global id space) referring to missing node STAG2:gene
+BCOR:gene (global id space)-[GeneToBiologicalProcess]->heart development:biological_process (global id space) referring to missing node BCOR:gene
+276567:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+123861:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+130291:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+244225:annotation (global id space)-[AnnotationForGene]->TYK2:gene (global id space) referring to missing node TYK2:gene
+CEBPA:gene (global id space)-[GeneToBiologicalProcess]->regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node CEBPA:gene
+109117:annotation (global id space)-[AnnotationForGene]->MYC:gene (global id space) referring to missing node MYC:gene
+130046:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+382110:annotation (global id space)-[AnnotationForGene]->NRG1:gene (global id space) referring to missing node NRG1:gene
+405664:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+MDM2:gene (global id space)-[GeneToBiologicalProcess]->protein destabilization:biological_process (global id space) referring to missing node MDM2:gene
+919147:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+130126:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+129124:annotation (global id space)-[AnnotationForGene]->ERBB2:gene (global id space) referring to missing node ERBB2:gene
+216020:annotation (global id space)-[InvolvedIn]->positive regulation of epithelial cell proliferation involved in lung morphogenesis:biological_process (global id space) referring to missing node positive regulation of epithelial cell proliferation involved in lung morphogenesis:biological_process
+EP300:gene (global id space)-[GeneToBiologicalProcess]->face morphogenesis:biological_process (global id space) referring to missing node EP300:gene
+109993:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+173089:annotation (global id space)-[AnnotationForGene]->FGFR1:gene (global id space) referring to missing node FGFR1:gene
+124019:annotation (global id space)-[InvolvedIn]->signal transduction:biological_process (global id space) referring to missing node signal transduction:biological_process
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->cell differentiation:biological_process (global id space) referring to missing node JAK2:gene
+202089:annotation (global id space)-[AnnotationForGene]->ERCC2:gene (global id space) referring to missing node ERCC2:gene
+151846:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+205652:annotation (global id space)-[AnnotationForGene]->EPOR:gene (global id space) referring to missing node EPOR:gene
+130644:annotation (global id space)-[InvolvedIn]->positive regulation of intrinsic apoptotic signaling pathway:biological_process (global id space) referring to missing node positive regulation of intrinsic apoptotic signaling pathway:biological_process
+219324:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+CHEK2:gene (global id space)-[GeneToBiologicalProcess]->protein autophosphorylation:biological_process (global id space) referring to missing node CHEK2:gene
+219402:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+466376:annotation (global id space)-[AnnotationForGene]->NTRK3:gene (global id space) referring to missing node NTRK3:gene
+130548:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+236497:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+575311:annotation (global id space)-[AnnotationForGene]->CDKN2A:gene (global id space) referring to missing node CDKN2A:gene
+376873:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+405676:annotation (global id space)-[AnnotationForGene]->SMARCB1:gene (global id space) referring to missing node SMARCB1:gene
+74616:annotation (global id space)-[InvolvedIn]->megakaryocyte differentiation:biological_process (global id space) referring to missing node megakaryocyte differentiation:biological_process
+130210:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+109778:annotation (global id space)-[InvolvedIn]->positive regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node positive regulation of transcription by RNA polymerase II:biological_process
+219282:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+TNFRSF14:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of alpha-beta T cell proliferation:biological_process (global id space) referring to missing node TNFRSF14:gene
+109735:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+418966:annotation (global id space)-[AnnotationForGene]->ATM:gene (global id space) referring to missing node ATM:gene
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->interleukin-35-mediated signaling pathway:biological_process (global id space) referring to missing node JAK2:gene
+124017:annotation (global id space)-[InvolvedIn]->regulation of DNA-templated transcription:biological_process (global id space) referring to missing node regulation of DNA-templated transcription:biological_process
+63869:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+CDKN2A:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of DNA-templated transcription:biological_process (global id space) referring to missing node CDKN2A:gene
+219283:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+953335:annotation (global id space)-[InvolvedIn]->positive regulation of cell migration:biological_process (global id space) referring to missing node positive regulation of cell migration:biological_process
+MALT1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of interleukin-2 production:biological_process (global id space) referring to missing node MALT1:gene
+129167:annotation (global id space)-[AnnotationForGene]->ERBB2:gene (global id space) referring to missing node ERBB2:gene
+301764:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+383385:annotation (global id space)-[AnnotationForGene]->MAP2K1:gene (global id space) referring to missing node MAP2K1:gene
+MAP2K1:gene (global id space)-[GeneToBiologicalProcess]->regulation of neurotransmitter receptor localization to postsynaptic specialization membrane:biological_process (global id space) referring to missing node MAP2K1:gene
+290226:annotation (global id space)-[InvolvedIn]->ventricular septum morphogenesis:biological_process (global id space) referring to missing node ventricular septum morphogenesis:biological_process
+BARD1:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of apoptotic process:biological_process (global id space) referring to missing node BARD1:gene
+110165:annotation (global id space)-[AnnotationForGene]->PDGFB:gene (global id space) referring to missing node PDGFB:gene
+BRCA1:gene (global id space)-[GeneToBiologicalProcess]->regulation of DNA damage checkpoint:biological_process (global id space) referring to missing node BRCA1:gene
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->apoptotic process:biological_process (global id space) referring to missing node FGFR2:gene
+TYK2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of NK T cell proliferation:biological_process (global id space) referring to missing node TYK2:gene
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of interleukin-1 beta production:biological_process (global id space) referring to missing node JAK2:gene
+BARD1:gene (global id space)-[GeneToBiologicalProcess]->regulation of cell cycle:biological_process (global id space) referring to missing node BARD1:gene
+130636:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+BCL2:gene (global id space)-[GeneToBiologicalProcess]->apoptotic process:biological_process (global id space) referring to missing node BCL2:gene
+123947:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+105185:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+TCF3:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of neuron differentiation:biological_process (global id space) referring to missing node TCF3:gene
+625845:annotation (global id space)-[AnnotationForGene]->TNFRSF14:gene (global id space) referring to missing node TNFRSF14:gene
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of inflammatory response:biological_process (global id space) referring to missing node GATA3:gene
+123979:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+CDKN2A:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of protein localization to nucleus:biological_process (global id space) referring to missing node CDKN2A:gene
+401973:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+ATM:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of telomere capping:biological_process (global id space) referring to missing node ATM:gene
+215959:annotation (global id space)-[AnnotationForGene]->FGFR2:gene (global id space) referring to missing node FGFR2:gene
+PDGFB:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of miRNA transcription:biological_process (global id space) referring to missing node PDGFB:gene
+280410:annotation (global id space)-[AnnotationForGene]->PIK3CA:gene (global id space) referring to missing node PIK3CA:gene
+784792:annotation (global id space)-[AnnotationForGene]->MALT1:gene (global id space) referring to missing node MALT1:gene
+ATM:gene (global id space)-[GeneToBiologicalProcess]->mitotic spindle assembly checkpoint signaling:biological_process (global id space) referring to missing node ATM:gene
+103383:annotation (global id space)-[AnnotationForGene]->CHEK2:gene (global id space) referring to missing node CHEK2:gene
+FGFR1:gene (global id space)-[GeneToBiologicalProcess]->regulation of primary metabolic process:biological_process (global id space) referring to missing node FGFR1:gene
+105210:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+BRCA1:gene (global id space)-[GeneToBiologicalProcess]->homologous recombination:biological_process (global id space) referring to missing node BRCA1:gene
+405708:annotation (global id space)-[InvolvedIn]->regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node regulation of transcription by RNA polymerase II:biological_process
+ABL1:gene (global id space)-[GeneToBiologicalProcess]->regulation of cell cycle:biological_process (global id space) referring to missing node ABL1:gene
+402127:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+219596:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+129252:annotation (global id space)-[InvolvedIn]->positive regulation of cell growth:biological_process (global id space) referring to missing node positive regulation of cell growth:biological_process
+423724:annotation (global id space)-[AnnotationForGene]->BIRC3:gene (global id space) referring to missing node BIRC3:gene
+377042:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219271:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+167865:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+376905:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+677663:annotation (global id space)-[AnnotationForGene]->BARD1:gene (global id space) referring to missing node BARD1:gene
+236488:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+192418:annotation (global id space)-[AnnotationForGene]->TCF3:gene (global id space) referring to missing node TCF3:gene
+124038:annotation (global id space)-[InvolvedIn]->positive regulation of nitric oxide biosynthetic process:biological_process (global id space) referring to missing node positive regulation of nitric oxide biosynthetic process:biological_process
+301768:annotation (global id space)-[AnnotationForGene]->CEBPA:gene (global id space) referring to missing node CEBPA:gene
+109597:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+109160:annotation (global id space)-[AnnotationForGene]->MYC:gene (global id space) referring to missing node MYC:gene
+376892:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+105386:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+402152:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+219536:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+105385:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+376874:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+629581:annotation (global id space)-[AnnotationForGene]->FBXW7:gene (global id space) referring to missing node FBXW7:gene
+677696:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+188242:annotation (global id space)-[AnnotationForGene]->BRAF:gene (global id space) referring to missing node BRAF:gene
+376874:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+151889:annotation (global id space)-[AnnotationForGene]->MET:gene (global id space) referring to missing node MET:gene
+167902:annotation (global id space)-[AnnotationForGene]->BCL2:gene (global id space) referring to missing node BCL2:gene
+383428:annotation (global id space)-[AnnotationForGene]->MAP2K1:gene (global id space) referring to missing node MAP2K1:gene
+236422:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+772718:annotation (global id space)-[AnnotationForGene]->CD274:gene (global id space) referring to missing node CD274:gene
+129154:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109624:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+419084:annotation (global id space)-[InvolvedIn]->regulation of signal transduction by p53 class mediator:biological_process (global id space) referring to missing node regulation of signal transduction by p53 class mediator:biological_process
+129146:annotation (global id space)-[AnnotationForGene]->ERBB2:gene (global id space) referring to missing node ERBB2:gene
+130358:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+IL7R:gene (global id space)-[GeneToBiologicalProcess]->signal transduction:biological_process (global id space) referring to missing node IL7R:gene
+382148:annotation (global id space)-[AnnotationForGene]->NRG1:gene (global id space) referring to missing node NRG1:gene
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->cell fate determination:biological_process (global id space) referring to missing node GATA3:gene
+130395:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+CEBPA:gene (global id space)-[GeneToBiologicalProcess]->DNA-templated transcription:biological_process (global id space) referring to missing node CEBPA:gene
+219627:annotation (global id space)-[InvolvedIn]->positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction:biological_process (global id space) referring to missing node positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction:biological_process
+123943:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+EP300:gene (global id space)-[GeneToBiologicalProcess]->protein stabilization:biological_process (global id space) referring to missing node EP300:gene
+784798:annotation (global id space)-[AnnotationForGene]->MALT1:gene (global id space) referring to missing node MALT1:gene
+290261:annotation (global id space)-[InvolvedIn]->negative regulation of cold-induced thermogenesis:biological_process (global id space) referring to missing node negative regulation of cold-induced thermogenesis:biological_process
+STAG2:gene (global id space)-[GeneToBiologicalProcess]->chromosome segregation:biological_process (global id space) referring to missing node STAG2:gene
+129987:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+FGFR1:gene (global id space)-[GeneToBiologicalProcess]->None:biological_process (global id space) referring to missing node FGFR1:gene
+377056:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+130188:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+TP53:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node TP53:gene
+DUSP22:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of JNK cascade:biological_process (global id space) referring to missing node DUSP22:gene
+SMARCB1:gene (global id space)-[GeneToBiologicalProcess]->None:biological_process (global id space) referring to missing node SMARCB1:gene
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of glial cell-derived neurotrophic factor receptor signaling pathway involved in ureteric bud formation:biological_process (global id space) referring to missing node GATA3:gene
+123909:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+219362:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+EP300:gene (global id space)-[GeneToBiologicalProcess]->learning or memory:biological_process (global id space) referring to missing node EP300:gene
+173092:annotation (global id space)-[AnnotationForGene]->FGFR1:gene (global id space) referring to missing node FGFR1:gene
+465012:annotation (global id space)-[InvolvedIn]->hemopoiesis:biological_process (global id space) referring to missing node hemopoiesis:biological_process
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->vasculature development:biological_process (global id space) referring to missing node PIK3CA:gene
+401988:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+123853:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+EZH2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of GTPase activity:biological_process (global id space) referring to missing node EZH2:gene
+129883:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+629504:annotation (global id space)-[AnnotationForGene]->FBXW7:gene (global id space) referring to missing node FBXW7:gene
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of cell differentiation:biological_process (global id space) referring to missing node JAK2:gene
+219356:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+575312:annotation (global id space)-[AnnotationForGene]->CDKN2A:gene (global id space) referring to missing node CDKN2A:gene
+BCL2:gene (global id space)-[GeneToBiologicalProcess]->response to xenobiotic stimulus:biological_process (global id space) referring to missing node BCL2:gene
+109286:annotation (global id space)-[InvolvedIn]->cellular response to UV:biological_process (global id space) referring to missing node cellular response to UV:biological_process
+569312:annotation (global id space)-[AnnotationForGene]->STAG2:gene (global id space) referring to missing node STAG2:gene
+236525:annotation (global id space)-[AnnotationForGene]->CALR:gene (global id space) referring to missing node CALR:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of osteoblast differentiation:biological_process (global id space) referring to missing node NOTCH1:gene
+290018:annotation (global id space)-[AnnotationForGene]->NOTCH1:gene (global id space) referring to missing node NOTCH1:gene
+940032:annotation (global id space)-[InvolvedIn]->immune system process:biological_process (global id space) referring to missing node immune system process:biological_process
+129186:annotation (global id space)-[AnnotationForGene]->ERBB2:gene (global id space) referring to missing node ERBB2:gene
+129862:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NRG1:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of cardiac muscle cell apoptotic process:biological_process (global id space) referring to missing node NRG1:gene
+105259:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+301825:annotation (global id space)-[InvolvedIn]->regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node regulation of transcription by RNA polymerase II:biological_process
+MAP2K1:gene (global id space)-[GeneToBiologicalProcess]->regulation of ERK1 and ERK2 cascade:biological_process (global id space) referring to missing node MAP2K1:gene
+754078:annotation (global id space)-[AnnotationForGene]->DUSP22:gene (global id space) referring to missing node DUSP22:gene
+575345:annotation (global id space)-[InvolvedIn]->positive regulation of gene expression:biological_process (global id space) referring to missing node positive regulation of gene expression:biological_process
+772714:annotation (global id space)-[AnnotationForGene]->CD274:gene (global id space) referring to missing node CD274:gene
+290033:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+PDCD1LG2:gene (global id space)-[GeneToBiologicalProcess]->cellular response to lipopolysaccharide:biological_process (global id space) referring to missing node PDCD1LG2:gene
+105198:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+772692:annotation (global id space)-[AnnotationForGene]->CD274:gene (global id space) referring to missing node CD274:gene
+ABL1:gene (global id space)-[GeneToBiologicalProcess]->DNA damage response:biological_process (global id space) referring to missing node ABL1:gene
+838137:annotation (global id space)-[AnnotationForGene]->DNMT3A:gene (global id space) referring to missing node DNMT3A:gene
+151859:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+PDGFB:gene (global id space)-[GeneToBiologicalProcess]->angiogenesis:biological_process (global id space) referring to missing node PDGFB:gene
+224750:annotation (global id space)-[AnnotationForGene]->GATA3:gene (global id space) referring to missing node GATA3:gene
+167807:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ABL1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of endothelial cell migration:biological_process (global id space) referring to missing node ABL1:gene
+129196:annotation (global id space)-[AnnotationForGene]->ERBB2:gene (global id space) referring to missing node ERBB2:gene
+290211:annotation (global id space)-[InvolvedIn]->cardiac muscle tissue morphogenesis:biological_process (global id space) referring to missing node cardiac muscle tissue morphogenesis:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of smooth muscle cell differentiation:biological_process (global id space) referring to missing node NOTCH1:gene
+276795:annotation (global id space)-[AnnotationForGene]->ETV6:gene (global id space) referring to missing node ETV6:gene
+63912:annotation (global id space)-[InvolvedIn]->cytokine-mediated signaling pathway:biological_process (global id space) referring to missing node cytokine-mediated signaling pathway:biological_process
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->cardiac muscle contraction:biological_process (global id space) referring to missing node PIK3CA:gene
+575355:annotation (global id space)-[AnnotationForGene]->CDKN2A:gene (global id space) referring to missing node CDKN2A:gene
+402004:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+784818:annotation (global id space)-[AnnotationForGene]->MALT1:gene (global id space) referring to missing node MALT1:gene
+282403:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+PDGFB:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of fibroblast proliferation:biological_process (global id space) referring to missing node PDGFB:gene
+276800:annotation (global id space)-[AnnotationForGene]->ETV6:gene (global id space) referring to missing node ETV6:gene
+464965:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+IL7R:gene (global id space)-[GeneToBiologicalProcess]->cellular homeostasis:biological_process (global id space) referring to missing node IL7R:gene
+276790:annotation (global id space)-[AnnotationForGene]->ETV6:gene (global id space) referring to missing node ETV6:gene
+236548:annotation (global id space)-[InvolvedIn]->cellular senescence:biological_process (global id space) referring to missing node cellular senescence:biological_process
+PDGFB:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of chemotaxis:biological_process (global id space) referring to missing node PDGFB:gene
+130514:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+805466:annotation (global id space)-[InvolvedIn]->cell surface receptor protein tyrosine kinase signaling pathway:biological_process (global id space) referring to missing node cell surface receptor protein tyrosine kinase signaling pathway:biological_process
+NTRK3:gene (global id space)-[GeneToBiologicalProcess]->neurotrophin signaling pathway:biological_process (global id space) referring to missing node NTRK3:gene
+270602:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+376929:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of epithelial cell proliferation involved in lung morphogenesis:biological_process (global id space) referring to missing node FGFR2:gene
+110175:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+105221:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+MDM2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of proteasomal ubiquitin-dependent protein catabolic process:biological_process (global id space) referring to missing node MDM2:gene
+130065:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+376850:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+CHEK2:gene (global id space)-[GeneToBiologicalProcess]->response to glycoside:biological_process (global id space) referring to missing node CHEK2:gene
+63817:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+224676:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->prostate gland morphogenesis:biological_process (global id space) referring to missing node FGFR2:gene
+224706:annotation (global id space)-[InvolvedIn]->signal transduction:biological_process (global id space) referring to missing node signal transduction:biological_process
+401995:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+MET:gene (global id space)-[GeneToBiologicalProcess]->endothelial cell morphogenesis:biological_process (global id space) referring to missing node MET:gene
+405676:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+454194:annotation (global id space)-[AnnotationForGene]->IRF4:gene (global id space) referring to missing node IRF4:gene
+TCF3:gene (global id space)-[GeneToBiologicalProcess]->regulation of G1/S transition of mitotic cell cycle:biological_process (global id space) referring to missing node TCF3:gene
+556575:annotation (global id space)-[AnnotationForGene]->PHF6:gene (global id space) referring to missing node PHF6:gene
+219520:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+CALR:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of cell cycle:biological_process (global id space) referring to missing node CALR:gene
+151919:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+123814:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->cardiac muscle tissue morphogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+907868:annotation (global id space)-[InvolvedIn]->cell surface receptor signaling pathway:biological_process (global id space) referring to missing node cell surface receptor signaling pathway:biological_process
+402087:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+CHEK2:gene (global id space)-[GeneToBiologicalProcess]->protein stabilization:biological_process (global id space) referring to missing node CHEK2:gene
+151923:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+377056:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+TNFRSF14:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of T cell proliferation:biological_process (global id space) referring to missing node TNFRSF14:gene
+129973:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+839985:annotation (global id space)-[AnnotationForGene]->SETBP1:gene (global id space) referring to missing node SETBP1:gene
+CDKN2A:gene (global id space)-[GeneToBiologicalProcess]->regulation of G1/S transition of mitotic cell cycle:biological_process (global id space) referring to missing node CDKN2A:gene
+376951:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+419000:annotation (global id space)-[AnnotationForGene]->ATM:gene (global id space) referring to missing node ATM:gene
+ATM:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of telomere maintenance via telomere lengthening:biological_process (global id space) referring to missing node ATM:gene
+402099:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+192398:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+BCOR:gene (global id space)-[GeneToBiologicalProcess]->specification of axis polarity:biological_process (global id space) referring to missing node BCOR:gene
+123819:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+558675:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->pericardium morphogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+290105:annotation (global id space)-[InvolvedIn]->growth involved in heart morphogenesis:biological_process (global id space) referring to missing node growth involved in heart morphogenesis:biological_process
+377029:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+ATM:gene (global id space)-[GeneToBiologicalProcess]->regulation of autophagosome assembly:biological_process (global id space) referring to missing node ATM:gene
+130002:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+290155:annotation (global id space)-[InvolvedIn]->cell differentiation in spinal cord:biological_process (global id space) referring to missing node cell differentiation in spinal cord:biological_process
+BCOR:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of tooth mineralization:biological_process (global id space) referring to missing node BCOR:gene
+569305:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219424:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+FBXW7:gene (global id space)-[GeneToBiologicalProcess]->regulation of mitophagy:biological_process (global id space) referring to missing node FBXW7:gene
+270650:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+63898:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+CEBPA:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of proteasomal ubiquitin-dependent protein catabolic process:biological_process (global id space) referring to missing node CEBPA:gene
+130469:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+129940:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+CD274:gene (global id space)-[GeneToBiologicalProcess]->adaptive immune response:biological_process (global id space) referring to missing node CD274:gene
+109589:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+105242:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NTRK3:gene (global id space)-[GeneToBiologicalProcess]->response to corticosterone:biological_process (global id space) referring to missing node NTRK3:gene
+377078:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+290194:annotation (global id space)-[InvolvedIn]->positive regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node positive regulation of transcription by RNA polymerase II:biological_process
+IDH1:gene (global id space)-[GeneToBiologicalProcess]->NADP metabolic process:biological_process (global id space) referring to missing node IDH1:gene
+464997:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+270604:annotation (global id space)-[AnnotationForGene]->BRCA1:gene (global id space) referring to missing node BRCA1:gene
+CDKN2A:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of DNA damage response signal transduction by p53 class mediator:biological_process (global id space) referring to missing node CDKN2A:gene
+276610:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219396:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+130511:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->chemical synaptic transmission postsynaptic:biological_process (global id space) referring to missing node NOTCH1:gene
+290135:annotation (global id space)-[InvolvedIn]->positive regulation of transcription of Notch receptor target:biological_process (global id space) referring to missing node positive regulation of transcription of Notch receptor target:biological_process
+270551:annotation (global id space)-[AnnotationForGene]->BRCA1:gene (global id space) referring to missing node BRCA1:gene
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->cellular response to interferon-alpha:biological_process (global id space) referring to missing node GATA3:gene
+109762:annotation (global id space)-[InvolvedIn]->cell surface receptor signaling pathway:biological_process (global id space) referring to missing node cell surface receptor signaling pathway:biological_process
+110004:annotation (global id space)-[AnnotationForGene]->KRAS:gene (global id space) referring to missing node KRAS:gene
+383429:annotation (global id space)-[AnnotationForGene]->MAP2K1:gene (global id space) referring to missing node MAP2K1:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->cardiac muscle cell proliferation:biological_process (global id space) referring to missing node NOTCH1:gene
+907682:annotation (global id space)-[InvolvedIn]->defense response to Gram-positive bacterium:biological_process (global id space) referring to missing node defense response to Gram-positive bacterium:biological_process
+290047:annotation (global id space)-[AnnotationForGene]->NOTCH1:gene (global id space) referring to missing node NOTCH1:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->distal tubule development:biological_process (global id space) referring to missing node NOTCH1:gene
+188232:annotation (global id space)-[AnnotationForGene]->BRAF:gene (global id space) referring to missing node BRAF:gene
+464970:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+PDGFB:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of mitotic nuclear division:biological_process (global id space) referring to missing node PDGFB:gene
+216005:annotation (global id space)-[AnnotationForGene]->FGFR2:gene (global id space) referring to missing node FGFR2:gene
+754090:annotation (global id space)-[InvolvedIn]->intracellular signal transduction:biological_process (global id space) referring to missing node intracellular signal transduction:biological_process
+TYK2:gene (global id space)-[GeneToBiologicalProcess]->cell differentiation:biological_process (global id space) referring to missing node TYK2:gene
+63952:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+74609:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ERBB2:gene (global id space)-[GeneToBiologicalProcess]->ERBB2-EGFR signaling pathway:biological_process (global id space) referring to missing node ERBB2:gene
+738431:annotation (global id space)-[AnnotationForGene]->CRLF2:gene (global id space) referring to missing node CRLF2:gene
+202144:annotation (global id space)-[InvolvedIn]->chromosome segregation:biological_process (global id space) referring to missing node chromosome segregation:biological_process
+ALK:gene (global id space)-[GeneToBiologicalProcess]->regulation of cell population proliferation:biological_process (global id space) referring to missing node ALK:gene
+402172:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+244232:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+377085:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+282427:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->pharyngeal system development:biological_process (global id space) referring to missing node GATA3:gene
+105236:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+556579:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+KLF2:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node KLF2:gene
+105190:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+282446:annotation (global id space)-[AnnotationForGene]->CDKN2A:gene (global id space) referring to missing node CDKN2A:gene
+KLF2:gene (global id space)-[GeneToBiologicalProcess]->cellular response to hydrogen peroxide:biological_process (global id space) referring to missing node KLF2:gene
+290027:annotation (global id space)-[AnnotationForGene]->NOTCH1:gene (global id space) referring to missing node NOTCH1:gene
+575316:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->pulmonary valve morphogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+103418:annotation (global id space)-[AnnotationForGene]->CHEK2:gene (global id space) referring to missing node CHEK2:gene
+105367:annotation (global id space)-[InvolvedIn]->regulation of autophagy:biological_process (global id space) referring to missing node regulation of autophagy:biological_process
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of receptor signaling pathway via JAK-STAT:biological_process (global id space) referring to missing node JAK2:gene
+130167:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+301761:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->aortic valve morphogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+722991:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+129961:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of T cell proliferation:biological_process (global id space) referring to missing node JAK2:gene
+109261:annotation (global id space)-[InvolvedIn]->negative regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node negative regulation of transcription by RNA polymerase II:biological_process
+80548:annotation (global id space)-[AnnotationForGene]->IDH1:gene (global id space) referring to missing node IDH1:gene
+FBXW7:gene (global id space)-[GeneToBiologicalProcess]->rhythmic process:biological_process (global id space) referring to missing node FBXW7:gene
+129977:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+105332:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of astrocyte differentiation:biological_process (global id space) referring to missing node NOTCH1:gene
+382078:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109609:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+IL7R:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of receptor signaling pathway via JAK-STAT:biological_process (global id space) referring to missing node IL7R:gene
+464938:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+466362:annotation (global id space)-[AnnotationForGene]->NTRK3:gene (global id space) referring to missing node NTRK3:gene
+105335:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+723024:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+HRAS:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of protein targeting to membrane:biological_process (global id space) referring to missing node HRAS:gene
+109653:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+39089:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109706:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->cellular response to retinoic acid:biological_process (global id space) referring to missing node FGFR2:gene
+723025:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+129907:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+110242:annotation (global id space)-[InvolvedIn]->positive regulation of smooth muscle cell proliferation:biological_process (global id space) referring to missing node positive regulation of smooth muscle cell proliferation:biological_process
+173061:annotation (global id space)-[AnnotationForGene]->FGFR1:gene (global id space) referring to missing node FGFR1:gene
+TP63:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of cell cycle G1/S phase transition:biological_process (global id space) referring to missing node TP63:gene
+270634:annotation (global id space)-[AnnotationForGene]->BRCA1:gene (global id space) referring to missing node BRCA1:gene
+63986:annotation (global id space)-[InvolvedIn]->growth hormone receptor signaling pathway:biological_process (global id space) referring to missing node growth hormone receptor signaling pathway:biological_process
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->embryonic organ development:biological_process (global id space) referring to missing node FGFR2:gene
+402148:annotation (global id space)-[AnnotationForGene]->EP300:gene (global id space) referring to missing node EP300:gene
+105431:annotation (global id space)-[InvolvedIn]->positive regulation of substrate adhesion-dependent cell spreading:biological_process (global id space) referring to missing node positive regulation of substrate adhesion-dependent cell spreading:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->T-helper 17 type immune response:biological_process (global id space) referring to missing node NOTCH1:gene
+276603:annotation (global id space)-[AnnotationForGene]->BCL6:gene (global id space) referring to missing node BCL6:gene
+109223:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->cell adhesion:biological_process (global id space) referring to missing node JAK2:gene
+196515:annotation (global id space)-[InvolvedIn]->positive regulation of receptor signaling pathway via STAT:biological_process (global id space) referring to missing node positive regulation of receptor signaling pathway via STAT:biological_process
+110277:annotation (global id space)-[AnnotationForGene]->PDGFB:gene (global id space) referring to missing node PDGFB:gene
+MYC:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of stress-activated MAPK cascade:biological_process (global id space) referring to missing node MYC:gene
+123859:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+123890:annotation (global id space)-[AnnotationForGene]->ESR1:gene (global id space) referring to missing node ESR1:gene
+CRLF2:gene (global id space)-[GeneToBiologicalProcess]->None:biological_process (global id space) referring to missing node CRLF2:gene
+110177:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+465016:annotation (global id space)-[AnnotationForGene]->EZH2:gene (global id space) referring to missing node EZH2:gene
+TP53:gene (global id space)-[GeneToBiologicalProcess]->mRNA transcription:biological_process (global id space) referring to missing node TP53:gene
+236430:annotation (global id space)-[AnnotationForGene]->CALR:gene (global id space) referring to missing node CALR:gene
+130232:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->lipopolysaccharide-mediated signaling pathway:biological_process (global id space) referring to missing node JAK2:gene
+196491:annotation (global id space)-[AnnotationForGene]->IL7R:gene (global id space) referring to missing node IL7R:gene
+192434:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+FGFR3:gene (global id space)-[GeneToBiologicalProcess]->chondrocyte proliferation:biological_process (global id space) referring to missing node FGFR3:gene
+784742:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+167813:annotation (global id space)-[AnnotationForGene]->BCL2:gene (global id space) referring to missing node BCL2:gene
+BIRC3:gene (global id space)-[GeneToBiologicalProcess]->spermatogenesis:biological_process (global id space) referring to missing node BIRC3:gene
+109608:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+270638:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->cellular response to transforming growth factor beta stimulus:biological_process (global id space) referring to missing node FGFR2:gene
+522487:annotation (global id space)-[AnnotationForGene]->BCOR:gene (global id space) referring to missing node BCOR:gene
+575318:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+MDM2:gene (global id space)-[GeneToBiologicalProcess]->fibroblast activation:biological_process (global id space) referring to missing node MDM2:gene
+215966:annotation (global id space)-[AnnotationForGene]->FGFR2:gene (global id space) referring to missing node FGFR2:gene
+629580:annotation (global id space)-[InvolvedIn]->positive regulation of ubiquitin-dependent protein catabolic process:biological_process (global id space) referring to missing node positive regulation of ubiquitin-dependent protein catabolic process:biological_process
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->insulin receptor signaling pathway:biological_process (global id space) referring to missing node PIK3CA:gene
+130174:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+629505:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ATRX:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of telomere maintenance:biological_process (global id space) referring to missing node ATRX:gene
+224728:annotation (global id space)-[InvolvedIn]->positive regulation of interleukin-5 production:biological_process (global id space) referring to missing node positive regulation of interleukin-5 production:biological_process
+167787:annotation (global id space)-[AnnotationForGene]->BCL2:gene (global id space) referring to missing node BCL2:gene
+464957:annotation (global id space)-[AnnotationForGene]->EZH2:gene (global id space) referring to missing node EZH2:gene
+192436:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+GATA3:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of cell cycle:biological_process (global id space) referring to missing node GATA3:gene
+109566:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219350:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+HRAS:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of cell population proliferation:biological_process (global id space) referring to missing node HRAS:gene
+105239:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+130430:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+461326:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+192380:annotation (global id space)-[AnnotationForGene]->TCF3:gene (global id space) referring to missing node TCF3:gene
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->cellular response to hypoxia:biological_process (global id space) referring to missing node NOTCH1:gene
+IDH1:gene (global id space)-[GeneToBiologicalProcess]->isocitrate metabolic process:biological_process (global id space) referring to missing node IDH1:gene
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->response to ethanol:biological_process (global id space) referring to missing node FGFR2:gene
+PDGFB:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of DNA-templated transcription:biological_process (global id space) referring to missing node PDGFB:gene
+906123:annotation (global id space)-[InvolvedIn]->positive regulation of cell differentiation:biological_process (global id space) referring to missing node positive regulation of cell differentiation:biological_process
+270607:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+575331:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+105393:annotation (global id space)-[InvolvedIn]->platelet-derived growth factor receptor-beta signaling pathway:biological_process (global id space) referring to missing node platelet-derived growth factor receptor-beta signaling pathway:biological_process
+419088:annotation (global id space)-[InvolvedIn]->negative regulation of TORC1 signaling:biological_process (global id space) referring to missing node negative regulation of TORC1 signaling:biological_process
+290150:annotation (global id space)-[InvolvedIn]->positive regulation of epithelial to mesenchymal transition:biological_process (global id space) referring to missing node positive regulation of epithelial to mesenchymal transition:biological_process
+376969:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109595:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219578:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+754077:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+236431:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+167822:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+167860:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+167798:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+968194:annotation (global id space)-[InvolvedIn]->replication fork processing:biological_process (global id space) referring to missing node replication fork processing:biological_process
+129172:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+129132:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109190:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+290251:annotation (global id space)-[InvolvedIn]->cellular response to hypoxia:biological_process (global id space) referring to missing node cellular response to hypoxia:biological_process
+401996:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+173070:annotation (global id space)-[InvolvedIn]->fibroblast growth factor receptor signaling pathway:biological_process (global id space) referring to missing node fibroblast growth factor receptor signaling pathway:biological_process
+905701:annotation (global id space)-[InvolvedIn]->phosphatidylethanolamine biosynthetic process:biological_process (global id space) referring to missing node phosphatidylethanolamine biosynthetic process:biological_process
+224719:annotation (global id space)-[InvolvedIn]->positive regulation of endothelial cell migration:biological_process (global id space) referring to missing node positive regulation of endothelial cell migration:biological_process
+130264:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+236551:annotation (global id space)-[InvolvedIn]->negative regulation of trophoblast cell migration:biological_process (global id space) referring to missing node negative regulation of trophoblast cell migration:biological_process
+129235:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->regulation of extracellular matrix assembly:biological_process (global id space) referring to missing node NOTCH1:gene
+383473:annotation (global id space)-[InvolvedIn]->negative regulation of homotypic cell-cell adhesion:biological_process (global id space) referring to missing node negative regulation of homotypic cell-cell adhesion:biological_process
+377092:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+677647:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+167856:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+151922:annotation (global id space)-[AnnotationForGene]->MET:gene (global id space) referring to missing node MET:gene
+130551:annotation (global id space)-[InvolvedIn]->negative regulation of telomere maintenance via telomerase:biological_process (global id space) referring to missing node negative regulation of telomere maintenance via telomerase:biological_process
+738433:annotation (global id space)-[AnnotationForGene]->CRLF2:gene (global id space) referring to missing node CRLF2:gene
+402171:annotation (global id space)-[InvolvedIn]->protein destabilization:biological_process (global id space) referring to missing node protein destabilization:biological_process
+ATM:gene (global id space)-[GeneToBiologicalProcess]->pexophagy:biological_process (global id space) referring to missing node ATM:gene
+376916:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+454178:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219538:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+110250:annotation (global id space)-[InvolvedIn]->positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction:biological_process (global id space) referring to missing node positive regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction:biological_process
+105231:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+376947:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+130208:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+219428:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+219481:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+CDKN2A:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of ubiquitin protein ligase activity:biological_process (global id space) referring to missing node CDKN2A:gene
+270716:annotation (global id space)-[InvolvedIn]->positive regulation of vascular endothelial growth factor production:biological_process (global id space) referring to missing node positive regulation of vascular endothelial growth factor production:biological_process
+522485:annotation (global id space)-[AnnotationForGene]->BCOR:gene (global id space) referring to missing node BCOR:gene
+CHEK2:gene (global id space)-[GeneToBiologicalProcess]->regulation of autophagosome assembly:biological_process (global id space) referring to missing node CHEK2:gene
+677660:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+ABL1:gene (global id space)-[GeneToBiologicalProcess]->peptidyl-tyrosine autophosphorylation:biological_process (global id space) referring to missing node ABL1:gene
+105433:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+109158:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109150:annotation (global id space)-[AnnotationForGene]->MYC:gene (global id space) referring to missing node MYC:gene
+105410:annotation (global id space)-[InvolvedIn]->positive regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node positive regulation of transcription by RNA polymerase II:biological_process
+109720:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+129269:annotation (global id space)-[InvolvedIn]->positive regulation of transcription by RNA polymerase I:biological_process (global id space) referring to missing node positive regulation of transcription by RNA polymerase I:biological_process
+64009:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+833642:annotation (global id space)-[InvolvedIn]->negative regulation of sprouting angiogenesis:biological_process (global id space) referring to missing node negative regulation of sprouting angiogenesis:biological_process
+105382:annotation (global id space)-[AnnotationForGene]->ABL1:gene (global id space) referring to missing node ABL1:gene
+219517:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+188173:annotation (global id space)-[AnnotationForGene]->BRAF:gene (global id space) referring to missing node BRAF:gene
+HRAS:gene (global id space)-[GeneToBiologicalProcess]->adipose tissue development:biological_process (global id space) referring to missing node HRAS:gene
+219611:annotation (global id space)-[InvolvedIn]->cell surface receptor signaling pathway via JAK-STAT:biological_process (global id space) referring to missing node cell surface receptor signaling pathway via JAK-STAT:biological_process
+130596:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+HRAS:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of epithelial cell proliferation:biological_process (global id space) referring to missing node HRAS:gene
+105448:annotation (global id space)-[InvolvedIn]->activation of protein kinase C activity:biological_process (global id space) referring to missing node activation of protein kinase C activity:biological_process
+192456:annotation (global id space)-[AnnotationForGene]->TCF3:gene (global id space) referring to missing node TCF3:gene
+109305:annotation (global id space)-[InvolvedIn]->positive regulation of transcription initiation by RNA polymerase II:biological_process (global id space) referring to missing node positive regulation of transcription initiation by RNA polymerase II:biological_process
+FBXW7:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of ubiquitin-dependent protein catabolic process:biological_process (global id space) referring to missing node FBXW7:gene
+219378:annotation (global id space)-[AnnotationForGene]->FGFR3:gene (global id space) referring to missing node FGFR3:gene
+130171:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of cold-induced thermogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+418957:annotation (global id space)-[AnnotationForGene]->ATM:gene (global id space) referring to missing node ATM:gene
+130342:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+CEBPA:gene (global id space)-[GeneToBiologicalProcess]->animal organ regeneration:biological_process (global id space) referring to missing node CEBPA:gene
+130306:annotation (global id space)-[AnnotationForGene]->TP53:gene (global id space) referring to missing node TP53:gene
+FBXW7:gene (global id space)-[GeneToBiologicalProcess]->None:biological_process (global id space) referring to missing node FBXW7:gene
+377018:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+954647:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+464895:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->growth involved in heart morphogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+224624:annotation (global id space)-[AnnotationForGene]->GATA3:gene (global id space) referring to missing node GATA3:gene
+FBXW7:gene (global id space)-[GeneToBiologicalProcess]->DNA repair:biological_process (global id space) referring to missing node FBXW7:gene
+192367:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+109106:annotation (global id space)-[AnnotationForGene]->MYC:gene (global id space) referring to missing node MYC:gene
+270634:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->spermatogenesis:biological_process (global id space) referring to missing node NOTCH1:gene
+110216:annotation (global id space)-[AnnotationForGene]->PDGFB:gene (global id space) referring to missing node PDGFB:gene
+270568:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+TP53:gene (global id space)-[GeneToBiologicalProcess]->positive regulation of execution phase of apoptosis:biological_process (global id space) referring to missing node TP53:gene
+301743:annotation (global id space)-[AnnotationForGene]->CEBPA:gene (global id space) referring to missing node CEBPA:gene
+784785:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+NOTCH1:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of cell adhesion molecule production:biological_process (global id space) referring to missing node NOTCH1:gene
+63806:annotation (global id space)-[AnnotationForGene]->JAK2:gene (global id space) referring to missing node JAK2:gene
+ATM:gene (global id space)-[GeneToBiologicalProcess]->cellular response to retinoic acid:biological_process (global id space) referring to missing node ATM:gene
+280385:annotation (global id space)-[InvolvedIn]->negative regulation of macroautophagy:biological_process (global id space) referring to missing node negative regulation of macroautophagy:biological_process
+376940:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+MAP2K1:gene (global id space)-[GeneToBiologicalProcess]->response to axon injury:biological_process (global id space) referring to missing node MAP2K1:gene
+130202:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+151887:annotation (global id space)-[AnnotationForGene]->MET:gene (global id space) referring to missing node MET:gene
+FGFR2:gene (global id space)-[GeneToBiologicalProcess]->fibroblast growth factor receptor signaling pathway involved in hemopoiesis:biological_process (global id space) referring to missing node FGFR2:gene
+224756:annotation (global id space)-[InvolvedIn]->positive regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node positive regulation of transcription by RNA polymerase II:biological_process
+109605:annotation (global id space)-[AnnotationForGene]->HRAS:gene (global id space) referring to missing node HRAS:gene
+109112:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+HRAS:gene (global id space)-[GeneToBiologicalProcess]->signal transduction:biological_process (global id space) referring to missing node HRAS:gene
+290099:annotation (global id space)-[AnnotationForGene]->NOTCH1:gene (global id space) referring to missing node NOTCH1:gene
+ERCC2:gene (global id space)-[GeneToBiologicalProcess]->DNA damage response:biological_process (global id space) referring to missing node ERCC2:gene
+215997:annotation (global id space)-[InvolvedIn]->digestive tract development:biological_process (global id space) referring to missing node digestive tract development:biological_process
+376927:annotation (global id space)-[AnnotationForGene]->MDM2:gene (global id space) referring to missing node MDM2:gene
+224795:annotation (global id space)-[InvolvedIn]->positive regulation of thyroid hormone generation:biological_process (global id space) referring to missing node positive regulation of thyroid hormone generation:biological_process
+BCL2:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of apoptotic signaling pathway:biological_process (global id space) referring to missing node BCL2:gene
+129161:annotation (global id space)-[AnnotationForGene]->ERBB2:gene (global id space) referring to missing node ERBB2:gene
+401906:annotation (global id space)-[InvolvedIn]->None:biological_process (global id space) referring to missing node None:biological_process
+CALR:gene (global id space)-[GeneToBiologicalProcess]->nuclear receptor-mediated glucocorticoid signaling pathway:biological_process (global id space) referring to missing node CALR:gene
+464934:annotation (global id space)-[AnnotationForGene]->EZH2:gene (global id space) referring to missing node EZH2:gene
+939198:annotation (global id space)-[InvolvedIn]->embryonic organ development:biological_process (global id space) referring to missing node embryonic organ development:biological_process
+PIK3CA:gene (global id space)-[GeneToBiologicalProcess]->phosphatidylinositol-3-phosphate biosynthetic process:biological_process (global id space) referring to missing node PIK3CA:gene
+JAK2:gene (global id space)-[GeneToBiologicalProcess]->cellular response to virus:biological_process (global id space) referring to missing node JAK2:gene
+215955:annotation (global id space)-[InvolvedIn]->regulation of smoothened signaling pathway:biological_process (global id space) referring to missing node regulation of smoothened signaling pathway:biological_process
+CEBPA:gene (global id space)-[GeneToBiologicalProcess]->negative regulation of transcription by RNA polymerase II:biological_process (global id space) referring to missing node CEBPA:gene
+224743:annotation (global id space)-[InvolvedIn]->negative regulation of cell cycle:biological_process (global id space) referring to missing node negative regulation of cell cycle:biological_process
