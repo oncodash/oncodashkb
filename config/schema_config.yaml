@@ -198,6 +198,8 @@ biological process:
     is_a: named thing
     represneted_as: node
     label_in_input: biological_process
+    properties:
+        name: str
 
 # annotation for gene: 
 #     is_a: association
@@ -221,3 +223,4 @@ protein to biological process:
     target: biological process
     properties:
         edglelabel: str
+        name: str
