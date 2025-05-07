@@ -68,6 +68,9 @@ if __name__ == "__main__":
 
     parser.add_argument("-G", "--gene_ontology_genes", metavar="TXT",
                         help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
+    
+    parser.add_argument("-r", "--gene_ontology_reverse", action='store_true',
+                        help="Extract from a Gene_Ontology_Annotation GAF file.")
 
     parser.add_argument("-e", "--open_targets_evidences", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory evidences CHEMBL.")
@@ -190,6 +193,25 @@ if __name__ == "__main__":
         edges += e
         logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
     
+    if asked.gene_ontology_reverse:
+        logging.info(f"Weave Gene Ontology...")
+        # Table input data.
+        df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
+
+        # Extraction mapping configuration.
+        conf_filename = "./oncodashkb/adapters/gene_ontology_reverse.yaml"
+        with open(conf_filename) as fd:
+            conf = yaml.full_load(fd)
+
+        manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
+        manager.run()
+
+        n = list(manager.nodes)
+        e = list(manager.edges)
+        nodes += n
+        edges += e
+        logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
+    
     # Extract from databases not requiring preprocessing.
     if asked.networks:
         logging.info(f"Weave Omnipath networks data...")
@@ -253,8 +275,25 @@ if __name__ == "__main__":
 
     if asked.clinical:
         logging.info(f"Weave Clinical data...")
-        for file_path in asked.clinical:
-            data_mappings[file_path] = "./oncodashkb/adapters/clinical.yaml"
+
+        clinical_df = pd.read_csv(asked.clinical[0], sep=",")
+
+        mapping_file = "./oncodashkb/adapters/clinical.yaml"
+        with open(mapping_file) as fd:
+            mapping = yaml.full_load(fd)
+
+        adapter = ontoweaver.tabular.extract_table(
+            # df=networks_df, config=mapping, separator=":", affix="suffix"
+            df=clinical_df,
+            config=mapping,
+            separator=":",
+            affix="suffix",
+        )
+
+        nodes += adapter.nodes
+        edges += adapter.edges
+
+        logging.info(f"Wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
 
     if asked.single_nucleotide_variants:
         logging.info(f"Weave SNVs...")

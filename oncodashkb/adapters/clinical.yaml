@@ -15,10 +15,10 @@ transformers:
             - treatment_strategy
         to_object: treatment
         via_relation: patient_has_treatment
-    - split:
-        columns:
-            - chronic_illnesses_type
-        separator: ","
-        to_object: disease
-        via_relation: patient_has_chronic_illness
+    # - split:
+    #     columns:
+    #         - chronic_illnesses_type
+    #     separator: ","
+    #     to_object: disease
+    #     via_relation: patient_has_chronic_illness
 

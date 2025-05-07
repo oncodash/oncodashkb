@@ -225,10 +225,22 @@ protein to biological process:
         edglelabel: str
         name: str
 
-small molecule protein:
+biological process to protein:
+    is_a: association
+    represented_as: edge
+    label_in_input: biological_process_to_protein
+    source: biological process
+    target: protein
+    properties:
+        # edglelabel: str
+        name: str
+
+protein target for drug:
     is_a: pairwise molecular interaction
     represented_as: edge
-    input_label: small_molecule_protein
+    input_label: protein_target_for_drug
+    source: protein
+    target: drug
     properties:
         is_directed: bool
         is_stimulation: bool
