@@ -1,13 +1,13 @@
 row:
     map:
-        column: source_genesymbol # column name in the datafrane
-        to_subject: drug
+        column: target_genesymbol # column name in the datafrane
+        to_subject: protein
 
 transformers:
     - map:
-        column: target_genesymbol # column name in the datafrane
-        to_object: protein
-        via_relation: small_molecule_protein
+        column: source_genesymbol # column name in the datafrane
+        to_object: drug
+        via_relation: protein_target_for_drug
     # # Properties of for the node type 'source'
     # - map:
     #     column: source_genesymbol # column name in the datafrane
@@ -38,114 +38,114 @@ transformers:
     - map:
         column: is_directed
         to_property: is_directed
-        for_object: small_molecule_protein 
+        for_object: protein_target_for_drug 
     - map:
         column: is_stimulation
         to_property: is_stimulation
-        for_object: small_molecule_protein 
+        for_object: protein_target_for_drug 
     - map:
         column: is_inhibition
         to_property: is_inhibition
-        for_object: small_molecule_protein  
+        for_object: protein_target_for_drug  
     - map:
         column: consensus_direction
         to_property: consensus_direction
-        for_object: small_molecule_protein  
+        for_object: protein_target_for_drug  
     - map:
         column: consensus_stimulation
         to_property: consensus_stimulation
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: consensus_inhibition
         to_property: consensus_inhibition
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: sources
         to_property: sources
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: references
         to_property: references
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: omnipath
         to_property: omnipath
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: kinaseextra
         to_property: kinaseextra
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: ligrecextra
         to_property: ligrecextra
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: pathwayextra
         to_property: pathwayextra
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: mirnatarget
         to_property: mirnatarget
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: dorothea
         to_property: dorothea
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: collectri
         to_property: collectri
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: tf_target
         to_property: tf_target
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: lncrna_mrna
         to_property: lncrna_mrna
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: tf_mirna
         to_property: tf_mirna
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: small_molecule
         to_property: small_molecule
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: dorothea_curated
         to_property: dorothea_curated
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: dorothea_chipseq
         to_property: dorothea_chipseq
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: dorothea_tfbs
         to_property: dorothea_tfbs
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: dorothea_coexp
         to_property: dorothea_coexp
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: dorothea_level
         to_property: dorothea_level
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: type
         to_property: type
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: curation_effort
         to_property: curation_effort
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: extra_attrs
         to_property: extra_attrs
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
     - map:
         column: evidences
         to_property: evidences
-        for_object: small_molecule_protein   
+        for_object: protein_target_for_drug   
 metadata:
         - name: .
