@@ -105,48 +105,61 @@ validate: # SNV table labeled as "local".
   columns:
     patient_id:
         dtype: str
+        description: "Cohort code from clinical data"
     sample_id:
         dtype: str
+        description: "Sample id of biopsy (origin OVCA database)"
     ref_id:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data documentation.
+        description: "Reference dbSNP id"
+        nullable: true
     chromosome:
         dtype: str
+        description: "Chromosome number where alteration is occurring"
         checks:
           str_matches: ^chr[\d|X]+$
     position:
-        dtype: int64 # FIXME: defined as 'long' in documentation.
+        dtype: int64
+        description: "Start position of alteration in chromosome"
     reference_allele:
         dtype: str
+        description: "Allele in reference genome"
         checks:
           str_matches: ^[ACTG]+$
     sample_allele:
         dtype: str
+        description: "Allele in sample"
         checks:
           str_matches: ^[ACTG]+$
     referenceGenome:
         dtype: str
+        description: "Standard human reference genome used in WGS read alignment"
         checks:
           isin:
             value:
+              - GRCh37
               - GRCh38
     hugoSymbol:
         dtype: str
+        description: "Gene name in Hugo nomenclature"
         checks:
             str_matches: ^[a-zA-Z0-9-]+$
     alteration:
         dtype: str
+        description: "Genomic alteration in format hugoSymbol:chromosome:position:reference_allele:sample_allele"
         checks:
             str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+>[ACTG]+$
     tumorType:
         dtype: str
+        description: "Tumor type abbreviation (OncoTree based)"
         checks:
             isin:
                 value:
                     - HGSOC
     consequence: # FIXME: Encountered values significantly different than values described in documentation.
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
+        description: "Genomic consequence of variant (same as exonicFuncMane)"
+        nullable: true
         checks:
             isin:
                 value:
@@ -154,93 +167,103 @@ validate: # SNV table labeled as "local".
                   - nonsynonymous_SNV
                   - frameshift_deletion
                   - frameshift_insertion
-                  - . #FIXME: possible error.
-                  - splicing #FIXME: present in data description but not in data.
-                  - intronic #FIXME: present in data description but not in data.
-                  - intron #FIXME: present in data description but not in data.
-                  - intergenic #FIXME: present in data description but not in data.
-                  - upstream #FIXME: present in data description but not in data.
-#                  - nonframeshift_deletion # FIXME: present in data description but not in data.
-#                  - nonframeshift_substitution # FIXME: present in data description but not in data.
-#                  - nonframeshift_insertion # FIXME: present in data description but not in data.
+                  - intergenic
+                  - intron
+                  - intronic
+                  - splicing
+                  - upstream
     cytoBand:
         dtype: str
-    exonicFuncMane: # FIXME: Encountered column not present in data description. Should it be 'exonicFuncName'?
+        description: "Chromosomal locus"
+    exonicFuncMane:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
+        description: "Genomic consequence of variant (from MANE)"
+        nullable: true
         checks:
           isin:
             value:
-              - stopgain
-              - nonsynonymous_SNV
               - frameshift_deletion
-              - . # FIXME: possible error.
               - frameshift_insertion
-    funcMane: # FIXME: Encountered column not present in data description. Should it be 'funcName'?
+              - intergenic
+              - intron
+              - intronic
+              - nonsynonymous_SNV
+              - splicing
+              - stopgain
+              - upstream
+    funcMane:
         dtype: str
+        description: "functional genomic target by MANE"
+        nullable: true
         checks:
           isin:
             value:
               - exonic
-              - splicing
-              - intronic
-              - intron
               - intergenic
+              - intron
+              - intronic
+              - splicing
               - upstream
-              - exonic;splicing
-    AAChangeMANE: # FIXME: Encountered column not present in data description. Should it be 'AAChangeNAME'?
+    AAChangeMANE:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
-    funcRefGene: # FIXME: Encountered column not present in data description.
+        description: "Protein change by MANE"
+        nullable: true
+    funcRefGene:
         dtype: str
+        description: "functional genomic target by RefGene"
+        nullable: true
         checks:
             isin:
                 value:
-                  - exonic
-                  - splicing
-                  - intronic
-                  - intron
-                  - intergenic
-                  - ncRNA_intronic
-                  - ncRNA_exonic
-                  - ncRNA_exonic;splicing
-                  - exonic;splicing
-                  - upstream
                   - UTR3
-    exonicFuncRefGene: # FIXME: Encountered column not present in data description.
+                  - exonic
+                  - intergenic
+                  - intron
+                  - intronic
+                  - ncRNA_exonic
+                  - ncRNA_intronic
+                  - splicing
+                  - upstream
+    exonicFuncRefGene:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
+        description: "Genomic consequence of variant (from RefGene)"
+        nullable: true
         checks:
             isin:
                 value:
-                  - stopgain
-                  - nonsynonymous_SNV
                   - frameshift_deletion
-                  - . # FIXME: Encountered point '.' values in data.
                   - frameshift_insertion
+                  - nonsynonymous_SNV
+                  - startloss
+                  - stopgain
+                  - stoploss
                   - synonymous_SNV
                   - unknown
-                  - startloss
-                  - stoploss
-    AAChangerefGene: # FIXME: Encountered column not present in data description.
+    AAChangerefGene:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
+        description: "Protein change by RefGene"
+        nullable: true
     nMinor:
-        dtype: float64
-        nullable: true
+        dtype: int64
+        description: "Minor allele copynumber (from CNAs if available)"
     nMajor:
-        dtype: float64
-        nullable: true
+        dtype: int64
+        description: "Major allele copynumber (from CNAs if available)"
     ad0:
         dtype: int64
+        description: "Minor allelele read count"
     ad1:
         dtype: int64
+        description: "Major allele read count"
     af:
         dtype: float64
+        description: "Expected homozygous allele frequency"
     depth:
         dtype: int64
+        description: "Total read count (=ad0+ad1)"
     lohstatus:
         dtype: str
+        description: "Loss of heterozygosity status (from CNAs if available)"
         nullable: true
         checks:
           isin:
@@ -248,13 +271,17 @@ validate: # SNV table labeled as "local".
               - HET
               - LOH
     hom_lo:
-        dtype: int64 # FIXME defined as 'float' in documentation.
+        dtype: float64
+        description: "Lower bound for expected homogeneity confidence interval"
     hom_hi:
-        dtype: int64 # FIXME defined as 'float' in documentation.
+        dtype: float64
+        description: "Higher bound for expected homogeneity confidence interval"
     hom_pbinom_lo:
         dtype: float64
+        description: "Binomial distribution probability for expected homogeneity"
     homogenous:
-        dtype: object # FIXME defined as 'bool' in documentation.
+        dtype: boolean
+        description: "Predicted homogenous if hom_pbinom_lo > 0.05)"
         nullable: true
         checks:
           isin:
@@ -263,107 +290,111 @@ validate: # SNV table labeled as "local".
               - False
     cadd_score:
         dtype: float64
+        description: "CADD score from WGS annotations"
+        nullable: true
     ada_score:
         dtype: float64
+        description: "Ada boost score from WGS annotations"
         nullable: true
     rf_score:
         dtype: float64
+        description: "Random forest score from WGS annotations"
         nullable: true
-    sift_category:
+    amis_category:
         dtype: str
+        description: "Alphamissense category from WGS annotations"
         nullable: true
-#        checks: # FIXME: Column is empty.
-#          isin:
-#            value:
-#              - pathogenic
-#              - likely_pathogenic
-#              - benign
-#              - likely_benign
-#              - ambiguous
-    sift_score: # FIXME: Column is empty.
-        dtype: float64
-        nullable: true
-    polyphen_category:
-        dtype: str # FIXME: Column is empty.
-        nullable: true
-#        checks:
-#          isin:
-#            value:
-#              - pathogenic
-#              - likely_pathogenic
-#              - benign
-#              - likely_benign
-#              - ambiguous
-    polyphen_score: # FIXME: Column is empty.
-        dtype: float64
-        nullable: true
-    amis_category: # FIXME: Sometimes value encountered is a combination of possible values in data description.
-        dtype: str
-#        checks:
-#          isin:
-#            value:
-#              - pathogenic
-#              - likely_pathogenic
-#              - benign
-#              - likely_benign
-#              - ambiguous
-#              - . # FIXME: Encountered point '.' values in data.
-    amis_score:
-        dtype: str # FIXME: Sometimes value encountered is a combination of floats, so should be 'string'?
-        nullable: true
-    cosmic_id:
-        dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
-    clinvar_id:
-        dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
-    clinvar_sig:
-        dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
         checks:
           isin:
             value:
-#              - pathogenic # FIXME: Encountered values different from described in documentation.
-#              - likely_pathogenic
-#              - benign
-#              - likely_benign
-#              - ambiguous
-              - .
-              - Pathogenic
-              - Uncertain_significance
-              - Likely_pathogenic
-              - Pathogenic/Likely_pathogenic
-              - Conflicting_classifications_of_pathogenicity
-              - Likely_benign
-              - Benign/Likely_benign
-              - Benign
-              - risk_factor
-              - not_provided
-    clinvar_status:
+              - pathogenic
+              - likely_pathogenic
+              - benign
+              - likely_benign
+              - ambiguous
+    amis_score:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
-    clinvar_assoc:
+        description: "Alphamissense score from WGS annotations. Value space 0.0-1.0  (can be also expressed with range eg: 0.3324,0.4355 or max first eg: 0.4355,0.3324)"
+        nullable: true
+    sift_category:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
+        description: "SIFT category from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - pathogenic
+              - likely_pathogenic
+              - benign
+              - likely_benign
+              - ambiguous
+    sift_score:
+        dtype: float64
+        description: "SIFT score from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+    polyphen_category:
+        dtype: str
+        description: "Polyphen category from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - pathogenic
+              - likely_pathogenic
+              - benign
+              - likely_benign
+              - ambiguous
+    polyphen_score:
+        dtype: float64
+        description: "Polyphen score from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
     pathogenecity:
         dtype: str
-#        nullable: true # FIXME: Encountered point '.' values in data.
+        description: "Estimated pathogenecity by voting from differrent scoring systems"
+        nullable: true
         checks:
-            isin:
-                value: # FIXME: Expected values are not present in data description.
-                  - .
-                  - likely_benign
-                  - likely_pathogenic
-                  - ambiguous
-                  - ambiguous,likely_benign
-                  - ambiguous,likely_pathogenic
-                  - likely_benign,ambiguous
-                  - likely_pathogenic,ambiguous
+          isin:
+            value:
+              - pathogenic
+              - likely_pathogenic
+              - benign
+              - likely_benign
+              - ambiguous
+    cosmic_id:
+        dtype: str
+        description: "COSMIC databse ID"
+        nullable: true
+    clinvar_id:
+        dtype: str
+        description: "ClinVar databse ID"
+        nullable: true
+    clinvar_sig:
+        dtype: str
+        description: "ClinVar pathogenecity prediction"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - pathogenic
+              - likely_pathogenic
+              - benign
+              - likely_benign
+              - ambiguous
+    clinvar_status:
+        dtype: str
+        description: "ClinVar variant status"
+        nullable: true
+    clinvar_assoc:
+        dtype: str
+        description: "ClinVar cancer type associations"
+        nullable: true
     classification:
         dtype: str
+        description: "Consequence based classification used for grouping in UI"
         checks:
             isin:
                 value:
-                  - Truncating
                   - Missense
                   - Splicing
+                  - Truncating
+                  - Other

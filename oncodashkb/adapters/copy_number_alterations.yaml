@@ -88,13 +88,6 @@ transformers:
             - alteration
     - map:
         columns:
-            - consequence
-        to_property:
-            - consequence
-        for_objects:
-            - alteration
-    - map:
-        columns:
             - level_of_evidence
         to_property:
             - level_of_evidence
@@ -103,73 +96,97 @@ transformers:
 metadata:
         - name: copy_number_alterations
 
-
-
 validate: # Validation for cna labeled "external.".
   columns:
     patient_id:
       dtype: str
+      description: "Cohort code from clinical data"
     sample_id:
       dtype: str
+      description: "Sample id of biopsy (origin OVCA database)"
+    referenceGenome:
+      dtype: str
+      description: "Standard human reference genome used in WGS read alignment"
+      checks:
+        isin:
+          value:
+            - GRCh37
+            - GRCh38
+    hugoSymbol:
+      dtype: str
+      description: "Gene name in Hugo nomenclature"
+      checks:
+        str_matches: ^[a-zA-Z0-9-]+$
     alteration:
+      dtype: str
+      description: "Genomic alteration type"
       checks:
         isin:
           value:
             - AMPLIFICATION
-            - '4' #FIXME: possible error.
-#            - DELETION #FIXME: not present in data declared in source description.
-#            - UNKNOWN #FIXME: not present in data declared in source description.
-    hugoSymbol:
-        dtype: str
-        checks:
-            str_matches: ^[a-zA-Z0-9-]+$
+            - DELETION
+            - UNKNOWN
     tumorType:
       dtype: str
+      description: "Tumor type abbreviation (OncoTree based)"
       checks:
         isin:
           value:
             - HGSOC
-            - '5' #FIXME: possible error.
     oncogenic:
       dtype: str
+      description: "Indication of alteration oncogenecity"
       nullable: true
       checks:
         isin:
           value:
-            - Inconclusive # Not present in source documentation description.
+            - Inconclusive
+            - Likely Neutral
             - Likely Oncogenic
             - Oncogenic
             - Unknown
-            - known # Not present in source documentation description.
     mutationEffectDescription:
       dtype: str
+      description: "Brief overview of the biological effect of the alteration with references"
       nullable: true
     gene_role:
       dtype: str
+      description: "The biological effect of a mutation/alteration on the protein function"
       nullable: true
       checks:
         isin:
           value:
-            - Act # Not present in source documentation description.
             - Gain-of-function
             - Inconclusive
             - Likely Gain-of-function
-#            - Likely Loss-of-function FIXME: not present in data declared in source description.
-#            - Likely Neutral FIXME: not present in data declared in source description.
-#            - Likely Switch-of-function FIXME: not present in data declared in source description.
-#            - Loss-of-function FIXME: not present in data declared in source description.
-            - LoF # Not present in source documentation description.
-#            - Neutral FIXME: not present in data declared in source description.
-#            - Switch-of-function FIXME: not present in data declared in source description.
+            - Likely Loss-of-function
+            - Likely Neutral
+            - Loss-of-function
             - Unknown
-            - ambiguous # Not present in source documentation description.
+            - Act
+            - LoF
+            - ambiguous
     citationPMids:
       dtype: str
+      description: "Citations related to the biological effect separated by semicolon"
       nullable: true
       checks:
-        str_matches: ^[0-9]{7,}(,[0-9]{7,})*$
+        str_matches: ^[0-9]{7,}(;[0-9]{7,})*$
+    geneSummary:
+      dtype: str
+      description: "Brief overview of the gene and its role in cancer"
+      nullable: true
+    variantSummary:
+      dtype: str
+      description: "Brief description of the variant oncogenicity"
+      nullable: true
+    tumorTypeSummary:
+      dtype: str
+      description: "Describes the therapeutic implication that applies to the drug indication in discovered cancer"
+      nullable: true
     level_of_evidence:
       dtype: str
+      description: "The highest level of evidence for therapeutic implications based on OncoKB (CGI levels are mapped to this)"
       nullable: true
       checks:
         isin:
@@ -181,12 +198,3 @@ validate: # Validation for cna labeled "external.".
             - LEVEL_4
             - LEVEL_R1
             - LEVEL_R2
-    geneSummary:
-      dtype: str
-      nullable: true
-    variantSummary:
-        dtype: str
-        nullable: true
-    tumorTypeSummary:
-        dtype: str
-        nullable: true
