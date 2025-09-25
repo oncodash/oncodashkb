@@ -88,13 +88,6 @@ transformers:
             - alteration
     - map:
         columns:
-            - consequence
-        to_property:
-            - consequence
-        for_objects:
-            - alteration
-    - map:
-        columns:
             - level_of_evidence
         to_property:
             - level_of_evidence
@@ -106,96 +99,108 @@ metadata:
 
 validate: # Validation for cna labeled "local.".
   columns:
-#    unnamed:0: #FIXME: weird column.
-#      dtype: int64
     patient_id:
-      dtype: str #FIXME: not present in data declared in source description.
+      dtype: str
+      description: "Cohort code from clinical data"
     sample_id:
       dtype: str
+      description: "Sample id of biopsy (origin OVCA database)"
     referenceGenome:
       dtype: str
+      description: "Standard human reference genome used in WGS read alignment"
       checks:
         isin:
+          - GRCh37
           - GRCh38
-          - '2' #FIXME: possible error.
     hugoSymbol:
       dtype: str
+      description: "Gene name in Hugo nomenclature"
     alteration:
       dtype: str
+      description: "Genomic alteration type"
       checks:
         isin:
           value:
             - AMPLIFICATION
-            - '4' #FIXME: possible error.
-#            - DELETION FIXME: not present in data declared in source description.
-#            - UNKNOWN FIXME: not present in data declared in source description.
+            - DELETION
+            - UNKNOWN
     tumorType:
       dtype: str
+      description: "Tumor type abbreviation (OncoTree based)"
       checks:
         isin:
           value:
             - HGSOC
-            - '5' #FIXME: possible error.
-    nMajor: #FIXME: not present in data declared in source description.
+    ploidy:
       dtype: float64
-    nMinor: #FIXME: not present in data declared in source description.
-      dtype: float64
-    lohstatus: #FIXME: not present in data declared in source description.
+      description: "The number of complete sets of chromosomes in cancer cells"
+    nMinor:
+      dtype: int64
+      description: "Minor allele copynumber"
+    nMajor:
+      dtype: int64
+      description: "Major allele copynumber"
+    lohstatus:
       dtype: str
+      description: "Loss of heterozygosity status"
       checks:
         isin:
           value:
             - HET
-            - '8' #FIXME: possible error.
-    ploidy: #FIXME: not present in data declared in source description.
-      dtype: float64
-    start: #FIXME: not present in data declared in source description.
-      dtype: float64
-    end: #FIXME: not present in data declared in source description.
-      dtype: float64
-    strand: #FIXME: not present in data declared in source description.
-      dtype: float64
-      checks:
-        isin:
-          value:
-            - -1.0
-            - 1.0
-            - 12.0 #FIXME: possible error.
-    band: #FIXME: not present in data declared in source description.
+            - LOH
+    chromosome:
       dtype: str
-    nProbesCr: #FIXME: not present in data declared in source description.
-      dtype: float64
-    nProbesAf: #FIXME: not present in data declared in source description.
-      dtype: float64
-    logR: #FIXME: not present in data declared in source description.
-      dtype: float64
-    baf: #FIXME: not present in data declared in source description.
-      dtype: float64
-    nAraw: #FIXME: not present in data declared in source description.
-      dtype: float64
-    nBraw: #FIXME: not present in data declared in source description.
-      dtype: float64
-    purifiedLogR: #FIXME: not present in data declared in source description.
-      dtype: float64
-    purifiedBaf: #FIXME: not present in data declared in source description.
-      dtype: float64
-    purifiedLoh: #FIXME: not present in data declared in source description.
-      dtype: float64
-    minPurifiedLogR: #FIXME: not present in data declared in source description.
-      dtype: float64
-    maxPurifiedLogR: #FIXME: not present in data declared in source description.
-      dtype: float64
-    breaksInGene: #FIXME: not present in data declared in source description.
-      dtype: float64
+      description: "Chromosome number where alteration is occurring"
+    start:
+      dtype: int64
+      description: "Start position of alteration in chromosome"
+    end:
+      dtype: int64
+      description: "End position of alteration in chromosome"
+    strand:
+      dtype: int64
+      description: "DNA strand"
       checks:
         isin:
           value:
-            - 0.0
-            - 1.0
-            - 2.0
-            - 3.0
-            - 4.0
-            - 5.0
-            - 6.0
-            - 7.0
-            - 25.0 #FIXME: possible error.
+            - -1
+            - 1
+    band:
+      dtype: str
+      description: "Chromosomal locus"
+    nProbesCr:
+      dtype: int64
+      description: "Number of probes"
+    nProbesAf:
+      dtype: int64
+      description: "Number of probes"
+    logR:
+      dtype: float64
+      description: "Signal intensity"
+    baf:
+      dtype: float64
+      description: "B-allele frequency of occurrence"
+    nAraw:
+      dtype: float64
+      description: "Calculated copy number of allele A"
+    nBraw:
+      dtype: float64
+      description: "Calculated copy number of allele B"
+    purifiedLogR:
+      dtype: float64
+      description: "Mean signal intensity"
+    purifiedBaf:
+      dtype: float64
+      description: "B-allele frequency measurement"
+    purifiedLoh:
+      dtype: float64
+      description: "LoH measurement"
+    minPurifiedLogR:
+      dtype: float64
+      description: "Minimum measured signal intensity"
+    maxPurifiedLogR:
+      dtype: float64
+      description: "Maximum measured signal intensity"
+    breaksInGene:
+      dtype: int64
+      description: "Number of copy number level shift points in alteration"
