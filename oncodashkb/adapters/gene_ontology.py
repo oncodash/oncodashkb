@@ -22,6 +22,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
 
         self.ontology = ontology
         self.genes_list = genes_list
+        assert self.genes_list != None
 
         # define column names based on the GAF specification
         columns = ['DB', 'DB_Object_ID', 'DB_Object_Symbol', 'Qualifier', 'GO_ID', 'DB_Reference', 'Evidence_Code',
