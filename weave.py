@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
+import os
 import sys
 import yaml
 import logging
 import argparse
+
 import pandas as pd
-from biocypher import BioCypher
-import os
+
+import biocypher
+
 import ontoweaver
 import oncodashkb.adapters as od
 
@@ -52,10 +55,10 @@ if __name__ == "__main__":
 
     parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
                         help="Extract from a clinical CSV file.")
-    
+
     parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
-    
+
     parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with copy number alterations (CNA) annotations.")
 
@@ -68,7 +71,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-G", "--gene_ontology_genes", metavar="TXT",
                         help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
-    
+
     parser.add_argument("-r", "--gene_ontology_reverse", action='store_true',
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
 
@@ -82,7 +85,10 @@ if __name__ == "__main__":
                         help="Extract parquet files from the directory molecule.")
     parser.add_argument("-p", "--open_targets_diseases", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory diseases.")
-    
+
+    parser.add_argument("-s", "--separator", metavar="STRING", default=", ",
+                        help="Separator in exported data files.")
+
     parser.add_argument(
         "-net",
         "--networks",
@@ -111,10 +117,16 @@ if __name__ == "__main__":
                         help="Set the verbose level (default: %(default)s).")
 
     asked = parser.parse_args()
-    bc = BioCypher(
+    bc = biocypher.BioCypher(
         biocypher_config_path="config/biocypher_config.yaml",
         schema_config_path="config/schema_config.yaml"
     )
+
+    logging.basicConfig()
+    logging.getLogger().setLevel(asked.verbose)
+    biocypher._logger.logger.setLevel(asked.verbose)
+    ontoweaver.logger.setLevel(asked.verbose)
+
     # bc.show_ontology_structure()
 
     # Actually extract data.
@@ -192,9 +204,9 @@ if __name__ == "__main__":
         nodes += n
         edges += e
         logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
-    
+
     if asked.gene_ontology_reverse:
-        logging.info(f"Weave Gene Ontology...")
+        logging.info(f"Weave Gene Ontology in reverse...")
         # Table input data.
         df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
 
@@ -211,7 +223,7 @@ if __name__ == "__main__":
         nodes += n
         edges += e
         logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
-    
+
     # Extract from databases not requiring preprocessing.
     if asked.networks:
         logging.info(f"Weave Omnipath networks data...")
@@ -310,7 +322,18 @@ if __name__ == "__main__":
     nodes += n
     edges += e
 
-    import_file = ontoweaver.reconciliate_write(nodes, edges, "config/biocypher_config.yaml", "config/schema_config.yaml", separator=", ")
+    logging.debug(f"Extracted {len(nodes)} nodes and {len(edges)} edges.")
+
+    fnodes, fedges = ontoweaver.fusion.reconciliate(nodes, edges, separator = asked.separator)
+    logging.debug(f"Fused into {len(fnodes)} nodes and {len(fedges)} edges.")
+
+    if fnodes:
+        bc.write_nodes(fnodes)
+    if fedges:
+        bc.write_edges(fedges)
+    #bc.summary()
+    import_file = bc.write_import_call()
 
     print(import_file)
 
+    logging.debug("Done")
