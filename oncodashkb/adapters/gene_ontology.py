@@ -20,6 +20,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
                  type_affix=ontoweaver.tabular.TypeAffixes.none
                  ):
 
+        # logging.info(" | | In Gene_ontology adapter init")
         self.ontology = ontology
         self.genes_list = genes_list
         assert self.genes_list != None
@@ -33,8 +34,10 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
         df.columns = columns
 
         # create dict with GO_id:GO_term
+        logging.info(" | | Load GO taxonomy")
         dict_go_plus = self.create_id_term_dict()
 
+        # logging.info(" | | Sanitize keys")
         # DELETE ; and , from terms (values in dictionary) to avoid future errors in CSV for neo4j import
         for key in dict_go_plus.keys():
             if ',' in dict_go_plus[key]:
@@ -44,6 +47,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
             if '\'' in dict_go_plus[key]:
                 dict_go_plus[key] = dict_go_plus[key].replace('\'', '')
 
+        # logging.info(" | | Expand data")
         # create additional column with GO terms (mapped from GO_id)
         df['GO_term'] = df['GO_ID'].map(lambda go_id: dict_go_plus[go_id])
 
@@ -52,39 +56,47 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
         df['GO_enables'] = None
         df['GO_contributes_to'] = None
 
-        # add the GO_term in GO_involved_in, GO_enables, GO_contributes_to columns depending on the edge type in
-        # Qualifier column
-
-        df = df.apply(self.separate_edges_types, axis=1)
-
         '''
         List of genes the annotation for which we will integrate from Gene Ontology data,
         Reading from Hugo_Symbol_genes.conf file
         By default = genes from OncoKB database
         '''
+        # logging.info(" | | Read genes list")
         included_genes = self.read_genes_list()
+        assert len(included_genes) > 0
 
+        # logging.info(" | | Filter out useless edges")
         # cut df to include only edge type that we have chosen and annotations for genes from OncoKB
         df = df[((df['Qualifier'].isin(['enables', 'involved_in', 'contributes_to'])) &
                  (df['DB_Object_Symbol'].isin(included_genes)))]
+        assert len(df) > 0
+
+        # add the GO_term in GO_involved_in, GO_enables, GO_contributes_to columns depending on the edge type in
+        # Qualifier column
+        logging.info(" | | Separate edge types")
+        df = df.apply(self.separate_edges_types, axis=1)
+        assert len(df) > 0
 
         # Default mapping as a simple config.
+        # logging.info(" | | Parse data")
         from . import types
         parser = ontoweaver.tabular.YamlParser(config, types)
         mapping = parser()
 
+        # logging.info(" | | Declare types")
         # Declare types defined in the config.
         super().__init__(
             df,
             *mapping,
         )
 
+        logging.info(" | | Done Gene_ontology adapter init")
 
     # function to create a dictionary with GO_id:GO_term for gene ontology, input - OWL file, output - dictionary
     def create_id_term_dict(self):
         dict_id_term = {}
 
-        print(self.ontology)
+        logging.debug(f"Load ontology: {self.ontology}")
 
         ont = get_ontology(self.ontology).load()
 

@@ -48,8 +48,8 @@ echo "Weave data..." >&2
 
 $(pwd)/weave.py --verbose INFO \
     --clinical                   $data_dir/DECIDER/clinical_export.csv \
-    --single_nucleotide_variants $data_dir/DECIDER/snv_annotated_external.csv  \
-    --copy_number_alterations    $data_dir/DECIDER/cna_annotated_external.csv \
+    --single_nucleotide_variants $data_dir/DECIDER/snv_annotated.csv  \
+    --copy_number_alterations    $data_dir/DECIDER/cna_annotated.csv \
     --oncokb                     $data_dir/DECIDER/treatments.csv \
     --gene_ontology_genes        $data_dir/DECIDER/OncoKB_gene_symbols.conf \
     --gene_ontology              $data_dir/GO/goa_human.gaf.gz \
@@ -69,6 +69,6 @@ sleep 5
 
 
 echo "Send a test query..." >&2
-cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
+sudo -u neo4j cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
 
 echo "Done" >&2
