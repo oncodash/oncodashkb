@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+import io
 import os
 import sys
 import yaml
+import math
 import logging
 import argparse
 
@@ -11,6 +13,8 @@ import biocypher
 
 import ontoweaver
 import oncodashkb.adapters as od
+from alive_progress import alive_bar
+
 
 def capitalize_first_letter(s):
     return s.lower().capitalize()
@@ -31,7 +35,10 @@ def process_directory(bc, directory, columns, conf_filename, manager_t):
             conf = yaml.full_load(fd)
 
         manager = manager_t(df, conf)
-        manager.run()
+
+        with alive_bar(len(df)) as progress:
+            for n,e in manager.run():
+                progress()
 
         nodes += manager.nodes
         edges += manager.edges
@@ -39,6 +46,36 @@ def process_directory(bc, directory, columns, conf_filename, manager_t):
         # logging.info(f"Extracted {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
 
     return nodes, edges
+
+
+def progress_read(filename, hint=None, steps=100, estimate_lines=10, **kwargs):
+    # df = pd.read_csv(filename, nrows=estimate_lines, **kwargs)
+    # estimated_size = len(df.to_csv(index=False))
+    # fsize = os.path.getsize(filename)
+
+    chunks = []
+    if hint:
+        nb_lines = hint
+
+        # How many lines to read at each iteration.
+        if "chunksize" not in kwargs:
+            chunksize = int(math.ceil(nb_lines / steps))
+
+        with alive_bar(steps) as progress:
+            for chunk in pd.read_csv(filename, chunksize=chunksize, low_memory=False, **kwargs):
+                chunks.append(chunk)
+                progress()
+    else:
+        with alive_bar() as progress:
+            for chunk in pd.read_csv(filename, chunksize=chunksize, low_memory=False, **kwargs):
+                chunks.append(chunk)
+                progress()
+
+    df = pd.concat(chunks, axis=0)
+
+    return df
+
+
 
 if __name__ == "__main__":
     # TODO add adapter for parquet, one for csv and one that automatically checks filetype.
@@ -146,7 +183,7 @@ if __name__ == "__main__":
         )
         nodes += target_nodes
         edges += target_edges
-        logging.info(f"Wove Open Targets: {len(target_nodes)} nodes, {len(target_edges)} edges.")
+        logging.info(f"OK, wove Open Targets: {len(target_nodes)} nodes, {len(target_edges)} edges.")
 
     if asked.open_targets_drugs:
         logging.info(f"Weave Open Targets Drugs...")
@@ -157,7 +194,7 @@ if __name__ == "__main__":
         )
         nodes += drug_nodes
         edges += drug_edges
-        logging.info(f"Wove Open Targets Drugs: {len(drug_nodes)} nodes, {len(drug_edges)} edges.")
+        logging.info(f"OK, wove Open Targets Drugs: {len(drug_nodes)} nodes, {len(drug_edges)} edges.")
 
     if asked.open_targets_diseases:
         logging.info(f"Weave Open Targets Diseases...")
@@ -168,7 +205,7 @@ if __name__ == "__main__":
         )
         nodes += diseases_nodes
         edges += diseases_edges
-        logging.info(f"Wove Open Targets Disease: {len(diseases_nodes)} nodes, {len(diseases_edges)} edges.")
+        logging.info(f"OK, wove Open Targets Disease: {len(diseases_nodes)} nodes, {len(diseases_edges)} edges.")
 
     if asked.open_targets_evidences:
         logging.info(f"Weave Open Targets Evidences...")
@@ -184,31 +221,40 @@ if __name__ == "__main__":
         )
         nodes += evidence_nodes
         edges += evidence_edges
-        logging.info(f"Wove Open Targets Evidences: {len(evidence_nodes)} nodes, {len(evidence_edges)} edges.")
+        logging.info(f"OK, wove Open Targets Evidences: {len(evidence_nodes)} nodes, {len(evidence_edges)} edges.")
 
     if asked.gene_ontology:
-        logging.info(f"Weave Gene Ontology...")
+        logging.info(f"Weave Gene Ontology data...")
         # Table input data.
-        df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
+        logging.info(f" | Load data...")
+        df = progress_read(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str}, hint=969214)
 
+        logging.info(f" | Read mapping...")
         # Extraction mapping configuration.
         conf_filename = "./oncodashkb/adapters/gene_ontology.yaml"
         with open(conf_filename) as fd:
             conf = yaml.full_load(fd)
 
+        logging.info(f" | Preprocess data...")
         manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
-        manager.run()
 
+        logging.info(f" | Transform data...")
+        # Use manager.df because Gene_ontology does filter the input dataframe
+        with alive_bar(len(manager.df)) as progress:
+            for n,e in manager.run():
+                progress()
+
+        logging.info(f" | Save data...")
         n = list(manager.nodes)
         e = list(manager.edges)
         nodes += n
         edges += e
-        logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
+        logging.info(f"OK, wove Gene Ontology data: {len(n)} nodes, {len(e)} edges.")
 
     if asked.gene_ontology_reverse:
         logging.info(f"Weave Gene Ontology in reverse...")
         # Table input data.
-        df = pd.read_csv(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str})
+        df = progress_read(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str}, hint=969214)
 
         # Extraction mapping configuration.
         conf_filename = "./oncodashkb/adapters/gene_ontology_reverse.yaml"
@@ -216,19 +262,21 @@ if __name__ == "__main__":
             conf = yaml.full_load(fd)
 
         manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
-        manager.run()
+        with alive_bar(len(manager.df)) as progress:
+            for n,e in manager.run():
+                progress()
 
         n = list(manager.nodes)
         e = list(manager.edges)
         nodes += n
         edges += e
-        logging.info(f"Wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
+        logging.info(f"OK, wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
 
     # Extract from databases not requiring preprocessing.
     if asked.networks:
         logging.info(f"Weave Omnipath networks data...")
 
-        networks_df = pd.read_csv(asked.networks[0], sep="\t")
+        networks_df = progress_read(asked.networks[0], sep="\t")
         print(networks_df.info())
 
         mapping_file = "./oncodashkb/adapters/networks.yaml"
@@ -242,17 +290,20 @@ if __name__ == "__main__":
             separator=":",
             affix="suffix",
         )
+        with alive_bar(len(adapter.df)) as progress:
+            for n,e in adapter.run():
+                progress()
 
         nodes += adapter.nodes
         edges += adapter.edges
 
-        logging.info(f"Wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
+        logging.info(f"OK, wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
 
     # Extract from databases not requiring preprocessing.
     if asked.small_molecules:
         logging.info(f"Weave Omnipath networks data...")
 
-        small_molecules_df = pd.read_csv(asked.small_molecules[0], sep="\t")
+        small_molecules_df = progress_read(asked.small_molecules[0], sep="\t")
         small_molecules_df["source_genesymbol"] = small_molecules_df["source_genesymbol"].apply(capitalize_first_letter)
         # small_molecules_df["target_genesymbol"] = small_molecules_df["target_genesymbol"].apply(capitalize_first_letter)
         print(small_molecules_df.info())
@@ -268,11 +319,14 @@ if __name__ == "__main__":
             separator=":",
             affix="suffix",
         )
+        with alive_bar(len(adapter.df)) as progress:
+            for n,e in adapter.run():
+                progress()
 
         nodes += adapter.nodes
         edges += adapter.edges
 
-        logging.info(f"Wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
+        logging.info(f"OK, wove Networks: {len(nodes)} nodes, {len(edges)} edges.")
 
     # Extract from databases not requiring preprocessing.
     if asked.oncokb:
@@ -288,7 +342,7 @@ if __name__ == "__main__":
     if asked.clinical:
         logging.info(f"Weave Clinical data...")
 
-        clinical_df = pd.read_csv(asked.clinical[0], sep=",")
+        clinical_df = progress_read(asked.clinical[0], sep=",", hint=409)
 
         mapping_file = "./oncodashkb/adapters/clinical.yaml"
         with open(mapping_file) as fd:
@@ -305,7 +359,7 @@ if __name__ == "__main__":
         nodes += adapter.nodes
         edges += adapter.edges
 
-        logging.info(f"Wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
+        logging.info(f"OK, wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
 
     if asked.single_nucleotide_variants:
         logging.info(f"Weave SNVs...")

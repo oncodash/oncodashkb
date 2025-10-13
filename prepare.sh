@@ -52,9 +52,9 @@ else
     # check clin_overview_clinicaldata.csv
     # check ../../oncodashkb/adapters/Hugo_Symbol_genes.conf
     check treatments.csv
-    check snv_annotated_external.csv
+    check snv_annotated.csv
     # check OncoKB_gene_symbols.conf
-    check cna_annotated_external.csv
+    check cna_annotated.csv
     check clinical_export.csv
     cd ..
 fi
