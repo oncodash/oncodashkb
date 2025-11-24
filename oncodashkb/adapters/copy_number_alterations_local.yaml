@@ -98,6 +98,7 @@ metadata:
 
 
 validate: # Validation for cna labeled "local.".
+  strict: true
   columns:
     patient_id:
       dtype: str
@@ -110,7 +111,6 @@ validate: # Validation for cna labeled "local.".
       description: "Standard human reference genome used in WGS read alignment"
       checks:
         isin:
-          - GRCh37
           - GRCh38
     hugoSymbol:
       dtype: str
@@ -122,8 +122,6 @@ validate: # Validation for cna labeled "local.".
         isin:
           value:
             - AMPLIFICATION
-            - DELETION
-            - UNKNOWN
     tumorType:
       dtype: str
       description: "Tumor type abbreviation (OncoTree based)"
@@ -131,15 +129,12 @@ validate: # Validation for cna labeled "local.".
         isin:
           value:
             - HGSOC
-    ploidy:
-      dtype: float64
-      description: "The number of complete sets of chromosomes in cancer cells"
-    nMinor:
-      dtype: int64
-      description: "Minor allele copynumber"
     nMajor:
       dtype: int64
       description: "Major allele copynumber"
+    nMinor:
+      dtype: int64
+      description: "Minor allele copynumber"
     lohstatus:
       dtype: str
       description: "Loss of heterozygosity status"
@@ -148,6 +143,9 @@ validate: # Validation for cna labeled "local.".
           value:
             - HET
             - LOH
+    ploidy:
+      dtype: float64
+      description: "The number of complete sets of chromosomes in cancer cells"
     chromosome:
       dtype: str
       description: "Chromosome number where alteration is occurring"
