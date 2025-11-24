@@ -110,6 +110,7 @@ metadata:
         - name: .
 
 validate: # SNV table labeled as "external".
+  strict: true
   columns:
     patient_id:
       dtype: str
@@ -216,11 +217,3 @@ validate: # SNV table labeled as "external".
       dtype: str
       description: "Describes the therapeutic implication that applies to the indication in cancer"
       nullable: true
-    referenceGenome:
-      dtype: str
-      description: "Standard human reference genome used in WGS read alignment"
-      checks:
-        isin:
-          value:
-            - GRCh37
-            - GRCh38
