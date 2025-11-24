@@ -99,6 +99,7 @@ metadata:
         - name: copy_number_alterations
 
 validate: # Validation for cna labeled "external.".
+  strict: true
   columns:
     patient_id:
       dtype: str
@@ -112,13 +113,7 @@ validate: # Validation for cna labeled "external.".
       checks:
         isin:
           value:
-            - GRCh37
             - GRCh38
-    hugoSymbol:
-      dtype: str
-      description: "Gene name in Hugo nomenclature"
-      checks:
-        str_matches: ^[a-zA-Z0-9-]+$
     alteration:
       dtype: str
       description: "Genomic alteration type"
@@ -126,8 +121,11 @@ validate: # Validation for cna labeled "external.".
         isin:
           value:
             - AMPLIFICATION
-            - DELETION
-            - UNKNOWN
+    hugoSymbol:
+      dtype: str
+      description: "Gene name in Hugo nomenclature"
+      checks:
+        str_matches: ^[a-zA-Z0-9-]+$
     tumorType:
       dtype: str
       description: "Tumor type abbreviation (OncoTree based)"
@@ -143,6 +141,7 @@ validate: # Validation for cna labeled "external.".
         isin:
           value:
             - Inconclusive
+            - known
             - Likely Neutral
             - Likely Oncogenic
             - Oncogenic
@@ -158,34 +157,19 @@ validate: # Validation for cna labeled "external.".
       checks:
         isin:
           value:
-            - Gain-of-function
-            - Inconclusive
-            - Likely Gain-of-function
-            - Likely Loss-of-function
-            - Likely Neutral
-            - Loss-of-function
             - Unknown
-            - Act
+            - Likely Gain-of-function
+            - Gain-of-function
             - LoF
+            - Inconclusive
+            - Act
             - ambiguous
     citationPMids:
       dtype: str
       description: "Citations related to the biological effect separated by semicolon"
       nullable: true
       checks:
-        str_matches: ^[0-9]{7,}(;[0-9]{7,})*$
-    geneSummary:
-      dtype: str
-      description: "Brief overview of the gene and its role in cancer"
-      nullable: true
-    variantSummary:
-      dtype: str
-      description: "Brief description of the variant oncogenicity"
-      nullable: true
-    tumorTypeSummary:
-      dtype: str
-      description: "Describes the therapeutic implication that applies to the drug indication in discovered cancer"
-      nullable: true
+        str_matches: ^[0-9]{7,}(,[0-9]{7,})*$
     level_of_evidence:
       dtype: str
       description: "The highest level of evidence for therapeutic implications based on OncoKB (CGI levels are mapped to this)"
@@ -200,3 +184,15 @@ validate: # Validation for cna labeled "external.".
             - LEVEL_4
             - LEVEL_R1
             - LEVEL_R2
+    geneSummary:
+      dtype: str
+      description: "Brief overview of the gene and its role in cancer"
+      nullable: true
+    variantSummary:
+      dtype: str
+      description: "Brief description of the variant oncogenicity"
+      nullable: true
+    tumorTypeSummary:
+      dtype: str
+      description: "Describes the therapeutic implication that applies to the drug indication in discovered cancer"
+      nullable: true
