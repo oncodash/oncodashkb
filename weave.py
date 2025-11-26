@@ -6,6 +6,7 @@ import yaml
 import math
 import logging
 import argparse
+import traceback
 
 import pandas as pd
 
@@ -14,7 +15,6 @@ import biocypher
 import ontoweaver
 import oncodashkb.adapters as od
 from alive_progress import alive_bar
-
 
 def capitalize_first_letter(s):
     return s.lower().capitalize()
@@ -34,14 +34,15 @@ def process_directory(bc, directory, columns, conf_filename, manager_t):
         with open(conf_filename) as fd:
             conf = yaml.full_load(fd)
 
-        manager = manager_t(df, conf)
+        manager = manager_t(df, conf, raise_errors = True)
 
         with alive_bar(len(df), file=sys.stderr) as progress:
-            for n,e in manager.run():
+            for n,e in manager():
                 progress()
 
         nodes += manager.nodes
         edges += manager.edges
+
 
         logging.info(f"OK, wove {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
 
@@ -186,6 +187,7 @@ if __name__ == "__main__":
         )
         nodes += target_nodes
         edges += target_edges
+
         logging.info(f"OK, wove Open Targets: {len(target_nodes)} nodes, {len(target_edges)} edges.")
 
     if asked.open_targets_drugs:
@@ -197,6 +199,7 @@ if __name__ == "__main__":
         )
         nodes += drug_nodes
         edges += drug_edges
+
         logging.info(f"OK, wove Open Targets Drugs: {len(drug_nodes)} nodes, {len(drug_edges)} edges.")
 
     if asked.open_targets_diseases:
@@ -208,6 +211,7 @@ if __name__ == "__main__":
         )
         nodes += diseases_nodes
         edges += diseases_edges
+
         logging.info(f"OK, wove Open Targets Disease: {len(diseases_nodes)} nodes, {len(diseases_edges)} edges.")
 
     if asked.open_targets_evidences:
@@ -224,6 +228,7 @@ if __name__ == "__main__":
         )
         nodes += evidence_nodes
         edges += evidence_edges
+
         logging.info(f"OK, wove Open Targets Evidences: {len(evidence_nodes)} nodes, {len(evidence_edges)} edges.")
 
     if asked.gene_ontology:
@@ -242,21 +247,25 @@ if __name__ == "__main__":
         manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
 
         logging.info(f" | Transform data...")
+        local_nodes = []
+        local_edges = []
         # Use manager.df because Gene_ontology does filter the input dataframe
         with alive_bar(len(manager.df), file=sys.stderr) as progress:
-            for n,e in manager.run():
+            for n,e in manager():
+                local_nodes += n
+                local_edges += e
                 progress()
 
         logging.info(f" | Save data...")
-        n = list(manager.nodes)
-        e = list(manager.edges)
-        nodes += n
-        edges += e
-        logging.info(f"OK, wove Gene Ontology data: {len(n)} nodes, {len(e)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+
+        logging.info(f"OK, wove Gene Ontology data: {len(local_nodes)} nodes, {len(local_edges)} edges.")
 
     if asked.gene_ontology_reverse:
         logging.info(f"Weave Gene Ontology in reverse...")
         # Table input data.
+        logging.info(f" | Load data...")
         df = progress_read(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str}, hint=969214)
 
         # Extraction mapping configuration.
@@ -264,16 +273,24 @@ if __name__ == "__main__":
         with open(conf_filename) as fd:
             conf = yaml.full_load(fd)
 
+        logging.info(f" | Preprocess data...")
         manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
+
+        logging.info(f" | Transform data...")
+        local_nodes = []
+        local_edges = []
         with alive_bar(len(manager.df), file=sys.stderr) as progress:
-            for n,e in manager.run():
+            for n,e in manager():
+                local_nodes += n
+                local_edges += e
                 progress()
 
-        n = list(manager.nodes)
-        e = list(manager.edges)
-        nodes += n
-        edges += e
-        logging.info(f"OK, wove Gene Ontology: {len(n)} nodes, {len(e)} edges.")
+        # n = list(manager.nodes)
+        # e = list(manager.edges)
+        nodes += local_nodes
+        edges += local_edges
+
+        logging.info(f"OK, wove Gene Ontology: {len(local_nodes)} nodes, {len(local_edges)} edges.")
 
     # Extract from databases not requiring preprocessing.
     if asked.networks:
@@ -292,9 +309,10 @@ if __name__ == "__main__":
             config=mapping,
             separator=":",
             affix="suffix",
+            raise_errors = True
         )
         with alive_bar(len(adapter.df), file=sys.stderr) as progress:
-            for n,e in adapter.run():
+            for n,e in adapter():
                 progress()
 
         nodes += adapter.nodes
@@ -321,9 +339,10 @@ if __name__ == "__main__":
             config=mapping,
             separator=":",
             affix="suffix",
+            raise_errors = True
         )
         with alive_bar(len(adapter.df), file=sys.stderr) as progress:
-            for n,e in adapter.run():
+            for n,e in adapter():
                 progress()
 
         nodes += adapter.nodes
@@ -351,16 +370,17 @@ if __name__ == "__main__":
         with open(mapping_file) as fd:
             mapping = yaml.full_load(fd)
 
-        adapter = ontoweaver.tabular.extract_table(
+        n, e = ontoweaver.extract_table(
             # df=networks_df, config=mapping, separator=":", affix="suffix"
             df=clinical_df,
             config=mapping,
-            separator=":",
+            type_affix_sep=":",
             affix="suffix",
+            raise_errors = True
         )
 
-        nodes += adapter.nodes
-        edges += adapter.edges
+        nodes += n
+        edges += e
 
         logging.info(f"OK, wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
 
@@ -372,7 +392,11 @@ if __name__ == "__main__":
         for file_path in asked.copy_number_alterations:
             data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
 
-    # Map the data that were declared the simple way.
+
+    ###################################################
+    # Map the data that were declared the simple way. #
+    ###################################################
+
     for data_file, mapping_file in data_mappings.items():
         logging.info(f"Weave `{data_file}:{mapping_file}`...")
         logging.info(f" | Load data `{data_file}`...")
@@ -390,34 +414,39 @@ if __name__ == "__main__":
             table,
             *mapping,
             type_affix="suffix",
-            type_affix_sep=":"
+            type_affix_sep=":",
+            raise_errors = True
         )
 
+        local_nodes = []
+        local_edges = []
         with alive_bar(len(table), file=sys.stderr) as progress:
-            for n,e in adapter.run():
+            for n,e in adapter():
                 # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+                local_nodes += n
+                local_edges += e
                 progress()
 
-        nodes += adapter.nodes
-        edges += adapter.edges
 
-        logging.info(f"OK, wove: {len(nodes)} nodes, {len(edges)} edges.")
-
-    logging.debug(f"Extracted {len(nodes)} nodes and {len(edges)} edges.")
+        logging.info(f"OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
 
     logging.info(f"Reconciliate properties in elements...")
-    # fnodes, fedges = ontoweaver.fusion.reconciliate(nodes, edges, separator = asked.separator)
-
+    # NODES FUSION
     fusion_separator = ","
 
-    # NODES FUSION
+    # We need BioCypher's nodes and edges tuples, not OntoWeaver classes.
+    bc_nodes = [n.as_tuple() for n in nodes]
+    bc_edges = [e.as_tuple() for e in edges]
+
     # Find duplicates
     on_ID = ontoweaver.serialize.ID()
     nodes_congregater = ontoweaver.congregate.Nodes(on_ID)
 
     logging.info(f" | Congregate nodes")
-    with alive_bar(len(nodes), file=sys.stderr) as progress:
-        for n in nodes_congregater(nodes):
+    with alive_bar(len(bc_nodes), file=sys.stderr) as progress:
+        for n in nodes_congregater(bc_nodes):
             progress()
 
     # Fuse them
@@ -448,15 +477,15 @@ if __name__ == "__main__":
     if len(ID_mapping) > 0:
         remaped_edges = []
         logging.info(f" | Remap edges")
-        with alive_bar(len(edges), file=sys.stderr) as progress:
-            for e in remap_edges(edges, ID_mapping):
+        with alive_bar(len(bc_edges), file=sys.stderr) as progress:
+            for e in remap_edges(bc_edges, ID_mapping):
                 remaped_edges.append(e)
                 progress()
         # logger.debug("Remaped edges:")
         # for n in remaped_edges:
         #     logger.debug("\t"+repr(n))
     else:
-        remaped_edges = edges
+        remaped_edges = bc_edges
 
     # EDGES FUSION
     # Find duplicates
@@ -464,8 +493,8 @@ if __name__ == "__main__":
     edges_congregater = ontoweaver.congregate.Edges(on_STL)
 
     logging.info(f" | Congregate edges")
-    with alive_bar(len(edges), file=sys.stderr) as progress:
-        for e in edges_congregater(edges):
+    with alive_bar(len(bc_edges), file=sys.stderr) as progress:
+        for e in edges_congregater(bc_edges):
             progress()
 
     # Fuse them
