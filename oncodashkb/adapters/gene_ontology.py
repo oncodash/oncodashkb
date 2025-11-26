@@ -73,7 +73,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
 
         # add the GO_term in GO_involved_in, GO_enables, GO_contributes_to columns depending on the edge type in
         # Qualifier column
-        logging.info(" | | Separate edge types")
+        # logging.info(" | | Separate edge types")
         df = df.apply(self.separate_edges_types, axis=1)
         assert len(df) > 0
 
@@ -90,7 +90,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
             *mapping,
         )
 
-        logging.info(" | | Done Gene_ontology adapter init")
+        logging.info(" | | Done Gene_ontology init")
 
     # function to create a dictionary with GO_id:GO_term for gene ontology, input - OWL file, output - dictionary
     def create_id_term_dict(self):

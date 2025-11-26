@@ -46,18 +46,21 @@ echo "Weave data..." >&2
 #     --clinical $data_dir/DECIDER/clin_overview_clinicaldata.csv \
 #     > tmp.sh
 
-$(pwd)/weave.py --verbose INFO \
+cmd="$(pwd)/weave.py --verbose INFO \
     --clinical                   $data_dir/DECIDER/clinical_export.csv \
     --single_nucleotide_variants $data_dir/DECIDER/snv_annotated.csv  \
     --copy_number_alterations    $data_dir/DECIDER/cna_annotated.csv \
-    --oncokb                     $data_dir/DECIDER/treatments.csv \
     --gene_ontology_genes        $data_dir/DECIDER/OncoKB_gene_symbols.conf \
+    --oncokb                     $data_dir/DECIDER/treatments.csv \
     --gene_ontology              $data_dir/GO/goa_human.gaf.gz \
     --gene_ontology_owl          $data_dir/GO/go.owl \
-    --gene_ontology_reverse \
-    #--small_molecules           $data_dir/omnipath_networks/omnipath_webservice_interactions__small_molecule_interactions_filtered.tsv.gz \
-    > tmp.sh
+    --gene_ontology_reverse" # \
+    #--small_molecules           $data_dir/omnipath_networks/omnipath_webservice_interactions__small_molecule_interactions_filtered.tsv.gz"
 
+echo "Weaving command:" >&2
+echo "$cmd" >&2
+
+$cmd > tmp.sh
 
 echo "Run import script..." >&2
 $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh

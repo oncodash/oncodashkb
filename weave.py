@@ -36,14 +36,14 @@ def process_directory(bc, directory, columns, conf_filename, manager_t):
 
         manager = manager_t(df, conf)
 
-        with alive_bar(len(df)) as progress:
+        with alive_bar(len(df), file=sys.stderr) as progress:
             for n,e in manager.run():
                 progress()
 
         nodes += manager.nodes
         edges += manager.edges
 
-        # logging.info(f"Extracted {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
+        logging.info(f"OK, wove {len(list(manager.nodes))} nodes and {len(list(manager.edges))} edges.")
 
     return nodes, edges
 
@@ -61,12 +61,15 @@ def progress_read(filename, hint=None, steps=100, estimate_lines=10, **kwargs):
         if "chunksize" not in kwargs:
             chunksize = int(math.ceil(nb_lines / steps))
 
-        with alive_bar(steps) as progress:
+        with alive_bar(steps, file=sys.stderr) as progress:
             for chunk in pd.read_csv(filename, chunksize=chunksize, low_memory=False, **kwargs):
                 chunks.append(chunk)
                 progress()
     else:
-        with alive_bar() as progress:
+        if "chunksize" not in kwargs:
+            chunksize = 100
+
+        with alive_bar(file=sys.stderr) as progress:
             for chunk in pd.read_csv(filename, chunksize=chunksize, low_memory=False, **kwargs):
                 chunks.append(chunk)
                 progress()
@@ -229,7 +232,7 @@ if __name__ == "__main__":
         logging.info(f" | Load data...")
         df = progress_read(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str}, hint=969214)
 
-        logging.info(f" | Read mapping...")
+        # logging.info(f" | Read mapping...")
         # Extraction mapping configuration.
         conf_filename = "./oncodashkb/adapters/gene_ontology.yaml"
         with open(conf_filename) as fd:
@@ -240,7 +243,7 @@ if __name__ == "__main__":
 
         logging.info(f" | Transform data...")
         # Use manager.df because Gene_ontology does filter the input dataframe
-        with alive_bar(len(manager.df)) as progress:
+        with alive_bar(len(manager.df), file=sys.stderr) as progress:
             for n,e in manager.run():
                 progress()
 
@@ -262,7 +265,7 @@ if __name__ == "__main__":
             conf = yaml.full_load(fd)
 
         manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
-        with alive_bar(len(manager.df)) as progress:
+        with alive_bar(len(manager.df), file=sys.stderr) as progress:
             for n,e in manager.run():
                 progress()
 
@@ -290,7 +293,7 @@ if __name__ == "__main__":
             separator=":",
             affix="suffix",
         )
-        with alive_bar(len(adapter.df)) as progress:
+        with alive_bar(len(adapter.df), file=sys.stderr) as progress:
             for n,e in adapter.run():
                 progress()
 
@@ -319,7 +322,7 @@ if __name__ == "__main__":
             separator=":",
             affix="suffix",
         )
-        with alive_bar(len(adapter.df)) as progress:
+        with alive_bar(len(adapter.df), file=sys.stderr) as progress:
             for n,e in adapter.run():
                 progress()
 
@@ -342,7 +345,7 @@ if __name__ == "__main__":
     if asked.clinical:
         logging.info(f"Weave Clinical data...")
 
-        clinical_df = progress_read(asked.clinical[0], sep=",", hint=409)
+        clinical_df = progress_read(asked.clinical[0], sep=",", hint=673)
 
         mapping_file = "./oncodashkb/adapters/clinical.yaml"
         with open(mapping_file) as fd:
@@ -362,29 +365,142 @@ if __name__ == "__main__":
         logging.info(f"OK, wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
 
     if asked.single_nucleotide_variants:
-        logging.info(f"Weave SNVs...")
         for file_path in asked.single_nucleotide_variants:
             data_mappings[file_path] = "./oncodashkb/adapters/single_nucleotide_variants.yaml"
 
     if asked.copy_number_alterations:
-        logging.info(f"Weave CNAs...")
         for file_path in asked.copy_number_alterations:
             data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
 
-    # Write everything.
-    n, e = ontoweaver.extract(data_mappings, sep="\t", affix="suffix")
-    nodes += n
-    edges += e
+    # Map the data that were declared the simple way.
+    for data_file, mapping_file in data_mappings.items():
+        logging.info(f"Weave `{data_file}:{mapping_file}`...")
+        logging.info(f" | Load data `{data_file}`...")
+        table = progress_read(data_file, sep="\t")
+
+        with open(mapping_file) as fd:
+            ymapping = yaml.full_load(fd)
+
+        logging.info(f" | Process {mapping_file}...")
+
+        yparser = ontoweaver.tabular.YamlParser(ymapping)
+        mapping = yparser()
+
+        adapter = ontoweaver.tabular.PandasAdapter(
+            table,
+            *mapping,
+            type_affix="suffix",
+            type_affix_sep=":"
+        )
+
+        with alive_bar(len(table), file=sys.stderr) as progress:
+            for n,e in adapter.run():
+                # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+                progress()
+
+        nodes += adapter.nodes
+        edges += adapter.edges
+
+        logging.info(f"OK, wove: {len(nodes)} nodes, {len(edges)} edges.")
 
     logging.debug(f"Extracted {len(nodes)} nodes and {len(edges)} edges.")
 
-    fnodes, fedges = ontoweaver.fusion.reconciliate(nodes, edges, separator = asked.separator)
-    logging.debug(f"Fused into {len(fnodes)} nodes and {len(fedges)} edges.")
+    logging.info(f"Reconciliate properties in elements...")
+    # fnodes, fedges = ontoweaver.fusion.reconciliate(nodes, edges, separator = asked.separator)
+
+    fusion_separator = ","
+
+    # NODES FUSION
+    # Find duplicates
+    on_ID = ontoweaver.serialize.ID()
+    nodes_congregater = ontoweaver.congregate.Nodes(on_ID)
+
+    logging.info(f" | Congregate nodes")
+    with alive_bar(len(nodes), file=sys.stderr) as progress:
+        for n in nodes_congregater(nodes):
+            progress()
+
+    # Fuse them
+    use_key    = ontoweaver.merge.string.UseKey()
+    identicals = ontoweaver.merge.string.EnsureIdentical()
+    in_lists   = ontoweaver.merge.dictry.Append(fusion_separator)
+    node_fuser = ontoweaver.fuse.Members(ontoweaver.base.Node,
+            merge_ID    = use_key,
+            merge_label = identicals,
+            merge_prop  = in_lists,
+        )
+
+    nodes_fusioner = ontoweaver.fusion.Reduce(node_fuser)
+    fnodes = set()
+    logging.info(f" | Fuse nodes")
+    with alive_bar(len(nodes_congregater), file=sys.stderr) as progress:
+        for n in nodes_fusioner(nodes_congregater):
+            fnodes.add(n)
+            progress()
+
+    ID_mapping = node_fuser.ID_mapping
+
+    # EDGES REMAP
+    # If we use on_ID/use_key,
+    # we shouldn't have any need to remap sources and target IDs in edges.
+    assert(len(ID_mapping) == 0)
+    # If one change this, you may want to remap like this:
+    if len(ID_mapping) > 0:
+        remaped_edges = []
+        logging.info(f" | Remap edges")
+        with alive_bar(len(edges), file=sys.stderr) as progress:
+            for e in remap_edges(edges, ID_mapping):
+                remaped_edges.append(e)
+                progress()
+        # logger.debug("Remaped edges:")
+        # for n in remaped_edges:
+        #     logger.debug("\t"+repr(n))
+    else:
+        remaped_edges = edges
+
+    # EDGES FUSION
+    # Find duplicates
+    on_STL = ontoweaver.serialize.edge.SourceTargetLabel()
+    edges_congregater = ontoweaver.congregate.Edges(on_STL)
+
+    logging.info(f" | Congregate edges")
+    with alive_bar(len(edges), file=sys.stderr) as progress:
+        for e in edges_congregater(edges):
+            progress()
+
+    # Fuse them
+    set_of_ID       = ontoweaver.merge.string.OrderedSet(fusion_separator)
+    identicals      = ontoweaver.merge.string.EnsureIdentical()
+    in_lists        = ontoweaver.merge.dictry.Append(fusion_separator)
+    use_last_source = ontoweaver.merge.string.UseLast()
+    use_last_target = ontoweaver.merge.string.UseLast()
+    edge_fuser = ontoweaver.fuse.Members(ontoweaver.base.GenericEdge,
+            merge_ID     = set_of_ID,
+            merge_label  = identicals,
+            merge_prop   = in_lists,
+            merge_source = use_last_source,
+            merge_target = use_last_target
+        )
+
+    edges_fusioner = ontoweaver.fusion.Reduce(edge_fuser)
+    fedges = set()
+    logging.info(f" | Fuse edges")
+    with alive_bar(len(edges_congregater), file=sys.stderr) as progress:
+        for e in edges_fusioner(edges_congregater):
+            fedges.add(e)
+            progress()
+
+    # logger.debug("Fusioned edges:")
+    # for n in fedges:
+    #     logger.debug("\t"+repr(n))
+
+
+    logging.info(f"Fused into {len(fnodes)} nodes and {len(fedges)} edges.")
 
     if fnodes:
-        bc.write_nodes(fnodes)
+        bc.write_nodes(n.as_tuple() for n in fnodes)
     if fedges:
-        bc.write_edges(fedges)
+        bc.write_edges(e.as_tuple() for e in fedges)
     #bc.summary()
     import_file = bc.write_import_call()
 
