@@ -2,7 +2,9 @@
 
 ## Overview
 
-OncodashKB is a data conversion tool that extracts data from Oncodash' tables
+OncodashKB is a set of modules to create a reproducible semantic knowledge graph from existing tabular databases, with the aim of helping finding actionable drugs against cancers.
+
+As of now, our main use case is a data conversion tool that extracts data from Oncodash' tables (about ovarian cancer)
 and feed them in a graph database.
 
 Under the hood, it uses [Biocypher](https://biocypher.org) as the main tool for doing the ontology alignment
