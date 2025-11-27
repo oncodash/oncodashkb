@@ -59,8 +59,9 @@ echo "$cmd" >&2
 $cmd > tmp.sh
 
 
-if [["$1" != "debug" ]] ; then
+if [[ "$1" != "debug" ]] ; then
     echo "Run import script..." >&2
+    chmod a+x  $(cat tmp.sh)
     $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
 
     echo "Restart Neo4j..." >&2
