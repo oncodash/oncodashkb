@@ -168,14 +168,14 @@ patient has treatment:
 
 ### AFFECTS
 
-# alteration affects gene:
-#     is_a: affects
-#     represented_as: edge
-#     label_in_input: alteration_affects_gene
-#     source: alteration
-#     taregt: gene
-#     properties:
-#         name: str
+alteration affects gene:
+    is_a: affects
+    represented_as: edge
+    label_in_input: alteration_affects_gene
+    source: alteration
+    taregt: gene
+    properties:
+        name: str
 
 gene status affects protein:
     is_a: affects
@@ -270,3 +270,4 @@ protein target for drug:
         extra_attrs: str
         evidences: str
         name: str
+
