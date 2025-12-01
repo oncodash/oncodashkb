@@ -1,7 +1,7 @@
 row:
     map:
         columns: 
-            - pid
+            - patient_id
         to_subject: patient
 transformers:
     - map:
@@ -137,7 +137,6 @@ validate: # SNV table labeled as "local".
         checks:
           isin:
             value:
-              - GRCh37
               - GRCh38
     hugoSymbol:
         dtype: str
@@ -156,7 +155,7 @@ validate: # SNV table labeled as "local".
             isin:
                 value:
                     - HGSOC
-    consequence: # FIXME: Encountered values significantly different than values described in documentation.
+    consequence:
         dtype: str
         description: "Genomic consequence of variant (same as exonicFuncMane)"
         nullable: true
@@ -204,6 +203,7 @@ validate: # SNV table labeled as "local".
               - intronic
               - splicing
               - upstream
+              - exonic;splicing
     AAChangeMANE:
         dtype: str
         description: "Protein change by MANE"
@@ -224,6 +224,8 @@ validate: # SNV table labeled as "local".
                   - ncRNA_intronic
                   - splicing
                   - upstream
+                  - exonic;splicing
+                  - ncRNA_exonic;splicing
     exonicFuncRefGene:
         dtype: str
         description: "Genomic consequence of variant (from RefGene)"
@@ -246,9 +248,11 @@ validate: # SNV table labeled as "local".
     nMinor:
         dtype: int64
         description: "Minor allele copynumber (from CNAs if available)"
+        nullable: true
     nMajor:
         dtype: int64
         description: "Major allele copynumber (from CNAs if available)"
+        nullable: true
     ad0:
         dtype: int64
         description: "Minor allelele read count"
@@ -271,23 +275,23 @@ validate: # SNV table labeled as "local".
               - HET
               - LOH
     hom_lo:
-        dtype: float64
+        dtype: int64
         description: "Lower bound for expected homogeneity confidence interval"
     hom_hi:
-        dtype: float64
+        dtype: int64
         description: "Higher bound for expected homogeneity confidence interval"
     hom_pbinom_lo:
         dtype: float64
         description: "Binomial distribution probability for expected homogeneity"
-    homogenous:
-        dtype: boolean
-        description: "Predicted homogenous if hom_pbinom_lo > 0.05)"
-        nullable: true
-        checks:
-          isin:
-            value:
-              - True
-              - False
+    # homogenous:
+    #     dtype: boolean
+    #     description: "Predicted homogenous if hom_pbinom_lo > 0.05)"
+    #     nullable: true
+    #     checks:
+    #       isin:
+    #         value:
+    #           - True
+    #           - False
     cadd_score:
         dtype: float64
         description: "CADD score from WGS annotations"
@@ -299,22 +303,6 @@ validate: # SNV table labeled as "local".
     rf_score:
         dtype: float64
         description: "Random forest score from WGS annotations"
-        nullable: true
-    amis_category:
-        dtype: str
-        description: "Alphamissense category from WGS annotations"
-        nullable: true
-        checks:
-          isin:
-            value:
-              - pathogenic
-              - likely_pathogenic
-              - benign
-              - likely_benign
-              - ambiguous
-    amis_score:
-        dtype: str
-        description: "Alphamissense score from WGS annotations. Value space 0.0-1.0  (can be also expressed with range eg: 0.3324,0.4355 or max first eg: 0.4355,0.3324)"
         nullable: true
     sift_category:
         dtype: str
@@ -348,9 +336,9 @@ validate: # SNV table labeled as "local".
         dtype: float64
         description: "Polyphen score from WGS annotations (not yet available in WGS annotations)"
         nullable: true
-    pathogenecity:
+    amis_category:
         dtype: str
-        description: "Estimated pathogenecity by voting from differrent scoring systems"
+        description: "Alphamissense category from WGS annotations"
         nullable: true
         checks:
           isin:
@@ -360,34 +348,54 @@ validate: # SNV table labeled as "local".
               - benign
               - likely_benign
               - ambiguous
+              - ambiguous,likely_pathogenic
+              - ambiguous,likely_benign
+              - likely_benign,ambiguous
+              - likely_pathogenic,ambiguous
+    amis_score:
+        dtype: str
+        description: "Alphamissense score from WGS annotations. Value space 0.0-1.0  (can be also expressed with range eg: 0.3324,0.4355 or max first eg: 0.4355,0.3324)"
+        nullable: true
+    # pathogenecity:
+    #     dtype: str
+    #     description: "Estimated pathogenecity by voting from differrent scoring systems"
+    #     nullable: true
+    #     checks:
+    #       isin:
+    #         value:
+    #           - pathogenic
+    #           - likely_pathogenic
+    #           - benign
+    #           - likely_benign
+    #           - ambiguous
     cosmic_id:
         dtype: str
         description: "COSMIC databse ID"
         nullable: true
     clinvar_id:
-        dtype: str
+        dtype: float64
         description: "ClinVar databse ID"
         nullable: true
-    clinvar_sig:
-        dtype: str
-        description: "ClinVar pathogenecity prediction"
-        nullable: true
-        checks:
-          isin:
-            value:
-              - pathogenic
-              - likely_pathogenic
-              - benign
-              - likely_benign
-              - ambiguous
-    clinvar_status:
-        dtype: str
-        description: "ClinVar variant status"
-        nullable: true
-    clinvar_assoc:
-        dtype: str
-        description: "ClinVar cancer type associations"
-        nullable: true
+    # clinvar_sig:
+    #     dtype: str
+    #     description: "ClinVar pathogenecity prediction"
+    #     nullable: true
+    #     checks:
+    #       isin:
+    #         value:
+    #           - pathogenic
+    #           - likely_pathogenic
+    #           - benign
+    #           - likely_benign
+    #           - ambiguous
+    # clinvar_status:
+    #     dtype: str
+    #     description: "ClinVar variant status"
+    #     nullable: true
+    # clinvar_assoc:
+    #     dtype: str
+    #     description: "ClinVar cancer type associations"
+    #     nullable: true
     classification:
         dtype: str
         description: "Consequence based classification used for grouping in UI"
@@ -397,4 +405,3 @@ validate: # SNV table labeled as "local".
                   - Missense
                   - Splicing
                   - Truncating
-                  - Other
