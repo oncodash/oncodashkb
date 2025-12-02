@@ -21,7 +21,7 @@ transformers:
         columns:
             - hugoSymbol
         from_subject: alteration
-        to_object: protein
+        to_object: gene
         via_relation: alteration_affects_gene
     - cat_format:
         columns:
@@ -35,8 +35,8 @@ transformers:
         columns:
             - hugoSymbol
         from_subject: gene_status
-        to_object: protein
-        via_relation: gene_status_affects_protein
+        to_object: gene
+        via_relation: gene_status_affects_gene
     - map:
         columns:
             - tumorType
@@ -93,7 +93,7 @@ transformers:
             - patient_carries_sample
             - sample_carries_alteration
             - alteration_causes_gene_status
-            - gene_status_affects_protein
+            - gene_status_affects_gene
 
 metadata:
         - name: copy_number_alterations
@@ -152,7 +152,7 @@ validate: # Validation for cna labeled "external.".
       nullable: true
     gene_role:
       dtype: str
-      description: "The biological effect of a mutation/alteration on the protein function"
+      description: "The biological effect of a mutation/alteration on the gene function"
       nullable: true
       checks:
         isin:

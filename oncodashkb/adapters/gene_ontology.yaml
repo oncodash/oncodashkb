@@ -1,7 +1,7 @@
 row:
    map:
         column: DB_Object_Symbol
-        to_subject: protein
+        to_subject: gene
 transformers:
     # - map:
     #     column: DB_Object_Symbol
@@ -21,9 +21,8 @@ transformers:
     #     via_relation: contributes_to
     - map:
         columns: GO_involved_in
-        # from_subject: protein
         to_object: biological_process
-        via_relation: protein_to_biological_process
+        via_relation: gene_to_biological_process
     # - map:
     #     column: GO_contributes_to
     #     from_subject: gene
@@ -32,6 +31,6 @@ transformers:
     - string:
         value: "."
         to_property: edgelabel
-        for_objects: protein_to_biological_process
+        for_objects: gene_to_biological_process
 metadata:
         - name: .

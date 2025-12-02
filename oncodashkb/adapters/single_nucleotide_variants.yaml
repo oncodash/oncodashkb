@@ -33,8 +33,8 @@ transformers:
         columns:
             - hugoSymbol
         from_subject: gene_status
-        to_object: protein
-        via_relation: gene_status_affects_protein
+        to_object: gene
+        via_relation: gene_status_affects_gene
     # - map:
     #     columns:
     #         - referenceGenome
@@ -99,13 +99,13 @@ transformers:
         for_objects:
             - alteration
     - string:
-        value: "haha"
+        value: " "
         to_property: edgelabel
         for_objects:
             - patient_carries_sample
             - sample_carries_alteration
             - alteration_causes_gene_status
-            - gene_status_affects_protein
+            - gene_status_affects_gene
 metadata:
         - name: .
 
@@ -171,7 +171,7 @@ validate: # SNV table labeled as "external".
       nullable: true
     gene_role:
       dtype: str
-      description: "The biological effect of a mutation/alteration on the protein function"
+      description: "The biological effect of a mutation/alteration on the gene function"
       checks:
         isin:
           value:
