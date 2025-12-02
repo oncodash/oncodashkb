@@ -12,10 +12,11 @@ set -e
 set -o pipefail
 
 data_dir="data"
+data_version="$1"
 
 py_args="-O" # Optimize = remove asserts and optimize bytecode.
 weave_args="-v INFO" # Default, for having clean progress bars.
-if [[ "$1" == "debug" ]] ; then
+if [[ "$2" == "debug" ]] ; then
     echo "DEBUG MODE" >&2
     py_args=""
     weave_args="-v DEBUG"
@@ -28,7 +29,7 @@ echo "Activate virtual environment..." >&2
 source $(poetry env info --path)/bin/activate
 
 
-if [[ "$1" != "debug" ]] ; then
+if [[ "$2" != "debug" ]] ; then
     echo "Stop Neo4j server..." >&2
     neo_version=$(neo4j-admin --version | cut -d. -f 1)
     if [[ "$neo_version" -eq 4 ]]; then
@@ -42,11 +43,11 @@ fi
 echo "Weave data..." >&2
 
 cmd="python3 ${py_args} $(pwd)/weave.py --verbose INFO \
-    --clinical                   $data_dir/DECIDER/clinical_export.csv \
-    --single_nucleotide_variants $data_dir/DECIDER/snv_annotated.csv  \
-    --copy_number_alterations    $data_dir/DECIDER/cna_annotated.csv \
-    --gene_ontology_genes        $data_dir/DECIDER/OncoKB_gene_symbols.conf \
-    --oncokb                     $data_dir/DECIDER/treatments.csv \
+    --clinical                   $data_dir/DECIDER/$data_version/clinical_export.csv \
+    --single_nucleotide_variants $data_dir/DECIDER/$data_version/snv_external.csv  \
+    --copy_number_alterations    $data_dir/DECIDER/$data_version/cna_external.csv \
+    --gene_ontology_genes        $data_dir/DECIDER/$data_version/OncoKB_gene_symbols.conf \
+    --oncokb                     $data_dir/DECIDER/$data_version/treatments.csv \
     --gene_ontology              $data_dir/GO/goa_human.gaf.gz \
     --gene_ontology_owl          $data_dir/GO/go.owl \
     --gene_ontology_reverse
@@ -59,7 +60,7 @@ echo "$cmd" >&2
 $cmd > tmp.sh
 
 
-if [[ "$1" != "debug" ]] ; then
+if [[ "$2" != "debug" ]] ; then
     echo "Run import script..." >&2
     chmod a+x  $(cat tmp.sh)
     $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
