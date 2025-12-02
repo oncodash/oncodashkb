@@ -495,7 +495,7 @@ if __name__ == "__main__":
         remaped_edges = []
         logging.info(f" | Remap edges")
         with alive_bar(len(bc_edges), file=sys.stderr) as progress:
-            for e in remap_edges(bc_edges, ID_mapping):
+            for e in ontoweaver.fusion.remap_edges(bc_edges, ID_mapping):
                 remaped_edges.append(e)
                 progress()
         # logger.debug("Remaped edges:")
