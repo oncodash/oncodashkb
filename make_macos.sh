@@ -5,7 +5,7 @@
 # and all parent directories must be executable by "other".
 # Every interaction with the database must be done by user "neo4j",
 # and the import will try to write reports in the current directory.
-NEO_USER="sudo -u neo4j"
+# NEO_USER="sudo -u neo4j"
 
 # Exit on error.
 set -e
@@ -21,7 +21,7 @@ if [[ "$1" == "debug" ]] ; then
     weave_args="-v DEBUG"
 fi
 
-export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+# export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
 
 
 echo "Activate virtual environment..." >&2
@@ -32,9 +32,9 @@ if [[ "$1" != "debug" ]] ; then
     echo "Stop Neo4j server..." >&2
     neo_version=$(neo4j-admin --version | cut -d. -f 1)
     if [[ "$neo_version" -eq 4 ]]; then
-        server="${NEO_USER} neo4j"
+        server="neo4j"
     else
-        server="${NEO_USER} neo4j-admin server"
+        server="neo4j-admin server"
     fi
     $server stop
 fi
