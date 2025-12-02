@@ -32,16 +32,22 @@ drug:
     properties:
         name: str
 
-functional outcome:
+gene status:
     is_a: outcome
     represented_as: node
-    label_in_input: functional_outcome
+    label_in_input: gene_status
     properties:
         name: str
 
-gene:
+# gene:
+#     represented_as: node
+#     label_in_input: gene
+#     # properties:
+#     #     name: str
+
+protein:
     represented_as: node
-    label_in_input: gene
+    label_in_input: protein
     properties:
         name: str
 
@@ -78,6 +84,7 @@ carries:
     label_in_input: carries
     properties:
         name: str
+        edglelabel: str
 
 patient carries sample:
     is_a: carries
@@ -87,6 +94,7 @@ patient carries sample:
     target: sample
     properties:
         name: str
+        edglelabel: str
 
 sample carries alteration:
     is_a: carries
@@ -96,12 +104,13 @@ sample carries alteration:
     target: alteration
     properties:
         name: str
+        edglelabel: str
 
 ### CAUSES
 
-# A gene is linked to its functional outcome (gain or loss of function),
+# A gene is linked to its gene status (gain or loss of function),
 # which are represented as nodes, so as to allow a causal path
-# to go through alteration -> gene outcome -> transcript activity.
+# to go through alteration -> gene status -> transcript activity.
 # Hence, outcomes have at least two instances:
 # - Gene:GoF, and
 # - Gene:LoF.
@@ -111,14 +120,15 @@ sample carries alteration:
 # Incidentally: the source of an edge of type "causes"
 # cannot be an inactive protein.
 
-alteration causes functional outcome:
+alteration causes gene status:
     is_a: causes
     represented_as: edge
-    label_in_input: alteration_causes_functional_outcome
+    label_in_input: alteration_causes_gene_status
     source: alteration
-    target: functional outcome
+    target: gene status
     properties:
         name: str
+        edglelabel: str
 
 ### BIOMARKER
 
@@ -134,6 +144,7 @@ alteration biomarker for drug:
     target: drug
     properties:
         name: str
+        edglelabel: str
 
 ## METADATA
 
@@ -166,11 +177,97 @@ alteration affects gene:
     properties:
         name: str
 
-functional outcome affects gene:
+gene status affects protein:
     is_a: affects
     represented_as: edge
-    label_in_input: functional_outcome_affects_gene
-    source: functional outcome
-    target: gene
+    label_in_input: gene_status_affects_protein
+    source: gene status
+    target: protein
     properties:
         name: str
+        edglelabel: str
+
+
+### GO -- TO BE FIXED
+# annotation: 
+#     is_a: named thing
+#     represented_as: node
+#     label_in_input: annotation
+
+biological process:
+    is_a: named thing
+    represneted_as: node
+    label_in_input: biological_process
+    properties:
+        name: str
+
+# annotation for gene: 
+#     is_a: association
+#     represented_as: edge
+#     label_in_input: annotation_for_gene
+#     source: annotation
+#     target: gene
+
+# involved in: 
+#     is_a: association
+#     represented_as: edge
+#     label_in_input: involved_in
+#     source: annotation
+#     target: biological process
+
+protein to biological process:
+    is_a: association
+    represented_as: edge
+    label_in_input: protein_to_biological_process
+    source: protein
+    target: biological process
+    properties:
+        edglelabel: str
+        name: str
+
+biological process to protein:
+    is_a: association
+    represented_as: edge
+    label_in_input: biological_process_to_protein
+    source: biological process
+    target: protein
+    properties:
+        # edglelabel: str
+        name: str
+
+protein target for drug:
+    is_a: pairwise molecular interaction
+    represented_as: edge
+    input_label: protein_target_for_drug
+    source: protein
+    target: drug
+    properties:
+        is_directed: bool
+        is_stimulation: bool
+        is_inhibition: bool
+        consensus_direction: bool
+        consensus_stimulation: bool
+        consensus_inhibition: bool
+        sources: str
+        references: str
+        omnipath: bool
+        kinaseextra: bool
+        ligrecextra: bool
+        pathwayextra: bool
+        dorothea: bool
+        collectri: bool
+        tf_target: bool
+        lncrna_mrna: bool
+        tf_mirna: bool
+        small_molecule: bool
+        dorothea_curated: bool
+        dorothea_chipseq: bool
+        dorothea_tfbs: bool
+        dorothea_coexp: bool
+        dorothea_level: str
+        type: str
+        curation_effort: int
+        extra_attrs: str
+        evidences: str
+        name: str
+
