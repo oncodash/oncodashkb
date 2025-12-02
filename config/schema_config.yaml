@@ -57,6 +57,7 @@ patient:
     synonym_for: case
     properties:
         survival: str
+        treatment_strategy: str
         name: str
 
 sample:
@@ -149,15 +150,6 @@ patient has chronic illness:
     label_in_input: patient_has_chronic_illness
     source: patient
     target: disease
-    properties:
-        name: str
-
-patient has treatment:
-    is_a: association
-    represented_as: edge
-    label_in_input: patient_has_treatment
-    source: patient
-    target: treatment
     properties:
         name: str
 
