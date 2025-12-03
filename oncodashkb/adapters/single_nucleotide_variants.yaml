@@ -113,87 +113,114 @@ validate: # SNV table labeled as "external".
   columns:
     patient_id:
       dtype: str
+      description: "Cohort code from clinical data"
     sample_id:
-        dtype: str
-    alteration:
-        dtype: str
-        checks:
-            str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+:[ACTG]+$
-    hugoSymbol:
-        dtype: str
-        checks:
-            str_matches: ^[a-zA-Z0-9-]+$
-    tumorType:
-        dtype: str
-        checks:
-            isin:
-              value:
-                  - HGSOC
-    consequence: # FIXME: Encountered values significantly different than values described in documentation.
       dtype: str
+      description: "Sample id of biopsy (origin OVCA database)"
+    alteration:
+      dtype: str
+      description: "Genomic alteration in format hugoSymbol:chromosome:position:reference_allele:sample_allele"
+      checks:
+          str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+:[ACTG]+$
+    hugoSymbol:
+      dtype: str
+      description: "Gene name in Hugo nomenclature"
+      checks:
+          str_matches: ^[a-zA-Z0-9-]+$
+    tumorType:
+      dtype: str
+      description: "Tumor type abbreviation (OncoTree based)"
+      checks:
+        isin:
+          value:
+              - HGSOC
+    consequence:
+      dtype: str
+      description: "Genomic consequence of variant from OncoKB or CGI"
       nullable: true
       checks:
           isin:
               value:
+                  - 3_prime_UTR_variant
+                  - downstream_gene_variant
                   - frameshift_variant
-                  - stop_gained
+                  - inframe_insertion
+                  - intron_variant
                   - missense_variant
+                  - splice_acceptor_variant
                   - splice_donor_variant
                   - splice_region_variant
-                  - splice_acceptor_variant
-                  - downstream_gene_variant
-                  - upstream_gene_variant
-                  - intron_variant
-                  - 3_prime_UTR_variant
-                  - inframe_insertion
+                  - stop_gained
                   - stop_lost
+                  - upstream_gene_variant
     oncogenic:
-        dtype: str
-        checks:
-            isin:
-                value:
-                    - Inconclusive # Not present in source documentation description.
-                    - Likely Oncogenic
-                    - Oncogenic
-                    - Unknown
-                    - Likely Neutral # Not present in source documentation description.
+      dtype: str
+      description: "Indication of alteration oncogenecity"
+      checks:
+        isin:
+          value:
+            - Inconclusive # Not present in source documentation description.
+            - Likely Neutral # Not present in source documentation description.
+            - Likely Oncogenic
+            - Oncogenic
+            - Unknown
     mutationEffectDescription:
       dtype: str
+      description: "Brief overview of the biological effect of the alteration with references"
       nullable: true
     gene_role:
       dtype: str
+      description: "The biological effect of a mutation/alteration on the protein function"
       checks:
-          isin:
-              value:
-                  - Gain-of-function
-                  - Inconclusive
-                  - Likely Gain-of-function
-                  - Likely Loss-of-function
-                  - Likely Neutral
-                  - Loss-of-function
-                  - Unknown
+        isin:
+          value:
+            - Gain-of-function
+            - Inconclusive
+            - Likely Gain-of-function
+            - Likely Loss-of-function
+            - Likely Neutral
+            - Loss-of-function
+            - Unknown
+            - Act
+            - LoF
+            - ambiguous
     citationPMids:
       dtype: str
+      description: "Citations related to the biological effect separated by semicolon"
       nullable: true
       checks:
         str_matches: ^[0-9]{7,}(,[0-9]{7,})*$
     level_of_evidence:
-        dtype: str
-        nullable: true
-        checks:
-            isin:
-                value: # FIXME: Levels 2, R1 and R2 present in data description, but not in acrtual data.
-                    - LEVEL_1
-                    - LEVEL_3A
-                    - LEVEL_3B
-                    - LEVEL_4
+      dtype: str
+      description: "Level of evidence for the alteration"
+      nullable: true
+      checks:
+        isin:
+          value:
+            - LEVEL_1
+            - LEVEL_2
+            - LEVEL_3A
+            - LEVEL_3B
+            - LEVEL_4
+            - LEVEL_R1
+            - LEVEL_R2
     geneSummary:
-        dtype: str
-        nullable: true
+      dtype: str
+      description: "Brief overview of the gene and its role in cancer"
+      nullable: true
     variantSummary:
-        dtype: str
-        nullable: true
+      dtype: str
+      description: "Brief description of the variant oncogenicity"
+      nullable: true
     tumorTypeSummary:
-        dtype: str
-        nullable: true
-    
+      dtype: str
+      description: "Describes the therapeutic implication that applies to the indication in cancer"
+      nullable: true
+    referenceGenome:
+      dtype: str
+      description: "Standard human reference genome used in WGS read alignment"
+      checks:
+        isin:
+          value:
+            - GRCh37
+            - GRCh38
