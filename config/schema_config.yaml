@@ -39,17 +39,17 @@ gene status:
     properties:
         name: str
 
-# gene:
-#     represented_as: node
-#     label_in_input: gene
-#     # properties:
-#     #     name: str
-
-protein:
+gene:
     represented_as: node
-    label_in_input: protein
+    label_in_input: gene
     properties:
         name: str
+
+# protein:
+#     represented_as: node
+#     label_in_input: protein
+#     properties:
+#         name: str
 
 patient:
     represented_as: node
@@ -57,6 +57,7 @@ patient:
     synonym_for: case
     properties:
         survival: str
+        treatment_strategy: str
         name: str
 
 sample:
@@ -114,11 +115,6 @@ sample carries alteration:
 # Hence, outcomes have at least two instances:
 # - Gene:GoF, and
 # - Gene:LoF.
-# Same for proteins with:
-# - Transcrit:Active, and
-# - Transcript:Inactive.
-# Incidentally: the source of an edge of type "causes"
-# cannot be an inactive protein.
 
 alteration causes gene status:
     is_a: causes
@@ -157,15 +153,6 @@ patient has chronic illness:
     properties:
         name: str
 
-patient has treatment:
-    is_a: association
-    represented_as: edge
-    label_in_input: patient_has_treatment
-    source: patient
-    target: treatment
-    properties:
-        name: str
-
 ### AFFECTS
 
 alteration affects gene:
@@ -177,12 +164,12 @@ alteration affects gene:
     properties:
         name: str
 
-gene status affects protein:
+gene status affects gene:
     is_a: affects
     represented_as: edge
-    label_in_input: gene_status_affects_protein
+    label_in_input: gene_status_affects_gene
     source: gene status
-    target: protein
+    target: gene
     properties:
         name: str
         edglelabel: str
@@ -215,59 +202,59 @@ biological process:
 #     source: annotation
 #     target: biological process
 
-protein to biological process:
+gene to biological process:
     is_a: association
     represented_as: edge
-    label_in_input: protein_to_biological_process
-    source: protein
+    label_in_input: gene_to_biological_process
+    source: gene
     target: biological process
     properties:
         edglelabel: str
         name: str
 
-biological process to protein:
+biological process to gene:
     is_a: association
     represented_as: edge
-    label_in_input: biological_process_to_protein
+    label_in_input: biological_process_to_gene
     source: biological process
-    target: protein
+    target: gene
     properties:
         # edglelabel: str
         name: str
 
-protein target for drug:
-    is_a: pairwise molecular interaction
-    represented_as: edge
-    input_label: protein_target_for_drug
-    source: protein
-    target: drug
-    properties:
-        is_directed: bool
-        is_stimulation: bool
-        is_inhibition: bool
-        consensus_direction: bool
-        consensus_stimulation: bool
-        consensus_inhibition: bool
-        sources: str
-        references: str
-        omnipath: bool
-        kinaseextra: bool
-        ligrecextra: bool
-        pathwayextra: bool
-        dorothea: bool
-        collectri: bool
-        tf_target: bool
-        lncrna_mrna: bool
-        tf_mirna: bool
-        small_molecule: bool
-        dorothea_curated: bool
-        dorothea_chipseq: bool
-        dorothea_tfbs: bool
-        dorothea_coexp: bool
-        dorothea_level: str
-        type: str
-        curation_effort: int
-        extra_attrs: str
-        evidences: str
-        name: str
+# protein target for drug:
+#     is_a: pairwise molecular interaction
+#     represented_as: edge
+#     input_label: protein_target_for_drug
+#     source: protein
+#     target: drug
+#     properties:
+#         is_directed: bool
+#         is_stimulation: bool
+#         is_inhibition: bool
+#         consensus_direction: bool
+#         consensus_stimulation: bool
+#         consensus_inhibition: bool
+#         sources: str
+#         references: str
+#         omnipath: bool
+#         kinaseextra: bool
+#         ligrecextra: bool
+#         pathwayextra: bool
+#         dorothea: bool
+#         collectri: bool
+#         tf_target: bool
+#         lncrna_mrna: bool
+#         tf_mirna: bool
+#         small_molecule: bool
+#         dorothea_curated: bool
+#         dorothea_chipseq: bool
+#         dorothea_tfbs: bool
+#         dorothea_coexp: bool
+#         dorothea_level: str
+#         type: str
+#         curation_effort: int
+#         extra_attrs: str
+#         evidences: str
+#         name: str
 

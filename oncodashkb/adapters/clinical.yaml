@@ -5,16 +5,13 @@ row:
         to_subject: patient
 transformers:
     - map:
-        columns:
-            - survival
+        columns: survival
         to_property: survival
-        for_objects:
-            - patient
+        for_object: patient
     - map:
-        columns:
-            - treatment_strategy
-        to_object: treatment
-        via_relation: patient_has_treatment
+        column: treatment_strategy
+        to_property: treatment_strategy
+        for_object: patient
     # - split:
     #     columns:
     #         - chronic_illnesses_type

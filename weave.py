@@ -7,6 +7,7 @@ import math
 import logging
 import argparse
 import traceback
+import subprocess
 
 import pandas as pd
 
@@ -15,6 +16,19 @@ import biocypher
 import ontoweaver
 import oncodashkb.adapters as od
 from alive_progress import alive_bar
+
+error_codes = {
+    "ParsingError"    :  65, # "data format"
+    "RunError"        :  70, # "internal"
+    "DataValidationError": 76,  # "protocol"
+    "ConfigError"     :  78, # "bad config"
+    "CannotAccessFile": 126, # "no perm"
+    "FileError"       : 127, # "not found"
+    "SubprocessError" : 128, # "bad exit"
+    "NetworkXError"   : 129, # probably "type not in the digraph"
+    "OntoWeaverError" : 254,
+    "Exception"       : 255,
+}
 
 def capitalize_first_letter(s):
     return s.lower().capitalize()
@@ -129,6 +143,9 @@ if __name__ == "__main__":
 
     parser.add_argument("-s", "--separator", metavar="STRING", default=", ",
                         help="Separator in exported data files.")
+    
+    parser.add_argument("-im", "--import-script-run", action="store_true", 
+                        help=f"If passed, it will call the import scripts created byBioCypher for you. ")
 
     parser.add_argument(
         "-net",
@@ -478,7 +495,7 @@ if __name__ == "__main__":
         remaped_edges = []
         logging.info(f" | Remap edges")
         with alive_bar(len(bc_edges), file=sys.stderr) as progress:
-            for e in remap_edges(bc_edges, ID_mapping):
+            for e in ontoweaver.fusion.remap_edges(bc_edges, ID_mapping):
                 remaped_edges.append(e)
                 progress()
         # logger.debug("Remaped edges:")
@@ -534,5 +551,14 @@ if __name__ == "__main__":
     import_file = bc.write_import_call()
 
     print(import_file)
+
+    if asked.import_script_run:
+        shell = os.environ["SHELL"]
+        logging.info(f"Run import scripts with {shell}...")
+        try:
+            subprocess.run([shell, import_file])
+        except Exception as e:
+            logging.error(e)
+            sys.exit(error_codes["SubprocessError"])
 
     logging.debug("Done")

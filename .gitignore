@@ -7,3 +7,4 @@ backup
 data
 *.DS_Store
 notebooks
+tmp.sh
