@@ -12,7 +12,7 @@ echo "OK"
 
 
 echo "Check OS dependencies..."
-REQUIRED_PKG="python3-poetry gunzip"
+REQUIRED_PKG="python3-poetry gzip"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' ${REQUIRED_PKG}|grep "install ok installed")
 if [ "" = "${PKG_OK}" ]; then
   echo "Packages: ${REQUIRED_PKG} not installed. I will install them."
@@ -45,14 +45,20 @@ if [[ ! -d DECIDER ]] ; then
     exit 1
 else
     cd DECIDER
-    check genomics_oncokbannotation.csv
-    check genomics_cgimutation.csv
-    check genomics_cgidrugprescriptions.csv
-    check genomics_cgicopynumberalteration.csv
-    check clin_overview_clinicaldata.csv
+    # check genomics_oncokbannotation.csv
+    # check genomics_cgimutation.csv
+    # check genomics_cgidrugprescriptions.csv
+    # check genomics_cgicopynumberalteration.csv
+    # check clin_overview_clinicaldata.csv
+    # check ../../oncodashkb/adapters/Hugo_Symbol_genes.conf
+    check treatments.csv
+    check snv_annotated.csv
+    # check OncoKB_gene_symbols.conf
+    check cna_annotated.csv
+    check clinical_export.csv
     cd ..
 fi
-cp -a ../../oncodashkb/adapters/Hugo_Symbol_genes.conf .
+# cp -a ../oncodashkb/adapters/Hugo_Symbol_genes.conf .
 echo "OK"
 
 
@@ -60,21 +66,21 @@ echo "Gene Ontology..."
 mkdir -p GO
 cd GO
 wget --no-clobber https://current.geneontology.org/annotations/goa_human.gaf.gz
-gunzip goa_human.gaf.gz
+# gunzip goa_human.gaf.gz
 wget --no-clobber https://purl.obolibrary.org/obo/go.owl
 cd ..
 echo "OK"
 
 
-echo "Open Targets..."
-mkdir -p OT
-cd OT
-rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/targets .
-rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/diseases .
-rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/molecule .
-rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/evidence .
-cd ..
-echo "OK"
+# echo "Open Targets..."
+# mkdir -p OT
+# cd OT
+# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/targets .
+# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/diseases .
+# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/molecule .
+# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/evidence .
+# cd ..
+# echo "OK"
 
 
 echo "Everything is OK, you can now call: ./make.sh."

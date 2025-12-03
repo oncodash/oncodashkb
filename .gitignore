@@ -5,4 +5,5 @@ biocypher-*
 neo4j.pass
 backup
 data
-*/.DS_Store
+*.DS_Store
+notebooks
