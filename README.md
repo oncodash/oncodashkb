@@ -253,6 +253,11 @@ Hints and tips about designing the ontology alignements:
   has (a lot of) classes attached at the root `Thing`.
   These are actually decomissioned stuff, the actual classes are under `entity`.
 
+If you operate OncodashKB over sensitive data, you may want to enable Git hooks
+that checks if there is a potential data leak before committing anything.
+To do so, you can install the scripts located in `hooks/` in your local
+`.git/hooks/` directory. The `hooks/install_hooks.sh` script does that for you.
+
 
 ## Side steps
 
