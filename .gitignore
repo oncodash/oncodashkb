@@ -8,3 +8,5 @@ data
 *.DS_Store
 notebooks
 tmp.sh
+
+import.report
