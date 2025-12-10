@@ -28,15 +28,15 @@ transformers:
           - hugoSymbol
           - gene_role
         from_subject: alteration
-        to_object: functional_outcome
+        to_object: gene_status
         format_string: "{hugoSymbol}:{gene_role}"
-        via_relation: alteration_causes_functional_outcome
+        via_relation: alteration_causes_gene_status
     - map:
         columns:
             - hugoSymbol
-        from_subject: functional_outcome
+        from_subject: gene_status
         to_object: gene
-        via_relation: functional_outcome_affects_gene
+        via_relation: gene_status_affects_gene
     - map:
         columns:
             - referenceGenome
