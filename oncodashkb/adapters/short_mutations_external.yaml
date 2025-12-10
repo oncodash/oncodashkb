@@ -15,12 +15,6 @@ transformers:
         from_subject: sample
         to_object: alteration
         via_relation: sample_carries_alteration
-    # - map:
-    #     columns:
-    #         - hugoSymbol
-    #     from_subject: alteration
-    #     to_object: gene
-    #     via_relation: alteration_affects_gene
     - cat_format:
         columns:
           - hugoSymbol
@@ -35,18 +29,18 @@ transformers:
         from_subject: gene_status
         to_object: gene
         via_relation: gene_status_affects_gene
-    # - map:
-    #     columns:
-    #         - referenceGenome
-    #     to_property:
-    #         - reference_genome
-    #     for_objects:
-    #         - alteration
     - map:
         columns:
             - tumorType
         to_property:
             - tumor_type
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - consequence
+        to_property:
+            - consequence
         for_objects:
             - alteration
     - map:
@@ -72,13 +66,6 @@ transformers:
             - alteration
     - map:
         columns:
-            - tumorTypeSummary
-        to_property:
-            - tumor_type_summary
-        for_objects:
-            - alteration
-    - map:
-        columns:
             - citationPMids
         to_property:
             - citation_PM_ids
@@ -86,16 +73,16 @@ transformers:
             - alteration
     - map:
         columns:
-            - consequence
+            - level_of_evidence
         to_property:
-            - consequence
+            - level_of_evidence
         for_objects:
             - alteration
     - map:
         columns:
-            - level_of_evidence
+            - tumorTypeSummary
         to_property:
-            - level_of_evidence
+            - tumor_type_summary
         for_objects:
             - alteration
     - string:
@@ -107,9 +94,9 @@ transformers:
             - alteration_causes_gene_status
             - gene_status_affects_gene
 metadata:
-        - name: .
+        - name: short_mutations_external
 
-validate: # SNV table labeled as "external".
+validate: # Short mutations table labeled as "external".
   strict: true
   columns:
     patient_id:
