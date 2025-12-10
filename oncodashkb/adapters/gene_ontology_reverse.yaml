@@ -28,9 +28,9 @@ transformers:
     #     from_subject: gene
     #     to_object: molecular_function
     #     via_relation: gene_to_molecular_function
-    # - string:
-    #     value: "."
-    #     to_property: edgelabel
-    #     for_objects: gene_to_biological_process
+    - string:
+        value: " "
+        to_property: edgelabel
+        for_objects: biological_process_to_gene
 metadata:
-        - name: .
+        - name: gene_ontology
