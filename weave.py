@@ -102,17 +102,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description=usage)
 
+    parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
+                        help="Extract from a clinical CSV file.")
+    
+    parser.add_argument("-sml", "--short_mutations_local", metavar="CSV",nargs="+",
+                        help="Extract from a CSV file with short mutations' local annotations.")
+
+    parser.add_argument("-sme", "--short_mutations_external", metavar="CSV",nargs="+",
+                        help="Extract from a CSV file with short mutations' variants external annotations.")
+    
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
 
     parser.add_argument("-c", "--cgi", metavar="CSV", nargs="+",
                         help="Extract from a CGI CSV file.")
-
-    parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
-                        help="Extract from a clinical CSV file.")
-
-    parser.add_argument("-snv", "--single_nucleotide_variants", metavar="CSV",nargs="+",
-                        help="Extract from a CSV file with single nucleotide variants (SNV) annotations.")
 
     parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with copy number alterations (CNA) annotations.")
@@ -193,6 +196,73 @@ if __name__ == "__main__":
 
     data_mappings = {}
 
+    # DECIDER Patient Clinical Data
+
+    if asked.clinical:
+        data_file = asked.clinical[0]
+        mapping_file = "./oncodashkb/adapters/clinical.yaml"
+        
+        # logging.info(f"Weave Clinical data...")
+        logging.info(f"Weave `{data_file}:{mapping_file}`...")
+        logging.info(f" | Load data `{data_file}`...")
+        table = progress_read(data_file, sep=",", hint=673)
+
+        with open(mapping_file) as fd:
+            ymapping = yaml.full_load(fd)
+        # logging.info("test")
+
+        # n, e = ontoweaver.extract_table(
+        #     # df=networks_df, config=mapping, separator=":", affix="suffix"
+        #     df=clinical_df,
+        #     config=mapping,
+        #     type_affix_sep=":",
+        #     affix="suffix",
+        #     raise_errors = True
+        # )
+
+        # nodes += n
+        # edges += e
+
+        # logging.info(f"OK, wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
+
+        logging.info(f" | Process {mapping_file}...")
+
+        yparser = ontoweaver.tabular.YamlParser(ymapping)
+        mapping = yparser()
+
+        adapter = ontoweaver.tabular.PandasAdapter(
+            table,
+            *mapping,
+            type_affix="suffix",
+            type_affix_sep=":",
+            raise_errors = True
+        )
+
+        local_nodes = []
+        local_edges = []
+        with alive_bar(len(table), file=sys.stderr) as progress:
+            for n,e in adapter():
+                # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+                local_nodes += n
+                local_edges += e
+                progress()
+
+
+        logging.info(f"OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+
+    # DECIDER Patient molecular Data
+
+    ## Short mutations
+
+    if asked.short_mutations_local:
+        for file_path in asked.short_mutations_local:
+            data_mappings[file_path] = "./oncodashkb/adapters/short_mutations_local.yaml"
+
+    if asked.short_mutations_external:
+        for file_path in asked.short_mutations_external:
+            data_mappings[file_path] = "./oncodashkb/adapters/short_mutations_external.yaml"
 
     # Extract from databases requiring specialized preprocessing adapters.
     if asked.open_targets:
@@ -378,37 +448,9 @@ if __name__ == "__main__":
         for file_path in asked.cgi:
             data_mappings[file_path] =  "./oncodashkb/adapters/cgi.yaml"
 
-    if asked.clinical:
-        logging.info(f"Weave Clinical data...")
-
-        clinical_df = progress_read(asked.clinical[0], sep=",", hint=673)
-
-        mapping_file = "./oncodashkb/adapters/clinical.yaml"
-        with open(mapping_file) as fd:
-            mapping = yaml.full_load(fd)
-
-        n, e = ontoweaver.extract_table(
-            # df=networks_df, config=mapping, separator=":", affix="suffix"
-            df=clinical_df,
-            config=mapping,
-            type_affix_sep=":",
-            affix="suffix",
-            raise_errors = True
-        )
-
-        nodes += n
-        edges += e
-
-        logging.info(f"OK, wove Clinical data: {len(nodes)} nodes, {len(edges)} edges.")
-
-    if asked.single_nucleotide_variants:
-        for file_path in asked.single_nucleotide_variants:
-            data_mappings[file_path] = "./oncodashkb/adapters/single_nucleotide_variants.yaml"
-
     if asked.copy_number_alterations:
         for file_path in asked.copy_number_alterations:
             data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
-
 
     ###################################################
     # Map the data that were declared the simple way. #

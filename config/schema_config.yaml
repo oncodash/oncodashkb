@@ -11,14 +11,15 @@ alteration:
     properties:
         citation_PM_ids: str
         consequence: str
+        homogenous: str
         level_of_evidence: str
         mutation_effect_description: str
+        name: str
         oncogenic: str
         reference_genome: str
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
-        name: str
 
 disease:
     represented_as: node
