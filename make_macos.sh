@@ -5,11 +5,13 @@
 # and all parent directories must be executable by "other".
 # Every interaction with the database must be done by user "neo4j",
 # and the import will try to write reports in the current directory.
-# NEO_USER="sudo -u neo4j"
+# NEO_USER="neo4j"
 
 # Exit on error.
 set -e
 set -o pipefail
+
+echo "$1 and $2"
 
 data_dir="data"
 data_version="$1"
@@ -44,15 +46,9 @@ echo "Weave data..." >&2
 
 cmd="python3 ${py_args} $(pwd)/weave.py --verbose INFO \
     --clinical                   $data_dir/DECIDER/$data_version/clinical_export.csv \
-    --single_nucleotide_variants $data_dir/DECIDER/$data_version/snv_external.csv  \
-    --copy_number_alterations    $data_dir/DECIDER/$data_version/cna_external.csv \
-    --gene_ontology_genes        $data_dir/DECIDER/$data_version/OncoKB_gene_symbols.conf \
-    --oncokb                     $data_dir/DECIDER/$data_version/treatments.csv \
-    --gene_ontology              $data_dir/GO/goa_human.gaf.gz \
-    --gene_ontology_owl          $data_dir/GO/go.owl \
-    --gene_ontology_reverse
+    --short_mutations_external   $data_dir/DECIDER/$data_version/snv_external.csv  \
+    --short_mutations_local      $data_dir/DECIDER/$data_version/snv_local.csv \
     ${weave_args}" # \
-    #--small_molecules           $data_dir/omnipath_networks/omnipath_webservice_interactions__small_molecule_interactions_filtered.tsv.gz"
 
 echo "Weaving command:" >&2
 echo "$cmd" >&2
@@ -60,18 +56,20 @@ echo "$cmd" >&2
 $cmd > tmp.sh
 
 
-if [[ "$2" != "debug" ]] ; then
-    echo "Run import script..." >&2
-    chmod a+x  $(cat tmp.sh)
-    $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
+# if [[ "$2" != "debug" ]] ; then
+#     echo "Run import script..." >&2
+#     chmod a+x  $(cat tmp.sh)
+#     $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
 
-    echo "Restart Neo4j..." >&2
-    $server start
-    sleep 5
+#     echo "Restart Neo4j..." >&2
+#     $server start
+#     sleep 5
 
-    echo "Send a test query..." >&2
-    sudo -u neo4j cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
-fi
+#     echo "Send a test query..." >&2
+#     sudo -u neo4j cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
+# fi
 
-echo "Done" >&2
+# echo "Done" >&2
+
+# H123
 
