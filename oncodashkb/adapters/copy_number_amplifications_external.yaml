@@ -96,7 +96,7 @@ transformers:
             - gene_status_affects_gene
 
 metadata:
-        - name: copy_number_alterations
+        - name: copy_number_amplifications_external
 
 validate: # Validation for cna labeled "external.".
   strict: true

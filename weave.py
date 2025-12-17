@@ -111,15 +111,17 @@ if __name__ == "__main__":
     parser.add_argument("-sme", "--short_mutations_external", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with short mutations' variants external annotations.")
     
+    parser.add_argument("-cnal", "--copy_number_amplifications_local", metavar="CSV",nargs="+",
+                        help="Extract from a CSV file with copy number amplifications' local annotations.")
+    
+    parser.add_argument("-cnae", "--copy_number_amplifications_external", metavar="CSV",nargs="+",
+                        help="Extract from a CSV file with copy number amplifications' external annotations.")
+    
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
 
     parser.add_argument("-c", "--cgi", metavar="CSV", nargs="+",
                         help="Extract from a CGI CSV file.")
-
-    parser.add_argument("-cna", "--copy_number_alterations", metavar="CSV",nargs="+",
-                        help="Extract from a CSV file with copy number alterations (CNA) annotations.")
-
 
     parser.add_argument("-g", "--gene_ontology", metavar="CSV", nargs="+",
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
@@ -263,6 +265,16 @@ if __name__ == "__main__":
     if asked.short_mutations_external:
         for file_path in asked.short_mutations_external:
             data_mappings[file_path] = "./oncodashkb/adapters/short_mutations_external.yaml"
+
+    ## Copy number amplifications
+
+    if asked.copy_number_amplifications_local:
+        for file_path in asked.copy_number_amplifications_local:
+            data_mappings[file_path] = "./oncodashkb/adapters/copy_number_amplifications_local.yaml"
+
+    if asked.copy_number_amplifications_external:
+        for file_path in asked.copy_number_amplifications_external:
+            data_mappings[file_path] = "./oncodashkb/adapters/copy_number_amplifications_external.yaml"
 
     # Extract from databases requiring specialized preprocessing adapters.
     if asked.open_targets:
@@ -448,9 +460,6 @@ if __name__ == "__main__":
         for file_path in asked.cgi:
             data_mappings[file_path] =  "./oncodashkb/adapters/cgi.yaml"
 
-    if asked.copy_number_alterations:
-        for file_path in asked.copy_number_alterations:
-            data_mappings[file_path] = "./oncodashkb/adapters/copy_number_alterations.yaml"
 
     ###################################################
     # Map the data that were declared the simple way. #

@@ -94,7 +94,7 @@ transformers:
         for_objects:
             - alteration
 metadata:
-        - name: copy_number_alterations
+        - name: copy_number_amplifications_local
 
 
 validate: # Validation for cna labeled "local.".
