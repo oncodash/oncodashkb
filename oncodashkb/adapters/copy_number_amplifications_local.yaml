@@ -23,14 +23,6 @@ transformers:
         from_subject: alteration
         to_object: gene
         via_relation: alteration_affects_gene
-    - cat_format:
-        columns:
-          - hugoSymbol
-          - gene_role
-        from_subject: alteration
-        to_object: gene_status
-        format_string: "{hugoSymbol}:{gene_role}"
-        via_relation: alteration_causes_gene_status
     - map:
         columns:
             - hugoSymbol
@@ -49,48 +41,6 @@ transformers:
             - tumorType
         to_property:
             - tumor_type
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - oncogenic
-        to_property:
-            - oncogenic
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - mutationEffectDescription
-        to_property:
-            - mutation_effect_description
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - variantSummary
-        to_property:
-            - variant_summary
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - tumorTypeSummary
-        to_property:
-            - tumor_type_summary
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - citationPMids
-        to_property:
-            - citation_PM_ids
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - level_of_evidence
-        to_property:
-            - level_of_evidence
         for_objects:
             - alteration
 metadata:
