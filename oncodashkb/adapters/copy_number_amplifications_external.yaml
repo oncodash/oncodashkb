@@ -60,20 +60,6 @@ transformers:
             - alteration
     - map:
         columns:
-            - variantSummary
-        to_property:
-            - variant_summary
-        for_objects:
-            - alteration
-    - map:
-        columns:
-            - tumorTypeSummary
-        to_property:
-            - tumor_type_summary
-        for_objects:
-            - alteration
-    - map:
-        columns:
             - citationPMids
         to_property:
             - citation_PM_ids
@@ -84,6 +70,27 @@ transformers:
             - level_of_evidence
         to_property:
             - level_of_evidence
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - geneSummary
+        to_property:
+            - gene_summary
+        for_objects:
+            - gene
+    - map:
+        columns:
+            - variantSummary
+        to_property:
+            - variant_summary
+        for_objects:
+            - alteration
+    - map:
+        columns:
+            - tumorTypeSummary
+        to_property:
+            - tumor_type_summary
         for_objects:
             - alteration
     - string:
