@@ -19,18 +19,6 @@ transformers:
         via_relation: sample_carries_alteration
     - map:
         columns:
-            - hugoSymbol
-        from_subject: alteration
-        to_object: gene
-        via_relation: alteration_affects_gene
-    - map:
-        columns:
-            - hugoSymbol
-        from_subject: gene_status
-        to_object: gene
-        via_relation: gene_status_affects_gene
-    - map:
-        columns:
             - referenceGenome
         to_property:
             - reference_genome

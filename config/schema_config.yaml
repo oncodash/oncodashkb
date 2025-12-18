@@ -157,15 +157,6 @@ patient has chronic illness:
 
 ### AFFECTS
 
-alteration affects gene:
-    is_a: affects
-    represented_as: edge
-    label_in_input: alteration_affects_gene
-    source: alteration
-    taregt: gene
-    properties:
-        name: str
-
 gene status affects gene:
     is_a: affects
     represented_as: edge
