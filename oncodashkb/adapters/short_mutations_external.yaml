@@ -101,7 +101,7 @@ transformers:
             - alteration_causes_gene_status
             - gene_status_affects_gene
 metadata:
-        - name: short_mutations_external
+        - data_source: short_mutations_external
 
 validate: # Short mutations table labeled as "external".
   strict: true

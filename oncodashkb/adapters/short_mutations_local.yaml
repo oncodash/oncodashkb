@@ -51,7 +51,7 @@ transformers:
             - sample_carries_alteration
             - alteration_affects_gene
 metadata:
-        - name: short_mutations_local
+        - data_source: short_mutations_local
 
 validate: # Short mutations table labeled as "local".
   columns:
@@ -235,15 +235,15 @@ validate: # Short mutations table labeled as "local".
     hom_pbinom_lo:
         dtype: float64
         description: "Binomial distribution probability for expected homogeneity"
-    # homogenous:
-    #     dtype: boolean
-    #     description: "Predicted homogenous if hom_pbinom_lo > 0.05)"
-    #     nullable: true
-    #     checks:
-    #       isin:
-    #         value:
-    #           - True
-    #           - False
+    homogenous:
+        dtype: boolean
+        description: "Predicted homogenous if hom_pbinom_lo > 0.05)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - True
+              - False
     cadd_score:
         dtype: float64
         description: "CADD score from WGS annotations"

@@ -16,7 +16,7 @@ transformers:
         for_objects:
             - alteration_biomarker_for_drug
 metadata:
-        - name: .
+        - data_source: .
 
 validate:
   columns:
