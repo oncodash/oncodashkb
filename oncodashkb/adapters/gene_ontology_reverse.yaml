@@ -33,4 +33,4 @@ transformers:
         to_property: edgelabel
         for_objects: biological_process_to_gene
 metadata:
-        - name: gene_ontology
+        - data_source: gene_ontology
