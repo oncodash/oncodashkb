@@ -27,7 +27,7 @@ biocypher:
 #            tail_join_node: molecular_function
 
 neo4j:
-    database_name: oncodashkb
+    database_name: oncodash
     wipe: true
     delimiter: ';'
     array_delimiter: '|'
