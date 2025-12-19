@@ -18,12 +18,12 @@ fi
 
 
 # Check if the diff contains patient code-like strings.
-if test GIT_CONFIG_GLOBAL='' git diff --cached HEAD | grep -e '\<[A-Z][0-9]\{3\}\>' != 0 ; then
+test=$(GIT_CONFIG_GLOBAL='' git diff --cached HEAD | grep -e '\<[A-Z][0-9]\{3\}\>')
+if [ "$test" != "" ] ; then
 	cat <<\EOF
-Error: I detected patient code-like strings in the diff of this commit.
-
+ERROR: I detected patient H-code-like strings in the diff of this commit.
+I will forbid any such commit.
 Please double check for strings matching '\<[A-Z][0-9]\{3\}\>'.
-
 If you're sure there's no leaking data, you may commit with: SKIP=leaking-data git commit …
 EOF
 	exit 1
