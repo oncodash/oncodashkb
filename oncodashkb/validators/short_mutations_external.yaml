@@ -11,12 +11,14 @@ validate: # Short mutations table labeled as "external".
       dtype: str
       description: "Genomic alteration in format hugoSymbol:chromosome:position:reference_allele:sample_allele"
       checks:
-          str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+:[ACTG]+$
+          # str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+:[ACTG]+$
+          str_matches: ^[a-zA-Z0-9-,]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+:[ACTG]+$
     hugoSymbol:
       dtype: str
       description: "Gene name in Hugo nomenclature"
       checks:
-          str_matches: ^[a-zA-Z0-9-]+$
+          # str_matches: ^[a-zA-Z0-9-]+$
+          str_matches: ^[a-zA-Z0-9-,]+$
     tumorType:
       dtype: str
       description: "Tumor type abbreviation (OncoTree based)"
@@ -50,7 +52,6 @@ validate: # Short mutations table labeled as "external".
         isin:
           value:
             - Inconclusive # Not present in source documentation description.
-            - Likely Neutral # Not present in source documentation description.
             - Likely Oncogenic
             - Oncogenic
             - Unknown
@@ -79,7 +80,8 @@ validate: # Short mutations table labeled as "external".
       description: "Citations related to the biological effect separated by semicolon"
       nullable: true
       checks:
-        str_matches: ^[0-9]{7,}(,[0-9]{7,})*$
+        # str_matches: ^[0-9]{7,}(,\s[0-9]{7,})*$
+        str_matches: ^[0-9]{7,}(?:,(?:[0-9]{6,}|\s[0-9]{6,}))*$
     level_of_evidence:
       dtype: str
       description: "Level of evidence for the alteration"
