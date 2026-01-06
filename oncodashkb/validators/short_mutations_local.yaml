@@ -1,0 +1,318 @@
+validate: # Short mutations table labeled as "local".
+  columns:
+    patient_id:
+        dtype: str
+        description: "Cohort code from clinical data"
+    sample_id:
+        dtype: str
+        description: "Sample id of biopsy (origin OVCA database)"
+    ref_id:
+        dtype: str
+        description: "Reference dbSNP id"
+        nullable: true
+    chromosome:
+        dtype: str
+        description: "Chromosome number where alteration is occurring"
+        checks:
+          str_matches: ^chr[\d|X]+$
+    position:
+        dtype: int64
+        description: "Start position of alteration in chromosome"
+    reference_allele:
+        dtype: str
+        description: "Allele in reference genome"
+        checks:
+          str_matches: ^[ACTG]+$
+    sample_allele:
+        dtype: str
+        description: "Allele in sample"
+        checks:
+          str_matches: ^[ACTG]+$
+    referenceGenome:
+        dtype: str
+        description: "Standard human reference genome used in WGS read alignment"
+        checks:
+          isin:
+            value:
+              - GRCh38
+    hugoSymbol:
+        dtype: str
+        description: "Gene name in Hugo nomenclature"
+        checks:
+            str_matches: ^[a-zA-Z0-9-,]+$
+            # str_matches: ^[a-zA-Z0-9-]÷$
+    alteration:
+        dtype: str
+        description: "Genomic alteration in format hugoSymbol:chromosome:position:reference_allele:sample_allele"
+        checks:
+            # str_matches: ^[a-zA-Z0-9-]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+>[ACTG]+$
+            str_matches: ^[a-zA-Z0-9-,]+:chr[\d|X|Y]{1,2}:\d+:[ACTG]+>[ACTG]+$
+    tumorType:
+        dtype: str
+        description: "Tumor type abbreviation (OncoTree based)"
+        checks:
+            isin:
+                value:
+                    - HGSOC
+    consequence:
+        dtype: str
+        description: "Genomic consequence of variant (same as exonicFuncMane)"
+        nullable: true
+        checks:
+            isin:
+                value:
+                  - UTR3 # new
+                  - UTR5 # new
+                  - frameshift_deletion
+                  - frameshift_insertion
+                  - intergenic
+                  - intron
+                  - intronic
+                  - nonsynonymous_SNV
+                  - splicing
+                  - stopgain
+                  - upstream
+    cytoBand:
+        dtype: str
+        description: "Chromosomal locus"
+    exonicFuncMane:
+        dtype: str
+        description: "Genomic consequence of variant (from MANE)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - frameshift_deletion
+              - frameshift_insertion
+              - intergenic
+              - intron
+              - intronic
+              - nonsynonymous_SNV
+              - splicing
+              - stopgain
+              - upstream
+    funcMane:
+        dtype: str
+        description: "functional genomic target by MANE"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - UTR3 # new
+              - UTR5 # new
+              - exonic
+              - exonic;splicing
+              - intergenic
+              - intron
+              - intronic
+              - splicing
+              - upstream
+    AAChangeMANE:
+        dtype: str
+        description: "Protein change by MANE"
+        nullable: true
+    funcRefGene:
+        dtype: str
+        description: "functional genomic target by RefGene"
+        nullable: true
+        checks:
+            isin:
+                value:
+                  - UTR3 # Not in data
+                  - UTR5 # new
+                  - downstream
+                  - exonic
+                  - exonic;splicing
+                  - intergenic
+                  - intron
+                  - intronic
+                  - ncRNA_exonic
+                  - ncRNA_exonic;splicing
+                  - ncRNA_intronic
+                  - splicing
+                  - upstream
+    exonicFuncRefGene:
+        dtype: str
+        description: "Genomic consequence of variant (from RefGene)"
+        nullable: true
+        checks:
+            isin:
+                value:
+                  - frameshift_deletion
+                  - frameshift_insertion
+                  - nonsynonymous_SNV
+                  - startloss
+                  - stopgain
+                  - stoploss
+                  - synonymous_SNV
+                  - unknown
+    AAChangerefGene:
+        dtype: str
+        description: "Protein change by RefGene"
+        nullable: true
+    nMinor:
+        dtype: float64
+        description: "Minor allele copynumber (from CNAs if available)"
+        nullable: true
+    nMajor:
+        dtype: float64
+        description: "Major allele copynumber (from CNAs if available)"
+        nullable: true
+    ad0:
+        dtype: int64
+        description: "Minor allelele read count"
+    ad1:
+        dtype: int64
+        description: "Major allele read count"
+    af:
+        dtype: float64
+        description: "Expected homozygous allele frequency"
+    depth:
+        dtype: int64
+        description: "Total read count (=ad0+ad1)"
+    lohstatus:
+        dtype: str
+        description: "Loss of heterozygosity status (from CNAs if available)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - HET
+              - LOH
+    hom_lo:
+        dtype: float64
+        description: "Lower bound for expected homogeneity confidence interval"
+    hom_hi:
+        dtype: float64
+        description: "Higher bound for expected homogeneity confidence interval"
+    hom_pbinom_lo:
+        dtype: float64
+        description: "Binomial distribution probability for expected homogeneity"
+    # homogenous:
+    #     dtype: boolean
+    #     description: "Predicted homogenous if hom_pbinom_lo > 0.05)"
+    #     nullable: true
+    #     checks:
+    #       isin:
+    #         value:
+    #           - True
+    #           - False
+    cadd_score:
+        dtype: float64
+        description: "CADD score from WGS annotations"
+        nullable: true
+    ada_score:
+        dtype: float64
+        description: "Ada boost score from WGS annotations"
+        nullable: true
+    rf_score:
+        dtype: float64
+        description: "Random forest score from WGS annotations"
+        nullable: true
+    sift_category:
+        dtype: str
+        description: "SIFT category from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - deleterious
+              - deleterious,NA
+              - tolerated
+              - tolerated,NA
+    sift_score:
+        dtype: str
+        description: "SIFT score from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+    polyphen_category:
+        dtype: str
+        description: "Polyphen category from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - benign
+              - benign,NA # New
+              - possibly_damaging
+              - possibly_damaging,NA
+              - probably_damaging
+              - probably_damaging,NA
+              - unknown
+              - unknown,NA
+              - likely_pathogenic # Not in
+              - likely_benign
+              - ambiguous
+    polyphen_score:
+        dtype: str
+        description: "Polyphen score from WGS annotations (not yet available in WGS annotations)"
+        nullable: true
+    AM_class:
+        dtype: str
+        description: "Alphamissense category from WGS annotations"
+        nullable: true
+        checks:
+          isin:
+            value:
+              - likely_benign
+              - likely_pathogenic
+              - ambiguous
+              - ambiguous,likely_pathogenic
+              - ambiguous,likely_benign
+              - likely_benign,ambiguous
+              - likely_pathogenic,ambiguous
+              - pathogenic
+              - benign
+              - ambiguous,likely_pathogenic,likely_pathogenic #TO_CHECK
+    AM_score:
+        dtype: str
+        description: "Alphamissense score from WGS annotations. Value space 0.0-1.0  (can be also expressed with range eg: 0.3324,0.4355 or max first eg: 0.4355,0.3324)"
+        nullable: true
+    # pathogenecity:
+    #     dtype: str
+    #     description: "Estimated pathogenecity by voting from differrent scoring systems"
+    #     nullable: true
+    #     checks:
+    #       isin:
+    #         value:
+    #           - pathogenic
+    #           - likely_pathogenic
+    #           - benign
+    #           - likely_benign
+    #           - ambiguous
+    cosmic_id:
+        dtype: str
+        description: "COSMIC databse ID"
+        nullable: true
+    clinvar_id:
+        dtype: float64
+        description: "ClinVar databse ID"
+        nullable: true
+    # clinvar_sig:
+    #     dtype: str
+    #     description: "ClinVar pathogenecity prediction"
+    #     nullable: true
+    #     checks:
+    #       isin:
+    #         value:
+    #           - pathogenic
+    #           - likely_pathogenic
+    #           - benign
+    #           - likely_benign
+    #           - ambiguous
+    # clinvar_status:
+    #     dtype: str
+    #     description: "ClinVar variant status"
+    #     nullable: true
+    # clinvar_assoc:
+    #     dtype: str
+    #     description: "ClinVar cancer type associations"
+    #     nullable: true
+    classification:
+        dtype: str
+        description: "Consequence based classification used for grouping in UI"
+        checks:
+            isin:
+                value:
+                  - Missense
+                  - Splicing
+                  - Truncating
