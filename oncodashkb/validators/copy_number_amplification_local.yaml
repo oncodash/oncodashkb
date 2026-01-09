@@ -1,0 +1,105 @@
+validate: # Validation for cna labeled "local.".
+  strict: true
+  columns:
+    patient_id:
+      dtype: str
+      description: "Cohort code from clinical data"
+    sample_id:
+      dtype: str
+      description: "Sample id of biopsy (origin OVCA database)"
+    referenceGenome:
+      dtype: str
+      description: "Standard human reference genome used in WGS read alignment"
+      checks:
+        isin:
+          - GRCh38
+    hugoSymbol:
+      dtype: str
+      description: "Gene name in Hugo nomenclature"
+    alteration:
+      dtype: str
+      description: "Genomic alteration type"
+      checks:
+        isin:
+          value:
+            - AMPLIFICATION
+    tumorType:
+      dtype: str
+      description: "Tumor type abbreviation (OncoTree based)"
+      checks:
+        isin:
+          value:
+            - CANCER
+    nMajor:
+      dtype: int64
+      description: "Major allele copynumber"
+    nMinor:
+      dtype: int64
+      description: "Minor allele copynumber"
+    lohstatus:
+      dtype: str
+      description: "Loss of heterozygosity status"
+      checks:
+        isin:
+          value:
+            - HET
+            - LOH
+    ploidy:
+      dtype: float64
+      description: "The number of complete sets of chromosomes in cancer cells"
+    chromosome:
+      dtype: str
+      description: "Chromosome number where alteration is occurring"
+    start:
+      dtype: int64
+      description: "Start position of alteration in chromosome"
+    end:
+      dtype: int64
+      description: "End position of alteration in chromosome"
+    strand:
+      dtype: int64
+      description: "DNA strand"
+      checks:
+        isin:
+          value:
+            - -1
+            - 1
+    band:
+      dtype: str
+      description: "Chromosomal locus"
+    nProbesCr:
+      dtype: int64
+      description: "Number of probes"
+    nProbesAf:
+      dtype: int64
+      description: "Number of probes"
+    logR:
+      dtype: float64
+      description: "Signal intensity"
+    baf:
+      dtype: float64
+      description: "B-allele frequency of occurrence"
+    nAraw:
+      dtype: float64
+      description: "Calculated copy number of allele A"
+    nBraw:
+      dtype: float64
+      description: "Calculated copy number of allele B"
+    purifiedLogR:
+      dtype: float64
+      description: "Mean signal intensity"
+    purifiedBaf:
+      dtype: float64
+      description: "B-allele frequency measurement"
+    purifiedLoh:
+      dtype: float64
+      description: "LoH measurement"
+    minPurifiedLogR:
+      dtype: float64
+      description: "Minimum measured signal intensity"
+    maxPurifiedLogR:
+      dtype: float64
+      description: "Maximum measured signal intensity"
+    breaksInGene:
+      dtype: int64
+      description: "Number of copy number level shift points in alteration"
