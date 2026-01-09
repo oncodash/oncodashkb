@@ -3,14 +3,16 @@ biocypher-*
 *__pycache__*
 neo4j.pass
 backup
-data
 *.DS_Store
 notebooks
 tmp.sh
 
 import.report
 
+data
+
 .venv
 poetry.lock
 uv.lock
 *.egg-info
+build
