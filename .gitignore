@@ -1,4 +1,3 @@
-.venv
 .vscode
 biocypher-*
 *__pycache__*
@@ -10,3 +9,8 @@ notebooks
 tmp.sh
 
 import.report
+
+.venv
+poetry.lock
+uv.lock
+*.egg-info
