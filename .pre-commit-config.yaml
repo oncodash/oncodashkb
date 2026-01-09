@@ -1,0 +1,33 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: H-code-patient_id
+        name: Check for patient ids starting with an "H".
+        always_run: true
+        args: [--multiline]
+        entry: 'H[0-9]{3}'
+        language: pygrep
+    -   id: M-code-patient_id
+        name: Check for patient ids starting with an "M".
+        always_run: true
+        args: [--multiline]
+        entry: 'M[0-9]{3}'
+        language: pygrep
+    -   id: D-code-patient_id
+        name: Check for patient ids starting with an "D".
+        always_run: true
+        args: [--multiline]
+        entry: 'D[0-9]{3}'
+        language: pygrep
+    -   id: OC-code-patient_id
+        name: Check for patient ids starting with "OC".
+        always_run: true
+        args: [--multiline]
+        entry: 'OC[0-9]{3}'
+        language: pygrep
+    -   id: EOC-patient_code
+        name: Check for EOC patient codes.
+        always_run: true
+        args: [--multiline]
+        entry: 'EOC[0-9]{3}'
+        language: pygrep

@@ -29,6 +29,16 @@ shell` inside the project directory.
 
 If you have a problem with the poetry install command, it may be that the 'poetry lock' command has not been ran after changing dependencies modification in '$ONCODASHKB_HOME/pyproject.toml'. Try running 'poetry lock' to fix the issue.
 
+### Requirements for preventing publishing patient ids
+
+Please, install [pre-commit](https://pre-commit.com/) hooks before committing or pushing anything new:
+
+```
+pre-commit install
+pre-commit install --hook-type pre-push
+pre-commit install --hook-type commit-msg
+```
+
 ### Database
 
 Theoretically, any graph database supported by Biocypher may be used.
