@@ -14,7 +14,7 @@ import pandas as pd
 import biocypher
 
 import ontoweaver
-import oncodashkb.adapters as od
+# import oncodashkb.adapters as od
 from alive_progress import alive_bar
 
 error_codes = {
