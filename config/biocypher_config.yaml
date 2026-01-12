@@ -8,15 +8,15 @@ biocypher:
         url: https://github.com/biolink/biolink-model/raw/v3.2.1/biolink-model.owl.ttl
         root_node: entity
 
-    tail_ontologies:
-        so_variant:
-            url: http://purl.obolibrary.org/obo/so.owl
-            head_join_node: sequence variant
-            tail_join_node: sequence_variant
-        so_feature:
-            url: http://purl.obolibrary.org/obo/so.owl
-            head_join_node: attribute
-            tail_join_node: sequence_feature
+    # tail_ontologies:
+    #     so_variant:
+    #         url: http://purl.obolibrary.org/obo/so.owl
+    #         head_join_node: sequence variant
+    #         tail_join_node: sequence_variant
+    #     so_feature:
+    #         url: http://purl.obolibrary.org/obo/so.owl
+    #         head_join_node: attribute
+    #         tail_join_node: sequence_feature
 #        go_biological_process:
 #            url: http://purl.obolibrary.org/obo/go.owl
 #            head_join_node: biological process
