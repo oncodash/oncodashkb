@@ -1,17 +1,14 @@
 row:
     map:
-        columns: 
-            - patient_id
+        column: patient_id
         to_subject: patient
 transformers:
     - map:
-        columns:
-            - sample_id
+        column: sample_id
         to_object: sample
         via_relation: patient_carries_sample
     - map:
-        columns:
-            - alteration
+        column: alteration
         from_subject: sample
         to_object: alteration
         via_relation: sample_carries_alteration
@@ -24,74 +21,46 @@ transformers:
         format_string: "{hugoSymbol}:{gene_role}"
         via_relation: alteration_causes_gene_status
     - map:
-        columns:
-            - hugoSymbol
+        column: hugoSymbol
         from_subject: gene_status
         to_object: gene
         via_relation: gene_status_affects_gene
     - map:
-        columns:
-            - tumorType
-        to_property:
-            - tumor_type
-        for_objects:
-            - alteration
+        column: tumorType
+        to_property: tumor_type
+        for_object: alteration
     - map:
-        columns:
-            - consequence
-        to_property:
-            - consequence
-        for_objects:
-            - alteration
+        column: consequence
+        to_property: consequence
+        for_object: alteration
     - map:
-        columns:
-            - oncogenic
-        to_property:
-            - oncogenic
-        for_objects:
-            - alteration
+        column: oncogenic
+        to_property: oncogenic
+        for_object: alteration
     - map:
-        columns:
-            - mutationEffectDescription
-        to_property:
-            - mutation_effect_description
-        for_objects:
-            - alteration
+        column: mutationEffectDescription
+        to_property: mutation_effect_description
+        for_object: alteration
     - map:
-        columns:
-            - citationPMids
-        to_property:
-            - citation_PM_ids
-        for_objects:
-            - alteration
+        column: citationPMids
+        to_property: citation_PM_ids
+        for_object: alteration
     - map:
-        columns:
-            - level_of_evidence
-        to_property:
-            - level_of_evidence
-        for_objects:
-            - alteration
+        column: level_of_evidence
+        to_property: level_of_evidence
+        for_object: alteration
     - map:
-        columns:
-            - geneSummary
-        to_property:
-            - gene_summary
-        for_objects:
-            - gene
+        column: geneSummary
+        to_property: gene_summary
+        for_object: gene
     - map:
-        columns:
-            - variantSummary
-        to_property:
-            - variant_summary
-        for_objects:
-            - alteration
+        column: variantSummary
+        to_property: variant_summary
+        for_object: alteration
     - map:
-        columns:
-            - tumorTypeSummary
-        to_property:
-            - tumor_type_summary
-        for_objects:
-            - alteration
+        column: tumorTypeSummary
+        to_property: tumor_type_summary
+        for_object: alteration
     - string:
         value: " "
         to_property: edgelabel

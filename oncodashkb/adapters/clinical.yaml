@@ -1,11 +1,10 @@
 row:
     map:
-        columns:
-            - cohort_code
+        column: cohort_code
         to_subject: patient
 transformers:
     - map:
-        columns: survival
+        column: survival
         to_property: survival
         for_object: patient
     - map:
