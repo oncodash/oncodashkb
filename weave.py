@@ -14,7 +14,7 @@ import pandas as pd
 import biocypher
 
 import ontoweaver
-# import oncodashkb.adapters as od
+import oncodashkb.adapters as od
 from alive_progress import alive_bar
 
 error_codes = {
@@ -229,7 +229,7 @@ if __name__ == "__main__":
 
         logging.info(f" | Process {mapping_file}...")
 
-        yparser = ontoweaver.tabular.YamlParser(ymapping)
+        yparser = ontoweaver.mapping.YamlParser(ymapping)
         mapping = yparser()
 
         adapter = ontoweaver.tabular.PandasAdapter(
@@ -475,7 +475,7 @@ if __name__ == "__main__":
 
         logging.info(f" | Process {mapping_file}...")
 
-        yparser = ontoweaver.tabular.YamlParser(ymapping)
+        yparser = ontoweaver.mapping.YamlParser(ymapping)
         mapping = yparser()
 
         adapter = ontoweaver.tabular.PandasAdapter(
