@@ -34,7 +34,7 @@ drug:
         name: str
 
 gene status:
-    is_a: outcome
+    is_a: phenomenon
     represented_as: node
     label_in_input: gene_status
     properties:
@@ -114,7 +114,7 @@ sample carries alteration:
 # A gene is linked to its gene status (gain or loss of function),
 # which are represented as nodes, so as to allow a causal path
 # to go through alteration -> gene status -> transcript activity.
-# Hence, outcomes have at least two instances:
+# Hence, phenomenons have at least two instances:
 # - Gene:GoF, and
 # - Gene:LoF.
 
