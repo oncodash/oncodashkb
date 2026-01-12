@@ -17,7 +17,7 @@ class Gene_ontology(ontoweaver.tabular.PandasAdapter):
                  ontology: str,
                  genes_list: str,
                  config: dict,
-                 type_affix=ontoweaver.tabular.TypeAffixes.none
+                 type_affix=ontoweaver.base.TypeAffixes.none
                  ):
 
         # logging.info(" | | In Gene_ontology adapter init")
