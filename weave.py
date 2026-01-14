@@ -105,16 +105,16 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
                         help="Extract from a clinical CSV file.")
     
-    parser.add_argument("-sml", "--short_mutations_local", metavar="CSV",nargs="+",
+    parser.add_argument("-sml", "--short-mutations-local", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with short mutations' local annotations.")
 
-    parser.add_argument("-sme", "--short_mutations_external", metavar="CSV",nargs="+",
+    parser.add_argument("-sme", "--short-mutations-external", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with short mutations' variants external annotations.")
     
-    parser.add_argument("-cnal", "--copy_number_amplifications_local", metavar="CSV",nargs="+",
+    parser.add_argument("-cnal", "--copy-number-amplifications-local", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with copy number amplifications' local annotations.")
     
-    parser.add_argument("-cnae", "--copy_number_amplifications_external", metavar="CSV",nargs="+",
+    parser.add_argument("-cnae", "--copy-number-amplifications-external", metavar="CSV",nargs="+",
                         help="Extract from a CSV file with copy number amplifications' external annotations.")
     
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
@@ -123,25 +123,25 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--cgi", metavar="CSV", nargs="+",
                         help="Extract from a CGI CSV file.")
 
-    parser.add_argument("-g", "--gene_ontology", metavar="CSV", nargs="+",
+    parser.add_argument("-g", "--gene-ontology", metavar="CSV", nargs="+",
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
 
-    parser.add_argument("-n", "--gene_ontology_owl", metavar="OWL",
+    parser.add_argument("-n", "--gene-ontology-owl", metavar="OWL",
                         help="Download Gene_Ontology owl file.")
 
-    parser.add_argument("-G", "--gene_ontology_genes", metavar="TXT",
+    parser.add_argument("-G", "--gene-ontology-genes", metavar="TXT",
                         help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
 
-    parser.add_argument("-r", "--gene_ontology_reverse", action='store_true',
+    parser.add_argument("-r", "--gene-ontology-reverse", action='store_true',
                         help="Extract from a Gene_Ontology_Annotation GAF file.")
 
-    parser.add_argument("-e", "--open_targets_evidences", metavar="PARQUET", nargs="+",
+    parser.add_argument("-e", "--open-targets-evidences", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory evidences CHEMBL.")
 
-    parser.add_argument("-t", "--open_targets", metavar="PARQUET", nargs="+",
+    parser.add_argument("-t", "--open-targets", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory targets.")
 
-    parser.add_argument("-d", "--open_targets_drugs", metavar="PARQUET", nargs="+",
+    parser.add_argument("-d", "--open-targets-drugs", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory molecule.")
     parser.add_argument("-p", "--open_targets_diseases", metavar="PARQUET", nargs="+",
                         help="Extract parquet files from the directory diseases.")

@@ -34,10 +34,10 @@ echo "Weave data..." >&2
 
 cmd="python3 ${py_args} $(pwd)/weave.py --verbose INFO \
     --clinical                              $data_dir/DECIDER/$data_version/clinical_export.csv \
-    --short_mutations_local                 $data_dir/DECIDER/$data_version/snv_local.csv \
-    --short_mutations_external              $data_dir/DECIDER/$data_version/snv_external.csv  \
-    --copy_number_amplifications_local      $data_dir/DECIDER/$data_version/cna_local.csv \
-    --copy_number_amplifications_external   $data_dir/DECIDER/$data_version/cna_external.csv  \
+    --short-mutations-local                 $data_dir/DECIDER/$data_version/snv_local.csv \
+    --short-mutations-external              $data_dir/DECIDER/$data_version/snv_external.csv  \
+    --copy-number-amplifications-local      $data_dir/DECIDER/$data_version/cna_local.csv \
+    --copy-number-amplifications-external   $data_dir/DECIDER/$data_version/cna_external.csv  \
     ${weave_args}" # \
 
 echo "Weaving command:" >&2
