@@ -1,47 +1,74 @@
 #!/usr/bin/bash
 
-set -e
+if [[ -z "$1" ]] ; then
+    echo "ERROR, usage: $0 <DECIDER_data_version>" >&2
+    exit 2
+fi
+
+set -eu
 set -o pipefail
 
-echo "Check for neo4j.pass..."
+data_dir="data"
+data_version="$1"
+
+echo "Check for neo4j.pass..." >&2
 if [[ ! -f neo4j.pass ]] ; then
-    echo "File: neo4j.pass is missing."
+    echo "File: neo4j.pass is missing." >&2
     exit 1
 fi
-echo "OK"
+echo "neo4j — OK" >&2
 
 
-echo "Check OS dependencies..."
-REQUIRED_PKG="python3-poetry gzip"
-PKG_OK=$(dpkg-query -W --showformat='${Status}\n' ${REQUIRED_PKG}|grep "install ok installed")
-if [ "" = "${PKG_OK}" ]; then
-  echo "Packages: ${REQUIRED_PKG} not installed. I will install them."
-  sudo apt update
-  sudo apt-get --yes install $REQUIRED_PKG
-fi
-echo "OK"
+echo "Check dependencies..." >&2
+REQUIRED_CMD="gzip"
+for p in $REQUIRED_CMD ; do
+    if [ ! command -v $p ] ; then
+        echo "Package `$p` is missing, please install it." >&2
+        exit 1
+    fi
+done
 
 
-echo "Install Poetry environment..."
-poetry install
-echo "OK"
+echo "Install environment..." >&2
+uv sync --no-upgrade
+echo "Sync — OK" >&2
 
 
-echo "Download data:"
+echo "Download data:" >&2
 mkdir -p data
 cd data
 
+echo " | Gene Ontology..." >&2
+mkdir -p GO
+cd GO
+wget --no-clobber https://current.geneontology.org/annotations/goa_human.gaf.gz
+# gunzip goa_human.gaf.gz
+wget --no-clobber https://purl.obolibrary.org/obo/go.owl
+cd ..
+echo " | GO — OK" >&2
 
-echo "DECIDER data..."
+
+echo " | Open Targets..." >&2
+mkdir -p OT
+cd OT
+rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/targets .
+rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/diseases .
+rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/molecule .
+rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/evidence .
+cd ..
+echo " | OT — OK" >&2
+
+
+echo "Check DECIDER data..." >&2
 check() {
-    if [[ ! -f "$1" ]] ; then
-        echo "File: data/DECIDER/$1 is missing."
+    if [[ ! -f "$data_dir/DECIDER/$data_version/$1" ]] ; then
+        echo "File: $data_dir/DECIDER/$data_version/$1 is missing." >&2
         exit 1
     fi
 }
 
-if [[ ! -d DECIDER ]] ; then
-    echo "The data/DECIDER directory is missing."
+if [[ ! -d $data_dir/DECIDER ]] ; then
+    echo "The $data_dir/DECIDER directory is missing." >&2
     exit 1
 else
     cd DECIDER
@@ -51,36 +78,18 @@ else
     # check genomics_cgicopynumberalteration.csv
     # check clin_overview_clinicaldata.csv
     # check ../../oncodashkb/adapters/Hugo_Symbol_genes.conf
-    check treatments.csv
-    check snv_annotated.csv
+    # check treatments.csv
+    # check snv_annotated.csv
     # check OncoKB_gene_symbols.conf
-    check cna_annotated.csv
+    # check cna_annotated.csv
     check clinical_export.csv
+    check snv_local.csv
+    check snv_external.csv
+    check cna_local.csv
+    check cna_external.csv
     cd ..
 fi
 # cp -a ../oncodashkb/adapters/Hugo_Symbol_genes.conf .
-echo "OK"
+echo "DECIDER — OK" >&2
 
-
-echo "Gene Ontology..."
-mkdir -p GO
-cd GO
-wget --no-clobber https://current.geneontology.org/annotations/goa_human.gaf.gz
-# gunzip goa_human.gaf.gz
-wget --no-clobber https://purl.obolibrary.org/obo/go.owl
-cd ..
-echo "OK"
-
-
-# echo "Open Targets..."
-# mkdir -p OT
-# cd OT
-# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/targets .
-# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/diseases .
-# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/molecule .
-# rsync --ignore-existing -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/evidence .
-# cd ..
-# echo "OK"
-
-
-echo "Everything is OK, you can now call: ./make.sh."
+echo "Everything is OK, you can now call: ./make.sh." >&2
