@@ -176,7 +176,7 @@ gene status affects gene:
 
 biological process:
     is_a: named thing
-    represneted_as: node
+    represented_as: node
     label_in_input: biological_process
     properties:
         name: str
