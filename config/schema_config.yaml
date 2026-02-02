@@ -64,7 +64,7 @@ patient:
 
 sample:
     is_a: material sample
-    respresented_as: node
+    represented_as: node
     label_in_input: sample
     properties:
         name: str
