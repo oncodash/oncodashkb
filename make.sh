@@ -5,11 +5,12 @@ if [[ -z "$1" ]] ; then
     exit 2
 fi
 
-set -eu
+set -e
 set -o pipefail
 
 data_dir="data"
 data_version="$1"
+script_dir="$(dirname $0)"
 
 case "$(uname)" in
     FreeBSD)   OS=FreeBSD ;;
@@ -58,7 +59,7 @@ fi
 
 echo "Weave data..." >&2
 
-cmd="python3 ${py_args} $(pwd)/weave.py \
+cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --clinical                              $data_dir/DECIDER/$data_version/clinical_export.csv \
     --short-mutations-local                 $data_dir/DECIDER/$data_version/snv_local.csv \
     --short-mutations-external              $data_dir/DECIDER/$data_version/snv_external.csv  \
