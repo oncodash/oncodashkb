@@ -11,6 +11,9 @@ set -o pipefail
 data_dir="data"
 data_version="$1"
 
+script_dir="$(dirname $0)"
+
+
 echo "Check for neo4j.pass..." >&2
 if [[ ! -f neo4j.pass ]] ; then
     echo "File: neo4j.pass is missing." >&2
@@ -29,9 +32,15 @@ for p in $REQUIRED_CMD ; do
 done
 
 
-echo "Install environment..." >&2
-uv sync --no-upgrade
-echo "Sync — OK" >&2
+if [[ -d $script_dir/.venv ]] ; then
+    echo "Environment already existing, if you want to upgrade it, either:" >&2
+    echo "- remove the `.venv` directory and run `prepare.sh` again," >&2
+    echo "- or run `uv sync` manually." >&2
+else
+    echo "Install environment..." >&2
+    uv sync --no-upgrade
+    echo "Sync — OK" >&2
+fi
 
 
 echo "Download data:" >&2
