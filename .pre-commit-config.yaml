@@ -7,18 +7,6 @@ repos:
         args: [--multiline]
         entry: '[DHM][0-9]{3}'
         language: pygrep
-    # -   id: M-code-patient_id
-    #     name: Check for patient ids starting with an "M".
-    #     always_run: true
-    #     args: [--multiline]
-    #     entry: 'M[0-9]{3}'
-    #     language: pygrep
-    # -   id: D-code-patient_id
-    #     name: Check for patient ids starting with an "D".
-    #     always_run: true
-    #     args: [--multiline]
-    #     entry: 'D[0-9]{3}'
-    #     language: pygrep
     -   id: OC-code-patient_id
         name: Check for patient ids starting with "OC".
         always_run: true
