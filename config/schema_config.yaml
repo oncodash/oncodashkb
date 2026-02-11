@@ -12,7 +12,6 @@ alteration:
         citation_PM_ids: str
         consequence: str
         homogenous: str
-        level_of_evidence: str
         mutation_effect_description: str
         name: str
         oncogenic: str
