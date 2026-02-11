@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 if [[ -z "$1" ]] ; then
     echo "ERROR, usage: $0 <DECIDER_data_version>" >&2
