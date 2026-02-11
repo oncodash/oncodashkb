@@ -82,20 +82,20 @@ validate: # Short mutations table labeled as "external".
       checks:
         # str_matches: ^[0-9]{7,}(,\s[0-9]{7,})*$
         str_matches: ^[0-9]{7,}(?:,(?:[0-9]{6,}|\s[0-9]{6,}))*$
-    level_of_evidence:
-      dtype: str
-      description: "Level of evidence for the alteration"
-      nullable: true
-      checks:
-        isin:
-          value:
-            - LEVEL_1
-            - LEVEL_2
-            - LEVEL_3A
-            - LEVEL_3B
-            - LEVEL_4
-            - LEVEL_R1
-            - LEVEL_R2
+    # level_of_evidence:
+    #   dtype: str
+    #   description: "Level of evidence for the alteration"
+    #   nullable: true
+    #   checks:
+    #     isin:
+    #       value:
+    #         - LEVEL_1
+    #         - LEVEL_2
+    #         - LEVEL_3A
+    #         - LEVEL_3B
+    #         - LEVEL_4
+    #         - LEVEL_R1
+    #         - LEVEL_R2
     geneSummary:
       dtype: str
       description: "Brief overview of the gene and its role in cancer"

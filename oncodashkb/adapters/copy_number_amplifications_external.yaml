@@ -45,10 +45,6 @@ transformers:
         to_property: citation_PM_ids
         for_object: alteration
     - map:
-        column: level_of_evidence
-        to_property: level_of_evidence
-        for_object: alteration
-    - map:
         column: geneSummary
         to_property: gene_summary
         for_object: gene
