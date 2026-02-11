@@ -86,7 +86,7 @@ The quickest possible build of OncodashKB is calling:
 
 ``` sh
 ./prepare.sh <DECIDER_data_dir> # Downloads all the needed data.
-./make.sh [debug] # Runs what's needed to build the SKG, and run a test Cypher query.
+./make.sh <DECIDER_data_dir> [debug] # Runs what's needed to build the SKG, and run a test Cypher query.
 ```
 
 Note the optional "debug" option for the `make.sh` script, which enable a more
