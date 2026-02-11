@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 if [[ -z "$1" ]] ; then
     echo "ERROR, usage: $0 <DECIDER_data_version> [debug]" >&2
@@ -20,6 +20,8 @@ case "$(uname)" in
     SunOS)     OS=SunOS   ;;
     *)         OS=Linux   ;;
 esac
+
+echo $OS
 
 if [[ "$OS" == "Linux" ]] ; then
     # When using Neo4j installed on system (like Ubuntu's packaged version),
@@ -60,11 +62,11 @@ fi
 echo "Weave data..." >&2
 
 cmd="uv run python3 ${py_args} $script_dir/weave.py \
-    --clinical                              $data_dir/DECIDER/$data_version/clinical_export.csv \
-    --short-mutations-local                 $data_dir/DECIDER/$data_version/snv_local.csv \
-    --short-mutations-external              $data_dir/DECIDER/$data_version/snv_external.csv  \
-    --copy-number-amplifications-local      $data_dir/DECIDER/$data_version/cna_local.csv \
-    --copy-number-amplifications-external   $data_dir/DECIDER/$data_version/cna_external.csv  \
+    --clinical                              $data_dir/DECIDER/$data_version/clinical_export_2024-11-13.csv \
+    --short-mutations-local                 $data_dir/DECIDER/$data_version/short_mutations_v4.10_local.csv \
+    --short-mutations-external              $data_dir/DECIDER/$data_version/short_mutations_v4.10_external.csv  \
+    --copy-number-amplifications-local      $data_dir/DECIDER/$data_version/cnas_v2.9_local.csv \
+    --copy-number-amplifications-external   $data_dir/DECIDER/$data_version/cnas_v2.9_external.csv  \
     ${weave_args}" # \
     # --clinical                   $data_dir/DECIDER/$data_version/clinical_export.csv \
     # --copy_number_alterations    $data_dir/DECIDER/$data_version/cna_external.csv \
@@ -85,14 +87,14 @@ $cmd > tmp.sh
 if [[ "$2" != "debug" ]] ; then
     echo "Run import script..." >&2
     chmod a+x  $(cat tmp.sh)
-    $(cat tmp.sh) | tee /dev/tty | ${NEO_USER} sh
+    ${NEO_USER} $SHELL $(cat tmp.sh)
 
     echo "Restart Neo4j..." >&2
     $server start
     sleep 5
 
     echo "Send a test query..." >&2
-    sudo -u neo4j cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
+    ${NEO_USER} cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
 fi
 
 echo "Done" >&2
