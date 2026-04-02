@@ -19,9 +19,6 @@ short mutation:
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
-        refCount: int64
-        altCount: int64
-        expressed: bool
         # ensembl_id_alteration: str
 
 copy number amplification:
@@ -39,9 +36,6 @@ copy number amplification:
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
-        refCount: int64
-        altCount: int64
-        expressed: bool
         # ensembl_id_alteration: str
 
 structural variant:
@@ -59,9 +53,6 @@ structural variant:
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
-        refCount: int64
-        altCount: int64
-        expressed: bool
         # ensembl_id_alteration: str
 
 disease:
@@ -284,8 +275,13 @@ sample carries variant:
     source: sample
     target: sequence variant
     properties:
+        refCount: int64
+        altCount: int64
+        expressed: bool
+        homogenous: bool
         data_source: str
         edglelabel: str
+
 
 ### CAUSES
 

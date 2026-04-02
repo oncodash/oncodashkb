@@ -98,14 +98,22 @@ transformers:
         column: effect
         to_property: consequence
         for_object: structural_variant
-    - map:
+    - boolean:
         column: Homogeneous
         to_property: homogenous
-        for_object: structural_variant
-    - map:
+        for_object: sample_carries_variant
+        consider_true:
+            - True
+        consider_false:
+            - False
+    - boolean:
         column: expressed
         to_property: expressed
-        for_object: structural_variant
+        for_object: sample_carries_variant
+        consider_true:
+            - True
+        consider_false:
+            - False
     - string:
         value: " "
         to_property: edgelabel
