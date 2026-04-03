@@ -9,9 +9,11 @@ biocypher:
         root_node: entity
 
 biopathnet:
-  file_format: txt
+  file_format: txt:bn 
   entity_types_file_stem: entity_types
   entity_names_file_stem: entity_names
   background_graph_file_stem: brg
   skg_file_stem: skg
+  targeted_relation: "(alteration, variant biomarker for treatment, drug)"
+  include_properties: False
 

@@ -29,18 +29,18 @@ transformers:
             - hugoSymbol
             - alteration
         from_subject: sample
-        to_object: alteration
-        via_relation: sample_carries_alteration
+        to_object: copy_number_amplification
+        via_relation: sample_carries_variant
         format_string: "{hugoSymbol}:{alteration}"
     ## Gene status
     - cat_format:
         columns:
           - ensembl_id
           - gene_role
-        from_subject: alteration
+        from_subject: copy_number_amplification
         to_object: gene_status
         format_string: "{ensembl_id}:{gene_role}"
-        via_relation: alteration_causes_gene_status
+        via_relation: variant_causes_gene_status
         # column_to_translate: 
         #     - hugoSymbol
         # translations_file: data/HGNC/hgnc_complete_set.txt
@@ -64,7 +64,7 @@ transformers:
             - ensembl_id
             - alteration
         to_property: ensembl_id_alteration
-        for_object: alteration
+        for_object: copy_number_amplification
         format_string: "{ensembl_id}:{alteration}"
         # column_to_translate: 
         #     - hugoSymbol
@@ -80,6 +80,10 @@ transformers:
         to_property: gene_symbol_gene_status
         for_object: gene_status
         format_string: "{hugoSymbol}:{gene_role}"
+    - map:
+        columns: gene_role
+        to_property: gene_role
+        for_object: gene_status
     ## Genes
     - map: 
         column: hugoSymbol
@@ -89,19 +93,19 @@ transformers:
     - map:
         column: tumorType
         to_property: tumor_type
-        for_object: alteration
+        for_object: copy_number_amplification
     - map:
         column: oncogenic
         to_property: oncogenic
-        for_object: alteration
+        for_object: copy_number_amplification
     - replace:
         column: mutationEffectDescription
         to_property: mutation_effect_description
-        for_object: alteration
+        for_object: copy_number_amplification
     - map:
         column: citationPMids
         to_property: citation_PM_ids
-        for_object: alteration
+        for_object: copy_number_amplification
     - replace:
         column: geneSummary
         to_property: gene_summary
@@ -109,18 +113,18 @@ transformers:
     - map:
         column: variantSummary
         to_property: variant_summary
-        for_object: alteration
+        for_object: copy_number_amplification
     - map:
         column: tumorTypeSummary
         to_property: tumor_type_summary
-        for_object: alteration
+        for_object: copy_number_amplification
     - string:
         value: " "
         to_property: edgelabel
         for_objects:
             - patient_carries_sample
-            - sample_carries_alteration
-            - alteration_causes_gene_status
+            - sample_carries_variant
+            - variant_causes_gene_status
             - gene_status_affects_gene
 
 metadata:

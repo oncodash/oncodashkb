@@ -1,0 +1,119 @@
+row:
+    translate:
+        column: patient
+        to_subject: patient
+        translations_file: ./data/DECIDER/clinical/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+transformers:
+    # Nodes
+    ## Samples
+    - translate_sample_ids :
+        column: sample
+        to_object: sample
+        via_relation: patient_carries_sample
+        translations_file: ./data/DECIDER/clinical/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+    ## Alterations
+    - cat_format:
+        columns:
+            - primary_gene
+            - mutation
+        from_subject: sample
+        to_object: structural_variant
+        via_relation: sample_carries_variant
+        format_string: "{primary_gene}:{mutation}"
+    ## Gene status
+    - translate_cat_format:
+        columns:
+          - primary_gene
+          - Gene_type
+        from_subject: structural_variant
+        to_object: gene_status
+        format_string: "{primary_gene}:{Gene_type}"
+        via_relation: variant_causes_gene_status
+        column_to_translate: 
+            - primary_gene
+        translations_file: data/HGNC/hgnc_complete_set.txt
+        translate_from: symbol
+        translate_to: ensembl_gene_id
+        sep: "\t"
+    ## Genes
+    - translate:
+        column: primary_gene
+        from_subject: gene_status
+        to_object: gene
+        via_relation: gene_status_affects_gene
+        translations_file: data/HGNC/hgnc_complete_set.txt
+        translate_from: symbol
+        translate_to: ensembl_gene_id
+        sep: "\t"
+    # Properties
+    ## Alterations
+    - map:
+        column: effect
+        to_property: consequence
+        for_object: structural_variant
+    - translate_cat_format:
+        columns:
+            - primary_gene
+            - mutation
+        to_property: ensembl_id_alteration
+        for_object: structural_variant
+        format_string: "{primary_gene}:{mutation}"
+        column_to_translate: 
+            - primary_gene
+        translations_file: data/HGNC/hgnc_complete_set.txt
+        translate_from: symbol
+        translate_to: ensembl_gene_id
+        sep: "\t"
+    ## Gene status
+    - cat_format:
+        columns:
+            - primary_gene
+            - Gene_type
+        to_property: gene_symbol_gene_status
+        for_object: gene_status
+        format_string: "{primary_gene}:{Gene_type}"
+    - map:
+        columns: Gene_type
+        to_property: gene_role
+        for_object: gene_status
+    ## Genes
+    - map: 
+        column: primary_gene
+        to_property: gene_symbol
+        for_object: gene
+    ## Alterations
+    - map:
+        column: pathogenic
+        to_property: oncogenic
+        for_object: structural_variant
+    - map:
+        column: effect
+        to_property: consequence
+        for_object: structural_variant
+    - map:
+        column: Homogeneous
+        to_property: homogenous
+        for_object: structural_variant
+    - map:
+        column: expressed
+        to_property: expressed
+        for_object: structural_variant
+    - string:
+        value: " "
+        to_property: edgelabel
+        for_objects:
+            - patient_carries_sample
+            - sample_carries_variant
+            - variant_causes_gene_status
+            - gene_status_affects_gene
+
+metadata:
+        - data_source: structural_variants_placeholder

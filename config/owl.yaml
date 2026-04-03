@@ -1,0 +1,16 @@
+biocypher:
+    debug: false
+    offline: true
+    dbms: owl
+
+    # Ontology configuration
+    head_ontology:
+        url: https://github.com/biolink/biolink-model/raw/v3.2.1/biolink-model.owl.ttl
+        root_node: entity
+
+owl:
+    edge_model: ObjectProperty
+    file_format: turtle
+    labels_order: "Ascending" # Default: From more specific to more generic.
+    node_labels_order: "Ascending" # Default: use labels_order.
+    edge_labels_order: "Leaves"

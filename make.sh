@@ -65,7 +65,7 @@ echo "Activate virtual environment..." >&2
 source $(dirname $(uv python find))/activate
 
 
-if [[ "$2" == "config/neo4j.yaml" ]] ; then
+if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
     echo "Stop Neo4j server..." >&2
     neo_version=$(neo4j-admin --version | cut -d. -f 1)
     if [[ "$neo_version" -eq 4 ]]; then
@@ -78,23 +78,23 @@ fi
 
 echo "Weave data..." >&2
 
+echo "CONFIG = $CONFIG" >&2
+
 cmd="uv run python3 ${py_args} $script_dir/weave.py \
-    --config $CONFIG \
+    --copy-number-amplifications-external   $decider_dir/cnas_external.csv  \
     --short-mutations-local                 $decider_dir/short_mutations_local.csv  \
     --short-mutations-external              $decider_dir/short_mutations_external.csv  \
     --copy-number-amplifications-local      $decider_dir/cnas_local.csv \
-    --copy-number-amplifications-external   $decider_dir/cnas_external.csv  \
-    --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
     --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
     --open-targets-target                   $data_dir/OT/target/
+    --cgi                                   $decider_dir/treatments_cgi.csv \
+    --config $CONFIG \
     ${weave_args}" # \
+    # --omnipath-networks                     $data_dir/omnipath_networks/omnipath_networks_different_type_entity_type_source_and_entity_type_target_shorter.tsv \
+    # --structural-variants                   $decider_dir/structural_variants.xlsx  \
     # --clinical                              $data_dir/DECIDER/clinical/clinical_export.xlsx \
-    # --gene_ontology_genes        $data_dir/DECIDER/$data_version/OncoKB_gene_symbols.conf \
     # --oncokb                     $data_dir/DECIDER/$data_version/treatments.csv \
-    # --gene_ontology              $data_dir/GO/goa_human.gaf.gz \
-    # --gene_ontology_owl          $data_dir/GO/go.owl \
-    # --gene_ontology_reverse
 
 
 echo "Weaving command:" >&2

@@ -4,12 +4,11 @@
 
 # Defined in alphabetical order
 
-alteration:
+short mutation:
     is_a: sequence variant
     represented_as: node
-    label_in_input: alteration
+    label_in_input: short_mutation
     properties:
-        gene_symbol_alteration: str
         citation_PM_ids: str
         consequence: str
         homogenous: str
@@ -23,7 +22,47 @@ alteration:
         refCount: int64
         altCount: int64
         expressed: bool
-        ensembl_id_alteration: str
+        # ensembl_id_alteration: str
+
+copy number amplification:
+    is_a: sequence variant
+    represented_as: node
+    label_in_input: copy_number_amplification
+    properties:
+        citation_PM_ids: str
+        consequence: str
+        homogenous: str
+        mutation_effect_description: str
+        data_source: str
+        oncogenic: str
+        reference_genome: str
+        tumor_type: str
+        tumor_type_summary: str
+        variant_summary: str
+        refCount: int64
+        altCount: int64
+        expressed: bool
+        # ensembl_id_alteration: str
+
+structural variant:
+    is_a: sequence variant
+    represented_as: node
+    label_in_input: structural_variant
+    properties:
+        citation_PM_ids: str
+        consequence: str
+        homogenous: str
+        mutation_effect_description: str
+        data_source: str
+        oncogenic: str
+        reference_genome: str
+        tumor_type: str
+        tumor_type_summary: str
+        variant_summary: str
+        refCount: int64
+        altCount: int64
+        expressed: bool
+        # ensembl_id_alteration: str
 
 disease:
     represented_as: node
@@ -202,6 +241,12 @@ protein:
         ncbi_tax_id: str
         data_source: str
 
+# Treatment
+
+treatment:
+    represented_as: node
+    input_label: treatment
+
 ########################
 # EDGES
 ########################
@@ -212,7 +257,7 @@ protein:
 
 ### CARRIES
 
-# To allow queries for patient carrying samples, and samples carrying alterations,
+# To allow queries for patient carrying samples, and samples carrying variants,
 # without mixing with "effects" causes.
 carries:
     is_a: causes
@@ -232,12 +277,12 @@ patient carries sample:
         data_source: str
         edglelabel: str
 
-sample carries alteration:
+sample carries variant:
     is_a: carries
     represented_as: edge
-    label_in_input: sample_carries_alteration
+    label_in_input: sample_carries_variant
     source: sample
-    target: alteration
+    target: sequence variant
     properties:
         data_source: str
         edglelabel: str
@@ -246,16 +291,16 @@ sample carries alteration:
 
 # A gene is linked to its gene status (gain or loss of function),
 # which are represented as nodes, so as to allow a causal path
-# to go through alteration -> gene status -> transcript activity.
+# to go through variant -> gene status -> transcript activity.
 # Hence, outcomes have at least two instances:
 # - Gene:GoF, and
 # - Gene:LoF.
 
-alteration causes gene status:
+variant causes gene status:
     is_a: causes
     represented_as: edge
-    label_in_input: alteration_causes_gene_status
-    source: alteration
+    label_in_input: variant_causes_gene_status
+    source: sequence variant
     target: gene status
     properties:
         data_source: str
@@ -267,13 +312,17 @@ alteration causes gene status:
 # as predictive markers for treatment response, 
 # based on clinical evidence categorized by evidence levels. 
 
-alteration biomarker for drug:
-    is_a: biomarker for
+variant biomarker for treatment:
+    is_a: sequence variant modulates treatment association
     represented_as: edge
-    label_in_input: alteration_biomarker_for_drug
-    source: alteration
-    target: drug
+    label_in_input: variant_biomarker_for_treatment
+    source: sequence variant
+    target: treatment
     properties:
+        level_of_evidence: str
+        cgi_level: str
+        citations: str
+        tumorType: str
         data_source: str
         edglelabel: str
 
@@ -302,10 +351,6 @@ gene status affects gene:
 
 
 ### GO -- TO BE FIXED
-# annotation: 
-#     is_a: named thing
-#     represented_as: node
-#     label_in_input: annotation
 
 biological process:
     is_a: named thing
@@ -313,20 +358,6 @@ biological process:
     label_in_input: biological_process
     properties:
         data_source: str
-
-# annotation for gene: 
-#     is_a: association
-#     represented_as: edge
-#     label_in_input: annotation_for_gene
-#     source: annotation
-#     target: gene
-
-# involved in: 
-#     is_a: association
-#     represented_as: edge
-#     label_in_input: involved_in
-#     source: annotation
-#     target: biological process
 
 gene to biological process:
     is_a: association
@@ -345,8 +376,9 @@ biological process to gene:
     source: biological process
     target: gene
     properties:
-        # edglelabel: str
         data_source: str
+
+### FUNCTIONAL PROTEIN PROTEIN INTERACTIONS
 
 undirected molecular interaction:
     is_a: pairwise molecular interaction
@@ -447,6 +479,8 @@ inhibition:
         extra_attrs: str
         evidences: str
 
+### TRASNCRIPT TO GENE RELATIONSHIP
+
 transcript to gene relationship:
     # is_a: transcript to gene relationship
     represented_as: edge
@@ -454,9 +488,19 @@ transcript to gene relationship:
     properties:
         data_source: str
 
+### DRUG HAS TARGET
+
 drug has target:
     is_a: drug to gene association
     represented_as: edge
     label_in_input: drug_has_target
     properties:
         data_source: str
+
+treatment has part drug:
+    is_a: association
+    represented_as: edge
+    label_in_input: treatment_has_part_drug
+    properties:
+        data_source: str
+
