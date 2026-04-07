@@ -67,7 +67,7 @@ gene status:
     label_in_input: gene_status
     properties:
         data_source: str
-        gene_symbol_gene_status: str
+        # gene_symbol_gene_status: str
         gene_role: str
 
 source gene:
@@ -315,10 +315,12 @@ variant biomarker for treatment:
     source: sequence variant
     target: treatment
     properties:
+        fda_level: str
         level_of_evidence: str
         cgi_level: str
         citations: str
         tumorType: str
+        Cancer_types: str
         data_source: str
         edglelabel: str
 
