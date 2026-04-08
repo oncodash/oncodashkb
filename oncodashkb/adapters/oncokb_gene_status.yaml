@@ -1,0 +1,38 @@
+row:
+    cat_format:
+        columns: 
+            - gene
+            - GoF_LoF
+        to_subject: gene_status
+        format_string: "{gene}:{GoF_LoF}"
+        # match:
+        #     - SNV:
+        #         to_subject: short_mutation
+        #     - CNA:
+        #         to_subject: copy_number_amplification
+transformers:
+    - replace:
+        column: Drugs
+        to_object: treatment
+        via_relation: variant_biomarker_for_treatment
+        forbidden: ';'
+        substitue: ','
+    - split_translate:
+        column: Drugs
+        from_subject: treatment
+        to_object: drug
+        via_relation: treatment_has_part_drug
+        separator: "[,|;|+]"
+        translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+        translate_from: name
+        translate_to: id
+    - map:
+        column: fda_level
+        to_property: fda_level
+        for_object: variant_biomarker_for_treatment
+    - map:
+        column: Cancer_types
+        to_property: tumorType
+        for_object: Cancer_types
+metadata:
+        - data_source: oncokb_annotation
