@@ -1,16 +1,16 @@
 row:
     map:
-        column: cohort_code
+        column: Patient card::Publication code
         to_subject: patient
 transformers:
     - map:
-        column: survival
-        to_property: survival
-        for_object: patient
-    - map:
-        column: treatment_strategy
+        column: Treatment strategy
         to_property: treatment_strategy
         for_object: patient
+    # - map:
+    #     column: survival
+    #     to_property: survival
+    #     for_object: patient
     # - split:
     #     columns:
     #         - chronic_illnesses_type

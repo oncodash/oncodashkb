@@ -73,6 +73,45 @@ def progress_read(filename, hint=None, steps=100, estimate_lines=10, **kwargs):
 
     return df
 
+def process_table(table, name):
+    logging.info(f" | Weave DECIDER {name}...")
+
+    mapping_file = f"oncodashkb/adapters/{name}.yaml"
+    
+    # logging.info(f"Weave structural variants...")
+    logging.info(f" | Weave `{data_file}:{mapping_file}`...")
+
+    try:
+        with open(mapping_file) as fd:
+            ymapping = yaml.full_load(fd)
+    except Exception as e:
+        logging.error(e)
+        sys.exit(error_codes["CannotAccessFile"])
+
+    logging.info(f" |  | Process {mapping_file}...")
+
+    yparser = ontoweaver.mapping.YamlParser(ymapping)
+    mapping = yparser()
+
+    adapter = ontoweaver.tabular.PandasAdapter(
+        table,
+        *mapping,
+        type_affix="suffix",
+        type_affix_sep=":",
+        raise_errors = True
+    )
+
+    local_nodes = []
+    local_edges = []
+    with alive_bar(len(table), file=sys.stderr) as progress:
+        for n,e in adapter():
+            # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+            local_nodes += n
+            local_edges += e
+            progress()
+
+    return local_nodes, local_edges
+
 
 def process_OT(directory, name):
     logging.info(f" | Weave Open Targets {name}...")
@@ -245,42 +284,52 @@ if __name__ == "__main__":
     if asked.clinical:
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        # data_file = asked.clinical[0]
+        # mapping_file = "./oncodashkb/adapters/clinical.yaml"
+
+        # # logging.info(f"Weave Clinical data...")
+        # logging.info(f" | Weave `{data_file}:{mapping_file}`...")
+        # logging.info(f" |  | Load data `{data_file}`...")
+        # table = progress_read(data_file, sep=",", hint=673)
+
+        # try:
+        #     with open(mapping_file) as fd:
+        #         ymapping = yaml.full_load(fd)
+        # except Exception as e:
+        #     logging.error(e)
+        #     sys.exit(error_codes["CannotAccessFile"])
+
+        # logging.info(f" |  | Process {mapping_file}...")
+
+        # yparser = ontoweaver.mapping.YamlParser(ymapping)
+        # mapping = yparser()
+
+        # adapter = ontoweaver.tabular.PandasAdapter(
+        #     table,
+        #     *mapping,
+        #     type_affix="suffix",
+        #     type_affix_sep=":",
+        #     raise_errors = asked.debug
+        # )
+
+        # local_nodes = []
+        # local_edges = []
+        # with alive_bar(len(table), file=sys.stderr) as progress:
+        #     for n,e in adapter():
+        #         # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+        #         local_nodes += n
+        #         local_edges += e
+        #         progress()
+
         data_file = asked.clinical[0]
-        mapping_file = "./oncodashkb/adapters/clinical.yaml"
 
-        # logging.info(f"Weave Clinical data...")
-        logging.info(f" | Weave `{data_file}:{mapping_file}`...")
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, sep=",", hint=673)
+        table = pd.read_excel(data_file, index_col=0)
 
-        try:
-            with open(mapping_file) as fd:
-                ymapping = yaml.full_load(fd)
-        except Exception as e:
-            logging.error(e)
-            sys.exit(error_codes["CannotAccessFile"])
-
-        logging.info(f" |  | Process {mapping_file}...")
-
-        yparser = ontoweaver.mapping.YamlParser(ymapping)
-        mapping = yparser()
-
-        adapter = ontoweaver.tabular.PandasAdapter(
+        local_nodes, local_edges = process_table(
             table,
-            *mapping,
-            type_affix="suffix",
-            type_affix_sep=":",
-            raise_errors = asked.debug
+            name="clinical",
         )
-
-        local_nodes = []
-        local_edges = []
-        with alive_bar(len(table), file=sys.stderr) as progress:
-            for n,e in adapter():
-                # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
-                local_nodes += n
-                local_edges += e
-                progress()
 
         logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
         nodes += local_nodes
