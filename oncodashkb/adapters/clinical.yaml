@@ -3,10 +3,288 @@ row:
         column: Patient card::Publication code
         to_subject: patient
 transformers:
+# Mappings info from fronnt-end PatientDTO
     - map:
+        column: Age at Diagnosis
+        to_property: age_at_diagnosis
+        for_object: patient
+    - map:
+        column: BMI at Dg
+        to_property: bmi_at_diagnosis
+        for_object: patient
+    - map:
+        column: BRCA mutation status in Clinical test
+        to_property: brca_mutation_status
+        for_object: patient
+    - map:
+        column: Chronic illnesses at Dg
+        to_property: chronic_illnesses_at_dg
+        for_object: patient
+    - map:
+        column: Chronic illnesses type
+        to_property: chronic_illnesses_type
+        for_object: patient
+    - map:
+        column: Patient card::Participation in clinical trials
+        to_property: clinical_trials
+        for_object: patient
+    - map:
+        column: Patient card::Patient cohort code_Patient Card
+        to_property: cohort_code
+        for_object: patient
+    - map:
+        column: Current phase of treatment
+        to_property: current_treatment_phase
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: days_from_beva_maintenance_end_to_progression
+        for_object: patient
+    - map: # TODO check if rigth column/property name
+        column: OS_KaplanM_allHGSC
+        to_property: days_to_death
+        for_object: patient
+    - map: # TODO check if rigth column
+        column: Time from 1st prog to Death_Days Post progression survival
+        to_property: days_to_progression
+        for_object: patient
+    - map: # TODO check if rigth column
+        column: Oper2_debulking surgery
+        to_property: debulking_surgery_ids
+        for_object: patient
+    - map: # TODO check split
+        column: Patient card::DrugTrial_name
+        to_property: drug_trial_name #TODO check relation type
+        for_object: patient #TODO check type of object
+    - map:
+        column: Patient card::Drugtrial unblinded
+        to_property: drug_trial_unblinded
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: event_series
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: followup_time
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: germline_pathogenic_variant
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: height_at_diagnosis
+        for_object: patient
+    - map: # TODO check: only one value in column but defined as list
+        column: Histology
+        to_property: histology
+        for_object: patient
+    - map:
+        column: HR signature SBS3 per patient
+        to_property: hr_signature_per_patient
+        for_object: patient
+    - map:
+        column: HR signature SBS3 pretreatment WGS
+        to_property: hr_signature_pretreatment_wgs
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: hdr_myriad_status
+        for_object: patient
+    - map:
+        column: Maintenance therapy after 1st line
+        to_property: maintenance_therapy
+        for_object: patient
+    - map: # TODO not found in data, found for oper2
+        column:
+        to_property: operation1_cancelled
+        for_object: patient
+    - map:
+        column: Oper2_IDS cancelled
+        to_property: operation2_cancelled
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: paired_fresh_samples_available
+        for_object: patient
+    - map:
+        column: Patient ID
+        to_property: patient_id
+        for_object: patient
+    - map:
+        column: PFI_KaplanM_allHGSC
+        to_property: platinum_free_interval
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: platinum_free_interval_at_upate
+        for_object: patient
+    - map:
+        column: Previous cancer yes no
+        to_property: previous_cancer
+        for_object: patient
+    - map:
+        column: Previous cancer dg
+        to_property: previous_cancer_diagnosis
+        for_object: patient
+    - map:
+        column: Primary therapy outcome
+        to_property: primary_therapy_outcome
+        for_object: patient
+    - map:
+        column: Progression Yes_No_ND
+        to_property: progression
+        for_object: patient
+    - map:
+        column: Residual tumor IDS
+        to_property: residual_tumor_ids
+        for_object: patient
+    - map: # TODO check split
+        column: Residual tumor PDS
+        to_property: residual_tumor_pds
+        for_object: patient
+    - map: 
+        column: Patient card::Patient with sequenced samples_sent_proceed
+        to_property: sequencing_available
+        for_object: patient
+    - map:
+        column: Stage_FIGO2014
+        to_property: stage
+        for_object: patient
+    - map:
+        column: Survival
+        to_property: survival
+        for_object: patient
+    - map: # TODO Not found in data
+        column: 
+        to_property: time_series
+        for_object: patient
+    - map: 
         column: Treatment strategy
         to_property: treatment_strategy
         for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: weight_at_diagnosis
+        for_object: patient
+    - map: # TODO check if rigth column
+        column: Patient card::Patient with sequenced samples_sent_proceed
+        to_property: wgs_availiable
+        for_object: patient
+        
+# Mapped info but not in front-end:
+    - map: # TODO not found in front-end
+        column: Attention
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Histology re_evaluated in DECIDER
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Histology re_evaluated notes
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Oper2_laparoscopic evaluation
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Oper2_explorative laparotomy
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Oper1_Omental disease largest nodule_NEW
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Oper2_Omental disease largest nodule_NEW
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Primary chemotherapy cycles
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: NACT cycles
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Post IDS chemotherapy cycles
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: PARPi treatment
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: CRS Omental
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: CRS Omental range
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: CRS3 residual tumor
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: RECIST 1.1 Response to NACT
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Response to NACT radiologic evaluation made
+        to_property: 
+        for_object: patient
+    - map: # TODO not found in front-end
+        column: Cause of death
+        to_property: 
+        for_object: patient
+    - map: # TODO 
+        column: PFS_KaplanM_allHGSC
+        to_property: 
+        for_object: patient
+    - map: # TODO 
+        column: PFI_KaplanM_allHGSC
+        to_property: 
+        for_object: patient
+    - map: # TODO 
+        column: Time from End of 1st line maintenance to 1st prog_Days TFI
+        to_property:
+        for_object: patient
+    - map:
+        column: BRCA mutation any
+        to_property: 
+        for_object: patient
+    - map:
+        column: BRCA any in Decider
+        to_property: 
+        for_object: patient
+    - map:
+        column: HRD Clinical test result
+        to_property: 
+        for_object: patient
+    - map:
+        column: Previous cancer_year
+        to_property: previous_cancer_year
+        for_object: patient
+    - map:
+        column: Excluded from PFI_calculation
+        to_property:
+        for_object: patient
+    - map:
+        column: Excluded from PFI_calculation_reason
+        to_property:
+        for_object: patient
+    - map:
+        column: Progression date ND_No prog at regular follow up no further follow up
+        to_property:
+        for_object: patient
+
+
+
     # - map:
     #     column: survival
     #     to_property: survival
