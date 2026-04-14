@@ -332,7 +332,7 @@ if __name__ == "__main__":
         data_file = asked.clinical[0]
 
         logging.info(f" |  | Load data `{data_file}`...")
-        table = pd.read_excel(data_file, index_col=0)
+        table = pd.read_excel(data_file)
 
         local_nodes, local_edges = process_table(
             table,
