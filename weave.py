@@ -453,6 +453,9 @@ if __name__ == "__main__":
             ((table['target_genesymbol'].isin(translations_table.symbol)) | (table.entity_type_target!="protein"))
         ]
 
+        # keeping Homo sapiens interactions
+        filtered_table = filtered_table[(filtered_table["ncbi_tax_id_source"]==9606) & (filtered_table["ncbi_tax_id_target"]==9606)]
+
         try:
             with open(mapping_file) as fd:
                 ymapping = yaml.full_load(fd)
