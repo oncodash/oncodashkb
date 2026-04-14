@@ -80,10 +80,13 @@ transformers:
         to_property: gene_symbol_gene_status
         for_object: gene_status
         format_string: "{primary_gene}:{Gene_type}"
-    - map:
+    - translate:
         columns: Gene_type
         to_property: gene_role
         for_object: gene_status
+        translations:
+            gain: GoF
+            loss: LoF
     ## Genes
     - map: 
         column: primary_gene
