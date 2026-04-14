@@ -1,0 +1,59 @@
+row:
+    map:
+        column: Patient card::Publication code
+        to_subject: patient
+transformers:
+# Mappings info from fronnt-end PatientDTO
+
+    - map:
+        column: event
+        match:
+            - death:
+                to_property: days_to_death
+                for_object: patient 
+
+    - map: # TODO not found in data
+        column:
+        to_property: days_from_beva_maintenance_end_to_progression
+        for_object: patient
+    - map: # TODO check if rigth column
+        column: 
+        to_property: days_to_progression
+        for_object: patient
+    - map: # TODO check if rigth column
+        column: 
+        to_property: debulking_surgery_ids
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: event_series
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: followup_time
+        for_object: patient
+    - map: # TODO not found in data,
+        column:
+        to_property: operation1_cancelled
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: paired_fresh_samples_available
+        for_object: patient
+    - map:
+        column: 
+        to_property: platinum_free_interval
+        for_object: patient
+    - map: # TODO not found in data
+        column:
+        to_property: platinum_free_interval_at_upate
+        for_object: patient
+    - map: # TODO Not found in data
+        column: 
+        to_property: time_series
+        for_object: patient
+    - map: # TODO 
+        column: Time from End of 1st line maintenance to 1st prog_Days TFI
+        to_property:
+        for_object: patient
+
