@@ -20,10 +20,12 @@ transformers:
         column: Chronic illnesses at Dg
         to_property: chronic_illnesses_at_dg
         for_object: patient
-    - map:
+    - replace:
         column: Chronic illnesses type
         to_property: chronic_illnesses_type
         for_object: patient
+        forbidden: "'"
+        substitue: ""
     - map:
         column: Patient card::Participation in clinical trials
         to_property: clinical_trials

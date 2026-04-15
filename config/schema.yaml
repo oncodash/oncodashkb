@@ -106,7 +106,7 @@ patient:
         treatment_strategy: str
         data_source: str
         age_at_diagnosis: int
-        bmi_at_diagnosis: int
+        bmi_at_diagnosis: double
         brca_mutation_status: str
         chronic_illnesses_at_dg: bool
         chronic_illnesses_type: str
@@ -114,8 +114,8 @@ patient:
         cohort_code: str
         current_treatment_phase: str
         days_from_beva_maintenance_end_to_progression: int
-        days_to_death: int
-        days_to_progression: int
+        days_to_death: double
+        days_to_progression: double
         debulking_surgery_ids: bool
         drug_trial_name: str
         drug_trial_unblinded: bool
@@ -132,8 +132,8 @@ patient:
         operation2_cancelled: bool
         paired_fresh_samples_available: bool
         patient_id: int
-        platinum_free_interval: int
-        platinum_free_interval_at_update: int
+        platinum_free_interval: double
+        platinum_free_interval_at_update: double
         previous_cancer: bool
         previous_cancer_diagnosis: str
         primary_therapy_outcome: str
