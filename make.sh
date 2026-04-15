@@ -83,14 +83,14 @@ echo "Weave data..." >&2
 cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --config $CONFIG \
     --clinical                              $data_dir/DECIDER/clinical/clinical_export.xlsx \
-    --short-mutations-samples               $decider_dir/snv_placeholder.xlsx  \
-    --short-mutations-local                 $decider_dir/snv_placeholder.xlsx  \
-    --short-mutations-external              $decider_dir/snv_placeholder.xlsx  \
-    --copy-number-amplifications-samples    $decider_dir/amp_placeholder.xlsx \
-    --copy-number-amplifications-local      $decider_dir/amp_placeholder.xlsx \
-    --copy-number-amplifications-external   $decider_dir/amp_placeholder.xlsx  \
-    --structural-variants                   $decider_dir/brk_placeholder.xlsx  \
-    --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.xlsx  \
+    --short-mutations-samples               $decider_dir/snv_placeholder_vTMB.xlsx  \
+    --short-mutations-local                 $decider_dir/snv_placeholder_vTMB.xlsx  \
+    --short-mutations-external              $decider_dir/snv_placeholder_vTMB.xlsx  \
+    --copy-number-amplifications-samples    $decider_dir/amp_placeholder_vTMB.xlsx \
+    --copy-number-amplifications-local      $decider_dir/amp_placeholder_vTMB.xlsx \
+    --copy-number-amplifications-external   $decider_dir/amp_placeholder_vTMB.xlsx  \
+    --structural-variants                   $decider_dir/brk_placeholder_vTMB.xlsx  \
+    --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv  \
     --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
     --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
