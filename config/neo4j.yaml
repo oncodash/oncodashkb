@@ -3,6 +3,7 @@ biocypher:
     offline: true
     schema_config_path: config/schema.yaml
     dbms: neo4j
+    strict_mode: false
 
     # Ontology configuration
     head_ontology:
