@@ -16,16 +16,18 @@ transformers:
         column: BRCA mutation status in Clinical test
         to_property: brca_mutation_status
         for_object: patient
-    - map:
+    - replace:
         column: Chronic illnesses at Dg
         to_property: chronic_illnesses_at_dg
         for_object: patient
+        forbidden: "[']" # FIXME add more apostrophes?
+        substitute: "_"
     - replace:
         column: Chronic illnesses type
         to_property: chronic_illnesses_type
         for_object: patient
-        forbidden: "'"
-        substitue: ""
+        forbidden: "[']" # FIXME add more apostrophes?
+        substitute: "_"
     - map:
         column: Patient card::Participation in clinical trials
         to_property: clinical_trials
@@ -252,10 +254,10 @@ transformers:
 #         column: PFI_KaplanM_allHGSC
 #         to_property: 
 #         for_object: patient
-    - map: # TODO 
-        column: Time from End of 1st line maintenance to 1st prog_Days TFI
-        to_property:
-        for_object: patient
+    # - map: # TODO 
+    #     column: Time from End of 1st line maintenance to 1st prog_Days TFI
+    #     to_property:
+    #     for_object: patient
     # - map:
     #     column: BRCA mutation any
     #     to_property: 
