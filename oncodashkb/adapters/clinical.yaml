@@ -21,9 +21,9 @@ transformers:
         to_property: chronic_illnesses_at_dg
         for_object: patient
         consider_true:
-            - Yes
+            - "Yes"
         consider_false:
-            - No
+            - "No"
     - replace: # TODO check if list or string as input for fromt end
         column: Chronic illnesses type
         to_property: chronic_illnesses_type
@@ -34,10 +34,6 @@ transformers:
         column: Patient card::Participation in clinical trials
         to_property: clinical_trials
         for_object: patient
-        consider_true:
-            - Yes
-        consider_false:
-            - No
     - map:
         column: Patient card::Patient cohort code_Patient Card
         to_property: cohort_code
@@ -63,9 +59,9 @@ transformers:
         to_property: debulking_surgery_ids
         for_object: patient
         consider_true:
-            - Yes
+            - "Yes"
         consider_false:
-            - No
+            - "No"
     - map:
         column: Patient card::DrugTrial_name
         to_property: drug_trial_name
@@ -75,9 +71,9 @@ transformers:
         to_property: drug_trial_unblinded
         for_object: patient
         consider_true:
-            - Yes
+            - "Yes"
         consider_false:
-            - No
+            - "No"
     # - map: # TODO check where is the column
     #     column:
     #     to_property: event_series
@@ -111,7 +107,7 @@ transformers:
     #     to_property: hdr_myriad_status
     #     for_object: patient
     - map:
-        column: Maintenance therapy after 1st line
+        column: Maintenance therary after 1st line
         to_property: maintenance_therapy
         for_object: patient
     # - map: # TODO not found in data, found for oper2
@@ -143,9 +139,11 @@ transformers:
         to_property: previous_cancer
         for_object: patient
         consider_true:
-            - Yes
+            - "Yes"
         consider_false:
-            - No
+            - "No"
+            - "no"
+            - "ND"
     - map:
         column: Previous cancer dg
         to_property: previous_cancer_diagnosis
@@ -159,9 +157,9 @@ transformers:
         to_property: progression
         for_object: patient
         consider_true:
-            - Yes
+            - "Yes"
         consider_false:
-            - No
+            - "No"
     - map:
         column: Residual tumor IDS
         to_property: residual_tumor_ids
@@ -175,9 +173,9 @@ transformers:
         to_property: sequencing_available
         for_object: patient
         consider_true:
-            - Yes
+            - "Yes"
         consider_false:
-            - No
+            - "No"
     - map: # CHECK Before CUD_Stage_FIGO2014
         column: Stage_FIGO2014
         to_property: stage
