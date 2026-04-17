@@ -11,18 +11,20 @@ transformers:
     - map:
         column: BMI at Dg
         to_property: bmi_at_diagnosis
-        for_object: patient
-    - map:
+        for_object: patient  
+    - map: # TODO check if list or string as input for fromt end
         column: BRCA mutation status in Clinical test
         to_property: brca_mutation_status
         for_object: patient
-    - replace:
+    - boolean:
         column: Chronic illnesses at Dg
         to_property: chronic_illnesses_at_dg
         for_object: patient
-        forbidden: "[']" # FIXME add more apostrophes?
-        substitute: "_"
-    - replace:
+        consider_true:
+            - Yes
+        consider_false:
+            - No
+    - replace: # TODO check if list or string as input for fromt end
         column: Chronic illnesses type
         to_property: chronic_illnesses_type
         for_object: patient
@@ -32,6 +34,10 @@ transformers:
         column: Patient card::Participation in clinical trials
         to_property: clinical_trials
         for_object: patient
+        consider_true:
+            - Yes
+        consider_false:
+            - No
     - map:
         column: Patient card::Patient cohort code_Patient Card
         to_property: cohort_code
@@ -40,47 +46,55 @@ transformers:
         column: Current phase of treatment
         to_property: current_treatment_phase
         for_object: patient
-    # - map: # TODO not found in data
-    #     column:
+    # - map: # TODO check where is the column (timeline?)
+    #     column: TFIbev Time from end of beva maintenance to prog
     #     to_property: days_from_beva_maintenance_end_to_progression
     #     for_object: patient
-    - map: # TODO check if rigth column/property name
-        column: OS_KaplanM_allHGSC
-        to_property: days_to_death
-        for_object: patient
-    - map: # TODO check if rigth column
-        column: Time from 1st prog to Death_Days Post progression survival
-        to_property: days_to_progression
-        for_object: patient
-    - map: # TODO check if rigth column
+    # - map: # TODO check where is the column (timeline?)
+    #     column: CUD_Time to death_days
+    #     to_property: days_to_death
+    #     for_object: patient
+    # - map: # TODO check where is the column (timeline?)
+    #     column: CUD_Time to progression_days
+    #     to_property: days_to_progression
+    #     for_object: patient
+    - boolean:
         column: Oper2_debulking surgery
         to_property: debulking_surgery_ids
         for_object: patient
-    - map: # TODO check split
-        column: Patient card::DrugTrial_name
-        to_property: drug_trial_name #TODO check relation type
-        for_object: patient #TODO check type of object
+        consider_true:
+            - Yes
+        consider_false:
+            - No
     - map:
+        column: Patient card::DrugTrial_name
+        to_property: drug_trial_name
+        for_object: patient
+    - boolean:
         column: Patient card::Drugtrial unblinded
         to_property: drug_trial_unblinded
         for_object: patient
-    # - map: # TODO not found in data
+        consider_true:
+            - Yes
+        consider_false:
+            - No
+    # - map: # TODO check where is the column
     #     column:
     #     to_property: event_series
     #     for_object: patient
-    # - map: # TODO not found in data
-    #     column:
+    # - map: # TODO check where is the column (timeline?)
+    #     column: CUD_Follow up time_months from Dg alive
     #     to_property: followup_time
     #     for_object: patient
-    # - map: # TODO not found in data
-    #     column:
+    # - map: # TODO check where is the column
+    #     column: Gene Germ line pathogenic variant
     #     to_property: germline_pathogenic_variant
     #     for_object: patient
-    # - map: # TODO not found in data
-    #     column:
+    # - map: # TODO check where is the column
+    #     column: Height at dg
     #     to_property: height_at_diagnosis
     #     for_object: patient
-    - map: # TODO check: only one value in column but defined as list
+    - map: # CHECK Before CUD_Histology
         column: Histology
         to_property: histology
         for_object: patient
@@ -93,88 +107,100 @@ transformers:
         to_property: hr_signature_pretreatment_wgs
         for_object: patient
     # - map: # TODO not found in data
-    #     column:
+    #     column: HRD Myriad status
     #     to_property: hdr_myriad_status
     #     for_object: patient
-    # - map:
-    #     column: Maintenance therapy after 1st line
-    #     to_property: maintenance_therapy
-    #     for_object: patient
+    - map:
+        column: Maintenance therapy after 1st line
+        to_property: maintenance_therapy
+        for_object: patient
     # - map: # TODO not found in data, found for oper2
-    #     column:
+    #     column: Oper1_cancelled
     #     to_property: operation1_cancelled
     #     for_object: patient
-    - map:
+    - map: # CHECK Before Oper2_cancelled
         column: Oper2_IDS cancelled
         to_property: operation2_cancelled
         for_object: patient
     # - map: # TODO not found in data
-    #     column:
+    #     column: Patient card::Patient with paired fresh samples
     #     to_property: paired_fresh_samples_available
     #     for_object: patient
     - map:
         column: Patient ID
         to_property: patient_id
         for_object: patient
-    - map:
-        column: PFI_KaplanM_allHGSC
-        to_property: platinum_free_interval
-        for_object: patient
-    # - map: # TODO not found in data
-    #     column:
-    #     to_property: platinum_free_interval_at_upate
+    # - map: # TODO not found in data (timeline?)
+    #     column: "CUD_Platinum free interval days if Prog"
+    #     to_property: platinum_free_interval
     #     for_object: patient
-    - map:
+    - map: # CHECK Before PFI at outcome update when no prog
+        column: PFI_KaplanM_allHGSC
+        to_property: platinum_free_interval_at_upate
+        for_object: patient
+    - boolean:
         column: Previous cancer yes no
         to_property: previous_cancer
         for_object: patient
+        consider_true:
+            - Yes
+        consider_false:
+            - No
     - map:
         column: Previous cancer dg
         to_property: previous_cancer_diagnosis
         for_object: patient
-    - map:
+    - map: # CHECK Before CUD_Primary therapy outcome
         column: Primary therapy outcome
         to_property: primary_therapy_outcome
         for_object: patient
-    - map:
+    - boolean: # CHECK Before CUD_Progression
         column: Progression Yes_No_ND
         to_property: progression
         for_object: patient
+        consider_true:
+            - Yes
+        consider_false:
+            - No
     - map:
         column: Residual tumor IDS
         to_property: residual_tumor_ids
         for_object: patient
-    - map: # TODO check split
+    - map:
         column: Residual tumor PDS
         to_property: residual_tumor_pds
         for_object: patient
-    - map: # TODO check duplicates below
+    - boolean: # CHECK Before Patient card::Patient with any sequenced tissue
         column: Patient card::Patient with sequenced samples_sent_ proceed
         to_property: sequencing_available
         for_object: patient
-    - map: # TODO check if rigth column
-        column: Patient card::Patient with sequenced samples_sent_ proceed
-        to_property: wgs_availiable
-        for_object: patient
-    - map:
+        consider_true:
+            - Yes
+        consider_false:
+            - No
+    - map: # CHECK Before CUD_Stage_FIGO2014
         column: Stage_FIGO2014
         to_property: stage
         for_object: patient
-    - map:
+    - map: # CHECK Before CUD_Survival
         column: Survival
         to_property: survival
         for_object: patient
-    # - map: # TODO Not found in data
+    # - map: # TODO Not found in data like event_series
     #     column: 
     #     to_property: time_series
     #     for_object: patient
-    - map:
+    - map: # CHECK Before CUD_Treatment strategy
         column: Treatment strategy
         to_property: treatment_strategy
         for_object: patient
     # - map: # TODO not found in data
-    #     column:
+    #     column: Weight at dg
     #     to_property: weight_at_diagnosis
+    #     for_object: patient
+    # - map: # TODO not found in data
+    #     column: Patient card::Patient with any WGS samples
+    #     to_property: wgs_availiable
     #     for_object: patient
 
 # # Mapped info but not in front-end:
@@ -270,10 +296,10 @@ transformers:
     #     column: HRD Clinical test result
     #     to_property: 
     #     for_object: patient
-    - map:
-        column: Previous cancer_year
-        to_property: previous_cancer_year
-        for_object: patient
+    # - map:
+    #     column: Previous cancer_year
+    #     to_property: previous_cancer_year
+    #     for_object: patient
     # - map:
     #     column: Excluded from PFI_calculations
     #     to_property:
