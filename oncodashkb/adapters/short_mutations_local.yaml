@@ -17,13 +17,17 @@ transformers:
         translate_to: Patient card::Publication code
         index_col: 0
         usecols: [0,1,2]
+    ## Alteration
     - cat_format:
         columns:
             - Gene
-            - Mutation
-        from_subject: sample
+            - CHROM
+            - POS
+            - REF
+            - ALT
         to_object: short_mutation
-        format_string: "{Gene}:{Mutation}"
+        from_subject: sample
+        format_string: "{Gene}:{CHROM}:{POS}:{REF}:{ALT}"
         via_relation: sample_carries_variant
     - map:
         column: ExonicFunc

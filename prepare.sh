@@ -172,6 +172,8 @@ declare -a decider_files=(
     $decider_dir/snv_placeholder_vTMB.xlsx
     $decider_dir/amp_placeholder_vTMB.xlsx
     $decider_dir/brk_placeholder_vTMB.xlsx
+    $decider_dir/short_mutations_external_vTMB.csv
+    $decider_dir/copy_number_amplifications_external_vTMB.csv
     $decider_dir/oncokb_gene_status_info.csv
 )
 if [[ -d "$decider_dir" ]] ; then

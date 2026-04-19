@@ -23,10 +23,13 @@ transformers:
     - cat_format:
         columns:
             - Gene
-            - Mutation
-        from_subject: sample
+            - CHROM
+            - POS
+            - REF
+            - ALT
         to_object: short_mutation
-        format_string: "{Gene}:{Mutation}"
+        from_subject: sample
+        format_string: "{Gene}:{CHROM}:{POS}:{REF}:{ALT}"
         via_relation: sample_carries_variant
     ## Gene Status
     - translate_cat_format:

@@ -188,7 +188,10 @@ if __name__ == "__main__":
                         help="Extract from a CSV file with short mutations' local annotations.")
 
     parser.add_argument("-sme", "--short-mutations-external", metavar="CSV", nargs="+",
-                        help="Extract from a CSV file with short mutations' variants external annotations.")
+                        help="Extract from a CSV file with short mutations' external annotations.")
+    
+    parser.add_argument("-smeo", "--short-mutations-external-oncokb", metavar="CSV", nargs="+",
+                        help="Extract from a CSV file with short mutations' external annotations from oncoKB.")
 
     parser.add_argument("-cnas", "--copy-number-amplifications-samples", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with copy number amplifications' samples.")
@@ -198,6 +201,9 @@ if __name__ == "__main__":
 
     parser.add_argument("-cnae", "--copy-number-amplifications-external", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with copy number amplifications' external annotations.")
+    
+    parser.add_argument("-cnaeo", "--copy-number-amplifications-external-oncokb", metavar="CSV", nargs="+",
+                        help="Extract from a CSV file with copy number amplifications' external annotations from OncoKB.")
 
     parser.add_argument("-sv", "--structural-variants", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with short mutations' local annotations.")
@@ -269,9 +275,11 @@ if __name__ == "__main__":
         "short_mutations_samples",
         "short_mutations_local",
         "short_mutations_external",
+        "short_mutations_external_oncokb",
         "copy_number_amplifications_samples",
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
+        "copy_number_amplifications_external_oncokb",
         "structural_variants",
         "oncokb",
         "oncokb_gene_status",
@@ -405,6 +413,24 @@ if __name__ == "__main__":
         edges += local_edges
         logging.info(f"Done adapter {opt_loaded}/{opt_total}")
 
+    if asked.short_mutations_external_oncokb:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        data_file = asked.short_mutations_external_oncokb[0]
+
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = progress_read(data_file, hint=198)
+
+        local_nodes, local_edges = process_table(
+            table,
+            name = "short_mutations_external_oncokb",
+        )
+
+        logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
     if asked.copy_number_amplifications_samples:
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
@@ -455,6 +481,24 @@ if __name__ == "__main__":
         local_nodes, local_edges = process_table(
             table,
             name="copy_number_amplifications_external",
+        )
+
+        logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
+    if asked.copy_number_amplifications_external_oncokb:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        data_file = asked.copy_number_amplifications_external_oncokb[0]
+
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = progress_read(data_file, hint=198)
+
+        local_nodes, local_edges = process_table(
+            table,
+            name = "copy_number_amplifications_external_oncokb",
         )
 
         logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")

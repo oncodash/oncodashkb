@@ -1,0 +1,37 @@
+row:
+    map:
+        column: alteration
+        to_subject: short_mutation
+transformers:
+    # Nodes
+    # ## Gene status
+    # - cat_format:
+    #     columns:
+    #         - hugoSymbol
+    #     to_object: gene_status
+    #     via_relation: variant_causes_gene_status
+    #     format_string: "{hugoSymbol}:GoF"
+    ## Genes
+    - translate:
+        column: hugoSymbol
+        from_subject: gene_status
+        to_object: gene
+        via_relation: gene_status_affects_gene
+        translations_file: data/HGNC/hgnc_complete_set.txt
+        translate_from: symbol
+        translate_to: ensembl_gene_id
+        sep: "\t"
+    # Properties
+    ## Alterations
+    - replace: 
+        column: mutationEffectDescription
+        to_property: mutation_effect_description
+        for_object: short_mutation
+        forbidden: "[']"
+        substitute: "_"
+    - map: 
+        column: geneSummary
+        to_property: gene_summary
+        for_object: gene
+metadata:
+        - data_source: short_mutations_external_oncokb
