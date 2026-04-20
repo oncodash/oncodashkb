@@ -166,7 +166,7 @@ declare -a decider_files=(
     $decider_dir/vTMB/brk_placeholder_vTMB.xlsx
     $decider_dir/vTMB/short_mutations_external_vTMB.csv
     $decider_dir/vTMB/copy_number_amplifications_external_vTMB.csv
-    $decider_dir/vTMB/NETWORK_OT_OKB_filtered_2024_12_17.csv
+    $decider_dir/vTMB/oncoKB_placeholder_vTMB.xlsx
     $decider_dir/clinical/12122025_Clinical_export_DECIDER_collab.xlsx
 )
 if [[ -d "$decider_dir" ]] ; then
@@ -181,8 +181,8 @@ fi
 
 ### 2.2.2 - Symlinks
 
-cd $root_dir/$decider_dir/vTMB
-ln -sf NETWORK_OT_OKB_filtered_2024_12_17.csv oncokb_gene_status_info.csv
+# cd $root_dir/$decider_dir/vTMB
+# ln -sf NETWORK_OT_OKB_filtered_2024_12_17.csv oncokb_gene_status_info.csv
 
 cd $root_dir/$decider_dir/clinical/
 ln -sf 12122025_Clinical_export_DECIDER_collab.xlsx clinical_export.xlsx
