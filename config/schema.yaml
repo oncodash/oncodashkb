@@ -371,14 +371,14 @@ variant biomarker for treatment:
     source: sequence variant
     target: treatment
     properties:
-        fda_level: str
-        level_of_evidence: str
-        cgi_level: str
-        citations: str
-        tumorType: str
-        Cancer_types: str
+        # fda_level: str
+        # level_of_evidence: str
+        # cgi_level: str
+        # citations: str
+        # tumorType: str
         data_source: str
-        edglelabel: str
+        Tier: str
+        # edglelabel: str
 
 ## METADATA
 

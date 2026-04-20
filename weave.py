@@ -535,24 +535,27 @@ if __name__ == "__main__":
         data_file = asked.oncokb_gene_status[0]
 
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, hint=1430)
+        # table = progress_read(data_file, hint=1430)
+        table = pd.read_excel(data_file)
 
-        # Replace "." by "_" in column names
-        table = table.rename(columns={"okb.drug":"okb_drug", 
-                                      "fda.level":"fda_level", 
-                                      "Cancer.Types":"Cancer_Types"})
-        table_okb = table[~table["fda_level"].isna()]
-        table_okb = table_okb.drop(["drugType", 
-                                    "drugProteinRelation", 
-                                    "proteinTarget", 
-                                    "targetENSG", 
-                                    "geneProteinRelation", 
-                                    "maximumClinicalTrialPhase", 
-                                    "yearOfFirstApproval", 
-                                    "isApproved"], 
-                                    axis=1).drop_duplicates()
+        # # Replace "." by "_" in column names
+        table_okb = table.rename(columns={"Gene.type":"Gene_type"})
+        # table = table.rename(columns={"okb.drug":"okb_drug", 
+        #                               "fda.level":"fda_level", 
+        #                               "Cancer.Types":"Cancer_Types"})
+        # table_okb = table[~table["fda_level"].isna()]
+        # table_okb = table_okb.drop(["drugType", 
+        #                             "drugProteinRelation", 
+        #                             "proteinTarget", 
+        #                             "targetENSG", 
+        #                             "geneProteinRelation", 
+        #                             "maximumClinicalTrialPhase", 
+        #                             "yearOfFirstApproval", 
+        #                             "isApproved"], 
+        #                             axis=1).drop_duplicates()
         # Change to upper case and remove parentheses and things inside
         table_okb["Drugs"] = table_okb.Drugs.str.upper().str.replace(r'\([^()]*\)', '', regex=True)
+        
 
         local_nodes, local_edges = process_table(
             table_okb,

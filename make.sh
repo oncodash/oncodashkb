@@ -86,7 +86,7 @@ cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --copy-number-amplifications-external           $decider_dir/vTMB/amp_placeholder_vTMB.xlsx  \
     --copy-number-amplifications-external-oncokb    $decider_dir/vTMB/copy_number_amplifications_external_vTMB.csv  \
     --structural-variants                           $decider_dir/vTMB/brk_placeholder_vTMB.xlsx  \
-    --oncokb-gene-status                            $decider_dir/vTMB/oncokb_gene_status_info.csv  \
+    --oncokb-gene-status                            $decider_dir/vTMB/oncoKB_placeholder_vTMB.xlsx  \
     --omnipath-networks                             $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     --open-targets-drug_mechanism_of_action         $data_dir/OT/drug_mechanism_of_action/
     --open-targets-drug-molecule                    $data_dir/OT/drug_molecule/
