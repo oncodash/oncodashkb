@@ -69,6 +69,19 @@ transformers:
         translate_to: ensembl_gene_id
         sep: "\t"
     # Properties
+    ## Sample
+    - map:
+        column: ssite
+        to_property: tumor_site
+        for_object: sample
+    - map:
+        column: stime
+        to_property: sample_time
+        for_object: sample
+    - map:
+        column: sside
+        to_property: sample_type
+        for_object: sample
     ## Alterations
     - map:
         column: effect
@@ -136,6 +149,14 @@ transformers:
             - True
         consider_false:
             - False
+    - map:
+        column: undisruptedCopyNumber
+        to_property: undisruptedCopyNumber
+        for_object: sample_carries_variant
+    - map:
+        column: affectedCopyNumber
+        to_property: affectedCopyNumber
+        for_object: sample_carries_variant
     - string:
         value: " "
         to_property: edgelabel
