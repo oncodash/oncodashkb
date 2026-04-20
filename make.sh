@@ -82,17 +82,17 @@ echo "Weave data..." >&2
 
 cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --config $CONFIG \
-    --clinical                                      $data_dir/DECIDER/clinical/clinical_export.xlsx \
-    --short-mutations-samples                       $decider_dir/snv_placeholder_vTMB.xlsx  \
-    --short-mutations-local                         $decider_dir/snv_placeholder_vTMB.xlsx  \
-    --short-mutations-external                      $decider_dir/snv_placeholder_vTMB.xlsx  \
-    --short-mutations-external-oncokb               $decider_dir/short_mutations_external_vTMB.csv  
-    --copy-number-amplifications-samples            $decider_dir/amp_placeholder_vTMB.xlsx \
-    --copy-number-amplifications-local              $decider_dir/amp_placeholder_vTMB.xlsx \
-    --copy-number-amplifications-external           $decider_dir/amp_placeholder_vTMB.xlsx  \
-    --copy-number-amplifications-external-oncokb    $decider_dir/copy_number_amplifications_external_vTMB.csv  \
-    --structural-variants                           $decider_dir/brk_placeholder_vTMB.xlsx  \
-    --oncokb-gene-status                            $decider_dir/oncokb_gene_status_info.csv  \
+    --clinical                                      $decider_dir/clinical/clinical_export.xlsx \
+    --short-mutations-samples                       $decider_dir/vTMB/snv_placeholder_vTMB.xlsx  \
+    --short-mutations-local                         $decider_dir/vTMB/snv_placeholder_vTMB.xlsx  \
+    --short-mutations-external                      $decider_dir/vTMB/snv_placeholder_vTMB.xlsx  \
+    --short-mutations-external-oncokb               $decider_dir/vTMB/short_mutations_external_vTMB.csv  
+    --copy-number-amplifications-samples            $decider_dir/vTMB/amp_placeholder_vTMB.xlsx \
+    --copy-number-amplifications-local              $decider_dir/vTMB/amp_placeholder_vTMB.xlsx \
+    --copy-number-amplifications-external           $decider_dir/vTMB/amp_placeholder_vTMB.xlsx  \
+    --copy-number-amplifications-external-oncokb    $decider_dir/vTMB/copy_number_amplifications_external_vTMB.csv  \
+    --structural-variants                           $decider_dir/vTMB/brk_placeholder_vTMB.xlsx  \
+    --oncokb-gene-status                            $decider_dir/vTMB/oncokb_gene_status_info.csv  \
     --omnipath-networks                             $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     --open-targets-drug_mechanism_of_action         $data_dir/OT/drug_mechanism_of_action/
     --open-targets-drug-molecule                    $data_dir/OT/drug_molecule/

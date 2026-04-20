@@ -8,6 +8,7 @@ fi
 set -e
 #set -o pipefail
 
+root_dir=$(dirname $(realpath $0))
 data_dir="data"
 decider_dir="$1"
 log_file="prepare.log"
@@ -150,16 +151,7 @@ echo " └OK" >&2
 
 ## 2.2 - DECIDER data
 
-### 2.2.1 - Symlinks
-
-cd $decider_dir
-
-ln -sf NETWORK_OT_OKB_filtered_2024_12_17.csv oncokb_gene_status_info.csv
-ln -sf ./../clinical/12122025_Clinical_export_DECIDER_collab.xlsx ./../clinical/clinical_export.xlsx
-
-cd -
-
-### 2.2.2 - Check DECIDER data
+### 2.2.1 - Check DECIDER data
 
 echo "Check DECIDER data..." >&2
 check() {
@@ -169,12 +161,13 @@ check() {
     fi
 }
 declare -a decider_files=(
-    $decider_dir/snv_placeholder_vTMB.xlsx
-    $decider_dir/amp_placeholder_vTMB.xlsx
-    $decider_dir/brk_placeholder_vTMB.xlsx
-    $decider_dir/short_mutations_external_vTMB.csv
-    $decider_dir/copy_number_amplifications_external_vTMB.csv
-    $decider_dir/oncokb_gene_status_info.csv
+    $decider_dir/vTMB/snv_placeholder_vTMB.xlsx
+    $decider_dir/vTMB/amp_placeholder_vTMB.xlsx
+    $decider_dir/vTMB/brk_placeholder_vTMB.xlsx
+    $decider_dir/vTMB/short_mutations_external_vTMB.csv
+    $decider_dir/vTMB/copy_number_amplifications_external_vTMB.csv
+    $decider_dir/vTMB/NETWORK_OT_OKB_filtered_2024_12_17.csv
+    $decider_dir/clinical/12122025_Clinical_export_DECIDER_collab.xlsx
 )
 if [[ -d "$decider_dir" ]] ; then
     for f in ${decider_files[@]}; do
@@ -184,8 +177,41 @@ else
     echo "The '$decider_dir' directory does not exists." >&2
     exit 1
 fi
-check $data_dir/DECIDER/clinical/clinical_export.xlsx
+
+
+### 2.2.2 - Symlinks
+
+cd $root_dir/$decider_dir/vTMB
+ln -sf NETWORK_OT_OKB_filtered_2024_12_17.csv oncokb_gene_status_info.csv
+
+cd $root_dir/$decider_dir/clinical/
+ln -sf 12122025_Clinical_export_DECIDER_collab.xlsx clinical_export.xlsx
+
+cd $root_dir
+
 echo " └OK" >&2
+
+
+### 2.2.3 – adapters paths
+
+cd oncodashkb/adapters/
+
+declare -a decider_adapters=(
+    copy_number_amplifications_local.yaml
+    short_mutations_external.yaml
+    copy_number_amplifications_samples.yaml
+    short_mutations_local.yaml
+    structural_variants.yaml
+    copy_number_amplifications_external.yaml
+    short_mutations_samples.yaml
+)
+
+for a in ${decider_adapters[@]} ; do
+    cat template__$a | sed "s,{{{DECIDER_DIR}}},$decider_dir,g" > $a
+done
+
+cd $root_dir
+
 
 # ## 2.3 - Debugging data
 

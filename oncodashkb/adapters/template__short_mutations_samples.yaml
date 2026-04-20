@@ -2,16 +2,15 @@ row:
     translate_sample_ids :
         column: sample
         to_subject: sample
-        via_relation: patient_carries_sample
-        translations_file: ./data/DECIDER/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
         usecols: [0,1,2]
 transformers:
     - map:
-        column: ploidy
-        to_property: ploidy
+        column: purity
+        to_property: purity
         for_object: sample
     - map:
         column: ssite

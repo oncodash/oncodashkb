@@ -2,55 +2,50 @@ row:
     translate:
         column: patient
         to_subject: patient
-        translations_file: ./data/DECIDER/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
         usecols: [0,1,2]
 transformers:
     # Nodes
-    ## Samples
+    ## Sample
     - translate_sample_ids :
         column: sample
         to_object: sample
         via_relation: patient_carries_sample
-        translations_file: ./data/DECIDER/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
         usecols: [0,1,2]
-    ## Alterations
+    ## Alteration
     - cat_format:
         columns:
             - Gene
-            # - alteration
+            - CHROM
+            - POS
+            - REF
+            - ALT
+        to_object: short_mutation
         from_subject: sample
-        to_object: copy_number_amplification
+        format_string: "{Gene}:{CHROM}:{POS}:{REF}:{ALT}"
         via_relation: sample_carries_variant
-        format_string: "{Gene}:AMPLIFICATION"
-    ## Gene status
+    ## Gene Status
+    - translate_cat_format:
     # - cat_format:
-    #     columns:
-    #       - ensembl_id
-    #       - gene_role
-    #     from_subject: copy_number_amplification
-    #     to_object: gene_status
-    #     format_string: "{ensembl_id}:{gene_role}"
-    #     via_relation: variant_causes_gene_status
-        # column_to_translate: 
-        #     - hugoSymbol
-        # translations_file: data/HGNC/hgnc_complete_set.txt
-        # translate_from: symbol
-        # translate_to: ensembl_gene_id
-        # sep: "\t"
-    - cat_format:
         columns:
-            - Gene
-            # - gene_role
+          - Gene
+          - Gene_type
         to_object: gene_status
-        from_subject: copy_number_amplification
+        from_subject: short_mutation
+        format_string: "{Gene}:{Gene_type}"
         via_relation: variant_causes_gene_status
-        format_string: "{Gene}:GoF"
+        column_to_translate: 
+            - Gene_type
+        translations:
+            gain: GoF
+            loss: LoF
     ## Genes
     - translate:
         column: Gene
@@ -62,28 +57,14 @@ transformers:
         translate_to: ensembl_gene_id
         sep: "\t"
     # Properties
-    ## Alterations
-    # - cat_format:
-    #     columns:
-    #         - ensembl_id
-    #         - alteration
-    #     to_property: ensembl_id_alteration
-    #     for_object: copy_number_amplification
-    #     format_string: "{ensembl_id}:{alteration}"
-        # column_to_translate: 
-        #     - hugoSymbol
-        # translations_file: data/HGNC/hgnc_complete_set.txt
-        # translate_from: symbol
-        # translate_to: ensembl_gene_id
-        # sep: "\t"
-    ## Gene status
+    ## Gene Status
     # - translate_cat_format:
     #     columns:
     #       - Gene
-    #     #   - Gene_type
-    #     from_subject: copy_number_amplification
+    #       - Gene_type
+    #     from_subject: short_mutation
     #     to_object: gene_status
-    #     format_string: "{Gene}:GoF"
+    #     format_string: "{Gene}:{Gene_type}"
     #     via_relation: variant_causes_gene_status
     #     column_to_translate: 
     #         - Gene
@@ -91,24 +72,23 @@ transformers:
     #     translate_from: symbol
     #     translate_to: ensembl_gene_id
     #     sep: "\t"
-    - string:
-        value: "GoF"
+    - translate:
+        columns: Gene_type
         to_property: gene_role
         for_object: gene_status
+        translations:
+            gain: GoF
+            loss: LoF
     ## Genes
-    - map: 
+    - map:
         column: Gene
         to_property: gene_symbol
         for_object: gene
     ## Alterations
-    # - map:
-    #     column: tumorType
-    #     to_property: tumor_type
-    #     for_object: copy_number_amplification
     - boolean:
         column: Pathogenic
         to_property: oncogenic
-        for_object: copy_number_amplification
+        for_object: short_mutation
         consider_true:
             - True
         consider_false:
@@ -116,11 +96,11 @@ transformers:
     # - replace:
     #     column: mutationEffectDescription
     #     to_property: mutation_effect_description
-    #     for_object: copy_number_amplification
+    #     for_object: short_mutation
     # - map:
     #     column: citationPMids
     #     to_property: citation_PM_ids
-    #     for_object: copy_number_amplification
+    #     for_object: short_mutation
     # - replace:
     #     column: geneSummary
     #     to_property: gene_summary
@@ -128,11 +108,7 @@ transformers:
     # - map:
     #     column: variantSummary
     #     to_property: variant_summary
-    #     for_object: copy_number_amplification
-    # - map:
-    #     column: tumorTypeSummary
-    #     to_property: tumor_type_summary
-    #     for_object: copy_number_amplification
+    #     for_object: short_mutation
     - string:
         value: " "
         to_property: edgelabel
@@ -141,6 +117,5 @@ transformers:
             - sample_carries_variant
             - variant_causes_gene_status
             - gene_status_affects_gene
-
 metadata:
-        - data_source: copy_number_amplifications_external
+        - data_source: short_mutations_external
