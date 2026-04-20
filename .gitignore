@@ -26,3 +26,11 @@ oncodashkb/transformers/ot_transformers.py
 oncodashkb/adapters/open_targets_target.yaml
 oncodashkb/adapters/open_targets_drug_mechanism_of_action.yaml
 oncodashkb/adapters/open_targets_drug_molecule.yaml
+
+oncodashkb/adapters/copy_number_amplifications_external.yaml
+oncodashkb/adapters/copy_number_amplifications_local.yaml
+oncodashkb/adapters/copy_number_amplifications_samples.yaml
+oncodashkb/adapters/short_mutations_external.yaml
+oncodashkb/adapters/short_mutations_local.yaml
+oncodashkb/adapters/short_mutations_samples.yaml
+oncodashkb/adapters/structural_variants.yaml
