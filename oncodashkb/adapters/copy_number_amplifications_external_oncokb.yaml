@@ -16,6 +16,14 @@ transformers:
         # format_string: "{hugoSymbol}:GoF"
         format_string: "{hugoSymbol}:gain"
     ## Genes
+    - map:
+        column: hugoSymbol
+        to_property: gene_symbol
+        for_object: copy_number_amplification
+    - map:
+        column: hugoSymbol
+        to_property: gene_symbol
+        for_object: gene
     - translate:
         column: hugoSymbol
         from_subject: gene_status
