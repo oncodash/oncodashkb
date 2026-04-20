@@ -75,16 +75,10 @@ echo "Activate virtual environment..." >&2
 source $(dirname $(uv python find))/activate
 
 
-if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
-    echo "Stop Neo4j server..." >&2
-    neo_version=$(neo4j-admin --version | cut -d. -f 1)
-    if [[ "$neo_version" -eq 4 ]]; then
-        server="${NEO_USER} neo4j"
-    else
-        server="${NEO_USER} neo4j-admin server"
-    fi
-    $server stop
-fi
+echo "Remove old BioCypher data" >&2
+
+rm -rf biocypher-*
+
 
 echo "Weave data..." >&2
 
@@ -112,6 +106,15 @@ $cmd > tmp.sh
 
 
 if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
+    echo "Stop Neo4j server..." >&2
+    neo_version=$(neo4j-admin --version | cut -d. -f 1)
+    if [[ "$neo_version" -eq 4 ]]; then
+        server="${NEO_USER} neo4j"
+    else
+        server="${NEO_USER} neo4j-admin server"
+    fi
+    $server stop
+
     echo "Run import script..." >&2
     chmod a+x  $(cat tmp.sh)
     ${NEO_USER} $SHELL $(cat tmp.sh)
