@@ -13,7 +13,8 @@ transformers:
             - hugoSymbol
         to_object: gene_status
         via_relation: variant_causes_gene_status
-        format_string: "{hugoSymbol}:GoF"
+        # format_string: "{hugoSymbol}:GoF"
+        format_string: "{hugoSymbol}:gain"
     ## Genes
     - translate:
         column: hugoSymbol

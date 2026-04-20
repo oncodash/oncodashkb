@@ -50,7 +50,8 @@ transformers:
         to_object: gene_status
         from_subject: copy_number_amplification
         via_relation: variant_causes_gene_status
-        format_string: "{Gene}:GoF"
+        # format_string: "{Gene}:GoF"
+        format_string: "{Gene}:gain"
     ## Genes
     - translate:
         column: Gene
@@ -92,7 +93,8 @@ transformers:
     #     translate_to: ensembl_gene_id
     #     sep: "\t"
     - string:
-        value: "GoF"
+        # value: "GoF"
+        value: "gain"
         to_property: gene_role
         for_object: gene_status
     ## Genes

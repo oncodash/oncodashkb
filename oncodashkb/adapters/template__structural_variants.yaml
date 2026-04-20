@@ -29,7 +29,8 @@ transformers:
         via_relation: sample_carries_variant
         format_string: "{primary_gene}:{mutation}"
     ## Gene status
-    - translate_cat_format:
+    # - translate_cat_format:
+    - cat_format:
         columns:
             - primary_gene
             - Gene_type
@@ -39,11 +40,11 @@ transformers:
         # for_object: gene_status
         format_string: "{primary_gene}:{Gene_type}"
         via_relation: variant_causes_gene_status
-        column_to_translate: 
-            - Gene_type
-        translations:
-            gain: GoF
-            loss: LoF
+        # column_to_translate: 
+        #     - Gene_type
+        # translations:
+        #     gain: GoF
+        #     loss: LoF
     # - translate_cat_format:
     #     columns:
     #       - primary_gene
@@ -108,13 +109,14 @@ transformers:
         to_property: gene_symbol_gene_status
         for_object: gene_status
         format_string: "{primary_gene}:{Gene_type}"
-    - translate:
+    # - translate:
+    - map:
         columns: Gene_type
         to_property: gene_role
         for_object: gene_status
-        translations:
-            gain: GoF
-            loss: LoF
+        # translations:
+        #     gain: GoF
+        #     loss: LoF
     ## Genes
     - map: 
         column: primary_gene

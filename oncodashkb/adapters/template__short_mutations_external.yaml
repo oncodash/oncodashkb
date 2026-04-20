@@ -32,8 +32,8 @@ transformers:
         format_string: "{Gene}:{CHROM}:{POS}:{REF}:{ALT}"
         via_relation: sample_carries_variant
     ## Gene Status
-    - translate_cat_format:
-    # - cat_format:
+    # - translate_cat_format:
+    - cat_format:
         columns:
           - Gene
           - Gene_type
@@ -41,11 +41,11 @@ transformers:
         from_subject: short_mutation
         format_string: "{Gene}:{Gene_type}"
         via_relation: variant_causes_gene_status
-        column_to_translate: 
-            - Gene_type
-        translations:
-            gain: GoF
-            loss: LoF
+        # column_to_translate: 
+        #     - Gene_type
+        # translations:
+        #     gain: GoF
+        #     loss: LoF
     ## Genes
     - translate:
         column: Gene
@@ -72,13 +72,14 @@ transformers:
     #     translate_from: symbol
     #     translate_to: ensembl_gene_id
     #     sep: "\t"
-    - translate:
+    # - translate:
+    - map:
         columns: Gene_type
         to_property: gene_role
         for_object: gene_status
-        translations:
-            gain: GoF
-            loss: LoF
+        # translations:
+        #     gain: GoF
+        #     loss: LoF
     ## Genes
     - map:
         column: Gene
