@@ -81,6 +81,10 @@ transformers:
         column: expHomCI.cover
         to_property: expHomCI__over
         for_object: sample_carries_variant
+    - map:
+        column: HGVS.change
+        to_property: HGVS__change
+        for_object: sample_carries_variant
     - boolean:
         column: Expressed
         to_property: expressed

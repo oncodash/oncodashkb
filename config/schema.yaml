@@ -337,6 +337,7 @@ sample carries variant:
         expHomCI__over: str
         undisruptedCopyNumber: str
         affectedCopyNumber: str
+        HGVS__change: str
 
 
 ### CAUSES
