@@ -14,20 +14,33 @@ row:
 transformers:
     - replace:
         column: Drugs
-        to_object: treatment
-        via_relation: variant_biomarker_for_treatment
-        forbidden: ';'
-        substitue: ','
+        separator: "[,]"
+        match:
+            - \+:
+                to_object: treatment
+                via_relation: variant_biomarker_for_treatment
+        # forbidden: ';'
+        # substitue: ','
     # Split the column 'Drugs' -> Treatment into unique drugs. 
     - split_translate:
         column: Drugs
-        from_subject: treatment
         to_object: drug
-        via_relation: treatment_has_part_drug
-        separator: "[,|;|+]"
+        via_relation: variant_biomarker_for_treatment
+        separator: "[,]"
         translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
         translate_from: name
         translate_to: id
+    # - split_translate:
+    #     column: Drugs
+    #     translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+    #     translate_from: name
+    #     translate_to: id
+    #     from_subject: treatment
+    #     match: 
+    #         - \+:
+    #             to_object: drug
+    #             via_relation: treatment_has_part_drug
+    #             separator: "[,|+]"
     # Properties
     ## Gene Status
     - cat_format:
@@ -42,13 +55,17 @@ transformers:
         to_property: gene_role
         for_object: gene_status
     ## Variant biomarker for treatment
+    # - map:
+    #     column: fda_level
+    #     to_property: fda_level
+    #     for_object: variant_biomarker_for_treatment
     - map:
-        column: fda_level
-        to_property: fda_level
+        column: Tier
+        to_property: Tier
         for_object: variant_biomarker_for_treatment
-    - map:
-        column: Cancer_types
-        to_property: tumorType
-        for_object: variant_biomarker_for_treatment
+    # - map:
+    #     column: Cancer_types
+    #     to_property: tumorType
+    #     for_object: variant_biomarker_for_treatment
 metadata:
         - data_source: oncokb_gene_status_annotation
