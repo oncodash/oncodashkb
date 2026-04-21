@@ -67,9 +67,8 @@ echo "Activate virtual environment..." >&2
 source $(dirname $(uv python find))/activate
 
 
-echo "Remove old BioCypher data" >&2
-
-rm -rf biocypher-*
+# echo "Remove old BioCypher data" >&2
+# rm -rf biocypher-*
 
 
 echo "Weave data..." >&2
