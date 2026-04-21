@@ -84,7 +84,7 @@ transformers:
     - map:
         column: HGVS.change
         to_property: HGVS__change
-        for_object: sample_carries_variant
+        for_object: short_mutation
     - boolean:
         column: Expressed
         to_property: expressed
