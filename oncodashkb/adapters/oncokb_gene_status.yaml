@@ -17,20 +17,32 @@ transformers:
     # - replace:
     - split:
         column: Drugs
-        to_object: treatment
-        via_relation: variant_biomarker_for_treatment
+        separator: "[,]"
+        match:
+            - \+:
+                to_object: treatment
+                via_relation: variant_biomarker_for_treatment
         # forbidden: ';'
         # substitue: ','
-        separator: "[,]"
     - split_translate:
         column: Drugs
-        from_subject: treatment
         to_object: drug
-        via_relation: treatment_has_part_drug
-        separator: "[,|+]"
+        via_relation: variant_biomarker_for_treatment
+        separator: "[,]"
         translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
         translate_from: name
         translate_to: id
+    # - split_translate:
+    #     column: Drugs
+    #     translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+    #     translate_from: name
+    #     translate_to: id
+    #     from_subject: treatment
+    #     match: 
+    #         - \+:
+    #             to_object: drug
+    #             via_relation: treatment_has_part_drug
+    #             separator: "[,|+]"
     # - map:
     #     column: fda_level
     #     to_property: fda_level
