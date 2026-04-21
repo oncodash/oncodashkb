@@ -19,6 +19,7 @@ short mutation:
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
+        HGVS__change: str
         # ensembl_id_alteration: str
 
 copy number amplification:
@@ -192,7 +193,7 @@ drug:
         inchiKey: str
         drugType: str
         blackBoxWarning: bool
-        drug_name: str
+        drugName: str
         yearOfFirstapproval: str
         maximumClinicalTrialPhase: str
         hasBeenWithdrawn: bool
