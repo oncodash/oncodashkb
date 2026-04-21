@@ -23,5 +23,5 @@ neo4j:
     multi_db: false
 
     import_call_bin_prefix: ''
-    node_labels_order: Ascending
+    node_labels_order: Leaves
     edge_labels_order: Leaves
