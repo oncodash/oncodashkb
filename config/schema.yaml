@@ -114,6 +114,7 @@ patient:
         cohort_code: str
         current_treatment_phase: str
         days_from_beva_maintenance_end_to_progression: int
+        days_to_end: double
         days_to_death: double
         days_to_progression: double
         debulking_surgery_ids: bool

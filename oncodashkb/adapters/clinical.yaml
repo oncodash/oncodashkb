@@ -46,10 +46,10 @@ transformers:
     #     column: TFIbev Time from end of beva maintenance to prog
     #     to_property: days_from_beva_maintenance_end_to_progression
     #     for_object: patient
-    # - map: # TODO check where is the column (timeline?)
-    #     column: CUD_Time to death_days
-    #     to_property: days_to_death
-    #     for_object: patient
+    - map:
+        column: OS_KaplanM_allHGSC
+        to_property: days_to_end
+        for_object: patient
     # - map: # TODO check where is the column (timeline?)
     #     column: CUD_Time to progression_days
     #     to_property: days_to_progression
@@ -126,10 +126,6 @@ transformers:
         column: Patient ID
         to_property: patient_id
         for_object: patient
-    # - map: # TODO not found in data (timeline?)
-    #     column: "CUD_Platinum free interval days if Prog"
-    #     to_property: platinum_free_interval
-    #     for_object: patient
     - map: # CHECK Before PFI at outcome update when no prog
         column: PFI_KaplanM_allHGSC
         to_property: platinum_free_interval_at_upate
@@ -274,10 +270,10 @@ transformers:
 #         column: PFS_KaplanM_allHGSC
 #         to_property: 
 #         for_object: patient
-#     - map: # TODO 
-#         column: PFI_KaplanM_allHGSC
-#         to_property: 
-#         for_object: patient
+    - map:
+        column: PFI_KaplanM_allHGSC
+        to_property: platinum_free_interval
+        for_object: patient
     # - map: # TODO 
     #     column: Time from End of 1st line maintenance to 1st prog_Days TFI
     #     to_property:
