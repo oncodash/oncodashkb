@@ -1,0 +1,10 @@
+row:
+    map:
+        column: Patient
+        to_subject: patient
+transformers:
+# Mappings info from front-end PatientDTO
+    - map:
+        column: germline_pathogenic_variant
+        to_property: germline_pathogenic_variant
+        for_object: patient

@@ -76,6 +76,7 @@ echo "Weave data..." >&2
 cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --config $CONFIG \
     --clinical                                      $decider_dir/clinical/clinical_export.xlsx \
+    --germline                                      $decider_dir/vTMB/germline.csv \
     --short-mutations-samples                       $decider_dir/vTMB/snv_placeholder_vTMB.xlsx  \
     --short-mutations-local                         $decider_dir/vTMB/snv_placeholder_vTMB.xlsx  \
     --short-mutations-external                      $decider_dir/vTMB/snv_placeholder_vTMB.xlsx  \

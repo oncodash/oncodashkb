@@ -181,6 +181,9 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
                         help="Extract from a clinical CSV file.")
 
+    parser.add_argument("-g", "--germline", metavar="CSV", nargs="+",
+                        help="Extract from a germline CSV file.")
+
     parser.add_argument("-sms", "--short-mutations-samples", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with short mutations' samples.")
 
@@ -272,6 +275,7 @@ if __name__ == "__main__":
 
     all_options = [
         "clinical",
+        "germline",
         "short_mutations_samples",
         "short_mutations_local",
         "short_mutations_external",
@@ -355,6 +359,22 @@ if __name__ == "__main__":
         nodes += local_nodes
         edges += local_edges
         logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
+    if asked.germline:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        data_file = asked.germline[0]
+
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = pd.read_csv(data_file)
+
+       # table = table.rename(columns={"Gene.type":"Gene_type"})
+        # table["mutation"] = table.mutation.str.replace(r';', ',', regex=True)
+
+        local_nodes, local_edges = process_table(
+            table,
+            name="germline",
+        )
 
     if asked.short_mutations_local:
         opt_loaded += 1
