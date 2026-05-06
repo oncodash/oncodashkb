@@ -60,6 +60,7 @@ download() {
     fi
 }
 
+# 1 - Necessary checks
 
 echo "Check for neo4j.pass..." >&2
 if [[ ! -f neo4j.pass ]] ; then
@@ -89,6 +90,9 @@ else
 fi
 echo " └OK" >&2
 
+# 2 - DATA
+
+## 2.1 - External prior knowledge 
 
 echo "Download data..." >&2
 mkdir -p data
@@ -144,6 +148,25 @@ echo " │  └OK" >&2
 cd ..  # Back to project root.
 echo " └OK" >&2
 
+## 2.2 - DECIDER data
+
+### 2.2.1 - Symlinks
+
+cd $decider_dir
+
+ln -sf cnas_v2.9_external.csv cnas_external.csv
+ln -sf cnas_v2.9_local.csv cnas_local.csv
+ln -sf short_mutations_v4.10_external.csv short_mutations_external.csv
+ln -sf short_mutations_v4.10_local.csv short_mutations_local.csv
+# cd ../clinical/
+# ln -sf 12122025_Clinical_export_DECIDER_collab.xlsx ../$1/clinical_export.xlsx
+ln -sf ./../clinical/12122025_Clinical_export_DECIDER_collab.xlsx ./../clinical/clinical_export.xlsx
+ln -sf ./../placeholders/brk_placeholder.xlsx structural_variants.xlsx
+
+cd -
+
+### 2.2.2 - Check DECIDER data
+
 echo "Check DECIDER data..." >&2
 check() {
     if [[ ! -f "$1" ]] ; then
@@ -156,18 +179,67 @@ declare -a decider_files=(
     $decider_dir/short_mutations_external.csv
     $decider_dir/cnas_local.csv
     $decider_dir/cnas_external.csv
+    $decider_dir/treatments_cgi.csv
+    $decider_dir/treatments_oncokb.csv
 )
 if [[ -d "$decider_dir" ]] ; then
     for f in ${decider_files[@]}; do
         check $f
     done
-    check $data_dir/DECIDER/clinical/clinical_export.xlsx
 else
     echo "The '$decider_dir' directory does not exists." >&2
     exit 1
 fi
-# cp -a ../oncodashkb/adapters/Hugo_Symbol_genes.conf .
+check $data_dir/DECIDER/clinical/clinical_export.xlsx
+check $decider_dir/structural_variants.xlsx
 echo " └OK" >&2
+
+## 2.3 - Debugging data
+
+echo "Create a smaller debuging data set in data_debug/..." >&2
+lines=100
+echo " │ DECIDER..." >&2
+mkdir -p data_debug
+mkdir -p data_debug/DECIDER/debug/
+for f in ${decider_files[@]}; do
+    head -n $lines $f > data_debug/DECIDER/debug/$(basename $f)
+done
+cp $decider_dir/structural_variants.xlsx data_debug/DECIDER/debug/structural_variants.xlsx
+mkdir -p data_debug/DECIDER/clinical/
+cp $data_dir/DECIDER/clinical/clinical_export.xlsx data_debug/DECIDER/clinical
+echo " │  └OK" >&2
+
+echo " │ GO & HGNC..." >&2
+mkdir -p data_debug/GO
+cp data/GO/go.owl data_debug/GO/
+
+mkdir -p data_debug/HGNC
+cp data/HGNC/hgnc_complete_set.txt data_debug/HGNC/
+echo " │  └OK" >&2
+
+echo " │ OpenTargets..." >&2
+mkdir -p data_debug/OT
+declare -a ot_dirs=(
+    "drug_mechanism_of_action"
+    "drug_molecule"
+    "target"
+)
+for d in ${ot_dirs[@]}; do
+    echo " │  │ $d..." >&2
+    mkdir -p data_debug/OT/$d
+    # Only the first parquet file
+    cp data/OT/$d/part-00000* data_debug/OT/$d/
+    echo " │  │  └OK" >&2
+done
+echo " │  └OK" >&2
+
+echo " │ OmniPath..." >&2
+mkdir -p data_debug/omnipath_networks
+gunzip --to-stdout data/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz | head -n $lines | gzip > data_debug/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
+echo " │  └OK" >&2
+echo " └OK" >&2
+
+# 3 - Third party source code
 
 echo "Download third-party source code..."
 cd oncodashkb
@@ -211,48 +283,6 @@ cd ..
 echo " │  │  └OK" >&2
 
 cd ..  # Out of the subdir oncodashkb
-echo " │  └OK" >&2
-echo " └OK" >&2
-
-
-echo "Create a smaller debuging data set in data_debug/..." >&2
-lines=100
-echo " │ DECIDER..." >&2
-mkdir -p data_debug
-mkdir -p data_debug/DECIDER/debug/
-for f in ${decider_files[@]}; do
-    head -n $lines $f > data_debug/DECIDER/debug/$(basename $f)
-done
-cp data/DECIDER/clinical/clinical_export.xlsx data_debug/DECIDER/debug
-echo " │  └OK" >&2
-
-echo " │ GO & HGNC..." >&2
-mkdir -p data_debug/GO
-cp data/GO/go.owl data_debug/GO/
-
-mkdir -p data_debug/HGNC
-cp data/HGNC/hgnc_complete_set.txt data_debug/HGNC/
-echo " │  └OK" >&2
-
-echo " │ OpenTargets..." >&2
-mkdir -p data_debug/OT
-declare -a ot_dirs=(
-    "drug_mechanism_of_action"
-    "drug_molecule"
-    "target"
-)
-for d in ${ot_dirs[@]}; do
-    echo " │  │ $d..." >&2
-    mkdir -p data_debug/OT/$d
-    # Only the first parquet file
-    cp data/OT/$d/part-00000* data_debug/OT/$d/
-    echo " │  │  └OK" >&2
-done
-echo " │  └OK" >&2
-
-echo " │ OmniPath..." >&2
-mkdir -p data_debug/omnipath_networks
-gunzip --to-stdout data/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz | head -n $lines | gzip > data_debug/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
 echo " │  └OK" >&2
 echo " └OK" >&2
 

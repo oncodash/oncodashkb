@@ -22,16 +22,16 @@ transformers:
             - hugoSymbol
             - alteration
         from_subject: sample
-        to_object: alteration
+        to_object: copy_number_amplification
         format_string: "{hugoSymbol}:{alteration}"
-        via_relation: sample_carries_alteration
+        via_relation: sample_carries_variant
     - map:
         column: referenceGenome
         to_property: reference_genome
-        for_object: alteration
+        for_object: copy_number_amplification
     - map:
         column: tumorType
         to_property: tumor_type
-        for_object: alteration
+        for_object: copy_number_amplification
 metadata:
         - data_source: copy_number_amplifications_local

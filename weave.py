@@ -14,7 +14,6 @@ import pandas as pd
 import biocypher
 
 import ontoweaver
-# import oncodashkb.adapters as od
 from alive_progress import alive_bar
 
 error_codes = {
@@ -35,8 +34,9 @@ from oncodashkb.transformers.networks import OmniPath_directed
 ontoweaver.transformer.register(OmniPath_directed)
 
 # Importing custom transformer for translating sample ids with publication code and registering it.
-from oncodashkb.transformers.specific_translate_transformers import translate_sample_ids
+from oncodashkb.transformers.specific_translate_transformers import translate_sample_ids, translate_cat_format
 ontoweaver.transformer.register(translate_sample_ids)
+ontoweaver.transformer.register(translate_cat_format)
 
 # Importing OpenTargets custom transformer and registering it.
 from oncodashkb.transformers.ot_transformers import access_proteins, urls_to_prop
@@ -77,7 +77,7 @@ def progress_read(filename, hint=None, steps=100, estimate_lines=10, **kwargs):
 def process_OT(directory, name):
     logging.info(f" | Weave Open Targets {name}...")
 
-    conf_filename = f"oncodashkb/adapters/{name}.yaml"
+    mapping_file = f"oncodashkb/adapters/{name}.yaml"
 
     logging.debug(f"DIRECTORY {directory}")
 
@@ -91,7 +91,7 @@ def process_OT(directory, name):
 
         logging.info(f" |  | Read {name} mapping...")
         try:
-            with open(conf_filename) as fd:
+            with open(mapping_file) as fd:
                 ymapping = yaml.full_load(fd)
         except Exception as e:
             logging.error(e)
@@ -101,7 +101,7 @@ def process_OT(directory, name):
         #     for n,e in manager():
         #         progress()
 
-        logging.info(f" |  | Process {conf_filename}...")
+        logging.info(f" |  | Process {mapping_file}...")
 
         yparser = ontoweaver.mapping.YamlParser(ymapping)
         mapping = yparser()
@@ -129,39 +129,6 @@ def process_OT(directory, name):
 
     return local_nodes, local_edges
 
-
-def process_GO(name):
-    logging.info(f" | Weave {name} data...")
-    # Table input data.
-    logging.info(f" |  | Load {name} data...")
-    df = progress_read(asked.gene_ontology[0], sep='\t', comment='!', header=None, dtype={15: str}, hint=969214)
-
-    logging.info(f" |  | Read {name} mapping...")
-    # Extraction mapping configuration.
-    try:
-        with open(f"./oncodashkb/adapters/{name}.yaml") as fd:
-            conf = yaml.full_load(fd)
-    except Exception as e:
-        logging.error(e)
-        sys.exit(error_codes["CannotAccessFile"])
-
-    logging.info(f" |  | Preprocess {name} data...")
-    manager = od.gene_ontology.Gene_ontology(df, asked.gene_ontology_owl, asked.gene_ontology_genes, conf)
-
-    logging.info(f" |  | Transform {name} data...")
-    local_nodes = []
-    local_edges = []
-    # Use manager.df because Gene_ontology does filter the input dataframe
-    with alive_bar(len(manager.df), file=sys.stderr) as progress:
-        for n,e in manager():
-            local_nodes += n
-            local_edges += e
-            progress()
-
-    return local_nodes, local_edges
-
-
-
 if __name__ == "__main__":
     # TODO add adapter for parquet, one for csv and one that automatically checks filetype.
 
@@ -187,6 +154,9 @@ if __name__ == "__main__":
     parser.add_argument("-cnae", "--copy-number-amplifications-external", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with copy number amplifications' external annotations.")
 
+    parser.add_argument("-sv", "--structural-variants", metavar="CSV", nargs="+",
+                        help="Extract from a CSV file with short mutations' local annotations.")
+
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
 
@@ -204,18 +174,6 @@ if __name__ == "__main__":
 
     parser.add_argument("-c", "--cgi", metavar="CSV", nargs="+",
                         help="Extract from a CGI CSV file.")
-
-    parser.add_argument("-g", "--gene-ontology", metavar="CSV", nargs="+",
-                        help="Extract from a Gene_Ontology_Annotation GAF file.")
-
-    parser.add_argument("-n", "--gene-ontology-owl", metavar="OWL",
-                        help="Download Gene_Ontology owl file.")
-
-    parser.add_argument("-G", "--gene-ontology-genes", metavar="TXT",
-                        help="List of genes for which we integrate Gene Ontology annotations (by default genes from OncoKB).")
-
-    parser.add_argument("-r", "--gene-ontology-reverse", action='store_true',
-                        help="Extract from a Gene_Ontology_Annotation GAF file.")
 
     parser.add_argument("-s", "--separator", metavar="STRING", default=", ",
                         help="Separator in exported data files.")
@@ -264,16 +222,13 @@ if __name__ == "__main__":
         "short_mutations_external",
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
+        "structural_variants",
         "oncokb",
         "omnipath_networks",
         "open_targets_target",
         "open_targets_drug_mechanism_of_action",
         "open_targets_drug_molecule",
         "cgi",
-        "gene_ontology",
-        "gene_ontology_owl",
-        "gene_ontology_genes",
-        "gene_ontology_reverse",
     ]
     opt_total = 0
     for opt in all_options:
@@ -316,6 +271,101 @@ if __name__ == "__main__":
             type_affix="suffix",
             type_affix_sep=":",
             raise_errors = asked.debug
+        )
+
+        local_nodes = []
+        local_edges = []
+        with alive_bar(len(table), file=sys.stderr) as progress:
+            for n,e in adapter():
+                # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+                local_nodes += n
+                local_edges += e
+                progress()
+
+        logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
+    if asked.structural_variants:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        data_file = asked.structural_variants[0]
+        mapping_file = "./oncodashkb/adapters/structural_variants.yaml"
+
+        # logging.info(f"Weave structural variants...")
+        logging.info(f" | Weave `{data_file}:{mapping_file}`...")
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = pd.read_excel(data_file)
+
+        table = table.rename(columns={"Gene.type":"Gene_type"})
+        table["mutation"] = table.mutation.str.replace(r';', ',', regex=True)
+
+        try:
+            with open(mapping_file) as fd:
+                ymapping = yaml.full_load(fd)
+        except Exception as e:
+            logging.error(e)
+            sys.exit(error_codes["CannotAccessFile"])
+
+        logging.info(f" |  | Process {mapping_file}...")
+
+        yparser = ontoweaver.mapping.YamlParser(ymapping)
+        mapping = yparser()
+
+        adapter = ontoweaver.tabular.PandasAdapter(
+            table,
+            *mapping,
+            type_affix="suffix",
+            type_affix_sep=":",
+            raise_errors = True
+        )
+
+        local_nodes = []
+        local_edges = []
+        with alive_bar(len(table), file=sys.stderr) as progress:
+            for n,e in adapter():
+                # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+                local_nodes += n
+                local_edges += e
+                progress()
+
+        logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
+    if asked.cgi:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        data_file = asked.cgi[0]
+        mapping_file = "./oncodashkb/adapters/cgi.yaml"
+
+        # logging.info(f"Weave structural variants...")
+        logging.info(f" | Weave `{data_file}:{mapping_file}`...")
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = progress_read(data_file, hint=72648)
+
+        table["treatment"] = table.treatment.str.upper().str.replace(r'\([^()]*\)', '', regex=True)
+
+        try:
+            with open(mapping_file) as fd:
+                ymapping = yaml.full_load(fd)
+        except Exception as e:
+            logging.error(e)
+            sys.exit(error_codes["CannotAccessFile"])
+
+        logging.info(f" |  | Process {mapping_file}...")
+
+        yparser = ontoweaver.mapping.YamlParser(ymapping)
+        mapping = yparser()
+
+        adapter = ontoweaver.tabular.PandasAdapter(
+            table,
+            *mapping,
+            type_affix="suffix",
+            type_affix_sep=":",
+            raise_errors = True
         )
 
         local_nodes = []
@@ -446,29 +496,6 @@ if __name__ == "__main__":
         edges += local_edges
         logging.info(f"Done adapter {opt_loaded}/{opt_total}")
 
-    ## GeneOntology
-
-    ### GO
-    if asked.gene_ontology:
-        opt_loaded += 1
-        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
-        local_nodes, local_edges = process_GO("gene_ontology")
-        logging.info(f" | Save data...")
-        nodes += local_nodes
-        edges += local_edges
-        logging.info(f"OK, wove Gene Ontology data: {len(local_nodes)} nodes, {len(local_edges)} edges.")
-        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
-
-    ### GO reversed
-    if asked.gene_ontology_reverse:
-        opt_loaded += 1
-        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
-        local_nodes, local_edges = process_GO("gene_ontology_reverse")
-        nodes += local_nodes
-        edges += local_edges
-        logging.info(f"OK, reverse-wove Gene Ontology: {len(local_nodes)} nodes, {len(local_edges)} edges.")
-        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
-
     ###################################################
     # Map the data not requiring special loadings.    #
     ###################################################
@@ -487,10 +514,9 @@ if __name__ == "__main__":
         "short_mutations_external",
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
+        # "structural_variants",
         "oncokb",
-        # "omnipath_networks",
-        # "ot-"
-        "cgi",
+        # "cgi",
     ]
     for name in direct_mappings:
         option = getattr(asked, name)

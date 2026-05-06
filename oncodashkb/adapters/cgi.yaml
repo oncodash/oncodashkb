@@ -1,39 +1,69 @@
 row:
-   rowIndex:
-      to_subject: variant
+    map:
+        id_from_column: alteration
+        match_type_from_column: alteration_type
+        match:
+            - SNV:
+                to_subject: short_mutation
+            - CNA:
+                to_subject: copy_number_amplification
 transformers:
+    - replace:
+        column: treatment
+        to_object: treatment
+        via_relation: variant_biomarker_for_treatment
+        forbidden: ';'
+        substitue: ','
+    - split_translate:
+        column: treatment
+        from_subject: treatment
+        to_object: drug
+        via_relation: treatment_has_part_drug
+        separator: "[,|;|+]"
+        translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+        translate_from: name
+        translate_to: id
     - map:
-        columns:
-            - patient_id
-        to_object: patient
-        via_relation: patient_has_variant
+        column: level_of_evidence
+        to_property: level_of_evidence
+        for_object: variant_biomarker_for_treatment
     - map:
-        columns:
-            - gene
-        to_object: gene_hugo
-        via_relation: variant_in_gene
-    - split:
-        columns:
-            - sample
-        to_object: sample
-        via_relation: variant_in_sample
-        separator: ";"
+        column: cgi_level
+        to_property: cgi_level
+        for_object: variant_biomarker_for_treatment
     - map:
-        columns:
-            - transcript
-        from_subject: gene_hugo
-        to_object: transcript
-        via_relation: transcript_to_gene_relationship
+        column: citations
+        to_property: citations
+        for_object: variant_biomarker_for_treatment
     - map:
-        columns:
-            - oncogenic_summary
-        from_subject: variant
-        to_object: disease
-        via_relation: variant_to_disease
-    - map:
-        columns:
-            - consequence
-        to_property:
-            - consequence
-        for_objects:
-            - variant
+        column: tumorType
+        to_property: tumorType
+        for_object: variant_biomarker_for_treatment
+        # separator: "+"
+    # node type: DRUG
+    # upper
+    # split for ;,+
+    # remove inside parenthesis
+    # translate to CHEMBLid 
+    # node type: DRUG CATEGORY
+    # upper
+    # split for ;,+
+    # remove inside parenthesis
+    # match if inhibitor blablabla : drug category
+    # - map:
+    #     column: treatment
+    #     from_subject: treatment
+    #     to_object: drug
+    # - replace:
+    #     columns:
+    #         - treatment
+    #     to_object: drug
+    #     via_relation: variant_biomarker_for_drug
+    #     substitute: "_"
+    # - string:
+    #     value: "."
+    #     to_property: edgelabel
+    #     for_objects:
+    #         - variant_biomarker_for_drug
+metadata:
+        - data_source: cgi_annotation

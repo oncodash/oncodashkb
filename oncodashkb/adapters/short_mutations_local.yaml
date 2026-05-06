@@ -20,42 +20,41 @@ transformers:
     - map:
         column: alteration
         from_subject: sample
-        to_object: alteration
-        via_relation: sample_carries_alteration
+        to_object: short_mutation
+        via_relation: sample_carries_variant
     - map:
         column: referenceGenome
         to_property: reference_genome
-        for_object: alteration
+        for_object: short_mutation
     - map:
         column: tumorType
         to_property: tumor_type
-        for_object: alteration
+        for_object: short_mutation
     - map:
         column: consequence
         to_property: consequence
-        for_object: alteration
+        for_object: short_mutation
     - map:
         column: homogenous
         to_property: homogenous
-        for_object: alteration
+        for_object: short_mutation
     - map:
         column: refCount
         to_property: refCount
-        for_object: alteration
+        for_object: short_mutation
     - map:
         column: altCount
         to_property: altCount
-        for_object: alteration
+        for_object: short_mutation
     - map:
         column: expressed
         to_property: expressed
-        for_object: alteration
+        for_object: short_mutation
     - string:
         value: " "
         to_property: edgelabel
         for_objects:
             - patient_carries_sample
-            - sample_carries_alteration
-            - alteration_affects_gene
+            - sample_carries_variant
 metadata:
         - data_source: short_mutations_local
