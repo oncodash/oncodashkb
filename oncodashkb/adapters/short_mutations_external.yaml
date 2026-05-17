@@ -69,7 +69,7 @@ transformers:
         to_property: consequence
         for_object: short_mutation
     - map:
-        column: oncogenic
+        column: oncokb_oncogenic
         to_property: oncogenic
         for_object: short_mutation
     - replace:
