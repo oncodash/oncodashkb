@@ -292,42 +292,6 @@ if __name__ == "__main__":
     if asked.clinical:
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
-        # data_file = asked.clinical[0]
-        # mapping_file = "./oncodashkb/adapters/clinical.yaml"
-
-        # # logging.info(f"Weave Clinical data...")
-        # logging.info(f" | Weave `{data_file}:{mapping_file}`...")
-        # logging.info(f" |  | Load data `{data_file}`...")
-        # table = progress_read(data_file, sep=",", hint=673)
-
-        # try:
-        #     with open(mapping_file) as fd:
-        #         ymapping = yaml.full_load(fd)
-        # except Exception as e:
-        #     logging.error(e)
-        #     sys.exit(error_codes["CannotAccessFile"])
-
-        # logging.info(f" |  | Process {mapping_file}...")
-
-        # yparser = ontoweaver.mapping.YamlParser(ymapping)
-        # mapping = yparser()
-
-        # adapter = ontoweaver.tabular.PandasAdapter(
-        #     table,
-        #     *mapping,
-        #     type_affix="suffix",
-        #     type_affix_sep=":",
-        #     raise_errors = asked.debug
-        # )
-
-        # local_nodes = []
-        # local_edges = []
-        # with alive_bar(len(table), file=sys.stderr) as progress:
-        #     for n,e in adapter():
-        #         # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
-        #         local_nodes += n
-        #         local_edges += e
-        #         progress()
 
         data_file = asked.clinical[0]
 
@@ -347,45 +311,14 @@ if __name__ == "__main__":
     if asked.structural_variants:
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+        
         data_file = asked.structural_variants[0]
-        # mapping_file = "./oncodashkb/adapters/structural_variants.yaml"
 
-        # logging.info(f"Weave structural variants...")
-        # logging.info(f" | Weave `{data_file}:{mapping_file}`...")
         logging.info(f" |  | Load data `{data_file}`...")
         table = pd.read_excel(data_file)
 
         table = table.rename(columns={"Gene.type":"Gene_type"})
         table["mutation"] = table.mutation.str.replace(r';', ',', regex=True)
-
-        # try:
-        #     with open(mapping_file) as fd:
-        #         ymapping = yaml.full_load(fd)
-        # except Exception as e:
-        #     logging.error(e)
-        #     sys.exit(error_codes["CannotAccessFile"])
-
-        # logging.info(f" |  | Process {mapping_file}...")
-
-        # yparser = ontoweaver.mapping.YamlParser(ymapping)
-        # mapping = yparser()
-
-        # adapter = ontoweaver.tabular.PandasAdapter(
-        #     table,
-        #     *mapping,
-        #     type_affix="suffix",
-        #     type_affix_sep=":",
-        #     raise_errors = True
-        # )
-
-        # local_nodes = []
-        # local_edges = []
-        # with alive_bar(len(table), file=sys.stderr) as progress:
-        #     for n,e in adapter():
-        #         # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
-        #         local_nodes += n
-        #         local_edges += e
-        #         progress()
 
         local_nodes, local_edges = process_table(
             table,
