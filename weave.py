@@ -181,11 +181,17 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--clinical", metavar="CSV", nargs="+",
                         help="Extract from a clinical CSV file.")
 
+    parser.add_argument("-sms", "--short-mutations-samples", metavar="CSV", nargs="+",
+                        help="Extract from a CSV file with short mutations' samples.")
+
     parser.add_argument("-sml", "--short-mutations-local", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with short mutations' local annotations.")
 
     parser.add_argument("-sme", "--short-mutations-external", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with short mutations' variants external annotations.")
+
+    parser.add_argument("-cnas", "--copy-number-amplifications-samples", metavar="CSV", nargs="+",
+                        help="Extract from a CSV file with copy number amplifications' samples.")
 
     parser.add_argument("-cnal", "--copy-number-amplifications-local", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with copy number amplifications' local annotations.")
@@ -257,8 +263,10 @@ if __name__ == "__main__":
 
     all_options = [
         "clinical",
+        "short_mutations_samples",
         "short_mutations_local",
         "short_mutations_external",
+        "copy_number_amplifications_samples",
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
         "structural_variants",
@@ -340,44 +348,49 @@ if __name__ == "__main__":
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
         data_file = asked.structural_variants[0]
-        mapping_file = "./oncodashkb/adapters/structural_variants.yaml"
+        # mapping_file = "./oncodashkb/adapters/structural_variants.yaml"
 
         # logging.info(f"Weave structural variants...")
-        logging.info(f" | Weave `{data_file}:{mapping_file}`...")
+        # logging.info(f" | Weave `{data_file}:{mapping_file}`...")
         logging.info(f" |  | Load data `{data_file}`...")
         table = pd.read_excel(data_file)
 
         table = table.rename(columns={"Gene.type":"Gene_type"})
         table["mutation"] = table.mutation.str.replace(r';', ',', regex=True)
 
-        try:
-            with open(mapping_file) as fd:
-                ymapping = yaml.full_load(fd)
-        except Exception as e:
-            logging.error(e)
-            sys.exit(error_codes["CannotAccessFile"])
+        # try:
+        #     with open(mapping_file) as fd:
+        #         ymapping = yaml.full_load(fd)
+        # except Exception as e:
+        #     logging.error(e)
+        #     sys.exit(error_codes["CannotAccessFile"])
 
-        logging.info(f" |  | Process {mapping_file}...")
+        # logging.info(f" |  | Process {mapping_file}...")
 
-        yparser = ontoweaver.mapping.YamlParser(ymapping)
-        mapping = yparser()
+        # yparser = ontoweaver.mapping.YamlParser(ymapping)
+        # mapping = yparser()
 
-        adapter = ontoweaver.tabular.PandasAdapter(
+        # adapter = ontoweaver.tabular.PandasAdapter(
+        #     table,
+        #     *mapping,
+        #     type_affix="suffix",
+        #     type_affix_sep=":",
+        #     raise_errors = True
+        # )
+
+        # local_nodes = []
+        # local_edges = []
+        # with alive_bar(len(table), file=sys.stderr) as progress:
+        #     for n,e in adapter():
+        #         # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
+        #         local_nodes += n
+        #         local_edges += e
+        #         progress()
+
+        local_nodes, local_edges = process_table(
             table,
-            *mapping,
-            type_affix="suffix",
-            type_affix_sep=":",
-            raise_errors = True
+            name="structural_variants",
         )
-
-        local_nodes = []
-        local_edges = []
-        with alive_bar(len(table), file=sys.stderr) as progress:
-            for n,e in adapter():
-                # NOTE: here, n & e are ontoweaver.base.Element, not BioCypher tuples.
-                local_nodes += n
-                local_edges += e
-                progress()
 
         logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
         nodes += local_nodes

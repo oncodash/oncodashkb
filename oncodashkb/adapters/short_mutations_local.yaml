@@ -50,6 +50,38 @@ transformers:
         column: altCount
         to_property: altCount
         for_object: sample_carries_variant
+    - map:
+        column: ad0
+        to_property: AD__0
+        for_object: sample_carries_variant
+    - map:
+        column: ad1
+        to_property: AD__1
+        for_object: sample_carries_variant
+    - map:
+        column: depth
+        to_property: DP
+        for_object: sample_carries_variant
+    - map:
+        column: af
+        to_property: AF
+        for_object: sample_carries_variant
+    - map:
+        column: nMajor
+        to_property: nMajor
+        for_object: sample_carries_variant
+    - map:
+        column: nMinor
+        to_property: nMinor
+        for_object: sample_carries_variant
+    - map:
+        column: lohstatus
+        to_property: LOHstatus
+        for_object: sample_carries_variant
+    # - map:
+    #     column: expHomCI.cover
+    #     to_property: expHomCI__over
+    #     for_object: sample_carries_variant
     - boolean:
         column: expressed
         to_property: expressed

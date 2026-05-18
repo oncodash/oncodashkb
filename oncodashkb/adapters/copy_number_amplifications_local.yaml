@@ -41,6 +41,14 @@ transformers:
     #     column: tumorType
     #     to_property: tumor_type
     #     for_object: copy_number_amplification
+    - map:
+        column: nMinor
+        to_property: nMinor
+        for_object: sample_carries_variant
+    - map:
+        column: nMajor
+        to_property: nMajor
+        for_object: sample_carries_variant
 
 metadata:
         - data_source: copy_number_amplifications_local

@@ -112,11 +112,16 @@ sample:
     label_in_input: sample
     properties:
         data_source: str
+        purity: str
+        tumor_site: str
+        sample_time: str
+        sample_type: str
+        ploidy: str
 
 # Drug
 
 row_drug:
-    is_a: drug 
+    is_a: drug
     represented_as: node
     label_in_input : row_drug
     properties:
@@ -281,6 +286,14 @@ sample carries variant:
         homogenous: bool
         data_source: str
         edglelabel: str
+        AD__0: str
+        AD__1: str
+        DP: str
+        AF: str
+        nMajor: str
+        nMinor: str
+        LOHstatus: str
+        expHomCI__over: str
 
 
 ### CAUSES
