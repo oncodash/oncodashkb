@@ -85,16 +85,16 @@ cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --config $CONFIG \
     --clinical                              $decider_clinical_dir/clinical_export.xlsx \
     --short-mutations-local                 $decider_version_dir/short_mutations_local.csv  \
+    --short-mutations-external              $decider_version_dir/short_mutations_external.csv  \
+    --copy-number-amplifications-local      $decider_version_dir/cnas_local.csv \
+    --copy-number-amplifications-external   $decider_version_dir/cnas_external.csv  \
+    --structural-variants                   $decider_version_dir/structural_variants.xlsx  \
     --cgi                                   $decider_version_dir/treatments_cgi.csv \
+    --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
+    --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
+    --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
+    --open-targets-target                   $data_dir/OT/target/
     ${weave_args}" # \
-    # --short-mutations-external              $decider_version_dir/short_mutations_external.csv  \
-    # --copy-number-amplifications-local      $decider_version_dir/cnas_local.csv \
-    # --copy-number-amplifications-external   $decider_version_dir/cnas_external.csv  \
-    # --structural-variants                   $decider_version_dir/structural_variants.xlsx  \
-    # --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
-    # --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
-    # --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
-    # --open-targets-target                   $data_dir/OT/target/
     # --cgi                                   $decider_version_dir/treatments_cgi.csv \
 
 
