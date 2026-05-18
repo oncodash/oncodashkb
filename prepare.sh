@@ -8,8 +8,13 @@ fi
 set -e
 #set -o pipefail
 
+root_dir=$(dirname $(realpath $0))
 data_dir="data"
 decider_dir="$1"
+decider_version="$2"
+decider_version_dir="$1/$2"
+decider_clinical_dir="$1/clinical"
+
 log_file="prepare.log"
 echo "" > $log_file
 log=$(realpath $log_file)
@@ -152,18 +157,21 @@ echo " └OK" >&2
 
 ### 2.2.1 - Symlinks
 
-cd $decider_dir
+cd $decider_version_dir
 
-ln -sf cnas_v2.9_external.csv cnas_external.csv
-ln -sf cnas_v2.9_local.csv cnas_local.csv
-ln -sf short_mutations_v4.10_external.csv short_mutations_external.csv
 ln -sf short_mutations_v4.10_local.csv short_mutations_local.csv
-# cd ../clinical/
-# ln -sf 12122025_Clinical_export_DECIDER_collab.xlsx ../$1/clinical_export.xlsx
-ln -sf ./../clinical/12122025_Clinical_export_DECIDER_collab.xlsx ./../clinical/clinical_export.xlsx
+ln -sf short_mutations_v4.10_external.csv short_mutations_external.csv
+ln -sf cnas_v2.9_local.csv cnas_local.csv
+ln -sf cnas_v2.9_external.csv cnas_external.csv
 ln -sf ./../placeholders/brk_placeholder.xlsx structural_variants.xlsx
 
-cd -
+cd $root_dir
+
+cd $decider_clinical_dir
+
+ln -sf 12122025_Clinical_export_DECIDER_collab.xlsx clinical_export.xlsx
+
+cd $root_dir
 
 ### 2.2.2 - Check DECIDER data
 
@@ -175,26 +183,45 @@ check() {
     fi
 }
 declare -a decider_files=(
-    $decider_dir/short_mutations_local.csv
-    $decider_dir/short_mutations_external.csv
-    $decider_dir/cnas_local.csv
-    $decider_dir/cnas_external.csv
-    $decider_dir/treatments_cgi.csv
-    $decider_dir/treatments_oncokb.csv
+    $decider_version_dir/short_mutations_local.csv
+    $decider_version_dir/short_mutations_external.csv
+    $decider_version_dir/cnas_local.csv
+    $decider_version_dir/cnas_external.csv
+    $decider_version_dir/treatments_cgi.csv
+    $decider_version_dir/treatments_oncokb.csv
 )
-if [[ -d "$decider_dir" ]] ; then
+if [[ -d "$decider_version_dir" ]] ; then
     for f in ${decider_files[@]}; do
         check $f
     done
 else
-    echo "The '$decider_dir' directory does not exists." >&2
+    echo "The '$decider_version_dir' directory does not exists." >&2
     exit 1
 fi
-check $data_dir/DECIDER/clinical/clinical_export.xlsx
-check $decider_dir/structural_variants.xlsx
+
 echo " └OK" >&2
 
-## 2.3 - Debugging data
+
+### 2.2.3 – adapters paths
+
+cd oncodashkb/adapters/
+
+declare -a decider_adapters=(
+    short_mutations_local.yaml
+    short_mutations_external.yaml
+    copy_number_amplifications_local.yaml
+    copy_number_amplifications_external.yaml
+    structural_variants.yaml
+)
+
+for a in ${decider_adapters[@]} ; do
+    cat template__$a | sed "s,{{{DECIDER_DIR}}},$decider_dir,g" > $a
+done
+
+cd $root_dir
+
+
+# ## 2.3 - Debugging data
 
 echo "Create a smaller debuging data set in data_debug/..." >&2
 lines=100
@@ -204,9 +231,12 @@ mkdir -p data_debug/DECIDER/debug/
 for f in ${decider_files[@]}; do
     head -n $lines $f > data_debug/DECIDER/debug/$(basename $f)
 done
-cp $decider_dir/structural_variants.xlsx data_debug/DECIDER/debug/structural_variants.xlsx
+
+cp $decider_version_dir/structural_variants.xlsx data_debug/DECIDER/debug
+echo " │  └OK" >&2
+
 mkdir -p data_debug/DECIDER/clinical/
-cp $data_dir/DECIDER/clinical/clinical_export.xlsx data_debug/DECIDER/clinical
+cp $decider_clinical_dir/clinical_export.xlsx data_debug/DECIDER/clinical
 echo " │  └OK" >&2
 
 echo " │ GO & HGNC..." >&2

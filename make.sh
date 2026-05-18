@@ -2,27 +2,37 @@
 
 CONFIG="config/neo4j.yaml"
 if [[ -z "$1" ]] ; then
-    echo "ERROR, usage: $0 <DECIDER_data_dir> [config] [debug]" >&2
+    echo "ERROR, usage: $0 <DECIDER_data_dir> <DECIDER_data_version> [config] [debug]" >&2
     echo "    config defaults to: $CONFIG" >&2
     exit 2
 fi
 
 if [[ -z "$2" ]] ; then
+    echo "ERROR, usage: $0 <DECIDER_data_dir> <DECIDER_data_version> [config] [debug]" >&2
+    echo "    config defaults to: $CONFIG" >&2
+    exit 2
+fi
+
+if [[ -z "$3" ]] ; then
     echo "Selecting Neo4j output configuration." >&2
-elif [[ "$2" == "debug" ]] ; then
+elif [[ "$3" == "debug" ]] ; then
     echo "ERROR, if DEBUG MODE, usage: $0 <DECIDER_data_dir> <config> debug" >&2
     exit 2
 else
-    echo "Selecting output configuration: $2" >&2
-    CONFIG="$2"
+    echo "Selecting output configuration: $3" >&2
+    CONFIG="$3"
 fi
 
 set -e
 set -o pipefail
 
-decider_dir="$1"
 data_dir="data"
-if [[ "$3" == "debug" ]] ; then
+decider_dir="$1"
+decider_version="$2"
+decider_version_dir="$1/$2"
+decider_clinical_dir="$1/clinical"
+
+if [[ "4" == "debug" ]] ; then
     echo "DEBUG MODE" >&2
     data_dir="data_debug"
     decider_dir="data_debug/DECIDER/debug"
@@ -55,7 +65,7 @@ fi
 
 py_args="-O" # Optimize = remove asserts and optimize bytecode.
 weave_args="-v INFO" # Default, for having clean progress bars.
-if [[ "$3" == "debug" ]] ; then
+if [[ "$4" == "debug" ]] ; then
     py_args=""
     weave_args="--debug -v DEBUG"
 fi
@@ -80,19 +90,19 @@ echo "Weave data..." >&2
 
 cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --config $CONFIG \
-    --cgi                                   $decider_dir/treatments_cgi.csv \
+    --clinical                              $decider_clinical_dir/clinical_export.xlsx \
+    --short-mutations-local                 $decider_version_dir/short_mutations_local.csv  \
+    --cgi                                   $decider_version_dir/treatments_cgi.csv \
     ${weave_args}" # \
-    # --clinical                              $data_dir/DECIDER/clinical/clinical_export.xlsx \
-    # --short-mutations-local                 $decider_dir/short_mutations_local.csv  \
-    # --short-mutations-external              $decider_dir/short_mutations_external.csv  \
-    # --copy-number-amplifications-local      $decider_dir/cnas_local.csv \
-    # --copy-number-amplifications-external   $decider_dir/cnas_external.csv  \
-    # --structural-variants                   $decider_dir/structural_variants.xlsx  \
+    # --short-mutations-external              $decider_version_dir/short_mutations_external.csv  \
+    # --copy-number-amplifications-local      $decider_version_dir/cnas_local.csv \
+    # --copy-number-amplifications-external   $decider_version_dir/cnas_external.csv  \
+    # --structural-variants                   $decider_version_dir/structural_variants.xlsx  \
     # --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     # --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
     # --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
     # --open-targets-target                   $data_dir/OT/target/
-    # --cgi                                   $decider_dir/treatments_cgi.csv \
+    # --cgi                                   $decider_version_dir/treatments_cgi.csv \
 
 
 echo "Weaving command:" >&2
