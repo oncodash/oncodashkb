@@ -32,15 +32,15 @@ transformers:
         translate_to: id
     # - split_translate:
     #     column: Drugs
+    #     separator: "[,|+]"
     #     translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
     #     translate_from: name
     #     translate_to: id
-    #     from_subject: treatment
-    #     match: 
+    #     match:
     #         - \+:
+    #             from_subject: treatment 
     #             to_object: drug
     #             via_relation: treatment_has_part_drug
-    #             separator: "[,|+]"
     # Properties
     ## Gene Status
     - cat_format:

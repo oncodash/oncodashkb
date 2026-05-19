@@ -371,8 +371,8 @@ variant biomarker for treatment:
     is_a: sequence variant modulates treatment association
     represented_as: edge
     label_in_input: variant_biomarker_for_treatment
-    source: sequence variant
-    target: treatment
+    # source: sequence variant
+    # target: treatment
     properties:
         fda_level: str
         level_of_evidence: str
@@ -381,7 +381,7 @@ variant biomarker for treatment:
         tumorType: str
         Cancer_types: str
         data_source: str
-        edglelabel: str
+        Tier: str
 
 ## METADATA
 
