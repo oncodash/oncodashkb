@@ -164,6 +164,7 @@ ln -sf short_mutations_v4.10_external.csv short_mutations_external.csv
 ln -sf cnas_v2.9_local.csv cnas_local.csv
 ln -sf cnas_v2.9_external.csv cnas_external.csv
 ln -sf ./../placeholders/brk_placeholder.xlsx structural_variants.xlsx
+ln -sf ./../placeholders/NETWORK_OT_OKB_filtered_2024_12_17.csv oncokb_gene_status_info.csv
 
 cd $root_dir
 

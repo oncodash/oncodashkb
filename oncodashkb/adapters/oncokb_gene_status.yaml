@@ -1,15 +1,16 @@
 row:
-    cat_format:
+    translate_cat_format:
         columns: 
             - gene
             - GoF_LoF
         to_subject: gene_status
         format_string: "{gene}:{GoF_LoF}"
-        # match:
-        #     - SNV:
-        #         to_subject: short_mutation
-        #     - CNA:
-        #         to_subject: copy_number_amplification
+        column_to_translate: 
+            - gene
+        translations_file: data/HGNC/hgnc_complete_set.txt
+        translate_from: symbol
+        translate_to: ensembl_gene_id
+        sep: "\t"
 transformers:
     - replace:
         column: Drugs
@@ -17,6 +18,7 @@ transformers:
         via_relation: variant_biomarker_for_treatment
         forbidden: ';'
         substitue: ','
+    # Split the column 'Drugs' -> Treatment into unique drugs. 
     - split_translate:
         column: Drugs
         from_subject: treatment
@@ -26,6 +28,20 @@ transformers:
         translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
         translate_from: name
         translate_to: id
+    # Properties
+    ## Gene Status
+    - cat_format:
+        columns: 
+            - gene
+            - GoF_LoF
+        format_string: "{gene}:{GoF_LoF}"
+        to_property: hugo_symbol_gene_role
+        for_object: gene_status
+    - map:
+        column: GoF_LoF
+        to_property: gene_role
+        for_object: gene_status
+    ## Variant biomarker for treatment
     - map:
         column: fda_level
         to_property: fda_level
@@ -33,6 +49,6 @@ transformers:
     - map:
         column: Cancer_types
         to_property: tumorType
-        for_object: Cancer_types
+        for_object: variant_biomarker_for_treatment
 metadata:
-        - data_source: oncokb_annotation
+        - data_source: oncokb_gene_status_annotation
