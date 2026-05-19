@@ -12,7 +12,7 @@ row:
         translate_to: ensembl_gene_id
         sep: "\t"
 transformers:
-    - replace:
+    - split:
         column: Drugs
         separator: "[,]"
         match:
