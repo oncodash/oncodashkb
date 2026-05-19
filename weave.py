@@ -204,6 +204,9 @@ if __name__ == "__main__":
 
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
+    
+    parser.add_argument("-ogs", "--oncokb-gene-status", metavar="CSV", nargs="+",
+                        help="Extract from an OncoKB CSV file.")
 
     parser.add_argument("-on", "--omnipath-networks", metavar="TSV", nargs="+",
                         help="Extract from the Omnipath networks TSV file.")
@@ -271,6 +274,7 @@ if __name__ == "__main__":
         "copy_number_amplifications_external",
         "structural_variants",
         "oncokb",
+        "oncokb_gene_status",
         "omnipath_networks",
         "open_targets_target",
         "open_targets_drug_mechanism_of_action",
@@ -311,18 +315,43 @@ if __name__ == "__main__":
     if asked.structural_variants:
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
-        
+
         data_file = asked.structural_variants[0]
 
         logging.info(f" |  | Load data `{data_file}`...")
         table = pd.read_excel(data_file)
 
+        # Replace "." by "_" in column names
         table = table.rename(columns={"Gene.type":"Gene_type"})
         table["mutation"] = table.mutation.str.replace(r';', ',', regex=True)
 
         local_nodes, local_edges = process_table(
             table,
             name="structural_variants",
+        )
+
+        logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
+    if asked.oncokb_gene_status:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+
+        data_file = asked.oncokb_gene_status[0]
+
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = progress_read(data_file, hint=72648)
+
+        # Replace "." by "_" in column names
+        table_okb = table.rename(columns={"Gene.type":"Gene_type"})
+        # Upper case and remove parentheses and what is inside.
+        table_okb["Drugs"] = table_okb.Drugs.str.upper().str.replace(r'\([^()]*\)', '', regex=True)
+
+        local_nodes, local_edges = process_table(
+            table_okb,
+            name = "oncokb_gene_status",
         )
 
         logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
