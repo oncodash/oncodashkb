@@ -68,7 +68,7 @@ gene status:
     label_in_input: gene_status
     properties:
         gene_role: str
-        hugo_symbol_gene_role: str
+        gene_symbol_gene_role: str
         data_source: str
         # gene_symbol_gene_status: str
 

@@ -48,7 +48,7 @@ transformers:
             - gene
             - GoF_LoF
         format_string: "{gene}:{GoF_LoF}"
-        to_property: hugo_symbol_gene_role
+        to_property: gene_symbol_gene_role
         for_object: gene_status
     - map:
         column: GoF_LoF

@@ -26,7 +26,7 @@ transformers:
         to_object: short_mutation
         via_relation: sample_carries_variant
     ## Gene Stauts
-    - cat_format:
+    - translate_cat_format:
         columns:
           - ensembl_id
           - gene_role
@@ -34,6 +34,11 @@ transformers:
         to_object: gene_status
         format_string: "{ensembl_id}:{gene_role}"
         via_relation: variant_causes_gene_status
+        column_to_translate: 
+            - gene_role
+        translations:
+            Loss-of-function: LoF
+            Gain-of-function: GoF
     ## Genes
     - map:
         column: ensembl_id
@@ -42,13 +47,18 @@ transformers:
         via_relation: gene_status_affects_gene
     # Properties
     ## Gene Stauts
-    - cat_format:
+    - translate_cat_format:
         columns:
           - hugoSymbol
           - gene_role
         to_property: gene_symbol_gene_status
         for_object: gene_status
         format_string: "{hugoSymbol}:{gene_role}"
+        column_to_translate: 
+            - gene_role
+        translations:
+            Loss-of-function: LoF
+            Gain-of-function: GoF
     - map:
         columns: gene_role
         to_property: gene_role

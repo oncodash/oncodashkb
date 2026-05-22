@@ -89,13 +89,13 @@ cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --copy-number-amplifications-local      $decider_version_dir/cnas_local.csv \
     --copy-number-amplifications-external   $decider_version_dir/cnas_external.csv  \
     --structural-variants                   $decider_version_dir/structural_variants.xlsx  \
-    --cgi                                   $decider_version_dir/treatments_cgi.csv \
     --oncokb-gene-status                    $decider_version_dir/oncokb_gene_status_info.csv \
     --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
     --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
     --open-targets-target                   $data_dir/OT/target/
     ${weave_args}" # \
+    # --cgi                                   $decider_version_dir/treatments_cgi.csv \
 
 
 echo "Weaving command:" >&2

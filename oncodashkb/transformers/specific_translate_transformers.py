@@ -65,27 +65,24 @@ class translate_cat_format(ontoweaver.base.Transformer):
         lrg = ontoweaver.loader.LoadOWLGraph()
 
         # Since we cannot expand kwargs, let's recover what we have inside.
-        translations = kwargs.get("translations", None)
-        translations_file = kwargs.get("translations_file", None)
-        translate_from = kwargs.get("translate_from", None)
-        translate_to = kwargs.get("translate_to", None)
+        self.translations = kwargs.get("translations", None)
+        self.translations_file = kwargs.get("translations_file", None)
+        self.translate_from = kwargs.get("translate_from", None)
+        self.translate_to = kwargs.get("translate_to", None)
 
-        if translations and translations_file:
-            self.error(f"Cannot have both `translations` (=`{translations}`) and `translations_file` (=`{translations_file}`) defined in a {type(self).__name__} transformer.", section="translate", exception = ontoweaver.exceptions.TransformerInterfaceError)
+        if self.translations and self.translations_file:
+            self.error(f"Cannot have both `translations` (=`{self.translations}`) and `translations_file` (=`{self.translations_file}`) defined in a {type(self).__name__} transformer.", section="translate", exception = ontoweaver.exceptions.TransformerInterfaceError)
 
-        if translations:
-            self.translate = translations
+        if self.translations:
+            self.translate = self.translations
             logging.debug(f"\t\t\tManual translations: `{self.translate}`")
-        elif translations_file:
-            logging.debug(f"\t\t\tGet translations from file: `{translations_file}`")
-            if not translate_from:
-                self.error(f"No translation source column declared for the `{type(self).__name__}` transformer using translations_file=`{translations_file}`, did you forget to add a `translate_from` keyword?", section="translate.init", exception = ontoweaver.exceptions.TransformerInterfaceError)
-            if not translate_to:
-                self.error(f"No translation target column declared for the `{type(self).__name__}` transformer using translations_file=`{translations_file}`, did you forget to add a `translate_to` keyword?", section="translate.init", exception = ontoweaver.exceptions.TransformerInterfaceError)
+        elif self.translations_file:
+            logging.debug(f"\t\t\tGet translations from file: `{self.translations_file}`")
+            if not self.translate_from:
+                self.error(f"No translation source column declared for the `{type(self).__name__}` transformer using translations_file=`{self.translations_file}`, did you forget to add a `translate_from` keyword?", section="translate.init", exception = ontoweaver.exceptions.TransformerInterfaceError)
+            if not self.translate_to:
+                self.error(f"No translation target column declared for the `{type(self).__name__}` transformer using translations_file=`{self.translations_file}`, did you forget to add a `translate_to` keyword?", section="translate.init", exception = ontoweaver.exceptions.TransformerInterfaceError)
             else:
-                self.translations_file = translations_file
-                self.translate_from = translate_from
-                self.translate_to = translate_to
 
                 # Possible arguments from the `translate` section.
                 mapping_args = ["translations", "translations_file", "translate_from", "translate_to"]

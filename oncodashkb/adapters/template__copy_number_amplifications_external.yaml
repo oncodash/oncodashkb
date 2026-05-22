@@ -19,10 +19,6 @@ transformers:
         translate_to: Patient card::Publication code
         index_col: 0
         usecols: [0,1,2]
-    # - map :
-    #     column: sample_id
-    #     to_object: sample
-    #     via_relation: patient_carries_sample
     ## Alterations
     - cat_format:
         columns:
@@ -33,7 +29,7 @@ transformers:
         via_relation: sample_carries_variant
         format_string: "{hugoSymbol}:{alteration}"
     ## Gene status
-    - cat_format:
+    - translate_cat_format:
         columns:
           - ensembl_id
           - gene_role
@@ -41,22 +37,18 @@ transformers:
         to_object: gene_status
         format_string: "{ensembl_id}:{gene_role}"
         via_relation: variant_causes_gene_status
-        # column_to_translate: 
-        #     - hugoSymbol
-        # translations_file: data/HGNC/hgnc_complete_set.txt
-        # translate_from: symbol
-        # translate_to: ensembl_gene_id
-        # sep: "\t"
+        column_to_translate: 
+            - gene_role
+        translations:
+            Loss-of-function: LoF
+            Gain-of-function: GoF
+            Act: GoF
     ## Genes
     - map:
         column: ensembl_id
         from_subject: gene_status
         to_object: gene
         via_relation: gene_status_affects_gene
-        # translations_file: data/HGNC/hgnc_complete_set.txt
-        # translate_from: symbol
-        # translate_to: ensembl_gene_id
-        # sep: "\t"
     # Properties
     ## Alterations
     - cat_format:
@@ -66,20 +58,20 @@ transformers:
         to_property: ensembl_id_alteration
         for_object: copy_number_amplification
         format_string: "{ensembl_id}:{alteration}"
-        # column_to_translate: 
-        #     - hugoSymbol
-        # translations_file: data/HGNC/hgnc_complete_set.txt
-        # translate_from: symbol
-        # translate_to: ensembl_gene_id
-        # sep: "\t"
     ## Gene status
-    - cat_format:
+    - translate_cat_format:
         columns:
             - hugoSymbol
             - gene_role
         to_property: gene_symbol_gene_status
         for_object: gene_status
         format_string: "{hugoSymbol}:{gene_role}"
+        column_to_translate: 
+            - gene_role
+        translations:
+            Loss-of-function: LoF
+            Gain-of-function: GoF
+            Act: GoF
     - map:
         columns: gene_role
         to_property: gene_role
