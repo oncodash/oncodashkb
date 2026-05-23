@@ -11,10 +11,10 @@ short mutation:
     properties:
         citation_PM_ids: str
         consequence: str
-        homogenous: str
         mutation_effect_description: str
         data_source: str
-        oncogenic: str
+        oncogenic: bool
+        oncokb_oncogenic_annotation: str
         reference_genome: str
         tumor_type: str
         tumor_type_summary: str
@@ -29,10 +29,10 @@ copy number amplification:
     properties:
         citation_PM_ids: str
         consequence: str
-        homogenous: str
         mutation_effect_description: str
         data_source: str
-        oncogenic: str
+        oncogenic: bool
+        oncokb_oncogenic_annotation: str
         reference_genome: str
         tumor_type: str
         tumor_type_summary: str
@@ -46,10 +46,10 @@ structural variant:
     properties:
         citation_PM_ids: str
         consequence: str
-        homogenous: str
         mutation_effect_description: str
         data_source: str
-        oncogenic: str
+        oncogenic: bool
+        oncokb_oncogenic_annotation: str
         reference_genome: str
         tumor_type: str
         tumor_type_summary: str

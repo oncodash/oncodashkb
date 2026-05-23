@@ -80,8 +80,19 @@ transformers:
         for_object: short_mutation
     - map:
         column: oncokb_oncogenic
+        to_property: oncokb_oncogenic_annotation
+        for_object: short_mutation
+    - boolean:
+        column: oncokb_oncogenic
         to_property: oncogenic
         for_object: short_mutation
+        consider_true:
+            - Oncogenic
+            - Likely Oncogenic
+        consider_false:
+            - Unknown
+            - Likely Neutral
+            - Inconclusive
     - replace:
         column: mutationEffectDescription
         to_property: mutation_effect_description

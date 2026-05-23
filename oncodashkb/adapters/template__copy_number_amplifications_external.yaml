@@ -88,8 +88,20 @@ transformers:
         for_object: copy_number_amplification
     - map:
         column: oncogenic
+        to_property: oncokb_oncogenic_annotation
+        for_object: copy_number_amplification
+    - boolean:
+        column: oncogenic
         to_property: oncogenic
         for_object: copy_number_amplification
+        consider_true:
+            - Oncogenic
+            - Likely Oncogenic
+        consider_false:
+            - Unknown
+            - predicted
+            - Inconclusive
+            - known
     - replace:
         column: mutationEffectDescription
         to_property: mutation_effect_description
