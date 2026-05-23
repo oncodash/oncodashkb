@@ -16,7 +16,7 @@ fi
 if [[ -z "$3" ]] ; then
     echo "Selecting Neo4j output configuration." >&2
 elif [[ "$3" == "debug" ]] ; then
-    echo "ERROR, if DEBUG MODE, usage: $0 <DECIDER_data_dir> <config> debug" >&2
+    echo "ERROR, if DEBUG MODE, usage: $0 <DECIDER_data_dir> <DECIDER_data_version> <config> debug" >&2
     exit 2
 else
     echo "Selecting output configuration: $3" >&2
@@ -29,14 +29,18 @@ set -o pipefail
 data_dir="data"
 decider_dir="$1"
 decider_version="$2"
-decider_version_dir="$1/$2"
-decider_clinical_dir="$1/clinical"
+# decider_version_dir="$1/$2"
+# decider_clinical_dir="$1/clinical"
 
-if [[ "4" == "debug" ]] ; then
+if [[ "$4" == "debug" ]] ; then
     echo "DEBUG MODE" >&2
     data_dir="data_debug"
-    decider_dir="data_debug/DECIDER/debug"
+    decider_dir="data_debug/DECIDER"
+    decider_version="debug"
 fi
+
+decider_version_dir="$decider_dir/$decider_version"
+decider_clinical_dir="$decider_dir/clinical"
 
 script_dir="$(dirname $0)"
 
