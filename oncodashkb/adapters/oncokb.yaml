@@ -1,22 +1,46 @@
+
 row:
     map:
-        columns: 
-            - alteration
-        to_subject: alteration
+        id_from_column: alteration
+        match_type_from_column: alteration_type
+        match:
+            - SNV:
+                to_subject: short_mutation
+            - CNA:
+                to_subject: copy_number_amplification
 transformers:
     - replace:
-        columns:
-            - treatment
+        column: treatment
+        to_object: treatment
+        via_relation: variant_biomarker_for_treatment
+        forbidden: ';'
+        substitue: ','
+    - split_translate:
+        column: treatment
+        from_subject: treatment
         to_object: drug
-        via_relation: alteration_biomarker_for_drug
-        substitute: "_"
-    - string:
-        value: "."
-        to_property: edgelabel
-        for_objects:
-            - alteration_biomarker_for_drug
+        via_relation: treatment_has_part_drug
+        separator: "[,|;|+]"
+        translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+        translate_from: name
+        translate_to: id
+    - map:
+        column: level_of_evidence
+        to_property: level_of_evidence
+        for_object: variant_biomarker_for_treatment
+    - replace:
+        column: citations
+        to_property: citations
+        for_object: variant_biomarker_for_treatment
+        forbidden: ';'
+        substitue: ','
+    - map:
+        column: tumorType
+        to_property: tumorType
+        for_object: variant_biomarker_for_treatment
+
 metadata:
-        - data_source: .
+        - data_source: oncokb_annotation
 
 validate:
   columns:

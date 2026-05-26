@@ -359,6 +359,27 @@ if __name__ == "__main__":
         edges += local_edges
         logging.info(f"Done adapter {opt_loaded}/{opt_total}")
 
+    if asked.oncokb:
+        opt_loaded += 1
+        logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
+
+        data_file = asked.oncokb[0]
+
+        logging.info(f" |  | Load data `{data_file}`...")
+        table = progress_read(data_file, hint=72648)
+
+        table["treatment"] = table.treatment.str.upper().str.replace(r'\([^()]*\)', '', regex=True)
+
+        local_nodes, local_edges = process_table(
+            table,
+            name="oncokb",
+        )
+
+        logging.info(f" |  | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
+        nodes += local_nodes
+        edges += local_edges
+        logging.info(f"Done adapter {opt_loaded}/{opt_total}")
+
     if asked.cgi:
         opt_loaded += 1
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
@@ -542,7 +563,7 @@ if __name__ == "__main__":
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
         # "structural_variants",
-        "oncokb",
+        # "oncokb",
         # "cgi",
     ]
     for name in direct_mappings:
