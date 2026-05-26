@@ -190,6 +190,7 @@ declare -a decider_files=(
     $decider_version_dir/cnas_external.csv
     $decider_version_dir/treatments_cgi.csv
     $decider_version_dir/treatments_oncokb.csv
+    $decider_version_dir/oncokb_gene_status_info.csv
 )
 if [[ -d "$decider_version_dir" ]] ; then
     for f in ${decider_files[@]}; do
