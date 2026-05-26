@@ -115,7 +115,7 @@ echo " │  └OK" >&2
 
 echo " │ Open Targets..." >&2
 rsync_cmd="rsync --ignore-existing -rpltvz --delete"
-ot_version="25.12"
+ot_version="26.03"
 mkdir -p OT
 cd OT
 
