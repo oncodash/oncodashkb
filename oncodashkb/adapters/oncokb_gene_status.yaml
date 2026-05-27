@@ -20,7 +20,7 @@ transformers:
                 to_object: treatment
                 via_relation: variant_biomarker_for_treatment
         # forbidden: ';'
-        # substitue: ','
+        # substitute: ','
     # Split the column 'Drugs' -> Treatment into unique drugs. 
     - split_translate:
         column: Drugs

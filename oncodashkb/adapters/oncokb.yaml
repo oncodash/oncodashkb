@@ -14,16 +14,36 @@ transformers:
         to_object: treatment
         via_relation: variant_biomarker_for_treatment
         forbidden: ';'
-        substitue: ','
+        substitute: ' + '
+    - split_translate:
+        column: treatment
+        to_object: drug
+        via_relation: variant_biomarker_for_treatment
+        separator: ";"
+        translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+        translate_from: name
+        translate_to: id
     - split_translate:
         column: treatment
         from_subject: treatment
         to_object: drug
         via_relation: treatment_has_part_drug
-        separator: "[,|;|+]"
+        separator: ";"
         translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
         translate_from: name
         translate_to: id
+    # Properties
+    # ## Drug
+    # - split:
+    #     column: treatment
+    #     from_subject: treatment
+    #     to_object: drug
+    #     via_relation: treatment_has_part_drug
+    #     separator: ";"
+    #     translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+    #     translate_from: name
+    #     translate_to: id
+    ## Variant biomarker for treatment
     - map:
         column: level_of_evidence
         to_property: level_of_evidence
@@ -33,7 +53,7 @@ transformers:
         to_property: citations
         for_object: variant_biomarker_for_treatment
         forbidden: ';'
-        substitue: ','
+        substitute: ','
     - map:
         column: tumorType
         to_property: tumorType
