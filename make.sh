@@ -94,6 +94,7 @@ cmd="uv run python3 ${py_args} $script_dir/weave.py \
     --copy-number-amplifications-external   $decider_version_dir/cnas_external.csv  \
     --structural-variants                   $decider_version_dir/structural_variants.xlsx  \
     --oncokb-gene-status                    $decider_version_dir/oncokb_gene_status_info.csv \
+    --oncokb                                $decider_version_dir/treatments_oncokb.csv \
     --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
     --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
     --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
