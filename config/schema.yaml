@@ -358,6 +358,7 @@ variant causes gene status:
     source: sequence variant
     target: gene status
     properties:
+        likely: bool
         data_source: str
         edglelabel: str
 

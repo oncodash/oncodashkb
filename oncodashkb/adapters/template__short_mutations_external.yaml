@@ -38,7 +38,9 @@ transformers:
             - gene_role
         translations:
             Loss-of-function: LoF
+            Likely Loss-of-function: LoF
             Gain-of-function: GoF
+            Likely Gain-of-function: LoF
     ## Genes
     - map:
         column: ensembl_id
@@ -58,11 +60,31 @@ transformers:
             - gene_role
         translations:
             Loss-of-function: LoF
+            Likely Loss-of-function: LoF
             Gain-of-function: GoF
-    - map:
+            Likely Gain-of-function: LoF
+    - translate:
         columns: gene_role
         to_property: gene_role
         for_object: gene_status
+        translations:
+            Loss-of-function: LoF
+            Likely Loss-of-function: LoF
+            Gain-of-function: GoF
+            Likely Gain-of-function: LoF
+    - boolean:
+        columns: gene_role
+        to_property: likely
+        for_object: variant_causes_gene_status
+        consider_true:
+            - Likely Loss-of-function
+            - Likely Gain-of-function
+            - Likely Neutral
+        consider_false:
+            - Loss-of-function
+            - Gain-of-function
+            - Inconclusive
+            - Unknown
     ## Genes
     - map:
         column: hugoSymbol
