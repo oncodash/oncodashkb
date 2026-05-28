@@ -45,6 +45,9 @@ transformers:
             Gain-of-function: GoF
             Likely Gain-of-function: LoF
             Act: GoF
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
     ## Genes
     - map:
         column: ensembl_id
@@ -76,16 +79,22 @@ transformers:
             Gain-of-function: GoF
             Likely Gain-of-function: LoF
             Act: GoF
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
     - translate:
         columns: gene_role
         to_property: gene_role
-        for_object: gene_status
+        for_object: variant_causes_gene_status
         translations:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
             Likely Gain-of-function: LoF
             Act: GoF
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
     - boolean:
         columns: gene_role
         to_property: likely

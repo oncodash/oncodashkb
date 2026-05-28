@@ -41,6 +41,9 @@ transformers:
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
             Likely Gain-of-function: LoF
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
     ## Genes
     - map:
         column: ensembl_id
@@ -63,6 +66,9 @@ transformers:
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
             Likely Gain-of-function: LoF
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
     - translate:
         columns: gene_role
         to_property: gene_role
@@ -72,6 +78,9 @@ transformers:
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
             Likely Gain-of-function: LoF
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
     - boolean:
         columns: gene_role
         to_property: likely
