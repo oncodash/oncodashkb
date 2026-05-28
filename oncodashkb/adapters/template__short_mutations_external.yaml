@@ -28,12 +28,14 @@ transformers:
     ## Gene Stauts
     - translate_cat_format:
         columns:
-          - ensembl_id
+          - hugoSymbol
           - gene_role
         from_subject: short_mutation
         to_object: gene_status
-        format_string: "{ensembl_id}:{gene_role}"
         via_relation: variant_causes_gene_status
+        # to_property: gene_symbol_gene_status
+        # for_object: gene_status
+        format_string: "{hugoSymbol}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
@@ -54,11 +56,14 @@ transformers:
     ## Gene Stauts
     - translate_cat_format:
         columns:
-          - hugoSymbol
+          - ensembl_id
           - gene_role
-        to_property: gene_symbol_gene_status
+        from_subject: short_mutation
+        # to_object: gene_status
+        # via_relation: variant_causes_gene_status
         for_object: gene_status
-        format_string: "{hugoSymbol}:{gene_role}"
+        to_property: ensembl_id_gene_status
+        format_string: "{ensembl_id}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:

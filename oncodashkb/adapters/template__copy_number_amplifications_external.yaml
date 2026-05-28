@@ -31,12 +31,14 @@ transformers:
     ## Gene status
     - translate_cat_format:
         columns:
-          - ensembl_id
-          - gene_role
+            - hugoSymbol
+            - gene_role
         from_subject: copy_number_amplification
         to_object: gene_status
-        format_string: "{ensembl_id}:{gene_role}"
         via_relation: variant_causes_gene_status
+        # to_property: gene_symbol_gene_status
+        # for_object: gene_status
+        format_string: "{hugoSymbol}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
@@ -66,11 +68,14 @@ transformers:
     ## Gene status
     - translate_cat_format:
         columns:
-            - hugoSymbol
-            - gene_role
-        to_property: gene_symbol_gene_status
+          - ensembl_id
+          - gene_role
+        to_property: ensembl_id_gene_status
         for_object: gene_status
-        format_string: "{hugoSymbol}:{gene_role}"
+        # from_subject: copy_number_amplification
+        # to_object: gene_status
+        # via_relation: variant_causes_gene_status
+        format_string: "{ensembl_id}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
