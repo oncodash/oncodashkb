@@ -31,18 +31,25 @@ transformers:
     ## Gene status
     - translate_cat_format:
         columns:
-          - ensembl_id
-          - gene_role
+            - hugoSymbol
+            - gene_role
         from_subject: copy_number_amplification
         to_object: gene_status
-        format_string: "{ensembl_id}:{gene_role}"
         via_relation: variant_causes_gene_status
+        # to_property: gene_symbol_gene_status
+        # for_object: gene_status
+        format_string: "{hugoSymbol}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
             Loss-of-function: LoF
+            Likely Loss-of-function: LoF
             Gain-of-function: GoF
+            Likely Gain-of-function: LoF
             Act: GoF
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
     ## Genes
     - map:
         column: ensembl_id
@@ -61,21 +68,52 @@ transformers:
     ## Gene status
     - translate_cat_format:
         columns:
-            - hugoSymbol
-            - gene_role
-        to_property: gene_symbol_gene_status
+          - ensembl_id
+          - gene_role
+        to_property: ensembl_id_gene_status
         for_object: gene_status
-        format_string: "{hugoSymbol}:{gene_role}"
+        # from_subject: copy_number_amplification
+        # to_object: gene_status
+        # via_relation: variant_causes_gene_status
+        format_string: "{ensembl_id}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
             Loss-of-function: LoF
+            Likely Loss-of-function: LoF
             Gain-of-function: GoF
+            Likely Gain-of-function: LoF
             Act: GoF
-    - map:
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
+    - translate:
         columns: gene_role
         to_property: gene_role
+        for_object: variant_causes_gene_status
+        translations:
+            Loss-of-function: LoF
+            Likely Loss-of-function: LoF
+            Gain-of-function: GoF
+            Likely Gain-of-function: LoF
+            Act: GoF
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
+    - boolean:
+        columns: gene_role
+        to_property: likely
         for_object: gene_status
+        consider_true:
+            - Likely Loss-of-function
+            - Likely Gain-of-function
+        consider_false:
+            - LoF
+            - Gain-of-function
+            - Inconclusive
+            - Act
+            - ambiguous
+            - Unknown
     ## Genes
     - map: 
         column: hugoSymbol

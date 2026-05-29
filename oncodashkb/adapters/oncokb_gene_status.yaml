@@ -1,16 +1,13 @@
 row:
-    translate_cat_format:
+    cat_format:
         columns: 
             - gene
             - GoF_LoF
-        to_subject: gene_status
         format_string: "{gene}:{GoF_LoF}"
-        column_to_translate: 
-            - gene
-        translations_file: data/HGNC/hgnc_complete_set.txt
-        translate_from: symbol
-        translate_to: ensembl_gene_id
-        sep: "\t"
+        to_subject: gene_status
+        # to_property: gene_symbol_gene_role
+        # for_object: gene_status
+
 transformers:
     - split:
         column: Drugs
@@ -20,7 +17,7 @@ transformers:
                 to_object: treatment
                 via_relation: variant_biomarker_for_treatment
         # forbidden: ';'
-        # substitue: ','
+        # substitute: ','
     # Split the column 'Drugs' -> Treatment into unique drugs. 
     - split_translate:
         column: Drugs
@@ -43,13 +40,20 @@ transformers:
     #             via_relation: treatment_has_part_drug
     # Properties
     ## Gene Status
-    - cat_format:
+    - translate_cat_format:
         columns: 
             - gene
             - GoF_LoF
-        format_string: "{gene}:{GoF_LoF}"
-        to_property: gene_symbol_gene_role
+        # to_subject: gene_status
+        to_property: ensembl_id_gene_role
         for_object: gene_status
+        format_string: "{gene}:{GoF_LoF}"
+        column_to_translate: 
+            - gene
+        translations_file: data/HGNC/hgnc_complete_set.txt
+        translate_from: symbol
+        translate_to: ensembl_gene_id
+        sep: "\t"
     - map:
         column: GoF_LoF
         to_property: gene_role

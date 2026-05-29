@@ -29,20 +29,35 @@ transformers:
         via_relation: sample_carries_variant
         format_string: "{primary_gene}:{mutation}"
     ## Gene status
+    # - translate_cat_format:
+    #     columns:
+    #       - primary_gene
+    #       - Gene_type
+    #     from_subject: structural_variant
+    #     to_object: gene_status
+    #     format_string: "{primary_gene}:{Gene_type}"
+    #     via_relation: variant_causes_gene_status
+    #     column_to_translate: 
+    #         - primary_gene
+    #     translations_file: data/HGNC/hgnc_complete_set.txt
+    #     translate_from: symbol
+    #     translate_to: ensembl_gene_id
+    #     sep: "\t"
     - translate_cat_format:
         columns:
-          - primary_gene
-          - Gene_type
+            - primary_gene
+            - Gene_type
         from_subject: structural_variant
         to_object: gene_status
+        # to_property: gene_symbol_gene_status
+        # for_object: gene_status
         format_string: "{primary_gene}:{Gene_type}"
         via_relation: variant_causes_gene_status
         column_to_translate: 
-            - primary_gene
-        translations_file: data/HGNC/hgnc_complete_set.txt
-        translate_from: symbol
-        translate_to: ensembl_gene_id
-        sep: "\t"
+            - Gene_type
+        translations:
+            gain: GoF
+            loss: LoF
     ## Genes
     - translate:
         column: primary_gene
@@ -86,13 +101,13 @@ transformers:
         translate_to: ensembl_gene_id
         sep: "\t"
     ## Gene status
-    - cat_format:
-        columns:
-            - primary_gene
-            - Gene_type
-        to_property: gene_symbol_gene_status
-        for_object: gene_status
-        format_string: "{primary_gene}:{Gene_type}"
+    # - cat_format:
+    #     columns:
+    #         - primary_gene
+    #         - Gene_type
+    #     to_property: gene_symbol_gene_status
+    #     for_object: gene_status
+    #     format_string: "{primary_gene}:{Gene_type}"
     - translate:
         columns: Gene_type
         to_property: gene_role

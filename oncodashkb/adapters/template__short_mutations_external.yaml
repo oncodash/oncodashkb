@@ -28,17 +28,24 @@ transformers:
     ## Gene Stauts
     - translate_cat_format:
         columns:
-          - ensembl_id
+          - hugoSymbol
           - gene_role
         from_subject: short_mutation
         to_object: gene_status
-        format_string: "{ensembl_id}:{gene_role}"
         via_relation: variant_causes_gene_status
+        # to_property: gene_symbol_gene_status
+        # for_object: gene_status
+        format_string: "{hugoSymbol}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
             Loss-of-function: LoF
+            Likely Loss-of-function: LoF
             Gain-of-function: GoF
+            Likely Gain-of-function: LoF
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
     ## Genes
     - map:
         column: ensembl_id
@@ -49,20 +56,49 @@ transformers:
     ## Gene Stauts
     - translate_cat_format:
         columns:
-          - hugoSymbol
+          - ensembl_id
           - gene_role
-        to_property: gene_symbol_gene_status
+        from_subject: short_mutation
+        # to_object: gene_status
+        # via_relation: variant_causes_gene_status
         for_object: gene_status
-        format_string: "{hugoSymbol}:{gene_role}"
+        to_property: ensembl_id_gene_status
+        format_string: "{ensembl_id}:{gene_role}"
         column_to_translate: 
             - gene_role
         translations:
             Loss-of-function: LoF
+            Likely Loss-of-function: LoF
             Gain-of-function: GoF
-    - map:
+            Likely Gain-of-function: LoF
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
+    - translate:
         columns: gene_role
         to_property: gene_role
         for_object: gene_status
+        translations:
+            Loss-of-function: LoF
+            Likely Loss-of-function: LoF
+            Gain-of-function: GoF
+            Likely Gain-of-function: LoF
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
+    - boolean:
+        columns: gene_role
+        to_property: likely
+        for_object: variant_causes_gene_status
+        consider_true:
+            - Likely Loss-of-function
+            - Likely Gain-of-function
+            - Likely Neutral
+        consider_false:
+            - Loss-of-function
+            - Gain-of-function
+            - Inconclusive
+            - Unknown
     ## Genes
     - map:
         column: hugoSymbol

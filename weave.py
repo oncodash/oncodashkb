@@ -368,7 +368,8 @@ if __name__ == "__main__":
         logging.info(f" |  | Load data `{data_file}`...")
         table = progress_read(data_file, hint=72648)
 
-        table["treatment"] = table.treatment.str.upper().str.replace(r'\([^()]*\)', '', regex=True)
+        # Stripping semicolon at the end of "treatment" 
+        table["treatment"] = table.treatment.str.upper().str.strip(";$")
 
         local_nodes, local_edges = process_table(
             table,
