@@ -15,4 +15,4 @@ biopathnet:
   background_graph_file_stem: brg
   skg_file_stem: skg
   targeted-relation: None
-  include-properties: True
+  include-properties: False
