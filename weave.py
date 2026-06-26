@@ -43,7 +43,7 @@ from oncodashkb.transformers.ot_transformers import access_proteins, urls_to_pro
 ontoweaver.transformer.register(access_proteins)
 ontoweaver.transformer.register(urls_to_prop)
 
-def progress_read(filename, hint=None, steps=100, estimate_lines=10, **kwargs):
+def progress_read(filename, hint=None, steps=100, estimate_lines=10, sub_sample=100.0, **kwargs):
     # df = pd.read_csv(filename, nrows=estimate_lines, **kwargs)
     # estimated_size = len(df.to_csv(index=False))
     # fsize = os.path.getsize(filename)
@@ -70,6 +70,10 @@ def progress_read(filename, hint=None, steps=100, estimate_lines=10, **kwargs):
                 progress()
 
     df = pd.concat(chunks, axis=0)
+
+    assert 0.0 < sub_sample <=100.0, "sub-sample must be a percentage"
+    if sub_sample < 100.0:
+        df = df.sample(frac=sub_sample)
 
     return df
 
