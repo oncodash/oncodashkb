@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
 if [[ -z "$1" ]] ; then
-    echo "ERROR, usage: $0 <DECIDER_data_dir>" >&2
+    echo "ERROR, usage: $0 <DECIDER_Eduuni_archive_dir> <DECIDER_snapshot_dir>" >&2
+    echo "First argument is the archive of the DECIDER project, with at least WP1 and WP9 subdirectories." >&2
+    echo "Second argument is where you want to put the prepared DECIDER data snapshot." >&2
+    echo "For instance:" >&2
+    echo "    From Eduuni, check WP1 and WP9 directories, and click 'Download'" >&2
+    echo "    Unzip the archive." >&2
+    echo "    Run: ./prepare.sh <wherever is the unziped dir> DECIDER_2026-06-26" >&2
+    echo "    This will copy the necessary DECIDER files in: data/DECIDER_2026-06-26" >&2
+    echo "    and the public databases files in: data/<DB name>" >&2
     exit 2
 fi
 
@@ -11,9 +19,7 @@ set -e
 root_dir=$(dirname $(realpath $0))
 data_dir="data"
 decider_dir="$1"
-decider_version="$2"
-decider_version_dir="$1/$2"
-decider_clinical_dir="$1/clinical"
+decider_snapshot_dir="$data_dir/$2"
 
 log_file="prepare.log"
 echo "" > $log_file
@@ -154,23 +160,31 @@ cd ..  # Back to project root.
 echo " └OK" >&2
 
 ## 2.2 - DECIDER data
+echo "Prepare patients data..." >&2
 
-### 2.2.1 - Symlinks
+if [[ ! -d $decider_snapshot_dir ]] ; then
+    echo " │ Copy DECIDER data..." >&2
+    mkdir -p $decider_snapshot_dir
 
-cd $decider_version_dir
+    p="$decider_dir/DECIDER WP9 Oncodash/Annotated Genomic Data/cnas_v2.9_short_mutations_v4.10"
+    cp "$p/short_mutations_v4.10_local.csv" "$decider_snapshot_dir/short_mutations_local.csv"
+    cp "$p/short_mutations_v4.10_external.csv" "$decider_snapshot_dir/short_mutations_external.csv"
+    cp "$p/cnas_v2.9_local.csv" "$decider_snapshot_dir/cnas_local.csv"
+    cp "$p/cnas_v2.9_external.csv" "$decider_snapshot_dir/cnas_external.csv"
+    cp "$p/treatments_oncokb.csv" "$decider_snapshot_dir/treatments_oncokb.csv"
 
-ln -sf short_mutations_v4.10_local.csv short_mutations_local.csv
-ln -sf short_mutations_v4.10_external.csv short_mutations_external.csv
-ln -sf cnas_v2.9_local.csv cnas_local.csv
-ln -sf cnas_v2.9_external.csv cnas_external.csv
-ln -sf ./../placeholders/brk_placeholder.xlsx structural_variants.xlsx
-ln -sf ./../placeholders/NETWORK_OT_OKB_filtered_2024_12_17.csv oncokb_gene_status_info.csv
+    p="$decider_dir/DECIDER WP9 Oncodash/Annotated Genomic Data/vTMB"
+    cp "$p/brk_placeholder_vTMB.xlsx" "$decider_snapshot_dir/structural_variants.xlsx"
+    cp "$p/NETWORK_OT_OKB_filtered_2024_12_17.csv" "$decider_snapshot_dir/oncokb_gene_status_info.csv"
 
-cd $root_dir
+    p="$decider_dir/DECIDER WP1 Clinical data"
+    cp "$p/12122025_Clinical export DECIDER collab.xlsx" "$decider_snapshot_dir/clinical_export.xlsx"
 
-cd $decider_clinical_dir
+    echo " └OK" >&2
+else
+    echo " └ DECIDER data directory '$decider_snapshot_dir' exists, I'll just check files." >&2
 
-ln -sf 12122025_Clinical_export_DECIDER_collab.xlsx clinical_export.xlsx
+fi
 
 cd $root_dir
 
@@ -184,20 +198,21 @@ check() {
     fi
 }
 declare -a decider_files=(
-    $decider_version_dir/short_mutations_local.csv
-    $decider_version_dir/short_mutations_external.csv
-    $decider_version_dir/cnas_local.csv
-    $decider_version_dir/cnas_external.csv
-    $decider_version_dir/treatments_cgi.csv
-    $decider_version_dir/treatments_oncokb.csv
-    $decider_version_dir/oncokb_gene_status_info.csv
+    $decider_snapshot_dir/short_mutations_local.csv
+    $decider_snapshot_dir/short_mutations_external.csv
+    $decider_snapshot_dir/cnas_local.csv
+    $decider_snapshot_dir/cnas_external.csv
+    $decider_snapshot_dir/structural_variants.xlsx
+    $decider_snapshot_dir/treatments_oncokb.csv
+    $decider_snapshot_dir/oncokb_gene_status_info.csv
+    $decider_snapshot_dir/clinical_export.xlsx
 )
-if [[ -d "$decider_version_dir" ]] ; then
+if [[ -d "$decider_snapshot_dir" ]] ; then
     for f in ${decider_files[@]}; do
         check $f
     done
 else
-    echo "The '$decider_version_dir' directory does not exists." >&2
+    echo "The '$decider_snapshot_dir' directory does not exists." >&2
     exit 1
 fi
 
@@ -206,6 +221,7 @@ echo " └OK" >&2
 
 ### 2.2.3 – adapters paths
 
+echo "Instantiate templated adapters..." >&2
 cd oncodashkb/adapters/
 
 declare -a decider_adapters=(
@@ -217,8 +233,9 @@ declare -a decider_adapters=(
 )
 
 for a in ${decider_adapters[@]} ; do
-    cat template__$a | sed "s,{{{DECIDER_DIR}}},$decider_dir,g" > $a
+    cat template__$a | sed "s,{{{DECIDER_DIR}}},$decider_snapshot_dir,g" > $a
 done
+echo " └OK" >&2
 
 cd $root_dir
 
@@ -229,16 +246,15 @@ echo "Create a smaller debuging data set in data_debug/..." >&2
 lines=100
 echo " │ DECIDER..." >&2
 mkdir -p data_debug
-mkdir -p data_debug/DECIDER/debug/
+mkdir -p data_debug/DECIDER_debug/
 for f in ${decider_files[@]}; do
-    head -n $lines $f > data_debug/DECIDER/debug/$(basename $f)
+    head -n $lines $f > data_debug/DECIDER_debug/$(basename $f)
 done
 
-cp $decider_version_dir/structural_variants.xlsx data_debug/DECIDER/debug
+cp $decider_snapshot_dir/structural_variants.xlsx data_debug/DECIDER_debug/
 echo " │  └OK" >&2
 
-mkdir -p data_debug/DECIDER/clinical/
-cp $decider_clinical_dir/clinical_export.xlsx data_debug/DECIDER/clinical
+cp $decider_snapshot_dir/clinical_export.xlsx data_debug/DECIDER_debug/
 echo " │  └OK" >&2
 
 echo " │ GO & HGNC..." >&2
@@ -318,5 +334,5 @@ cd ..  # Out of the subdir oncodashkb
 echo " │  └OK" >&2
 echo " └OK" >&2
 
-echo "Everything is OK, you can now call: ./make.sh." >&2
+echo "Everything is OK, you can now call: ./make.sh $decider_snapshot_dir" >&2
 

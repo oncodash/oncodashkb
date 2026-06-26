@@ -2,7 +2,7 @@ row:
     translate:
         column: patient
         to_subject: patient
-        translations_file: {{{DECIDER_DIR}}}/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
@@ -14,7 +14,7 @@ transformers:
         column: sample
         to_object: sample
         via_relation: patient_carries_sample
-        translations_file: {{{DECIDER_DIR}}}/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0

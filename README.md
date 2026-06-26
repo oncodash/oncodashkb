@@ -85,8 +85,8 @@ but should match the name of the database in
 The quickest possible build of OncodashKB is calling:
 
 ``` sh
-./prepare.sh <DECIDER_data_dir> # Downloads all the needed data.
-./make.sh <DECIDER_data_dir> [debug] # Runs what's needed to build the SKG, and run a test Cypher query.
+./prepare.sh <DECIDER_data_dir> <DECIDER_snapshot_dir> # Checks all the needed data, download them if necessary.
+./make.sh <DECIDER_snapshot_dir> [config] [debug] # Runs what's needed to build the SKG, and run a test Cypher query.
 ```
 
 Note the optional "debug" option for the `make.sh` script, which enable a more
@@ -99,7 +99,36 @@ If you need to handle some of the steps yourself, the following sections tries
 to explain some subtleties.
 
 
-#### 1. Weave database
+#### Dependency on DECIDER data
+
+As of now, OncodashKB depends on data coming from the DECIDER project.
+If you have an archive of the Eduuni data, unzip it somwhere and pass its path
+to the `prepare.sh` script.
+
+The second argument of the prepare script is *where* you want to put a snapshot
+of those data (usually, you would use `DECIDER_$(date -I)`).
+
+This second argument is the directory you will pass to the `make.sh` script.
+
+So far, OncodashKB scripts are not generalized to avoid dependencies on
+DECIDER data. However, it should be technically feasible to make OntoWeaver
+mappings for your own data, and integrate them with the mappings that are
+referenced here. See the `prepare.sh` script to see what mappings it downloads.
+
+
+#### Config the output format
+
+You can pass a different BioCypher config file using the `[config]` argument
+of the `make.sh` script. For instance:
+
+``` sh
+./make.sh data/DECIDER_test config/biopathnet.yaml  # This will export the SKG in the BPN format.
+```
+
+
+#### Weave database
+
+The `make.sh` script calls the `weave.py` script internally.
 
 The `weave.py` command will include the data files that you indicate into a part
 of the SKG. It follows the general form of:
@@ -115,12 +144,12 @@ uv run weave.py --help
 ```
 
 
-#### 2. Import the database
+#### Import the database
 
 Once executed, `weave.py` prepares a shell script named
 `neo4j-admin-import-call.sh` in a timestamped sub-directory in
 '$ONCODASHKB_HOME/biocypher-out'. The complete path of this file is printed at
-the end of execution, you can programmatically capture it with a subshell:
+the end of execution, `make.sh` captures it with a subshell:
 
 ``` sh
 import_script=$(uv run weave.py […])
@@ -134,7 +163,7 @@ version=$(~~bin/~~neo4j-admin --version | cut -d '.' -f 1)
 ...
 ```
 
-Before importing the data by calling the import script, be sure that the Neo4j
+Before importing the data by calling the import script, `make.sh` ensures that the Neo4j
 server is stopped. Executing the import script will connect directly to the
 Neo4j server data files, and feed it with the extracted graph:
 
@@ -145,7 +174,7 @@ sh <YOUR_PATH_TO>/neo4j-admin-import-call.sh # To call it directly.
 ```
 
 
-#### 3. Start the server
+#### Start the server
 
 You can start the  Neo4j server by using either of the commands below.
 
@@ -166,7 +195,7 @@ your graph from your own Web browser. By default, the link to Neo4j browser is:
 `http://localhost:7474`.
 
 
-#### 4. Stop the server
+#### Stop the server
 
 You can stop the server by using either of the commands below.
 
@@ -180,13 +209,6 @@ Neo4j 4:
 
 ``` sh
 neo4j stop
-```
-
-
-#### 5. Exit the UV environment
-
-``` sh
-exit
 ```
 
 
@@ -232,21 +254,10 @@ integrate the data about **the targets, disease/phenotypes, drugs** and **eviden
 
 Current adapter works with the data in **Parquet** format.
 
-To download the data, you can visit
+To download the necessary data, check what the `prepare.sh` script is downloading,
+you can visit
 [Open Target's download page](https://platform.opentargets.org/downloads/data)
-and separately download needed datasets or execute the following bash script:
-
-``` sh
-#!/bin/bash
-
-mkdir OpenTargets
-cd OpenTargets
-
-rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/targets .
-rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/diseases .
-rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/molecule .
-rsync -rpltvz --delete rsync.ebi.ac.uk::pub/databases/opentargets/platform/24.06/output/etl/parquet/evidence .
-```
+and separately download needed datasets.
 
 As Open Targets database contains millions of the rows of the data, in order to
 integrate only necessary information, you need to precise the genes
@@ -295,7 +306,7 @@ To visualize [a part of] the graph, you can use
 with a similar Cypher query.
 
 Notes:
-- Neo4j-browser [needs a specific node version](https://github.com/neo4j/neo4j-browser/issues/1833),
+- Neo4j-browser may [need a specific node version](https://github.com/neo4j/neo4j-browser/issues/1833),
   you can install it with:
   ``` sh
   pip install nodeenv
