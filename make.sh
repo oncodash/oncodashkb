@@ -2,7 +2,7 @@
 
 CONFIG="config/neo4j.yaml"
 if [[ -z "$1" ]] ; then
-    echo "ERROR, usage: $0 <DECIDER_snapshot_dir> [config] [debug]" >&2
+    echo "ERROR, usage: $0 <DECIDER_snapshot_dir> [config] [debug|sub-sample_percentage]" >&2
     echo "    config defaults to: $CONFIG" >&2
     exit 2
 fi
@@ -23,10 +23,16 @@ set -o pipefail
 data_dir="data"
 decider_dir="$1"
 
-if [[ "$3" == "debug" ]] ; then
-    echo "DEBUG MODE" >&2
-    data_dir="data_debug"
-    decider_dir="data_debug/DECIDER_debug"
+sub_sample=""
+if [[ -n "$3" ]] ; then
+    if [[ "$3" == "debug" ]] ; then
+        echo "DEBUG MODE" >&2
+        data_dir="data_debug"
+        decider_dir="data_debug/DECIDER_debug"
+    else
+        echo "SUBSAMPLING MODE" >&2
+        sub_sample="--sub-sample $3"
+    fi
 fi
 
 script_dir="$(dirname $0)"
@@ -72,20 +78,21 @@ source $(dirname $(uv python find))/activate
 
 echo "Weave data..." >&2
 
-cmd="uv run python3 ${py_args} $script_dir/weave.py \
-    --config $CONFIG \
-    --clinical                              $decider_dir/clinical_export.xlsx \
-    --short-mutations-local                 $decider_dir/short_mutations_local.csv  \
-    --short-mutations-external              $decider_dir/short_mutations_external.csv  \
-    --copy-number-amplifications-local      $decider_dir/cnas_local.csv \
-    --copy-number-amplifications-external   $decider_dir/cnas_external.csv  \
-    --structural-variants                   $decider_dir/structural_variants.xlsx  \
-    --oncokb                                $decider_dir/treatments_oncokb.csv \
-    --omnipath-networks                     $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz \
+cmd="uv run python3 ${py_args} $script_dir/weave.py
+    --config $CONFIG
+    --clinical                              $decider_dir/clinical_export.xlsx
+    --short-mutations-local                 $decider_dir/short_mutations_local.csv 
+    --short-mutations-external              $decider_dir/short_mutations_external.csv 
+    --copy-number-amplifications-local      $decider_dir/cnas_local.csv
+    --copy-number-amplifications-external   $decider_dir/cnas_external.csv 
+    --structural-variants                   $decider_dir/structural_variants.xlsx 
+    --oncokb                                $decider_dir/treatments_oncokb.csv
+    --omnipath-networks $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
     --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
     --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
     --open-targets-target                   $data_dir/OT/target/
-    --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv \
+    --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv
+    ${sub_sample}
     ${weave_args}"
 
 

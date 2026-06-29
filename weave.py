@@ -73,7 +73,7 @@ def progress_read(filename, hint=None, steps=100, estimate_lines=10, sub_sample=
 
     assert 0.0 < sub_sample <=100.0, "sub-sample must be a percentage"
     if sub_sample < 100.0:
-        df = df.sample(frac=sub_sample)
+        df = df.sample(frac=sub_sample/100.0)
 
     return df
 
@@ -81,7 +81,7 @@ def process_table(table, name):
     logging.info(f" | Weave DECIDER {name}...")
 
     mapping_file = f"oncodashkb/adapters/{name}.yaml"
-    
+
     # logging.info(f"Weave structural variants...")
     logging.info(f" | Weave `{data_file}:{mapping_file}`...")
 
@@ -208,7 +208,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
-    
+
     parser.add_argument("-ogs", "--oncokb-gene-status", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
 
@@ -236,6 +236,8 @@ if __name__ == "__main__":
     parser.add_argument("--debug", action="store_true",
                         help=f"If passed, stops on any error.")
 
+    parser.add_argument("-a", "--sub-sample", metavar="PERCENT", type=float, default=100.0,
+                        help="Randomly sub sample all processed dataframes before weaving.")
 
     levels = {
         "DEBUG": logging.DEBUG,
@@ -346,7 +348,7 @@ if __name__ == "__main__":
         data_file = asked.oncokb_gene_status[0]
 
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, hint=72648)
+        table = progress_read(data_file, hint=72648, sub_sample = asked.sub_sample)
 
         # Replace "." by "_" in column names
         table_okb = table.rename(columns={"Gene.type":"Gene_type"})
@@ -370,7 +372,7 @@ if __name__ == "__main__":
         data_file = asked.oncokb[0]
 
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, hint=72648)
+        table = progress_read(data_file, hint=72648, sub_sample = asked.sub_sample)
 
         # Stripping semicolon at the end of "treatment" 
         table["treatment"] = table.treatment.str.upper().str.strip(";$")
@@ -394,7 +396,7 @@ if __name__ == "__main__":
         # logging.info(f"Weave structural variants...")
         logging.info(f" | Weave `{data_file}:{mapping_file}`...")
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, hint=72648)
+        table = progress_read(data_file, hint=72648, sub_sample = asked.sub_sample)
 
         table["treatment"] = table.treatment.str.upper().str.replace(r'\([^()]*\)', '', regex=True)
 
@@ -441,7 +443,7 @@ if __name__ == "__main__":
         # logging.info(f"Weave OmniPath networks data...")
         logging.info(f" | Weave `{data_file}:{mapping_file}`...")
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, hint=890699)
+        table = progress_read(data_file, hint=890699, sub_sample = asked.sub_sample)
 
         translations_file = "./data/HGNC/hgnc_complete_set.txt"
         translations_table = pd.read_table(translations_file, sep="\t")
@@ -582,7 +584,7 @@ if __name__ == "__main__":
         logging.info(f"########## Adapter #{opt_loaded}/{opt_total} ##########")
         logging.info(f" | Weave `{data_file}:{mapping_file}`...")
         logging.info(f" |  | Load data `{data_file}`...")
-        table = progress_read(data_file, sep="\t")
+        table = progress_read(data_file, sep="\t", sub_sample = asked.sub_sample)
 
         try:
             with open(mapping_file) as fd:
