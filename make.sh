@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+work_dir=$(pwd)
+
 CONFIG="config/neo4j.yaml"
 if [[ -z "$1" ]] ; then
     echo "ERROR, usage: $0 <DECIDER_snapshot_dir> [config] [debug|sub-sample_percentage]" >&2
@@ -17,18 +19,19 @@ else
     CONFIG="$2"
 fi
 
-set -e
+set -ex
 set -o pipefail
 
-data_dir="data"
-decider_dir="$1"
+pwd
+decider_dir="$(realpath $1)"
+data_dir="$(realpath $1/..)"
 
 sub_sample=""
 if [[ -n "$3" ]] ; then
     if [[ "$3" == "debug" ]] ; then
         echo "DEBUG MODE" >&2
-        data_dir="data_debug"
-        decider_dir="data_debug/DECIDER_debug"
+        data_dir="$(realpath $decider_dir/../data_debug)"
+        decider_dir="$(realpath $decider_dir/../data_debug/DECIDER_debug)"
     else
         echo "SUBSAMPLING MODE" >&2
         sub_sample="--sub-sample $3"

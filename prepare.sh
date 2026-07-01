@@ -18,14 +18,14 @@ set -e
 
 root_dir=$(pwd)
 data_dir="data"
-decider_dir="$1"
-decider_snapshot_dir="$data_dir/$2"
+decider_dir="$(realpath $1)"
+decider_snapshot_dir="$(realpath $data_dir/$2)"
 
 log_file="prepare.log"
 echo "" > $log_file
 log=$(realpath $log_file)
 
-script_dir="$(dirname $0)"
+script_dir="$(realpath $(dirname $0))"
 
 error_handler() {
     local line_number=$1
