@@ -33,7 +33,7 @@ if [[ -n "$3" ]] ; then
         data_dir="$(realpath $decider_dir/../data_debug)"
         decider_dir="$(realpath $decider_dir/../data_debug/DECIDER_debug)"
     else
-        echo "SUBSAMPLING MODE" >&2
+        echo "SUBSAMPLING MODE: $3%" >&2
         sub_sample="--sub-sample $3"
     fi
 fi
@@ -49,7 +49,7 @@ case "$(uname)" in
     *)         OS=Linux   ;;
 esac
 
-echo $OS
+echo "OS: $OS" >&2
 
 if [[ "$OS" == "Linux" ]] ; then
     # When using Neo4j installed on system (like Ubuntu's packaged version),
@@ -129,4 +129,6 @@ if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
 fi
 
 echo "Done" >&2
+
+cat tmp.sh
 
