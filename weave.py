@@ -629,15 +629,14 @@ if __name__ == "__main__":
 
     def check_all_edges_in_nodes(nodes, edges):
         for id,s,t,r,p in edges:
-            err = False
+            tips_in_nodes = True
             if s not in nodes:
                 logging.error(f"Source {s} not in nodes, from: {s}\t{r}\t{t}")
-                err = True
+                tips_in_nodes = False
             if t not in nodes:
                 logging.error(f"Target {t} not in nodes, from: {s}\t{r}\t{t}")
-                err = True
-            if err:
-                assert False
+                tips_in_nodes = False
+            assert tips_in_nodes
 
     logging.info(f"Reconciliate properties in elements...")
     # NODES FUSION
