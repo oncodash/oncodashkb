@@ -16,7 +16,7 @@ fi
 set -e
 #set -o pipefail
 
-root_dir=$(dirname $(realpath $0))
+root_dir=$(pwd)
 data_dir="data"
 decider_dir="$1"
 decider_snapshot_dir="$data_dir/$2"
@@ -222,7 +222,7 @@ echo " └OK" >&2
 ### 2.2.3 – adapters paths
 
 echo "Instantiate templated adapters..." >&2
-cd oncodashkb/adapters/
+cd $script_dir/oncodashkb/adapters/
 
 declare -a decider_adapters=(
     short_mutations_local.yaml
@@ -290,7 +290,7 @@ echo " └OK" >&2
 # 3 - Third party source code
 
 echo "Download third-party source code..."
-cd oncodashkb
+cd $script_dir/oncodashkb
 
 echo " │ OmniPath networks transformer..." >&2
 mkdir -p transformers
