@@ -37,7 +37,7 @@ class translate_cat_format(ontoweaver.base.Transformer):
                     translated_val  = self.translate[cell]
                     translated_row[key] = translated_val
                 else:
-                    logging.warning(f"Row {i} does not contain something to be translated from `{self.translate_from}` to `{self.translate_to}` at column `{key}`.")
+                    self.delay_warning(f"Row {i} does not contain something to be translated from `{self.translate_from}` to `{self.translate_to}` at column `{key}`.")
 
             formatted_translated_string = self.format_string.format_map(translated_row)
             yield formatted_translated_string
@@ -127,11 +127,11 @@ class translate_cat_format(ontoweaver.base.Transformer):
                     frm = row[self.translate_from]
                     to = row[self.translate_to]
                     if frm in self.translate and self.translate[frm] != to:
-                        logging.warning(f"The key `{frm}` already exists in the translation table, and translated to `{self.translate[frm]}`. It now translates to `{to}`. You may want to avoid such duplicates in translation tables.")
+                        self.delay_warning(f"The key `{frm}` already exists in the translation table, and translated to `{self.translate[frm]}`. It now translates to `{to}`. You may want to avoid such duplicates in translation tables.")
                     if frm and to:
                         self.translate[frm] = to
                     else:
-                        logging.warning(f"Cannot translate frm `{self.translate_from}` to `{self.translate_to}`, invalid translations values at row {i} of file `{self.translations_file}`: `{frm}` => `{to}`. I will ignore this translation.")
+                        self.delay_warning(f"Cannot translate frm `{self.translate_from}` to `{self.translate_to}`, invalid translations values at row {i} of file `{self.translations_file}`: `{frm}` => `{to}`. I will ignore this translation.")
 
         else:
             self.error(f"When using a {type(self).__name__} transformer, you must define either `translations` or `translations_file`.", section="translate.init", exception = ontoweaver.exceptions.TransformerInterfaceError)
@@ -198,8 +198,8 @@ class translate_sample_ids(ontoweaver.base.Transformer):
                                  repl = publication_patient_id,
                                  string = cell)
                 else:
-                    logging.warning(f"VALUE TO TRANSLATE: {key}")
-                    logging.warning(f"Row {i} does not contain something to be translated from `{self.translate_from}` to `{self.translate_to}` at column `{key}`.")
+                    # logging.warning(f"VALUE TO TRANSLATE: {key}")
+                    self.delay_warning(f"Row {i} does not contain something to be translated from `{self.translate_from}` to `{self.translate_to}` at column `{key}`.")
 
     def __init__(self,
             properties_of,
@@ -305,11 +305,11 @@ class translate_sample_ids(ontoweaver.base.Transformer):
                     frm = row[self.translate_from]
                     to = row[self.translate_to]
                     if frm in self.translate and self.translate[frm] != to:
-                        logging.warning(f"The key `{frm}` already exists in the translation table, and translated to `{self.translate[frm]}`. It now translates to `{to}`. You may want to avoid such duplicates in translation tables.")
+                        self.delay_warning(f"The key `{frm}` already exists in the translation table, and translated to `{self.translate[frm]}`. It now translates to `{to}`. You may want to avoid such duplicates in translation tables.")
                     if frm and to:
                         self.translate[frm] = to
                     else:
-                        logging.warning(f"Cannot translate frm `{self.translate_from}` to `{self.translate_to}`, invalid translations values at row {i} of file `{self.translations_file}`: `{frm}` => `{to}`. I will ignore this translation.")
+                        self.delay_warning(f"Cannot translate frm `{self.translate_from}` to `{self.translate_to}`, invalid translations values at row {i} of file `{self.translations_file}`: `{frm}` => `{to}`. I will ignore this translation.")
 
         else:
             self.error(f"When using a {type(self).__name__} transformer, you must define either `translations` or `translations_file`.", section="translate.init", exception = ontoweaver.exceptions.TransformerInterfaceError)

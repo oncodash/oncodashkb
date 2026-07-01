@@ -63,7 +63,8 @@ else
     NEO_USER=""
 fi
 
-py_args="-O" # Optimize = remove asserts and optimize bytecode.
+# py_args="-O" # Optimize = remove asserts and optimize bytecode.
+py_args="" # Optimize = remove asserts and optimize bytecode. # HERE
 weave_args="-v INFO" # Default, for having clean progress bars.
 if [[ "$3" == "debug" ]] ; then
     py_args=""

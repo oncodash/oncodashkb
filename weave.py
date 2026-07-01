@@ -615,6 +615,7 @@ if __name__ == "__main__":
                 local_nodes += n
                 local_edges += e
                 progress()
+        del adapter
 
         logging.info(f" | OK, wove: {len(local_nodes)} nodes, {len(local_edges)} edges.")
         nodes += local_nodes
@@ -626,6 +627,18 @@ if __name__ == "__main__":
     # Fusion.
     ###################################################
 
+    def check_all_edges_in_nodes(nodes, edges):
+        for id,s,t,r,p in edges:
+            err = False
+            if s not in nodes:
+                logging.error(f"Source {s} not in nodes, from: {s}\t{r}\t{t}")
+                err = True
+            if t not in nodes:
+                logging.error(f"Target {t} not in nodes, from: {s}\t{r}\t{t}")
+                err = True
+            if err:
+                assert False
+
     logging.info(f"Reconciliate properties in elements...")
     # NODES FUSION
     fusion_separator = ","
@@ -633,6 +646,8 @@ if __name__ == "__main__":
     # We need BioCypher's nodes and edges tuples, not OntoWeaver classes.
     bc_nodes = [n.as_tuple() for n in nodes]
     bc_edges = [e.as_tuple() for e in edges]
+
+    check_all_edges_in_nodes(bc_nodes, bc_edges)
 
     # Find duplicates
     on_ID = ontoweaver.serialize.ID()
@@ -668,18 +683,18 @@ if __name__ == "__main__":
     # we shouldn't have any need to remap sources and target IDs in edges.
     assert(len(ID_mapping) == 0)
     # If one change this, you may want to remap like this:
-    if len(ID_mapping) > 0:
-        remaped_edges = []
-        logging.info(f" | Remap edges")
-        with alive_bar(len(bc_edges), file=sys.stderr) as progress:
-            for e in ontoweaver.fusion.remap_edges(bc_edges, ID_mapping):
-                remaped_edges.append(e)
-                progress()
-        # logger.debug("Remaped edges:")
-        # for n in remaped_edges:
-        #     logger.debug("\t"+repr(n))
-    else:
-        remaped_edges = bc_edges
+    # if len(ID_mapping) > 0:
+    #     remaped_edges = []
+    #     logging.info(f" | Remap edges")
+    #     with alive_bar(len(bc_edges), file=sys.stderr) as progress:
+    #         for e in ontoweaver.fusion.remap_edges(bc_edges, ID_mapping):
+    #             remaped_edges.append(e)
+    #             progress()
+    #     # logger.debug("Remaped edges:")
+    #     # for n in remaped_edges:
+    #     #     logger.debug("\t"+repr(n))
+    # else:
+    #     remaped_edges = bc_edges
 
     # EDGES FUSION
     # Find duplicates
@@ -720,6 +735,7 @@ if __name__ == "__main__":
 
     logging.info(f"Fused into {len(fnodes)} nodes and {len(fedges)} edges.")
 
+    check_all_edges_in_nodes(fnodes, fedges)
 
     ###################################################
     # Export the final SKG.
