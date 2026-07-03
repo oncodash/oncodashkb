@@ -19,7 +19,7 @@ else
     CONFIG="$2"
 fi
 
-set -ex
+set -e
 set -o pipefail
 
 pwd

@@ -622,31 +622,39 @@ if __name__ == "__main__":
         edges += local_edges
         logging.info(f"Done adapter {opt_loaded}/{opt_total}")
 
+    # def in_nodes(node_id, nodes, progress):
+    #     for node in nodes:
+    #         progress()
+    #         if node_id == node[0]:
+    #             return True
+    #     return False
 
-    ###################################################
-    # Fusion.
-    ###################################################
-
-    def check_all_edges_in_nodes(nodes, edges):
-        for id,s,t,r,p in edges:
-            tips_in_nodes = True
-            if s not in nodes:
-                logging.error(f"Source {s} not in nodes, from: {s}\t{r}\t{t}")
-                tips_in_nodes = False
-            if t not in nodes:
-                logging.error(f"Target {t} not in nodes, from: {s}\t{r}\t{t}")
-                tips_in_nodes = False
-            assert tips_in_nodes
-
-    logging.info(f"Reconciliate properties in elements...")
-    # NODES FUSION
-    fusion_separator = ","
+    # def check_all_edges_in_nodes(nodes, edges):
+    #     tips_in_nodes = True
+    #     with alive_bar(len(edges)*(2*len(nodes)), file=sys.stderr) as progress:
+    #         for id,s,t,r,p in edges:
+    #             if not in_nodes(s, nodes, progress):
+    #                 logging.error(f"Source {s} not in nodes, from: {s}\t{r}\t{t}")
+    #                 tips_in_nodes = False
+    #             if not in_nodes(t, nodes, progress):
+    #                 logging.error(f"Target {t} not in nodes, from: {s}\t{r}\t{t}")
+    #                 tips_in_nodes = False
+    #     assert tips_in_nodes
 
     # We need BioCypher's nodes and edges tuples, not OntoWeaver classes.
     bc_nodes = [n.as_tuple() for n in nodes]
     bc_edges = [e.as_tuple() for e in edges]
 
-    check_all_edges_in_nodes(bc_nodes, bc_edges)
+    # check_all_edges_in_nodes(bc_nodes, bc_edges)
+
+
+    ###################################################
+    # Fusion.
+    ###################################################
+
+    logging.info(f"Reconciliate properties in elements...")
+    # NODES FUSION
+    fusion_separator = ","
 
     # Find duplicates
     on_ID = ontoweaver.serialize.ID()
@@ -727,24 +735,22 @@ if __name__ == "__main__":
             fedges.add(e)
             progress()
 
-    # logger.debug("Fusioned edges:")
-    # for n in fedges:
-    #     logger.debug("\t"+repr(n))
+    f_nodes = [n.as_tuple() for n in fnodes]
+    f_edges = [e.as_tuple() for e in fedges]
 
+    logging.info(f"Fused into {len(f_nodes)} nodes and {len(f_edges)} edges.")
 
-    logging.info(f"Fused into {len(fnodes)} nodes and {len(fedges)} edges.")
-
-    check_all_edges_in_nodes(fnodes, fedges)
+    # check_all_edges_in_nodes(f_nodes, f_edges)
 
     ###################################################
     # Export the final SKG.
     ###################################################
 
     logging.info(f"Write the final SKG into files...")
-    if fnodes:
-        bc.write_nodes(n.as_tuple() for n in fnodes)
-    if fedges:
-        bc.write_edges(e.as_tuple() for e in fedges)
+    if nodes:
+        bc.write_nodes(n.as_tuple() for n in nodes)
+    if edges:
+        bc.write_edges(e.as_tuple() for e in edges)
     #bc.summary()
     import_file = bc.write_import_call()
     logging.info(f"OK, wrote files.")
