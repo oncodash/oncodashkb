@@ -22,7 +22,6 @@ fi
 set -e
 set -o pipefail
 
-pwd
 decider_dir="$(realpath $1)"
 data_dir="$(realpath $1/..)"
 
@@ -103,7 +102,7 @@ cmd="uv run python3 ${py_args} $script_dir/weave.py
 echo "Weaving command:" >&2
 echo "$cmd" >&2
 
-$cmd > tmp.sh
+$cmd > last_biocypher_import.sh
 
 
 if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
@@ -117,8 +116,8 @@ if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
     $server stop
 
     echo "Run import script..." >&2
-    chmod a+x  $(cat tmp.sh)
-    ${NEO_USER} $SHELL $(cat tmp.sh)
+    chmod a+x  $(cat last_biocypher_import.sh)
+    ${NEO_USER} $SHELL $(cat last_biocypher_import.sh)
 
     echo "Restart Neo4j..." >&2
     $server start
@@ -130,5 +129,5 @@ fi
 
 echo "Done" >&2
 
-cat tmp.sh
+cat last_biocypher_import.sh
 
