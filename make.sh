@@ -85,21 +85,20 @@ echo "Weave data..." >&2
 cmd="uv run python3 ${py_args} $script_dir/weave.py
     --config $CONFIG
     --structural-variants-2                 $decider_dir/structural_variants_2.csv
+    --clinical                              $decider_dir/clinical_export.xlsx
+    --short-mutations-local                 $decider_dir/short_mutations_local.csv 
+    --short-mutations-external              $decider_dir/short_mutations_external.csv 
+    --copy-number-amplifications-local      $decider_dir/cnas_local.csv
+    --copy-number-amplifications-external   $decider_dir/cnas_external.csv 
+    --structural-variants                   $decider_dir/structural_variants.xlsx 
+    --oncokb                                $decider_dir/treatments_oncokb.csv
+    --omnipath-networks $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
+    --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
+    --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
+    --open-targets-target                   $data_dir/OT/target/
+    --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv
     ${sub_sample}
     ${weave_args}"
-
-    # --clinical                              $decider_dir/clinical_export.xlsx
-    # --short-mutations-local                 $decider_dir/short_mutations_local.csv 
-    # --short-mutations-external              $decider_dir/short_mutations_external.csv 
-    # --copy-number-amplifications-local      $decider_dir/cnas_local.csv
-    # --copy-number-amplifications-external   $decider_dir/cnas_external.csv 
-    # --structural-variants                   $decider_dir/structural_variants.xlsx 
-    # --oncokb                                $decider_dir/treatments_oncokb.csv
-    # --omnipath-networks $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
-    # --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
-    # --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
-    # --open-targets-target                   $data_dir/OT/target/
-    # --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv
 
 echo "Weaving command:" >&2
 echo "$cmd" >&2
