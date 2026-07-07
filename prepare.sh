@@ -166,6 +166,8 @@ if [[ ! -d $decider_snapshot_dir ]] ; then
     echo " │ Copy DECIDER data..." >&2
     mkdir -p $decider_snapshot_dir
 
+    cp "$decider_dir/SVs/SVannotated_perGene_clusters_20260702.csv" "$decider_snapshot_dir/structural_variants_2.csv"
+
     p="$decider_dir/DECIDER WP9 Oncodash/Annotated Genomic Data/cnas_v2.9_short_mutations_v4.10"
     cp "$p/short_mutations_v4.10_local.csv" "$decider_snapshot_dir/short_mutations_local.csv"
     cp "$p/short_mutations_v4.10_external.csv" "$decider_snapshot_dir/short_mutations_external.csv"
@@ -206,6 +208,7 @@ declare -a decider_files=(
     $decider_snapshot_dir/treatments_oncokb.csv
     $decider_snapshot_dir/oncokb_gene_status_info.csv
     $decider_snapshot_dir/clinical_export.xlsx
+    $decider_snapshot_dir/structural_variants_2.csv
 )
 if [[ -d "$decider_snapshot_dir" ]] ; then
     for f in ${decider_files[@]}; do
@@ -230,6 +233,7 @@ declare -a decider_adapters=(
     copy_number_amplifications_local.yaml
     copy_number_amplifications_external.yaml
     structural_variants.yaml
+    structural_variants_2.yaml
 )
 
 for a in ${decider_adapters[@]} ; do
@@ -252,9 +256,8 @@ for f in ${decider_files[@]}; do
 done
 
 cp $decider_snapshot_dir/structural_variants.xlsx data_debug/DECIDER_debug/
-echo " │  └OK" >&2
-
 cp $decider_snapshot_dir/clinical_export.xlsx data_debug/DECIDER_debug/
+
 echo " │  └OK" >&2
 
 echo " │ GO & HGNC..." >&2

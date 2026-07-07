@@ -28,7 +28,7 @@ class translate_cat_format(ontoweaver.base.Transformer):
             translated_row = row.copy()
             for key in self.column_to_translate:
                 if key not in row:
-                    self.error(f"Column '{key}' not found in data", section="translate", 
+                    self.error(f"Column '{key}' not found in data", section="translate_cat_format", 
                                exception = ontoweaver.exceptions.TransformerDataError)
                 if key not in columns:
                     logging.error(f"Column '{key}' not found in the column arguments: {columns}")

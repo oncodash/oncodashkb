@@ -206,6 +206,9 @@ if __name__ == "__main__":
     parser.add_argument("-sv", "--structural-variants", metavar="CSV", nargs="+",
                         help="Extract from a CSV file with short mutations' local annotations.")
 
+    parser.add_argument("-sv2", "--structural-variants-2", metavar="CSV", nargs="+",
+                        help="")
+
     parser.add_argument("-o", "--oncokb", metavar="CSV", nargs="+",
                         help="Extract from an OncoKB CSV file.")
 
@@ -279,6 +282,7 @@ if __name__ == "__main__":
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
         "structural_variants",
+        "structural_variants_2",
         "oncokb",
         "oncokb_gene_status",
         "omnipath_networks",
@@ -569,7 +573,7 @@ if __name__ == "__main__":
         "short_mutations_external",
         "copy_number_amplifications_local",
         "copy_number_amplifications_external",
-        # "structural_variants",
+        "structural_variants_2",
         # "oncokb",
         # "cgi",
     ]

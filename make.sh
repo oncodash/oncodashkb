@@ -29,8 +29,8 @@ sub_sample=""
 if [[ -n "$3" ]] ; then
     if [[ "$3" == "debug" ]] ; then
         echo "DEBUG MODE" >&2
-        data_dir="$(realpath $decider_dir/../data_debug)"
-        decider_dir="$(realpath $decider_dir/../data_debug/DECIDER_debug)"
+        data_dir="$(realpath $decider_dir/../../data_debug)"
+        decider_dir="$(realpath $decider_dir/../../data_debug/DECIDER_debug)"
     else
         echo "SUBSAMPLING MODE: $3%" >&2
         sub_sample="--sub-sample $3"
@@ -68,6 +68,7 @@ weave_args="-v INFO" # Default, for having clean progress bars.
 if [[ "$3" == "debug" ]] ; then
     py_args=""
     weave_args="--debug -v DEBUG"
+    # weave_args="--debug -v INFO"
 fi
 
 
@@ -83,21 +84,22 @@ echo "Weave data..." >&2
 
 cmd="uv run python3 ${py_args} $script_dir/weave.py
     --config $CONFIG
-    --clinical                              $decider_dir/clinical_export.xlsx
-    --short-mutations-local                 $decider_dir/short_mutations_local.csv 
-    --short-mutations-external              $decider_dir/short_mutations_external.csv 
-    --copy-number-amplifications-local      $decider_dir/cnas_local.csv
-    --copy-number-amplifications-external   $decider_dir/cnas_external.csv 
-    --structural-variants                   $decider_dir/structural_variants.xlsx 
-    --oncokb                                $decider_dir/treatments_oncokb.csv
-    --omnipath-networks $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
-    --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
-    --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
-    --open-targets-target                   $data_dir/OT/target/
-    --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv
+    --structural-variants-2                 $decider_dir/structural_variants_2.csv
     ${sub_sample}
     ${weave_args}"
 
+    # --clinical                              $decider_dir/clinical_export.xlsx
+    # --short-mutations-local                 $decider_dir/short_mutations_local.csv 
+    # --short-mutations-external              $decider_dir/short_mutations_external.csv 
+    # --copy-number-amplifications-local      $decider_dir/cnas_local.csv
+    # --copy-number-amplifications-external   $decider_dir/cnas_external.csv 
+    # --structural-variants                   $decider_dir/structural_variants.xlsx 
+    # --oncokb                                $decider_dir/treatments_oncokb.csv
+    # --omnipath-networks $data_dir/omnipath_networks/omnipath_webservice_interactions__latest.tsv.gz
+    # --open-targets-drug-molecule            $data_dir/OT/drug_molecule/
+    # --open-targets-drug_mechanism_of_action $data_dir/OT/drug_mechanism_of_action/
+    # --open-targets-target                   $data_dir/OT/target/
+    # --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv
 
 echo "Weaving command:" >&2
 echo "$cmd" >&2
