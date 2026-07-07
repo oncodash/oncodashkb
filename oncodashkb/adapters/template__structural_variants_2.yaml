@@ -2,19 +2,19 @@ row:
     translate:
         column: patient
         to_subject: patient
-        translations_file: data/DECIDER/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
-        usecols: [0,1,2]
+        # usecols: [0,1,2]
+        on_unknown_value: skip
 transformers:
-    # Nodes
-    ## Samples
+    # NodesINFO    ## Samples
     - translate_sample_ids :
         column: sample
         to_object: sample
         via_relation: patient_carries_sample
-        translations_file: data/DECIDER/clinical/clinical_export.xlsx
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
@@ -31,15 +31,16 @@ transformers:
     ## Gene status
     # - translate_cat_format:
     - cat_format:
-        columns:
-            - gene
+        column: gene
         from_subject: structural_variant
         to_object: gene_status
-        format_string: "{primary_gene}:loss"
+        # format_string: "{primary_gene}:loss"
+        format_string: "{gene}:loss"
         via_relation: variant_causes_gene_status
     ## Genes
     - translate:
-        column: gene
+        columns:
+            - gene
         from_subject: gene_status
         to_object: gene
         via_relation: gene_status_affects_gene
@@ -47,6 +48,7 @@ transformers:
         translate_from: symbol
         translate_to: ensembl_gene_id
         sep: "\t"
+        on_unknown_value: skip
     # Properties
     ## Alterations
     - map:
@@ -79,7 +81,7 @@ transformers:
         to_property: ensembl_id_alteration
         for_object: structural_variant
         format_string: "{gene}:{mutation}"
-        column_to_translate: 
+        column_to_translate:
             - gene
         translations_file: data/HGNC/hgnc_complete_set.txt
         translate_from: symbol
@@ -88,18 +90,20 @@ transformers:
     ## Gene status
     - cat_format:
         columns:
-            - primary_gene
+            # - primary_gene
+            - gene
             - Gene_type
         to_property: gene_symbol_gene_status
         for_object: gene_status
         format_string: "{gene}:loss"
     # - translate:
-    - map:
-        string: loss
-        to_property: gene_role
-        for_object: gene_status
+    # - map:
+    #     column: FIXME
+    #     string: loss
+    #     to_property: gene_role
+    #     for_object: gene_status
     ## Genes
-    - map: 
+    - map:
         column: gene
         to_property: gene_symbol
         for_object: gene
