@@ -7,7 +7,7 @@
 short mutation:
     is_a: sequence variant
     represented_as: node
-    label_in_input: short_mutation
+    input_label: short_mutation
     properties:
         citation_PM_ids: str
         consequence: str
@@ -25,7 +25,7 @@ short mutation:
 copy number amplification:
     is_a: sequence variant
     represented_as: node
-    label_in_input: copy_number_amplification
+    input_label: copy_number_amplification
     properties:
         citation_PM_ids: str
         consequence: str
@@ -42,7 +42,7 @@ copy number amplification:
 structural variant:
     is_a: sequence variant
     represented_as: node
-    label_in_input: structural_variant
+    input_label: structural_variant
     properties:
         citation_PM_ids: str
         consequence: str
@@ -58,14 +58,14 @@ structural variant:
 
 disease:
     represented_as: node
-    label_in_input: disease
+    input_label: disease
     properties:
         data_source: str
 
 gene status:
     is_a: outcome
     represented_as: node
-    label_in_input: gene_status
+    input_label: gene_status
     properties:
         gene_role: str
         ensembl_id_gene_role: str
@@ -75,7 +75,7 @@ gene status:
 source gene:
     is_a: gene
     represented_as: node
-    label_in_input: source_gene
+    input_label: source_gene
     properties:
         gene_symbol: str
         gene_summary: str
@@ -84,7 +84,7 @@ source gene:
 target gene:
     is_a: gene
     represented_as: node
-    label_in_input: target_gene
+    input_label: target_gene
     properties:
         gene_symbol: str
         gene_summary: str
@@ -92,7 +92,7 @@ target gene:
 
 gene:
     represented_as: node
-    label_in_input: gene
+    input_label: gene
     properties:
         gene_symbol: str
         gene_summary: str # DECIDER
@@ -101,7 +101,7 @@ gene:
 
 patient:
     represented_as: node
-    label_in_input: patient
+    input_label: patient
     synonym_for: case
     properties:
         survival: str
@@ -153,7 +153,7 @@ patient:
 sample:
     is_a: material sample
     respresented_as: node
-    label_in_input: sample
+    input_label: sample
     properties:
         data_source: str
         purity: str
@@ -167,7 +167,7 @@ sample:
 row_drug:
     is_a: drug
     represented_as: node
-    label_in_input : row_drug
+    input_label : row_drug
     properties:
         canonicalSmiles: str
         inchiKey: str
@@ -302,7 +302,7 @@ treatment:
 carries:
     is_a: causes
     represented_as: edge
-    label_in_input: carries
+    input_label: carries
     properties:
         data_source: str
         edglelabel: str
@@ -310,7 +310,7 @@ carries:
 patient carries sample:
     is_a: carries
     represented_as: edge
-    label_in_input: patient_carries_sample
+    input_label: patient_carries_sample
     source: patient
     target: sample
     properties:
@@ -320,7 +320,7 @@ patient carries sample:
 sample carries variant:
     is_a: carries
     represented_as: edge
-    label_in_input: sample_carries_variant
+    input_label: sample_carries_variant
     source: sample
     target: sequence variant
     properties:
@@ -354,7 +354,7 @@ sample carries variant:
 variant causes gene status:
     is_a: causes
     represented_as: edge
-    label_in_input: variant_causes_gene_status
+    input_label: variant_causes_gene_status
     source: sequence variant
     target: gene status
     properties:
@@ -371,7 +371,7 @@ variant causes gene status:
 variant biomarker for treatment:
     is_a: sequence variant modulates treatment association
     represented_as: edge
-    label_in_input: variant_biomarker_for_treatment
+    input_label: variant_biomarker_for_treatment
     # source: sequence variant
     # target: treatment
     properties:
@@ -389,7 +389,7 @@ variant biomarker for treatment:
 patient has chronic illness:
     is_a: entity to disease association
     represented_as: edge
-    label_in_input: patient_has_chronic_illness
+    input_label: patient_has_chronic_illness
     source: patient
     target: disease
     properties:
@@ -400,7 +400,7 @@ patient has chronic illness:
 gene status affects gene:
     is_a: affects
     represented_as: edge
-    label_in_input: gene_status_affects_gene
+    input_label: gene_status_affects_gene
     source: gene status
     target: gene
     properties:
@@ -413,14 +413,14 @@ gene status affects gene:
 biological process:
     is_a: named thing
     represneted_as: node
-    label_in_input: biological_process
+    input_label: biological_process
     properties:
         data_source: str
 
 gene to biological process:
     is_a: association
     represented_as: edge
-    label_in_input: gene_to_biological_process
+    input_label: gene_to_biological_process
     source: gene
     target: biological process
     properties:
@@ -430,7 +430,7 @@ gene to biological process:
 biological process to gene:
     is_a: association
     represented_as: edge
-    label_in_input: biological_process_to_gene
+    input_label: biological_process_to_gene
     source: biological process
     target: gene
     properties:
@@ -551,14 +551,14 @@ transcript to gene relationship:
 drug has target:
     is_a: drug to gene association
     represented_as: edge
-    label_in_input: drug_has_target
+    input_label: drug_has_target
     properties:
         data_source: str
 
 treatment has part drug:
     is_a: association
     represented_as: edge
-    label_in_input: treatment_has_part_drug
+    input_label: treatment_has_part_drug
     properties:
         data_source: str
 
