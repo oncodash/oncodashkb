@@ -6,6 +6,7 @@ row:
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
+        on_unknown_value: skip
         usecols: [0,1,2]
 transformers:
     - translate_sample_ids :

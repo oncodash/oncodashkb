@@ -6,6 +6,7 @@ row:
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
+        on_unknown_value: skip
         usecols: [0,1,2]
 transformers:
     # Nodes
@@ -45,7 +46,7 @@ transformers:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
-            Likely Gain-of-function: LoF
+            Likely Gain-of-function: GoF
             Act: GoF
             Inconclusive: Inconclusive
             ambiguous: ambiguous
@@ -82,7 +83,7 @@ transformers:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
-            Likely Gain-of-function: LoF
+            Likely Gain-of-function: GoF
             Act: GoF
             Inconclusive: Inconclusive
             ambiguous: ambiguous
@@ -91,11 +92,12 @@ transformers:
         columns: gene_role
         to_property: gene_role
         for_object: variant_causes_gene_status
+        on_unknown_value: skip
         translations:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
-            Likely Gain-of-function: LoF
+            Likely Gain-of-function: GoF
             Act: GoF
             Inconclusive: Inconclusive
             ambiguous: ambiguous
