@@ -6,6 +6,7 @@ row:
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
+        on_unknown_value: skip
         usecols: [0,1,2]
 transformers:
     # Nodes
@@ -42,7 +43,7 @@ transformers:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
-            Likely Gain-of-function: LoF
+            Likely Gain-of-function: GoF
             Inconclusive: Inconclusive
             Unknown: Unknown
             Likely Neutral: Likely Neutral
@@ -64,13 +65,13 @@ transformers:
         for_object: gene_status
         to_property: ensembl_id_gene_status
         format_string: "{ensembl_id}:{gene_role}"
-        column_to_translate: 
+        column_to_translate:
             - gene_role
         translations:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
-            Likely Gain-of-function: LoF
+            Likely Gain-of-function: GoF
             Inconclusive: Inconclusive
             Unknown: Unknown
             Likely Neutral: Likely Neutral
@@ -78,11 +79,12 @@ transformers:
         columns: gene_role
         to_property: gene_role
         for_object: gene_status
+        on_unknown_value: skip
         translations:
             Loss-of-function: LoF
             Likely Loss-of-function: LoF
             Gain-of-function: GoF
-            Likely Gain-of-function: LoF
+            Likely Gain-of-function: GoF
             Inconclusive: Inconclusive
             Unknown: Unknown
             Likely Neutral: Likely Neutral

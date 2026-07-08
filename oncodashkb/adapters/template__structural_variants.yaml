@@ -6,6 +6,7 @@ row:
         translate_from: Patient card::Patient cohort code_Patient Card
         translate_to: Patient card::Publication code
         index_col: 0
+        on_unknown_value: skip
         usecols: [0,1,2]
 transformers:
     # Nodes
@@ -67,6 +68,7 @@ transformers:
         translations_file: data/HGNC/hgnc_complete_set.txt
         translate_from: symbol
         translate_to: ensembl_gene_id
+        on_unknown_value: skip
         sep: "\t"
     # Properties
     ## Sample
@@ -112,6 +114,7 @@ transformers:
         columns: Gene_type
         to_property: gene_role
         for_object: gene_status
+        on_unknown_value: skip
         translations:
             gain: GoF
             loss: LoF
