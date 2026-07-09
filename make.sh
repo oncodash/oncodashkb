@@ -19,8 +19,8 @@ else
     CONFIG="$2"
 fi
 
-set -e
-set -o pipefail
+# set -e
+# set -o pipefail
 
 decider_dir="$(realpath $1)"
 data_dir="$(realpath $1/..)"
@@ -105,8 +105,12 @@ echo "$cmd" >&2
 
 $cmd > last_biocypher_import.sh
 
+if [[ -z "$(cat last_biocypher_import.sh)" ]] ; then
+    echo "ERROR: The weave command returned nothing." >&2
+    exit 1
+fi
 
-if [[ "$CONFIG" == "config/neo4j.yaml" ]] ; then
+if [[ "$CONFIG" == *"neo4j"* ]] ; then
     echo "Stop Neo4j server..." >&2
     neo_version=$(neo4j-admin --version | cut -d. -f 1)
     if [[ "$neo_version" -eq 4 ]]; then
