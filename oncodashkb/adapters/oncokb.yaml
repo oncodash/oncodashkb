@@ -9,20 +9,23 @@ row:
             - CNA:
                 to_subject: copy_number_amplification
 transformers:
-    - replace:
-        column: treatment
-        to_object: treatment
-        via_relation: variant_biomarker_for_treatment
-        forbidden: ';'
-        substitute: ' + '
-    - split_translate:
-        column: treatment
-        to_object: drug
-        via_relation: variant_biomarker_for_treatment
-        separator: ";"
-        translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
-        translate_from: name
-        translate_to: id
+    # - replace:
+    # # replaced by user-defined transformer with escat level included in the name of the relation
+    #     column: treatment
+    #     to_object: treatment
+    #     via_relation: variant_biomarker_for_treatment
+    #     forbidden: ';'
+    #     substitute: ' + '
+    # 
+    # - split_translate:
+    # # Not used anymore
+    #     column: treatment
+    #     to_object: drug
+    #     via_relation: variant_biomarker_for_treatment
+    #     separator: ";"
+    #     translations_file: ./data/OT/drug_molecule/part-00000-871f412e-aec4-4d33-a50d-feee532ddcd2-c000.snappy.parquet
+    #     translate_from: name
+    #     translate_to: id
     - split_translate:
         column: treatment
         from_subject: treatment
@@ -44,20 +47,36 @@ transformers:
     #     translate_from: name
     #     translate_to: id
     ## Variant biomarker for treatment
-    - map:
-        column: level_of_evidence
-        to_property: level_of_evidence
-        for_object: variant_biomarker_for_treatment
+    # - map:
+    #  # Replaced by escat_tier_transformer
+    #     column: level_of_evidence
+    #     to_property: level_of_evidence
+    #     for_object: variant_biomarker_for_treatment
+    - escat_tier_transformer
     - replace:
         column: citations
         to_property: citations
-        for_object: variant_biomarker_for_treatment
+        for_object:
+          - variant_biomarker_for_treatment_level_IA
+          - variant_biomarker_for_treatment_level_IC
+          - variant_biomarker_for_treatment_level_II
+          - variant_biomarker_for_treatment_level_IIIA
+          - variant_biomarker_for_treatment_level_IIIB
+          - variant_biomarker_for_treatment_level_IVA
+          - variant_biomarker_for_treatment_level_IVB
         forbidden: ';'
         substitute: ','
     - map:
         column: tumorType
         to_property: tumorType
-        for_object: variant_biomarker_for_treatment
+        for_object:
+          - variant_biomarker_for_treatment_level_IA
+          - variant_biomarker_for_treatment_level_IC
+          - variant_biomarker_for_treatment_level_II
+          - variant_biomarker_for_treatment_level_IIIA
+          - variant_biomarker_for_treatment_level_IIIB
+          - variant_biomarker_for_treatment_level_IVA
+          - variant_biomarker_for_treatment_level_IVB
 
 metadata:
         - data_source: oncokb_annotation
