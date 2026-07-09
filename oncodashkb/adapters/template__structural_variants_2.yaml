@@ -117,5 +117,5 @@ transformers:
             - gene_status_affects_gene
 
 metadata:
-        - data_source: structural_variants
+        - data_source: DECIDER_structural_variants
 

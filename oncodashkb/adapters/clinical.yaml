@@ -320,3 +320,5 @@ transformers:
     #     to_object: disease
     #     via_relation: patient_has_chronic_illness
 
+metadata:
+    - data_source: DECIDER_clinical
