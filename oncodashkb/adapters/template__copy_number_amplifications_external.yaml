@@ -172,4 +172,4 @@ transformers:
             - gene_status_affects_gene
 
 metadata:
-        - data_source: copy_number_amplifications_external
+        - data_source: DECIDER_copy_number_amplifications_external
