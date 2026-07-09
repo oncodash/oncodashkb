@@ -247,7 +247,7 @@ cd $root_dir
 # ## 2.3 - Debugging data
 
 echo "Create a smaller debuging data set in data_debug/..." >&2
-lines=100
+lines=10
 echo " │ DECIDER..." >&2
 mkdir -p data_debug
 mkdir -p data_debug/DECIDER_debug/
