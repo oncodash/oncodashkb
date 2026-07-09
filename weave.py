@@ -756,9 +756,9 @@ if __name__ == "__main__":
 
     logging.info(f"Write the final SKG into files...")
     if nodes:
-        bc.write_nodes(n.as_tuple() for n in nodes)
+        bc.write_nodes(f_nodes)
     if edges:
-        bc.write_edges(e.as_tuple() for e in edges)
+        bc.write_edges(f_edges)
     #bc.summary()
     import_file = bc.write_import_call()
     logging.info(f"OK, wrote files.")
