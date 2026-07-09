@@ -4,15 +4,15 @@ work_dir=$(pwd)
 
 CONFIG="config/neo4j.yaml"
 if [[ -z "$1" ]] ; then
-    echo "ERROR, usage: $0 <DECIDER_snapshot_dir> [config] [debug|sub-sample_percentage]" >&2
+    echo "ERROR, usage: $0 <DECIDER_snapshot_dir> [config] [debug|xdebug|sub-sample_percentage]" >&2
     echo "    config defaults to: $CONFIG" >&2
     exit 2
 fi
 
 if [[ -z "$2" ]] ; then
     echo "Selecting Neo4j output configuration." >&2
-elif [[ "$2" == "debug" ]] ; then
-    echo "ERROR, if DEBUG MODE, usage: $0 <DECIDER_data_dir> <config> debug" >&2
+elif [[ "$2" == "debug" || "$2" == "xdebug" ]] ; then
+    echo "ERROR, if DEBUG MODE, usage: $0 <DECIDER_data_dir> <config> <debug|xdebug>" >&2
     exit 2
 else
     echo "Selecting output configuration: $2" >&2
@@ -27,7 +27,7 @@ data_dir="$(realpath $1/..)"
 
 sub_sample=""
 if [[ -n "$3" ]] ; then
-    if [[ "$3" == "debug" ]] ; then
+    if [[ "$3" == "debug" || "$3" == "xdebug" ]] ; then
         echo "DEBUG MODE" >&2
         data_dir="$(realpath $decider_dir/../../data_debug)"
         decider_dir="$(realpath $decider_dir/../../data_debug/DECIDER_debug)"
@@ -62,13 +62,14 @@ else
     NEO_USER=""
 fi
 
-# py_args="-O" # Optimize = remove asserts and optimize bytecode.
-py_args="" # Optimize = remove asserts and optimize bytecode. # HERE
+py_args="-O" # Optimize = remove asserts and optimize bytecode.
 weave_args="-v INFO" # Default, for having clean progress bars.
 if [[ "$3" == "debug" ]] ; then
     py_args=""
+    weave_args="--debug -v INFO"
+elif [[ "$3" == "xdebug"  ]] ; then
+    py_args=""
     weave_args="--debug -v DEBUG"
-    # weave_args="--debug -v INFO"
 fi
 
 
@@ -84,9 +85,9 @@ echo "Weave data..." >&2
 
 cmd="uv run python3 ${py_args} $script_dir/weave.py
     --config $CONFIG
-    --structural-variants-2                 $decider_dir/structural_variants_2.csv
     --clinical                              $decider_dir/clinical_export.xlsx
     --short-mutations-local                 $decider_dir/short_mutations_local.csv 
+    --structural-variants-2                 $decider_dir/structural_variants_2.csv
     --short-mutations-external              $decider_dir/short_mutations_external.csv 
     --copy-number-amplifications-local      $decider_dir/cnas_local.csv
     --copy-number-amplifications-external   $decider_dir/cnas_external.csv 
@@ -99,7 +100,6 @@ cmd="uv run python3 ${py_args} $script_dir/weave.py
     --oncokb-gene-status                    $decider_dir/oncokb_gene_status_info.csv
     ${sub_sample}
     ${weave_args}"
-
 echo "Weaving command:" >&2
 echo "$cmd" >&2
 
@@ -123,6 +123,12 @@ if [[ "$CONFIG" == *"neo4j"* ]] ; then
     echo "Run import script..." >&2
     chmod a+x  $(cat last_biocypher_import.sh)
     ${NEO_USER} $SHELL $(cat last_biocypher_import.sh)
+
+    err=$?
+    if [[ $err -gt 0 ]] ; then
+        echo "Import in Neo4j failed on error: $err"
+        exit $err
+    fi
 
     echo "Restart Neo4j..." >&2
     $server start
