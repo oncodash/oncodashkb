@@ -338,5 +338,5 @@ cd ..  # Out of the subdir oncodashkb
 echo " │  └OK" >&2
 echo " └OK" >&2
 
-echo "Everything is OK, you can now call: ./make.sh $decider_snapshot_dir" >&2
+echo "Everything is OK, you can now call: ./make.sh $2" >&2
 
