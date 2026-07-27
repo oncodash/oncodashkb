@@ -384,6 +384,41 @@ variant biomarker for treatment:
         data_source: str
         Tier: str
 
+biomarker_for_treatment_level_IA:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_IA
+
+biomarker_for_treatment_level_IC:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_IC
+
+biomarker_for_treatment_level_II:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_II
+
+biomarker_for_treatment_level_IIIA:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_IIIA
+
+biomarker_for_treatment_level_IIIB:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_IIIB
+
+biomarker_for_treatment_level_IVA:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_IVA
+
+biomarker_for_treatment_level_IVB:
+    is_a: variant biomarker for treatment
+    represented_as: edge
+    input_label: biomarker_for_treatment_level_IVB
+
 ## METADATA
 
 patient has chronic illness:

@@ -38,6 +38,10 @@ from oncodashkb.transformers.specific_translate_transformers import translate_sa
 ontoweaver.transformer.register(translate_sample_ids)
 ontoweaver.transformer.register(translate_cat_format)
 
+# Importing custom transformer for tanslating FDA levels to ESCAT Tiers
+from oncodashkb.transformers.escat_tier_transformer import escat_tier_transformer
+ontoweaver.transformer.register(escat_tier_transformer)
+
 # Importing OpenTargets custom transformer and registering it.
 from oncodashkb.transformers.ot_transformers import access_proteins, urls_to_prop
 ontoweaver.transformer.register(access_proteins)
