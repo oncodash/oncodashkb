@@ -44,6 +44,7 @@ transformers:
             - gene_role
         translations:
             Loss-of-function: loss
+            LoF: loss
             Likely Loss-of-function: loss
             Gain-of-function: gain
             Likely Gain-of-function: gain
@@ -82,6 +83,7 @@ transformers:
             - gene_role
         translations:
             Loss-of-function: loss
+            LoF: loss
             Likely Loss-of-function: loss
             Gain-of-function: gain
             Likely Gain-of-function: gain
@@ -96,6 +98,7 @@ transformers:
         on_unknown_value: skip
         translations:
             Loss-of-function: loss
+            LoF: loss
             Likely Loss-of-function: loss
             Gain-of-function: gain
             Likely Gain-of-function: gain
@@ -112,6 +115,7 @@ transformers:
             - Likely Gain-of-function
         consider_false:
             - Loss-of-function
+            - LoF
             - Gain-of-function
             - Inconclusive
             - Act
