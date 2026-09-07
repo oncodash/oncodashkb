@@ -184,6 +184,51 @@ transformers:
             - variant_causes_gene_status
             - gene_status_affects_gene
             - gene_affected_by_gene_status
+    - translate:
+        column: patient_id
+        to_property: visualisation_label
+        for_object: patient
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        on_unknown_value: skip
+        usecols: [0,1,2]
+    - translate_sample_ids :
+        column: sample_id
+        to_property: visualisation_label
+        for_object: sample
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+    - cat_format:
+        columns:
+            - hugoSymbol
+            - alteration
+        to_property: visualisation_label
+        for_object: short_mutation
+        format_string: "{hugoSymbol}:{alteration}"
+    - translate:
+        columns: gene_role
+        to_property: visualisation_label
+        for_object: gene_status
+        on_unknown_value: skip
+        translations:
+            Loss-of-function: loss
+            LoF: loss
+            Likely Loss-of-function: loss
+            Gain-of-function: gain
+            Likely Gain-of-function: gain
+            Act: gain
+            Inconclusive: Inconclusive
+            ambiguous: ambiguous
+            Unknown: Unknown
+    - map:
+        column: hugoSymbol
+        to_property: visualisation_label
+        for_object: gene
 
 metadata:
         - data_source: DECIDER_copy_number_amplifications_external

@@ -319,6 +319,10 @@ transformers:
     #     separator: ","
     #     to_object: disease
     #     via_relation: patient_has_chronic_illness
+    - map:
+        column: Patient card::Publication code
+        to_property: visualisation_label
+        for_object: patient
 
 metadata:
     - data_source: DECIDER_clinical

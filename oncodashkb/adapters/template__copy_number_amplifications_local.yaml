@@ -46,6 +46,32 @@ transformers:
         column: RNA_quant
         to_property: RNA_quant
         for_object: sample_carries_variant
+    - translate:
+        column: patient_id
+        to_property: visualisation_label
+        for_object: patient
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        on_unknown_value: skip
+        usecols: [0,1,2]
+    - translate_sample_ids :
+        column: sample_id
+        to_property: visualisation_label
+        for_object: sample
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+    - cat_format:
+        columns:
+            - hugoSymbol
+            - alteration
+        to_property: visualisation_label
+        for_object: copy_number_amplification
+        format_string: "{hugoSymbol}:{alteration}"
 
 metadata:
         - data_source: DECIDER_copy_number_amplifications_local

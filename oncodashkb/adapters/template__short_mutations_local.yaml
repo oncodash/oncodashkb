@@ -97,5 +97,28 @@ transformers:
         for_objects:
             - patient_carries_sample
             - sample_carries_variant
+    - translate:
+        column: patient_id
+        to_property: visualisation_label
+        for_object: patient
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        on_unknown_value: skip
+        usecols: [0,1,2]
+    - translate_sample_ids :
+        column: sample_id
+        to_property: visualisation_label
+        for_object: sample
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+    - map:
+        column: alteration
+        to_property: visualisation_label
+        for_object: short_mutation
 metadata:
         - data_source: DECIDER_short_mutations_local

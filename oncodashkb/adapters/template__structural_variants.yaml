@@ -71,13 +71,6 @@ transformers:
         column: effects
         to_property: effects
         for_object: sample_carries_variant
-    - cat_format:
-        columns:
-            - gene
-            - mutation
-        to_property: cytoscape_label
-        for_object: structural_variant
-        format_string: "{gene}:{mutation}"
     - translate_cat_format:
         columns:
             - gene
@@ -121,6 +114,40 @@ transformers:
             - variant_causes_gene_status
             - gene_status_affects_gene
             - gene_affected_by_gene_status
+    - translate:
+        column: patient_id
+        to_property: visualisation_label
+        for_object: patient
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        on_unknown_value: skip
+        usecols: [0,1,2]
+    - translate_sample_ids :
+        column: sample_id
+        to_property: visualisation_label
+        for_object: sample
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+    - cat_format:
+        columns:
+            - gene
+            - mutation
+        to_property: visualisation_label
+        for_object: structural_variant
+        format_string: "{gene}:{mutation}"
+    - map:
+        column: gene
+        to_property: visualisation_label
+        for_object: gene
+    - string:
+        value: "loss"
+        to_property: visualisation_label
+        for_object: gene_status
 
 metadata:
         - data_source: DECIDER_structural_variants

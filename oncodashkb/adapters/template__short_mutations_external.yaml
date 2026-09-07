@@ -34,8 +34,6 @@ transformers:
         from_subject: short_mutation
         to_object: gene_status
         via_relation: variant_causes_gene_status
-        # to_property: gene_symbol_gene_status
-        # for_object: gene_status
         format_string: "{hugoSymbol}:{gene_role}"
         column_to_translate: 
             - gene_role
@@ -61,8 +59,6 @@ transformers:
           - ensembl_id
           - gene_role
         from_subject: short_mutation
-        # to_object: gene_status
-        # via_relation: variant_causes_gene_status
         for_object: gene_status
         to_property: ensembl_id_gene_status
         format_string: "{ensembl_id}:{gene_role}"
@@ -168,5 +164,45 @@ transformers:
             - variant_causes_gene_status
             - gene_status_affects_gene
             - gene_affected_by_gene_status
+    - translate:
+        column: patient_id
+        to_property: visualisation_label
+        for_object: patient
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        on_unknown_value: skip
+        usecols: [0,1,2]
+    - translate_sample_ids :
+        column: sample_id
+        to_property: visualisation_label
+        for_object: sample
+        translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
+        translate_from: Patient card::Patient cohort code_Patient Card
+        translate_to: Patient card::Publication code
+        index_col: 0
+        usecols: [0,1,2]
+    - map:
+        column: alteration
+        to_property: visualisation_label
+        for_object: short_mutation
+    - translate:
+        columns: gene_role
+        to_property: visualisation_label
+        for_object: gene_status
+        on_unknown_value: skip
+        translations:
+            Loss-of-function: loss
+            Likely Loss-of-function: loss
+            Gain-of-function: gain
+            Likely Gain-of-function: gain
+            Inconclusive: Inconclusive
+            Unknown: Unknown
+            Likely Neutral: Likely Neutral
+    - map:
+        column: hugoSymbol
+        to_property: visualisation_label
+        for_object: gene
 metadata:
         - data_source: DECIDER_short_mutations_external

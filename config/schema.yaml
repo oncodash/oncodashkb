@@ -20,6 +20,7 @@ short mutation:
         tumor_type_summary: str
         variant_summary: str
         HGVS__change: str
+        visualisation_label: str
         # ensembl_id_alteration: str
 
 copy number amplification:
@@ -37,6 +38,7 @@ copy number amplification:
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
+        visualisation_label: str
         # ensembl_id_alteration: str
 
 structural variant:
@@ -54,6 +56,7 @@ structural variant:
         tumor_type: str
         tumor_type_summary: str
         variant_summary: str
+        visualisation_label: str
         # ensembl_id_alteration: str
 
 disease:
@@ -70,6 +73,7 @@ gene status:
         gene_role: str
         ensembl_id_gene_role: str
         data_source: str
+        visualisation_label: str
         # gene_symbol_gene_status: str
 
 source gene:
@@ -80,6 +84,7 @@ source gene:
         gene_symbol: str
         gene_summary: str
         data_source: str
+        visualisation_label: str
 
 target gene:
     is_a: gene
@@ -89,6 +94,7 @@ target gene:
         gene_symbol: str
         gene_summary: str
         data_source: str
+        visualisation_label: str
 
 gene:
     represented_as: node
@@ -98,6 +104,7 @@ gene:
         gene_summary: str # DECIDER
         name: str # OT
         data_source: str
+        visualisation_label: str
 
 patient:
     represented_as: node
@@ -148,6 +155,7 @@ patient:
         time_series: str
         weight_at_diagnosis: int
         wgs_available: bool
+        visualisation_label: str
 
 
 sample:
@@ -161,6 +169,7 @@ sample:
         sample_time: str
         sample_type: str
         ploidy: str
+        visualisation_label: str
 
 # Drug
 
@@ -183,6 +192,7 @@ row_drug:
         references: str
         description: str
         data_source: str
+        visualisation_label: str
 
 drug:
     represented_as: node
@@ -204,6 +214,7 @@ drug:
         references: str
         description: str
         data_source: str
+        visualisation_label: str
 
 # Long non Coding - RNA
 
@@ -214,6 +225,7 @@ lncrna:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Macromolecular complex
 
@@ -224,6 +236,7 @@ source complex:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 target complex:
     is_a: macromolecular_complex
@@ -232,6 +245,7 @@ target complex:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 macromolecular complex:
     represented_as: node
@@ -239,6 +253,7 @@ macromolecular complex:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Micro-RNA
 
@@ -249,6 +264,7 @@ mirna:
     properties:
         name: str
         ncbi_tax_id: str
+        visualisation_label: str
 
 # Protein
 
@@ -261,6 +277,7 @@ source protein:
         gene_symbol: str
         ncbi_tax_id: str
         data_source: str
+        visualisation_label: str
 
 target protein:
     is_a: protein
@@ -271,6 +288,7 @@ target protein:
         gene_symbol: str
         ncbi_tax_id: str
         data_source: str
+        visualisation_label: str
 
 protein:
     represented_as: node
@@ -280,12 +298,14 @@ protein:
         gene_symbol: str
         ncbi_tax_id: str
         data_source: str
+        visualisation_label: str
 
 # Treatment
 
 treatment:
     represented_as: node
     input_label: treatment
+    visualisation_label: str
 
 ########################
 # EDGES
