@@ -115,7 +115,7 @@ transformers:
             - gene_status_affects_gene
             - gene_affected_by_gene_status
     - translate:
-        column: patient_id
+        column: patient
         to_property: visualisation_label
         for_object: patient
         translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
@@ -125,7 +125,7 @@ transformers:
         on_unknown_value: skip
         usecols: [0,1,2]
     - translate_sample_ids :
-        column: sample_id
+        column: sample
         to_property: visualisation_label
         for_object: sample
         translations_file: {{{DECIDER_DIR}}}/clinical_export.xlsx
