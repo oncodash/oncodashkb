@@ -69,7 +69,7 @@ if [[ "$3" == "debug" ]] ; then
     weave_args="--debug -v INFO"
 elif [[ "$3" == "xdebug"  ]] ; then
     py_args=""
-    weave_args="--debug -v DEBUG"
+    weave_args="--debug -v DEBUG --sub-sample 1"
 fi
 
 
@@ -135,7 +135,13 @@ if [[ "$CONFIG" == *"neo4j"* ]] ; then
     sleep 5
 
     echo "Send a test query..." >&2
-    ${NEO_USER} cypher-shell --username neo4j --database oncodash --password $(cat neo4j.pass) "MATCH (p:Patient) RETURN p LIMIT 20;"
+    p=$(cat neo4j.pass)
+    if [[ -z $p ]] ; then
+        pass=""
+    else
+        pass="--password $p"
+    if
+    ${NEO_USER} cypher-shell --username neo4j --database neo4j $pass "MATCH (p:Patient) RETURN p LIMIT 20;"
 fi
 
 echo "Done" >&2

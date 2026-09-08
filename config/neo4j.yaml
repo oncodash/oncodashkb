@@ -11,7 +11,7 @@ biocypher:
         root_node: entity
 
 neo4j:
-    database_name: oncodash
+    database_name: neo4j
     wipe: true
     delimiter: '&'
     array_delimiter: '|'
