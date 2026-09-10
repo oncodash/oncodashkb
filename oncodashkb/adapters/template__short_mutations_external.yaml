@@ -187,11 +187,16 @@ transformers:
         column: alteration
         to_property: visualisation_label
         for_object: short_mutation
-    - translate:
-        columns: gene_role
-        to_property: visualisation_label
+    - translate_cat_format:
+        columns:
+          - ensembl_id
+          - gene_role
+        column_to_translate:
+            - gene_role
         for_object: gene_status
+        to_property: visualisation_label
         on_unknown_value: skip
+        format_string: "{ensembl_id}:{gene_role}"
         translations:
             Loss-of-function: loss
             Likely Loss-of-function: loss

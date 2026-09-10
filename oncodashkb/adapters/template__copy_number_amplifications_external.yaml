@@ -210,8 +210,13 @@ transformers:
         to_property: visualisation_label
         for_object: short_mutation
         format_string: "{hugoSymbol}:{alteration}"
-    - translate:
-        columns: gene_role
+    - translate_cat_format:
+        columns:
+          - ensembl_id
+          - gene_role
+        format_string: "{hugoSymbol}:{gene_role}"
+        column_to_translate: 
+            - gene_role
         to_property: visualisation_label
         for_object: gene_status
         on_unknown_value: skip

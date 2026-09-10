@@ -144,8 +144,9 @@ transformers:
         column: gene
         to_property: visualisation_label
         for_object: gene
-    - string:
-        value: "loss"
+    - cat_format:
+        column: gene
+        format_string: "{gene}:loss"
         to_property: visualisation_label
         for_object: gene_status
 
